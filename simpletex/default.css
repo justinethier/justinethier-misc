@@ -53,7 +53,7 @@ ol {
 }
 
 a {
-	color: #FFBF23;
+	color: #E52A00; /*FFBF23;*/
 }
 
 a:hover {
@@ -86,7 +86,7 @@ img.right {
 /* header */
 
 #header {
-	width: 770px;
+	width: 870px;
 	height: 100px;
 	margin: 0 auto;
 }
@@ -97,14 +97,12 @@ img.right {
 	float: left;
 	width: 300px;
 	height: 100px;
-/*    
-	background: #FFBF23 url(images/img01.gif) no-repeat left bottom;
-*/
+	background: #E52A00 url(images/img01.gif) no-repeat left bottom;
 }
 
 #logo h1, #logo h2 {
 	margin: 0;
-	text-transform: lowercase;
+/*	text-transform: lowercase; */
 	text-align: center;
 }
 
@@ -193,7 +191,7 @@ img.right {
 	padding: 5px 20px 0 20px;
 	text-align: center;
 	text-decoration: none;
-	text-transform: lowercase;
+/*	text-transform: lowercase; */
 	font-weight: bold;
 	color: #7F7772;
 }
@@ -213,7 +211,7 @@ html>body #menu a {
 /* Page */
 
 #page {
-	width: 770px;
+	width: 870px;
 	margin: 0 auto 20px auto;
 	background: url(images/img07.gif) repeat-y 260px 0;
 }
@@ -222,7 +220,7 @@ html>body #menu a {
 
 #content {
 	float: right;
-	width: 490px;
+	width: 590px;
 }
 
 .title {
