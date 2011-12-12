@@ -68,6 +68,7 @@ hr {
 }
 
 img {
+    border-width: 0px;
     /*
 	border: 1px solid #B2B2B2;
     */
