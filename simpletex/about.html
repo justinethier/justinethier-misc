@@ -38,7 +38,14 @@ Description: A two-column, fixed-width template with light color blend.
 <div id="page">
 	<div id="content">
 		<div>
-        {% include docs.markdown %}
+        TODO: use this to drive the side bar
+
+{% for post in site.posts %}
+{{post.title}}
+{{post.date | date: "%b %d/%y" }}
+{{post.url}}
+{{post.excerpt}}...
+{% endfor %}
 		</div>
 	</div>
     {% include sidebar.html %}
