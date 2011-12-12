@@ -1,0 +1,20 @@
+<div id="menu">
+	<ul>
+		<li
+         {% if page.menu == "index" %}
+          class="active"
+         {% endif %}
+        ><a href="index.html">Home</a></li>
+<!--		<li><a href="#">Blog</a></li> -->
+		<li
+         {% if page.menu == "get-husk" %}
+          class="active"
+         {% endif %}
+        ><a href="get-husk.html">Get Husk</a></li>
+		<li><a href="documentation.html">Documentation</a></li>
+		<li><a href="#">About</a></li>
+	</ul>
+    <a href="#">
+    <img style="margin-top: -25px; margin-left: -125px;" src="images/husk-scheme.png" width="375" alt="husk scheme" />
+    </a>
+</div>
