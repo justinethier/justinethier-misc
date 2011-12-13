@@ -3,6 +3,15 @@
 			<li>
 				<h2>Recent Updates</h2>
 				<ul>
+                    {% for post in site.posts limit: 3 %}
+                    <li>
+                        <h3><span>{{post.date | date: "%b %d" }}: </span>{{post.title}}</h3>
+                        <p>
+                            <a href="{{post.url}}">{{post.excerpt}}</a>
+                        </p> 
+                    </li>
+                    {% endfor %}
+<!--                
 					<li>
 						<h3><span>6/25:</span> Semper vestibulum</h3>
 						<p><a href="#">In posuere eleifend odio quisque semper augue mattis wisi maecenas ligula&hellip;</a></p>
@@ -14,7 +23,7 @@
 					<li>
 						<h3><span>11/16:</span> Version 3.4.1 Released</h3>
 						<p><a href="#">TODO: link to changelog</a></p>
-					</li>
+					</li> -->
 				</ul>
 			</li>
 			<li>
