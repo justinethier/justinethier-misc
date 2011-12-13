@@ -38,51 +38,71 @@ Description: A two-column, fixed-width template with light color blend.
 <div id="page">
 	<div id="content">
 		<div>
-TODO: convert from markdown, and edit content
-Usage
------
+            <h2>Usage</h2>
+            <p>
+                The interpreter may be invoked by running it directly from the command line:
 
-The interpreter may be invoked by running it directly from the command line:
+                {% highlight console %}
+./huski
+                {% endhighlight %}
 
-    ./huski
+                Alternatively, you may run an individual scheme program:
 
-Alternatively, you may run an individual scheme program:
+                {% highlight console %}
+./huski my-scheme-file.scm
+                {% endhighlight %}
+</p>
 
-    ./huski my-scheme-file.scm
+<h2>Scheme Language Reference</h2>
+<p>
+TODO: reference spec? will not have a full reference here
+</p>
 
-API
----
+<h2>Non-standard Scheme Extensions</h2>
+<p> gensym, others? </p>
 
+<h2>API</h2>
+<p>
 A Haskell API is also provided to allow you to embed a Scheme interpreter within a Haskell program. The key API modules are:
 
-- `Language.Scheme.Core` - Contains functions to evaluate (execute) Scheme code.
-- `Language.Scheme.Types` - Contains Haskell data types used to represent Scheme primitives.
+<ul>
+    <li><strong>Language.Scheme.Core</strong> - Contains functions to evaluate (execute) Scheme code</li>
+    <li><strong>Language.Scheme.Types</strong> - Contains Haskell data types used to represent Scheme primitives</li>
+</ul>
 
-For more information, run `make doc` to generate API documentation from the source code. Also, see `shell.hs` for a quick example of how you might get started.
+For more information, run <strong>make doc</strong> to generate API documentation from the source code. Also, see <strong>shell.hs</strong> in the husk source code for a quick example of how you might get started.
+</p>
 
-Foreign Function Interface
---------------------------
+<h2>Foreign Function Interface</h2>
+<p>
+A foreign function interface (FFI) is provided to allow husk to call into arbitrary Haskell code. The interface is currently available via the <strong>load-ffi</strong> function:
 
-A foreign function interface (FFI) is provided to allow husk to call into arbitrary Haskell code. The interface is currently available via the `load-ffi` function:
+                {% highlight scheme %}
+(load-ffi "Language.Scheme.Plugins.CPUTime" "precision" "cpu-time:precision")
+                {% endhighlight %}
 
-    (load-ffi "Language.Scheme.Plugins.CPUTime" "precision" "cpu-time:precision")
+<strong>load-ffi</strong> accepts the following string arguments:
 
-`load-ffi` accepts the following string arguments:
+<ul>
+    <li>Name of a Haskell module to dynamically load</li>
+    <li>Haskell function to load from that module</li>
+    <li>Name to use for the function after it is loaded into husk</li>
+</ul>
 
-- Name of a Haskell module to dynamically load
-- Haskell function to load from that module
-- Name to use for the function after it is loaded into husk
+From the previous example, once <strong>cpu-time:precision</strong> is loaded, it may be called directly from husk just like a regular Scheme function:
 
-From the previous example, once `cpu-time:precision` is loaded, it may be called directly from husk just like a regular Scheme function:
-
-    (cpu-time:precision)
+                {% highlight scheme %}
+(cpu-time:precision)
+                {% endhighlight %}
 
 Any Haskell function loaded via the FFI must be of the following type:
 
+                {% highlight haskell %}
     [LispVal] -> IOThrowsError LispVal
+                {% endhighlight %}
 
-See husk's `Language.Scheme.Plugins.CPUTime` module for an example of how to use the husk FFI.
-
+See husk's <strong>Language.Scheme.Plugins.CPUTime</strong> module for an example of how to use the husk FFI.
+</p>
 		</div>
 	</div>
     {% include sidebar.html %}
