@@ -67,7 +67,22 @@ cabal install husk-scheme
             <p>
                 Alternatively, husk may be built from source. The first thing you need to do is download the latest version of husk from <a href="https://github.com/justinethier/husk-scheme/downloads">here</a>.
 
-                Once husk has been downloaded, the following commands may be used to build, install, and optionally test the husk executable and libraries:
+                <p>
+                
+                Before building husk, all of the required dependencies must be available. On Fedora these dependencies are:
+                <ul>
+                    <li>ghc</li>
+                    <li>ghc-doc</li>
+                    <li>ghc-parsec-devel</li>
+                    <li>ghc-haskeline-devel</li>
+                    <li>ghc-ghc-paths-devel</li>
+                    <li>ghc-ghc-devel</li>
+                </ul>
+
+                The same packages are necessary regardless of your platform, but the names may differ.
+                </p>
+
+                Once husk has been downloaded and dependencies have been met, the following commands may be used to build, install, and optionally test the husk executable and libraries:
                 {% highlight console %}
 make clean
 
@@ -77,12 +92,6 @@ make dist
 # An optional step to run all the built-in unit tests
 make test
                 {% endhighlight %}
-                <p>
-                    TODO: list of dependencies. EG from fedora:
-BuildRequires:  ghc, ghc-doc
-BuildRequires:  ghc-parsec-devel ghc-haskeline-devel ghc-ghc-paths-devel
-BuildRequires:  ghc-ghc-devel
-                </p>
             </p>
 		</div>
 	</div>
