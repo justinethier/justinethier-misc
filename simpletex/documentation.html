@@ -38,7 +38,7 @@ Description: A two-column, fixed-width template with light color blend.
 <div id="page">
 	<div id="content">
 		<div>
-            <h2>Usage</h2>
+            <h2 class="title">Usage</h2>
             <p>
                 The interpreter may be invoked by running it directly from the command line:
 
@@ -53,15 +53,15 @@ Description: A two-column, fixed-width template with light color blend.
                 {% endhighlight %}
 </p>
 
-<h2>Scheme Language Reference</h2>
+<h2 class="title">Scheme Language Reference</h2>
 <p>
 TODO: reference spec? will not have a full reference here
 </p>
 
-<h2>Non-standard Scheme Extensions</h2>
+<h2 class="title">Non-standard Scheme Extensions</h2>
 <p> gensym, others? </p>
 
-<h2>API</h2>
+<h2 class="title">API</h2>
 <p>
 A Haskell API is also provided to allow you to embed a Scheme interpreter within a Haskell program. The key API modules are:
 
@@ -73,7 +73,7 @@ A Haskell API is also provided to allow you to embed a Scheme interpreter within
 For more information, run <strong>make doc</strong> to generate API documentation from the source code. Also, see <strong>shell.hs</strong> in the husk source code for a quick example of how you might get started.
 </p>
 
-<h2>Foreign Function Interface</h2>
+<h2 class="title">Foreign Function Interface</h2>
 <p>
 A foreign function interface (FFI) is provided to allow husk to call into arbitrary Haskell code. The interface is currently available via the <strong>load-ffi</strong> function:
 

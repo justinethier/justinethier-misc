@@ -1,6 +1,10 @@
 ---
+layout: post
+title: Released Version 3.4.1 
 excerpt: Added experimental support for let-syntax and letrec-syntax...
 ---
+# {{ page.title }}
+
 Added experimental support for let-syntax and letrec-syntax.
 
 Bug fixes:
