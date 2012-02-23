@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface#-}
 
-module Bindings.SELinux.SIPC where -- TODO: Change to something like SELinux.SIPC for the library
+module Main where -- TODO: Change to something like SELinux.SIPC for the library
 
 -- import Monad
 import C2HS
@@ -77,3 +77,12 @@ void sipc_error(sipc_t *sipc, const char *fmt, ...)
 _cFromEnum :: (Enum e, Integral i) => e -> i
 _cFromEnum  = fromIntegral . fromEnum
 
+
+-- Only here because of how the test file is structured
+-- Should be broken out into a separate test file
+main :: IO ()
+main = do
+  sipc <- sipc_open "sipc_mq_test" Sipc_creator Sipc_sysv_mqueues 0
+  -- TODO: now to test for NULL pointer?
+  sipc_close(sipc)
+  putStrLn ""
