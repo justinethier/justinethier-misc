@@ -1,8 +1,16 @@
-module SIPC
-where
+{-
+ Build using:
+ c2hs -l Sipc.chs
+
+ To create the C2HS module 
+ -}
+
+module SIPC where
 
 -- import Monad
---import C2HS
+import C2HS
+
+#include <sipc/sipc.h>
 
 #c
 enum SIPCType {
@@ -13,5 +21,5 @@ enum SIPCType {
 #endc
 {#enum SIPCType {}#}
 
-{#fun sipc_unlink {`String', `Int'} -> `()' #}
+--{#fun sipc_unlink {`String', `Int'} -> `()' #}
 
