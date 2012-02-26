@@ -1,4 +1,4 @@
-{-# LANGUAGE ForeignFunctionInterface#-}
+{-# LANGUAGE CPP, ForeignFunctionInterface#-}
 
 {-
  Build using:
@@ -14,16 +14,16 @@ import C2HS
 
 #include <sipc/sipc.h>
 
--- #c
--- enum SIPCType {
---  sipc_sysv_shm     = SIPC_SYSV_SHM,
---  sipc_sysv_mqueues = SIPC_SYSV_MQUEUES,
---  sipc_num_types    = SIPC_NUM_TYPES
--- };
--- #endc
--- {#enum SIPCType {}#}
+#c
+enum SIPCType {
+ Sipc_sysv_shm     = SIPC_SYSV_SHM,
+ Sipc_sysv_mqueues = SIPC_SYSV_MQUEUES,
+ Sipc_num_types    = SIPC_NUM_TYPES
+};
+#endc
+{#enum SIPCType {}#}
 
-{#fun sipc_unlink {`String', `Int'} -> `()' #}
+{#fun sipc_unlink {`String', cFromEnum `SIPCType'} -> `()' #}
 
 main :: IO ()
 main = do
