@@ -35,9 +35,14 @@ enum SIPCIOCtl {
 
 -- TODO: documentation for *everything* once all defs are in place
 
+newtype Sipc = Sipc {#type sipc_t#}
+
+--struct sipc;
+--typedef struct sipc sipc_t;
+unSipc :: Sipc -> {#type sipc_t#}
+unSipc (Sipc s) = s
+
 {- TODO:
-struct sipc;
-typedef struct sipc sipc_t;
 
 -- return type is allocated and must be freed by sipc_close
 -- believe we need to indicate the alloc to Haskell somehow?
