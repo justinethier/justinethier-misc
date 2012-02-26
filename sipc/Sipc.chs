@@ -33,6 +33,34 @@ enum SIPCIOCtl {
 -- |SIPC behaviors, for sipc_ioctl()
 {#enum SIPCIOCtl {} deriving (Eq, Show)#}
 
+-- TODO: documentation for *everything* once all defs are in place
+
+{- TODO:
+struct sipc;
+typedef struct sipc sipc_t;
+
+-- return type is allocated and must be freed by sipc_close
+-- believe we need to indicate the alloc to Haskell somehow?
+sipc_t *sipc_open(const char *key, int role, int ipc_type, size_t size);
+void sipc_close(sipc_t *sipc);
+int sipc_ioctl(sipc_t *sipc, int request);
+int sipc_send_data(sipc_t *sipc, size_t msg_len);
+
+-- data is allocated by C, believe this must be indicated to Haskell
+-- TBD: what about len??
+int sipc_recv_data(sipc_t *sipc, char **data, size_t *len);
+
+/* Returns a pointer to the data contained within the IPC resource */
+char *sipc_get_data_ptr(sipc_t *sipc);
+
+-- TODO: are variable-length args even supported by the Haskell FFI???
+/* Prints an error message, accepts printf format string */
+void sipc_error(sipc_t *sipc, const char *fmt, ...)
+	__attribute__ ((format(printf, 2, 3)));
+
+int sipc_shm_recv_done(sipc_t *sipc);
+-}
+
 {#fun sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
 
 -- |Convert a Haskell enumeration to C.
