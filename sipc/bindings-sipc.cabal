@@ -1,57 +1,44 @@
---
--- TODO: rename this file, rework it for the sipc bindings project
---
-
 Name:                bindings-sipc 
 Version:             1.0 
 Synopsis:            Low level bindings to SIPC. 
 Description:         Low level bindings to the Secure Inter-Process Communications (SIPC)
                      library for SELinux.
 License:             LGPL
-License-file:        LICENSE
+-- License-file:        LICENSE
 Author:              Justin Ethier
 Maintainer:          Justin Ethier <github.com/justinethier>
 Homepage:            http://justinethier.github.com/hs-bindings-sipc
 Cabal-Version:       >= 1.8
+Build-Tools:         c2hs
 Build-Type:          Simple
 Category:            FFI 
 Tested-with:         GHC == 6.10.3
 
-{-
-Extra-Source-Files:  README.markdown
-                     LICENSE
-Data-Files:          stdlib.scm
-
-Source-Repository head
-    Type:            git
-    Location:        git://github.com/justinethier/husk-scheme.git
-
 Library
-  Build-Depends:   base >= 2.0 && < 5, array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths
-  Extensions:      ExistentialQuantification CPP CPP
-  Hs-Source-Dirs:  hs-src
-  Exposed-Modules: Language.Scheme.Core
-                   Language.Scheme.Types
-                   Language.Scheme.Variables
-                   Language.Scheme.Compiler
-                   Language.Scheme.Plugins.CPUTime
--- Other-Modules:
-                   Language.Scheme.FFI
-                   Language.Scheme.Macro
-                   Language.Scheme.Macro.Matches
-                   Language.Scheme.Numerical
-                   Language.Scheme.Parser
-                   Language.Scheme.Primitives
+  Build-Depends:   base >= 2.0 && < 5
+-- , array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths
+--  Extensions:      ExistentialQuantification CPP CPP
+  Hs-Source-Dirs:  src
+  Exposed-Modules: Bindings.SELinux.SIPC 
+  Extra-Libraries: sipc
 
-Executable         huski
-  Build-Depends:   husk-scheme, base >= 2.0 && < 5, array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths
-  Extensions:      ExistentialQuantification CPP CPP
-  Main-is:         shell.hs
-  Hs-Source-Dirs:  hs-src/Interpreter
-
-Executable huskc
-  Build-Depends: husk-scheme, base >= 2.0 && < 5, array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths, process, filepath
-  Extensions: ExistentialQuantification CPP CPP
-  Main-is: huskc.hs
-  Hs-Source-Dirs: hs-src/Compiler
-  -}
+-- Extra-Source-Files:  README.markdown
+--                      LICENSE
+-- Data-Files:          stdlib.scm
+-- 
+-- Source-Repository head
+--     Type:            git
+--     Location:        git://github.com/justinethier/husk-scheme.git
+-- 
+-- Executable         huski
+--   Build-Depends:   husk-scheme, base >= 2.0 && < 5, array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths
+--   Extensions:      ExistentialQuantification CPP CPP
+--   Main-is:         shell.hs
+--   Hs-Source-Dirs:  hs-src/Interpreter
+-- 
+-- Executable huskc
+--   Build-Depends: husk-scheme, base >= 2.0 && < 5, array, containers, haskeline, transformers, mtl, parsec, directory, ghc, ghc-paths, process, filepath
+--   Extensions: ExistentialQuantification CPP CPP
+--   Main-is: huskc.hs
+--   Hs-Source-Dirs: hs-src/Compiler
+-- 
