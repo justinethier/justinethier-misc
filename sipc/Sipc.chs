@@ -39,39 +39,36 @@ enum SIPCIOCtl {
 --type SipcPtr = Ptr Sipc 
 type SipcPtr = Ptr ()
 
--- TODO: CSize for last input arg?
+-- TODO: should use CSize for last input arg
 {#fun unsafe sipc_open {`String', _cFromEnum `SIPCRole', _cFromEnum `SIPCType', `Int' } -> `SipcPtr' id #}
 {#fun unsafe sipc_close {id `SipcPtr'} -> `()' #}
 
-{#fun sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
+{#fun unsafe sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
+
+{#fun unsafe sipc_ioctl {id `SipcPtr', _cFromEnum `SIPCIOCtl'} -> `Int' #}
+
+-- TODO: same issue with CSize as above
+--int sipc_send_data(sipc_t *sipc, size_t msg_len);
+{#fun unsafe sipc_send_data {id `SipcPtr', `Int'} -> `Int' #}
+
+-- TODO: is String really the right return type here??
+-- /* Returns a pointer to the data contained within the IPC resource */
+--char *sipc_get_data_ptr(sipc_t *sipc);
+{#fun unsafe sipc_get_data_ptr {id `SipcPtr'} -> `String' #}
 
 {- TODO:
-
--- return type is allocated and must be freed by sipc_close
--- believe we need to indicate the alloc to Haskell somehow?
-sipc_t *sipc_open(const char *key, int role, int ipc_type, size_t size);
-void sipc_close(sipc_t *sipc);
-
-
-
-
-int sipc_ioctl(sipc_t *sipc, int request);
-int sipc_send_data(sipc_t *sipc, size_t msg_len);
 
 -- data is allocated by C, believe this must be indicated to Haskell
 -- TBD: what about len??
 int sipc_recv_data(sipc_t *sipc, char **data, size_t *len);
 
-/* Returns a pointer to the data contained within the IPC resource */
-char *sipc_get_data_ptr(sipc_t *sipc);
-
 -- TODO: are variable-length args even supported by the Haskell FFI???
 /* Prints an error message, accepts printf format string */
 void sipc_error(sipc_t *sipc, const char *fmt, ...)
 	__attribute__ ((format(printf, 2, 3)));
-
-int sipc_shm_recv_done(sipc_t *sipc);
 -}
+
+{#fun unsafe sipc_shm_recv_done {id `SipcPtr'} -> `Int' #}
 
 -- |Convert a Haskell enumeration to C.
 --
@@ -82,6 +79,7 @@ _cFromEnum  = fromIntegral . fromEnum
 
 
 -- Only here because of how the test file is structured
+-- Should be broken out into a separate test file
 main :: IO ()
 main = do
   sipc <- sipc_open "sipc_mq_test" Sipc_creator Sipc_sysv_mqueues 0
