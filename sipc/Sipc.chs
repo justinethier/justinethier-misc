@@ -2,8 +2,8 @@
 
 module Main where -- TODO: Change to something like SELinux.SIPC for the library
 
--- import Monad
-import C2HS
+import Foreign
+import Foreign.C
 
 -- The sipc header must be installed on your system
 -- in order to compile this module!!
@@ -40,12 +40,12 @@ enum SIPCIOCtl {
 type SipcPtr = Ptr ()
 
 -- TODO: should use CSize for last input arg
-{#fun unsafe sipc_open {`String', _cFromEnum `SIPCRole', _cFromEnum `SIPCType', `Int' } -> `SipcPtr' id #}
+{#fun unsafe sipc_open {`String', cFromEnum `SIPCRole', cFromEnum `SIPCType', `Int' } -> `SipcPtr' id #}
 {#fun unsafe sipc_close {id `SipcPtr'} -> `()' #}
 
-{#fun unsafe sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
+{#fun unsafe sipc_unlink {`String', cFromEnum `SIPCType'} -> `()' #}
 
-{#fun unsafe sipc_ioctl {id `SipcPtr', _cFromEnum `SIPCIOCtl'} -> `Int' #}
+{#fun unsafe sipc_ioctl {id `SipcPtr', cFromEnum `SIPCIOCtl'} -> `Int' #}
 
 -- TODO: same issue with CSize as above
 --int sipc_send_data(sipc_t *sipc, size_t msg_len);
@@ -71,11 +71,11 @@ void sipc_error(sipc_t *sipc, const char *fmt, ...)
 {#fun unsafe sipc_shm_recv_done {id `SipcPtr'} -> `Int' #}
 
 -- |Convert a Haskell enumeration to C.
---
---  Explicitly added to this module since this function
---  is deprecated from C2HS.
-_cFromEnum :: (Enum e, Integral i) => e -> i
-_cFromEnum  = fromIntegral . fromEnum
+-- 
+--  This code is from C2HS, but it has been added
+--  here since C2HS is deprecated.
+cFromEnum :: (Enum e, Integral i) => e -> i
+cFromEnum  = fromIntegral . fromEnum
 
 
 -- Only here because of how the test file is structured
