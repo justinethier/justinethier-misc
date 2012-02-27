@@ -35,21 +35,26 @@ enum SIPCIOCtl {
 
 -- TODO: documentation for *everything* once all defs are in place
 
-data Sipc = Sipc 
-type SipcPtr = Ptr Sipc 
+--data Sipc = Sipc 
+--type SipcPtr = Ptr Sipc 
+type SipcPtr = Ptr ()
 
 -- TODO: CSize for last input arg?
-{#fun unsafe sipc_open {`String', `Int', `Int', `Int' } -> `SipcPtr' #}
+{#fun unsafe sipc_open {`String', _cFromEnum `SIPCRole', _cFromEnum `SIPCType', `Int' } -> `SipcPtr' id #}
+{#fun unsafe sipc_close {id `SipcPtr'} -> `()' #}
+
+{#fun sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
 
 {- TODO:
-
-struct sipc;
-typedef struct sipc sipc_t;
 
 -- return type is allocated and must be freed by sipc_close
 -- believe we need to indicate the alloc to Haskell somehow?
 sipc_t *sipc_open(const char *key, int role, int ipc_type, size_t size);
 void sipc_close(sipc_t *sipc);
+
+
+
+
 int sipc_ioctl(sipc_t *sipc, int request);
 int sipc_send_data(sipc_t *sipc, size_t msg_len);
 
@@ -68,8 +73,6 @@ void sipc_error(sipc_t *sipc, const char *fmt, ...)
 int sipc_shm_recv_done(sipc_t *sipc);
 -}
 
-{#fun sipc_unlink {`String', _cFromEnum `SIPCType'} -> `()' #}
-
 -- |Convert a Haskell enumeration to C.
 --
 --  Explicitly added to this module since this function
@@ -81,4 +84,7 @@ _cFromEnum  = fromIntegral . fromEnum
 -- Only here because of how the test file is structured
 main :: IO ()
 main = do
+  sipc <- sipc_open "sipc_mq_test" Sipc_creator Sipc_sysv_mqueues 0
+  -- TODO: now to test for NULL pointer?
+  sipc_close(sipc)
   putStrLn ""
