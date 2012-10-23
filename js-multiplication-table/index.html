@@ -7,7 +7,7 @@
 -->
 
 <link rel="stylesheet" type="text/css" href="css/simplegrid.css" />
-<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.9.0.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="css/mulTbl/jquery-ui-1.9.0.custom.min.css" />
 <style type="text/css">
   .content-label { 
       color: white;
@@ -34,9 +34,12 @@
 
                 if (r === 0 && c === 0){
                     col = $('<div class="col-1-11">&nbsp;</div>');
-                } else if (r === 0 || c === 0){
-                    col = $('<div class="col-1-11"><div class="content content-label">' + 
-                        (r > 0 ? r : c) + '</div></div>');
+                } else if (r === 0){
+                    col = $('<div class="col-1-11"><div class="content content-label" style="text-align: center;">' + 
+                        c + '</div></div>');
+                } else if (c === 0){
+                    col = $('<div class="col-1-11"><div class="content content-label" style="text-align: right;">' + 
+                        r + '</div></div>');
                 } else {
                     col = $('<div class="col-1-11"><div class="content content-square">' + 
 
@@ -59,12 +62,14 @@
                     .click(function(){
                        if ($(this).is(':checked')){
                            // TODO: set text to label value
+                           $('.ui-button-text', this.parentNode).text(
+                               $('label', this.parentNode).attr('value'));
                        } else {
                            // TODO: set text to &nbsp;
+                           $('.ui-button-text', this.parentNode).html(
+                               "&nbsp;");
                        }
 
-                        $('.ui-button-text', this.parentNode).text(
-                            $('label', this.parentNode).attr('value'));
 /*                        if ($('.ui-button-text', this.parentNode).is(':hidden'))
                             $('.ui-button-text', this.parentNode).show();
                         else
@@ -76,8 +81,8 @@
 </script>
 </head>
 <body style='background: url("wood_pattern/wood_pattern.png") repeat scroll 0 0 transparent;'>
-  <div id="main-content">
-    <div id="tbl" style="background-color: rgba(66, 66, 66, 0.5);">
+  <div id="main-content" class="mulTbl">
+    <div id="tbl" style="background-color: rgba(66, 66, 66, 0.5); margin: 2%;">
     </div>
   </div>
 </body>
