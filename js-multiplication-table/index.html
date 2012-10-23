@@ -1,11 +1,30 @@
 <html>
 <head>
+
+<!--
+// TODO: get background from
+// http://subtlepatterns.com/
+-->
+
+<link rel="stylesheet" type="text/css" href="simplegrid.css" />
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript">
     // TODO: extract out into its own file
+
+    $(document).ready(function(){
+        for (var r=1; r < 11; r++){
+            var row = $('<div class="grid grid-pad"></div>'); // grid-pad
+            for (var c=1; c < 11; c++){
+                var col = $('<div class="col-1-10"><div class="content" style="background-color: lightblue;">' + (r * c) + '</div></div>');
+                row.append(col);
+            }
+            $('#tbl').append(row);
+        }
+    });
 </script>
 </head>
-<body>
-    <div id="mult-tbl" />
+<body style='background: url("wood_pattern/wood_pattern.png") repeat scroll 0 0 transparent;'>
+    <div id="tbl" />
 </body>
 </html>
+ 
