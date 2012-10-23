@@ -6,25 +6,80 @@
 // http://subtlepatterns.com/
 -->
 
-<link rel="stylesheet" type="text/css" href="simplegrid.css" />
-<script type="text/javascript" src="jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/simplegrid.css" />
+<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.9.0.custom.min.css" />
+<style type="text/css">
+  .content-label { 
+      color: white;
+  }
+
+  .content-square {
+  }
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.9.0.custom.min.js"></script>
 <script type="text/javascript">
     // TODO: extract out into its own file
 
     $(document).ready(function(){
-        for (var r=1; r < 11; r++){
-            var row = $('<div class="grid grid-pad"></div>'); // grid-pad
-            for (var c=1; c < 11; c++){
-                var col = $('<div class="col-1-10"><div class="content" style="background-color: lightblue;">' + (r * c) + '</div></div>');
+        createGrid();
+    });
+
+    function createGrid(){
+        var r, row, c, col, id;
+
+        for (r=0; r < 11; r++){
+            row = $('<div class="grid grid-pad"></div>');
+            for (c=0; c < 11; c++){
+
+                if (r === 0 && c === 0){
+                    col = $('<div class="col-1-11">&nbsp;</div>');
+                } else if (r === 0 || c === 0){
+                    col = $('<div class="col-1-11"><div class="content content-label">' + 
+                        (r > 0 ? r : c) + '</div></div>');
+                } else {
+                    col = $('<div class="col-1-11"><div class="content content-square">' + 
+
+                    // (r * c)
+                    '<input type="checkbox" id="check_' + r + '_' + c + '" /><label style="width: 100%;" for="check_' + r + '_' + c + '" value="'+ (r * c) +'">&nbsp;</label>' +
+
+                    '</div></div>');
+                }
                 row.append(col);
             }
             $('#tbl').append(row);
         }
-    });
+
+        $('#tbl').append($('<div> &nbsp; </div>'));
+        for (r=0; r < 11; r++){
+            for (c=0; c < 11; c++){
+                id = '#check_' + r + '_' + c;
+                $(id)
+                    .button()
+                    .click(function(){
+                       if ($(this).is(':checked')){
+                           // TODO: set text to label value
+                       } else {
+                           // TODO: set text to &nbsp;
+                       }
+
+                        $('.ui-button-text', this.parentNode).text(
+                            $('label', this.parentNode).attr('value'));
+/*                        if ($('.ui-button-text', this.parentNode).is(':hidden'))
+                            $('.ui-button-text', this.parentNode).show();
+                        else
+                            $('.ui-button-text', this.parentNode).hide(); */
+                    });
+            }
+        }
+    }
 </script>
 </head>
 <body style='background: url("wood_pattern/wood_pattern.png") repeat scroll 0 0 transparent;'>
-    <div id="tbl" />
+  <div id="main-content">
+    <div id="tbl" style="background-color: rgba(66, 66, 66, 0.5);">
+    </div>
+  </div>
 </body>
 </html>
  
