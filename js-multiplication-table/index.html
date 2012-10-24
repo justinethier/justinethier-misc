@@ -1,6 +1,6 @@
 <html>
 <head>
-
+    <title>Interactive Multiplication Table</title>
 <!--
 // TODO: get background from
 // http://subtlepatterns.com/
@@ -9,6 +9,16 @@
 <link rel="stylesheet" type="text/css" href="css/simplegrid.css" />
 <link rel="stylesheet" type="text/css" href="css/mulTbl/jquery-ui-1.9.0.custom.min.css" />
 <style type="text/css">
+  body {
+      margin: 0;
+      padding: 0;
+  }
+
+  .content-link { 
+      color: white;
+      font-size: smaller !important; 
+  }
+
   .content-label { 
       color: white;
   }
@@ -22,10 +32,44 @@
     // TODO: extract out into its own file
 
     $(document).ready(function(){
-        createGrid();
+        (new MulTable());
     });
 
-    function createGrid(){
+    function MulTable(){
+        var that = this;
+
+        that.render();
+
+        // Setup event handlers
+        jQuery('#hide-all').click(function(){ that.adjustAll(false); });
+        jQuery('#show-all').click(function(){ that.adjustAll(true); });
+    }
+
+    MulTable.prototype.adjustAll = function(value){
+        var that = this;
+
+        jQuery('input:checkbox', '#tbl').each(function(){
+            jQuery(this).prop('checked', value)
+                        .button('refresh');
+            if (value){
+                that.showButton(this);
+            } else {
+                that.hideButton(this);
+            }
+        });
+    }
+
+    MulTable.prototype.showButton = function(jqButton){
+        $('.ui-button-text', jqButton.parentNode).text(
+            $('label', jqButton.parentNode).attr('value'));
+    }
+
+    MulTable.prototype.hideButton = function(jqButton){
+        $('.ui-button-text', jqButton.parentNode).html(
+            "&nbsp;");
+    }
+
+    MulTable.prototype.render = function(){
         var r, row, c, col, id;
 
         for (r=0; r < 11; r++){
@@ -61,19 +105,12 @@
                     .button()
                     .click(function(){
                        if ($(this).is(':checked')){
-                           // TODO: set text to label value
                            $('.ui-button-text', this.parentNode).text(
                                $('label', this.parentNode).attr('value'));
                        } else {
-                           // TODO: set text to &nbsp;
                            $('.ui-button-text', this.parentNode).html(
                                "&nbsp;");
                        }
-
-/*                        if ($('.ui-button-text', this.parentNode).is(':hidden'))
-                            $('.ui-button-text', this.parentNode).show();
-                        else
-                            $('.ui-button-text', this.parentNode).hide(); */
                     });
             }
         }
@@ -81,10 +118,21 @@
 </script>
 </head>
 <body style='background: url("wood_pattern/wood_pattern.png") repeat scroll 0 0 transparent;'>
-  <br />TODO: header (at least some kind of title image, maybe add an addition table?)
-  <br />TODO: links for beginner (?), advanced (?), hide all, show all (?)
+  <span class="mulTbl">
+    <h1 class="mulTbl ui-widget-header" style="font-size: largest; text-align: center; margin-top: 0px; margin-bottom: -20px;">Multiplication Table</h1>
+  </span>
   <div id="main-content" class="mulTbl">
+  <div class="mulTbl ui-widget content-link" style="margin-top: 2%; margin-left: 2%; margin-right: 2%; margin-bottom: -1.75%;">
+    <a href="index.html">Basic</a>
+    <a href="#">Advanced (TODO)</a>
+  </div>
     <div id="tbl" class="ui-widget" style="background-color: rgba(66, 66, 66, 0.5); margin: 2%;">
+        <div style="position: relative; top: 25; left: 5;">
+         <div style="position: absolute;">
+          <a class="ui-widget content-link" href="#" id="hide-all">Hide All</a> <br />
+          <a class="ui-widget content-link" href="#" id="show-all">Show All</a>
+         </div>
+        </div>
     </div>
   </div>
 </body>
