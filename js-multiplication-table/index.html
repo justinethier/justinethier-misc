@@ -32,13 +32,30 @@
     // TODO: extract out into its own file
 
     $(document).ready(function(){
-        (new MulTable());
+        var $_GET = getQueryParams(document.location.search),
+            offset = $_GET.offset;
+        (new MulTable(offset));
     });
 
-    function MulTable(){
+    // http://stackoverflow.com/questions/439463/how-to-get-get-and-post-variables-with-jquery
+    function getQueryParams(qs) {
+        qs = qs.split("+").join(" ");
+        var params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+    
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])]
+                = decodeURIComponent(tokens[2]);
+        }
+    
+        return params;
+    }
+
+    function MulTable(offset){
         var that = this;
 
-        that.render();
+        that.render(parseInt(offset, 10));
 
         // Setup event handlers
         jQuery('#hide-all').click(function(){ that.adjustAll(false); });
@@ -69,26 +86,29 @@
             "&nbsp;");
     }
 
-    MulTable.prototype.render = function(){
-        var r, row, c, col, id;
+    MulTable.prototype.render = function(offsetArg){
+        var r, rv, row, c, cv, col, id, offset = offsetArg || 0;
 
         for (r=0; r < 11; r++){
             row = $('<div class="grid grid-pad"></div>');
             for (c=0; c < 11; c++){
 
+                rv = r + offset;
+                cv = c + offset;
+
                 if (r === 0 && c === 0){
                     col = $('<div class="col-1-11">&nbsp;</div>');
                 } else if (r === 0){
                     col = $('<div class="col-1-11"><div class="content content-label" style="text-align: center;">' + 
-                        c + '</div></div>');
+                        cv + '</div></div>');
                 } else if (c === 0){
                     col = $('<div class="col-1-11"><div class="content content-label" style="text-align: right;">' + 
-                        r + '</div></div>');
+                        rv + '</div></div>');
                 } else {
                     col = $('<div class="col-1-11"><div class="content content-square">' + 
 
                     // (r * c)
-                    '<input type="checkbox" id="check_' + r + '_' + c + '" /><label style="width: 100%;" for="check_' + r + '_' + c + '" value="'+ (r * c) +'">&nbsp;</label>' +
+                    '<input type="checkbox" id="check_' + rv + '_' + cv + '" /><label style="width: 100%;" for="check_' + rv + '_' + cv + '" value="'+ (rv * cv) +'">&nbsp;</label>' +
 
                     '</div></div>');
                 }
@@ -100,7 +120,10 @@
         $('#tbl').append($('<div> &nbsp; </div>'));
         for (r=0; r < 11; r++){
             for (c=0; c < 11; c++){
-                id = '#check_' + r + '_' + c;
+                rv = r + offset;
+                cv = c + offset;
+
+                id = '#check_' + rv + '_' + cv;
                 $(id)
                     .button()
                     .click(function(){
@@ -126,11 +149,11 @@
   <div id="main-content" class="mulTbl">
   <div style="margin-top: 2%; margin-left: 2%; margin-right: 2%; margin-bottom: -1.75%;">
     <strong style="font-size: 1.75em;">Multiplication Table</strong>
-    <a style="font-size: 1em; color: black; float: right;" class="ui-widget" href="#">Advanced (TODO)</a>
-    <a style="font-size: 1em; color: black; float: right; margin-right: 10px;" class="ui-widget" href="index.html">Basic</a>
+    <a style="font-size: 1em; color: black; float: right;" class="ui-widget" href="index.html?offset=10">Advanced (11 - 20)</a>
+    <a style="font-size: 1em; color: black; float: right; margin-right: 15px;" class="ui-widget" href="index.html">Basic (1 - 10)</a>
   </div>
     <div id="tbl" class="ui-widget" style="background-color: rgba(66, 66, 66, 0.5); margin: 2%;">
-        <div style="position: relative; top: 25; left: 5;">
+        <div style="position: relative; top: 5; left: 5;">
          <div style="position: absolute;">
           <a class="ui-widget content-link" href="#" id="hide-all">Hide All</a> <br />
           <a class="ui-widget content-link" href="#" id="show-all">Show All</a>
