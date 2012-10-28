@@ -1,3 +1,8 @@
+/**
+ * An example implementation of a singly-linked list
+ *
+ * Justin Ethier, 2012
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,9 +14,10 @@ struct node {
 /**
  * Add a new node to the end of the linked list
  */
-struct node *add(struct node *ptr, int val){
+struct node *listAdd(struct node *ptr, int val){
+    struct node* head = ptr;
     if (ptr == NULL){
-        ptr = (struct node *)malloc(sizeof(struct node));
+        head = ptr = (struct node *)malloc(sizeof(struct node));
     } else {
         while (ptr->next != NULL) {
             ptr = ptr->next;
@@ -22,11 +28,11 @@ struct node *add(struct node *ptr, int val){
 
     ptr->next = NULL;
     ptr->val = val;
-    return ptr;
+    return head;
 }
 
-struct node* remove(struct node* ptr, int val){
-    struct node* head = ptr;
+struct node* listRemove(struct node* ptr, int val){
+    struct node *head = ptr, *tmp;
 
     if (head == NULL) return head;
     if (head->val == val){
@@ -37,13 +43,10 @@ struct node* remove(struct node* ptr, int val){
 
     while(ptr->next != NULL){
         if (ptr->next->val == val){
-            if (ptr->next->next == NULL){
-                free(ptr->next);
-                ptr->next = NULL;
-            } else {
-                ptr->next = ptr->next->next;
-                free(ptr-
-            }
+            tmp = ptr->next->next;
+            free(ptr->next);
+            ptr->next = tmp;
+            break;
         }
         ptr = ptr->next;
     }
@@ -51,27 +54,46 @@ struct node* remove(struct node* ptr, int val){
     return head;
 }
 
-// void reverse
-// void car
-// void cdr
-// void create-from-array (name TBD)
+struct node *listReverse(struct node* head){
+    struct node *new_head = NULL, *next;
 
-void print(struct node *ptr){
-    // TODO: no, use iteration
-    if (ptr == NULL) return;
-    printf("%d\n", ptr->val);
-    print(ptr->next);
+    while (head){
+       next = head->next;
+       head->next = new_head;
+       new_head = head;
+       head = next;
+    }
+    return new_head;
+}
+// int listCar
+// void listCdr
+// void listCreate-from-array (name TBD)
+
+void listPrint(struct node *ptr){
+    while (ptr){
+        printf("%d\n", ptr->val);
+        ptr = ptr->next;
+    }
 }
 
 int main(int argc, char **argv){
     struct node* head = NULL;
-    head = add(head, 1);
-    add(head, 2);
-    add(head, 2);
-    add(head, 3);
-    add(head, 4);
-    remove(head, 2);
-    // remove(head, 1);
-    print(head);
+    head = listAdd(head, 1);
+    listAdd(head, 2);
+    listAdd(head, 2);
+    listAdd(head, 3);
+    listAdd(head, 4);
+    listAdd(head, 5);
+    head = listRemove(head, 2);
+    head = listReverse(head);
+    listPrint(head);
+
+    head = listRemove(head, 1);
+    head = listRemove(head, 1);
+    head = listRemove(head, 1);
+    head = listRemove(head, 5);
+    printf("\n");
+    listPrint(head);
+
     return 1;
 }
