@@ -5,11 +5,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-
-struct node {
-    struct node *next;
-    int val;
-};
+#include "linked-list.h"
 
 /**
  * Add a new node to the end of the linked list. Memory is 
@@ -33,6 +29,13 @@ struct node *listAdd(struct node *ptr, int val){
     ptr->next = NULL;
     ptr->val = val;
     return head;
+}
+
+/**
+ * Create a new list
+ */
+struct node *list(int val){
+    return listAdd(NULL, val);
 }
 
 /**
@@ -94,7 +97,7 @@ struct node *listRest(struct node *head){
 
 // void listCreate-from-array (name TBD)
 struct node *listFromArray(int *data, int length){
-    struct node *head;
+    struct node *head = NULL;
     int i;
     for (i = 0; i < length; i++){
         head = listAdd(head, *data);
@@ -111,36 +114,3 @@ void listPrint(struct node *ptr){
     }
 }
 
-int main(int argc, char **argv){
-    struct node* head = NULL;
-    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-
-    head = listFromArray(data, 11);
-    listPrint(head);
-
-    head = listAdd(head, 1);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 3);
-    listAdd(head, 4);
-    listAdd(head, 5);
-    head = listRemove(head, 2);
-    head = listReverse(head);
-    printf("\n");
-    listPrint(head);
-
-    printf("\n");
-    listPrint( listRest(head) );
-
-    head = listRemove(head, 1);
-    head = listRemove(head, 1);
-    head = listRemove(head, 1);
-    head = listRemove(head, 5);
-    printf("\n");
-    listPrint(head);
-
-    return 1;
-}
