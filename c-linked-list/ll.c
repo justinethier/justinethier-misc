@@ -1,7 +1,7 @@
 /**
  * An example implementation of a singly-linked list
  *
- * Justin Ethier, 2012
+ * Written by Justin Ethier, 2012
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,10 +12,14 @@ struct node {
 };
 
 /**
- * Add a new node to the end of the linked list
+ * Add a new node to the end of the linked list. Memory is 
+ * allocated from the heap for the new node.
+ *
+ * Constructs a new linked list if a null pointer is passed.
+ * Returns a pointer to the beginning of the modified list
  */
 struct node *listAdd(struct node *ptr, int val){
-    struct node* head = ptr;
+    struct node *head = ptr;
     if (ptr == NULL){
         head = ptr = (struct node *)malloc(sizeof(struct node));
     } else {
@@ -31,6 +35,10 @@ struct node *listAdd(struct node *ptr, int val){
     return head;
 }
 
+/**
+ * Removes nodes from the list with the given value,
+ * and frees any memory allocated for them.
+ */
 struct node* listRemove(struct node* ptr, int val){
     struct node *head = ptr, *tmp;
 
@@ -46,9 +54,9 @@ struct node* listRemove(struct node* ptr, int val){
             tmp = ptr->next->next;
             free(ptr->next);
             ptr->next = tmp;
-            break;
+        } else {
+            ptr = ptr->next;
         }
-        ptr = ptr->next;
     }
 
     return head;
@@ -65,9 +73,36 @@ struct node *listReverse(struct node* head){
     }
     return new_head;
 }
+
 // int listCar
+int listCar(struct node *head){
+    if (head == NULL) return -1;
+    return head->val;
+}
+int listValue(struct node *head){
+    return listCar(head);
+}
+
 // void listCdr
+struct node *listCdr(struct node *head){
+    if (head == NULL) return NULL;
+    return head->next;
+}
+struct node *listRest(struct node *head){
+    return listCdr(head);
+}
+
 // void listCreate-from-array (name TBD)
+struct node *listFromArray(int *data, int length){
+    struct node *head;
+    int i;
+    for (i = 0; i < length; i++){
+        head = listAdd(head, *data);
+        data++;
+    }
+
+    return head;
+}
 
 void listPrint(struct node *ptr){
     while (ptr){
@@ -78,7 +113,15 @@ void listPrint(struct node *ptr){
 
 int main(int argc, char **argv){
     struct node* head = NULL;
+    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+    head = listFromArray(data, 11);
+    listPrint(head);
+
     head = listAdd(head, 1);
+    listAdd(head, 2);
+    listAdd(head, 2);
+    listAdd(head, 2);
     listAdd(head, 2);
     listAdd(head, 2);
     listAdd(head, 3);
@@ -86,7 +129,11 @@ int main(int argc, char **argv){
     listAdd(head, 5);
     head = listRemove(head, 2);
     head = listReverse(head);
+    printf("\n");
     listPrint(head);
+
+    printf("\n");
+    listPrint( listRest(head) );
 
     head = listRemove(head, 1);
     head = listRemove(head, 1);
