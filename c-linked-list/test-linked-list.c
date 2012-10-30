@@ -41,16 +41,14 @@ void test(){
     listReverse(l);
     printf("\n");
     listPrint(l);
-
-    printf("\n");
-    listPrint(l);
+    printf("List length = %d\n\n", listLength(l));
 
     listRemove(l, 1);
     listRemove(l, 1);
     listRemove(l, 1);
     listRemove(l, 5);
-    printf("\n");
     listPrint(l);
+    printf("List length = %d\n\n", listLength(l));
 }
 
 int main(int argc, char **argv){

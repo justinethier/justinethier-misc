@@ -123,4 +123,13 @@ void listPrint(struct node *head){
     }
 }
 
-// TODO: length
+int listLength(struct node *head){
+    int count = -1;
+    
+    while (head){
+        head = head->next;
+        count++;
+    }
+
+    return count;
+}

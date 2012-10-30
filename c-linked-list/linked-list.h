@@ -41,7 +41,7 @@ struct node *list();
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void listRemove(struct node* ptr, int val);
+void listRemove(struct node* head, int val);
 void listReverse(struct node* head);
 int listCar(struct node *head);
 int listValue(struct node *head);
@@ -49,6 +49,7 @@ int listValue(struct node *head);
 //struct node *listCdr(struct node *head);
 //struct node *listRest(struct node *head);
 struct node *listFromArray(int *data, int length);
-void listPrint(struct node *ptr);
+void listPrint(struct node *head);
+int listLength(struct node *head);
 
 #endif
