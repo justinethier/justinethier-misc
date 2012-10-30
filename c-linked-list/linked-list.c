@@ -16,6 +16,15 @@ struct node *list(){
     return head;
 }
 
+void listDestroy(struct node *head){
+    struct node *tmp = head;
+    while (head){
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+}
+
 /**
  * Add a new node to the end of the linked list. Memory is 
  * allocated from the heap for the new node.
@@ -87,16 +96,17 @@ int listValue(struct node *head){
     return listCar(head);
 }
 
-/* TODO: need to take new head def into account
-// void listCdr
 struct node *listCdr(struct node *head){
     if (head == NULL) return NULL;
+
+    // No need to allocate a new head, we just
+    // ignore the next node's value and can 
+    // treat it as head
     return head->next;
 }
 struct node *listRest(struct node *head){
     return listCdr(head);
 }
-*/
 
 // void listCreate-from-array (name TBD)
 struct node *listFromArray(int *data, int length){

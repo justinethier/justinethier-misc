@@ -21,12 +21,15 @@ void test2(){
     //listDestroy(l);
 }
 
+// TODO: should use assert for tests
 void test(){
-    struct node* l = NULL;
+    struct node* l = NULL, *r;
     int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-
+//assert(0);
     l = listFromArray(data, 11);
     listPrint(l);
+    printf("List length = %d\n\n", listLength(l));
+    listDestroy(l);
 
     l = list();
     listAdd(l, 1);
@@ -39,9 +42,12 @@ void test(){
     listAdd(l, 5);
     listRemove(l, 2);
     listReverse(l);
-    printf("\n");
     listPrint(l);
     printf("List length = %d\n\n", listLength(l));
+
+    printf("Rest:\n");
+    listPrint(listRest(l));
+    printf("\n");
 
     listRemove(l, 1);
     listRemove(l, 1);

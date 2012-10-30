@@ -36,7 +36,7 @@ int listAdd(struct node *ptr, int val);
  * Create a new list
  */
 struct node *list();
-
+void listDestroy(struct node*);
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
@@ -45,9 +45,8 @@ void listRemove(struct node* head, int val);
 void listReverse(struct node* head);
 int listCar(struct node *head);
 int listValue(struct node *head);
-// TODO:
-//struct node *listCdr(struct node *head);
-//struct node *listRest(struct node *head);
+struct node *listCdr(struct node *head);
+struct node *listRest(struct node *head);
 struct node *listFromArray(int *data, int length);
 void listPrint(struct node *head);
 int listLength(struct node *head);
