@@ -8,49 +8,46 @@
 #include "linked-list.h"
 
 /**
+ * Create a new list
+ */
+struct node *list(){
+    struct node *head = (struct node *)malloc(sizeof(struct node));
+    head->next = NULL;
+    return head;
+}
+
+/**
  * Add a new node to the end of the linked list. Memory is 
  * allocated from the heap for the new node.
  *
  * Constructs a new linked list if a null pointer is passed.
  * Returns a pointer to the beginning of the modified list
  */
-struct node *listAdd(struct node *ptr, int val){
-    struct node *head = ptr;
-    if (ptr == NULL){
-        head = ptr = (struct node *)malloc(sizeof(struct node));
-    } else {
-        while (ptr->next != NULL) {
-            ptr = ptr->next;
-        }
-        ptr->next = (struct node *)malloc(sizeof(struct node));
+int listAdd(struct node *head, int val){
+    struct node *ptr = head;
+
+    if (ptr == NULL) return 0;
+
+    while (ptr->next != NULL) {
         ptr = ptr->next;
     }
+    ptr->next = (struct node *)malloc(sizeof(struct node));
+    ptr = ptr->next;
 
     ptr->next = NULL;
     ptr->val = val;
-    return head;
-}
 
-/**
- * Create a new list
- */
-struct node *list(int val){
-    return listAdd(NULL, val);
+    return 1;
 }
 
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-struct node* listRemove(struct node* ptr, int val){
-    struct node *head = ptr, *tmp;
+void listRemove(struct node* ptr, int val){
+    struct node *tmp;
 
-    if (head == NULL) return head;
-    if (head->val == val){
-        ptr = ptr->next;
-        free(head);
-        return ptr;
-    }
+    if (ptr == NULL) return;
 
     while(ptr->next != NULL){
         if (ptr->next->val == val){
@@ -62,30 +59,35 @@ struct node* listRemove(struct node* ptr, int val){
         }
     }
 
-    return head;
+    return;
 }
 
-struct node *listReverse(struct node* head){
-    struct node *new_head = NULL, *next;
+void listReverse(struct node* head){
+    struct node *ptr, *new_head = NULL, *next;
 
-    while (head){
-       next = head->next;
-       head->next = new_head;
-       new_head = head;
-       head = next;
+    if (head == NULL) return;
+    ptr = head->next;
+
+    while (ptr){
+       next = ptr->next;
+       ptr->next = new_head;
+       new_head = ptr;
+       ptr = next;
     }
-    return new_head;
+
+    head->next = new_head;
+    return;
 }
 
-// int listCar
 int listCar(struct node *head){
-    if (head == NULL) return -1;
-    return head->val;
+    if (head == NULL || head->next == NULL) return -1;
+    return head->next->val;
 }
 int listValue(struct node *head){
     return listCar(head);
 }
 
+/* TODO: need to take new head def into account
 // void listCdr
 struct node *listCdr(struct node *head){
     if (head == NULL) return NULL;
@@ -94,23 +96,31 @@ struct node *listCdr(struct node *head){
 struct node *listRest(struct node *head){
     return listCdr(head);
 }
+*/
 
 // void listCreate-from-array (name TBD)
 struct node *listFromArray(int *data, int length){
-    struct node *head = NULL;
+    struct node *l = list();
     int i;
+
     for (i = 0; i < length; i++){
-        head = listAdd(head, *data);
+        listAdd(l, *data);
         data++;
     }
 
-    return head;
+    return l;
 }
 
-void listPrint(struct node *ptr){
+void listPrint(struct node *head){
+    struct node *ptr;
+    
+    if (head == NULL) return;
+
+    ptr = head->next;
     while (ptr){
         printf("%d\n", ptr->val);
         ptr = ptr->next;
     }
 }
 
+// TODO: length

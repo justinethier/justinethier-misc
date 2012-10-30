@@ -7,39 +7,55 @@
 #include <stdlib.h>
 #include "linked-list.h"
 
+void test2(){
+    struct node *l;
+    l = list();
+    listAdd(l, 1);
+    listAdd(l, 2);
+    listAdd(l, 3);
+    listAdd(l, 3);
+    listAdd(l, 4);
+    listRemove(l, 3);
+    listReverse(l);
+    listPrint(l);
+    //listDestroy(l);
+}
+
 void test(){
-    struct node* head = NULL;
+    struct node* l = NULL;
     int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 
-    head = listFromArray(data, 11);
-    listPrint(head);
+    l = listFromArray(data, 11);
+    listPrint(l);
 
-    head = list(1);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 2);
-    listAdd(head, 3);
-    listAdd(head, 4);
-    listAdd(head, 5);
-    head = listRemove(head, 2);
-    head = listReverse(head);
+    l = list();
+    listAdd(l, 1);
+    listAdd(l, 2);
+    listAdd(l, 2);
+    listAdd(l, 2);
+    listAdd(l, 2);
+    listAdd(l, 3);
+    listAdd(l, 4);
+    listAdd(l, 5);
+    listRemove(l, 2);
+    listReverse(l);
     printf("\n");
-    listPrint(head);
+    listPrint(l);
 
     printf("\n");
-    listPrint( listRest(head) );
+    listPrint(l);
 
-    head = listRemove(head, 1);
-    head = listRemove(head, 1);
-    head = listRemove(head, 1);
-    head = listRemove(head, 5);
+    listRemove(l, 1);
+    listRemove(l, 1);
+    listRemove(l, 1);
+    listRemove(l, 5);
     printf("\n");
-    listPrint(head);
+    listPrint(l);
 }
 
 int main(int argc, char **argv){
+    test2();
+    printf("\n");
     test();
     return 1;
 }
