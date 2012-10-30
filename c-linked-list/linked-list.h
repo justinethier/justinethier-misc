@@ -9,6 +9,8 @@
 #ifndef __LINKED_LIST_HEADER__
 #define __LINKED_LIST_HEADER__
 
+// TODO: change this to store void pointers????
+
 /**
  * The basic structure that is used to build a list.
  * Each lists consists of a string of these nodes.
@@ -22,6 +24,8 @@ struct node {
     struct node *next;
     int val;
 };
+
+// TODO: comment each of the functions below
 
 /**
  * Add a new node to the end of the linked list. Memory is 
@@ -50,5 +54,22 @@ struct node *listRest(struct node *head);
 struct node *listFromArray(int *data, int length);
 void listPrint(struct node *head);
 int listLength(struct node *head);
+
+// TODO: remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)
+// cons (?)
+// set-car (?)
+// set-cdr (?)
+// append
+// list-ref
+// member
+// assoc (????)
+// 
+// Selected functions from SRFI-1
+// http://srfi.schemers.org/srfi-1/srfi-1.html#TheProcedures
+// iota
+// take
+// drop
+// split-at
+// last
 
 #endif
