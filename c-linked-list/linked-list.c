@@ -88,6 +88,10 @@ void listReverse(struct node* head){
     return;
 }
 
+int listIsEmpty(struct node *head){
+    return (head == NULL || head->next == NULL);
+}
+
 int listCar(struct node *head){
     if (head == NULL || head->next == NULL) return -1;
     return head->next->val;

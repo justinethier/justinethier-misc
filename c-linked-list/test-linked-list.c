@@ -3,13 +3,14 @@
  *
  * Written by Justin Ethier, 2012
  */
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "linked-list.h"
 
-void test2(){
-    struct node *l;
-    l = list();
+void testBasic(){
+    struct node *l = list();
+
     listAdd(l, 1);
     listAdd(l, 2);
     listAdd(l, 3);
@@ -17,8 +18,31 @@ void test2(){
     listAdd(l, 4);
     listRemove(l, 3);
     listReverse(l);
-    listPrint(l);
-    //listDestroy(l);
+    assert( 3 == listLength(l));
+    assert( 4 == listValue(l));
+    listDestroy(l);
+    printf("Passed testBasic()\n");
+}
+
+/**
+ * Test reading data from a list
+ */
+void testReading(){
+    struct node* l = list(), *lp;
+    int i, len = 100;
+    for (i = 0; i < len; i++){
+        listAdd(l, i);
+    }
+    lp = l;
+    i = 0;
+    while (!listIsEmpty(lp)){
+        assert( i == listCar(lp) );
+        lp = listCdr(lp);
+        i++;
+    }
+
+    listDestroy(l);
+    printf("Passed testReading()\n");
 }
 
 // TODO: should use assert for tests
@@ -58,7 +82,8 @@ void test(){
 }
 
 int main(int argc, char **argv){
-    test2();
+    testBasic();
+    testReading();
     printf("\n");
     test();
     return 1;
