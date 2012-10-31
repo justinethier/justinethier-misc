@@ -3,6 +3,7 @@
  *
  * Written by Justin Ethier, 2012
  */
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "linked-list.h"
@@ -18,7 +19,8 @@ void test2(){
     listRemove(l, 3);
     listReverse(l);
     listPrint(l);
-    //listDestroy(l);
+    assert( listLength(l) == 3);
+    listDestroy(l);
 }
 
 // TODO: should use assert for tests
