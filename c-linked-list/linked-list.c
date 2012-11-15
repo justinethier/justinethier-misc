@@ -71,20 +71,27 @@ void listRemove(struct node* ptr, int val){
     return;
 }
 
+
 void listReverse(struct node* head){
-    struct node *ptr, *new_head = NULL, *next;
+    struct node *ptr, *prev = NULL, *tmp;
 
     if (head == NULL) return;
     ptr = head->next;
 
+    // Change
+    //
+    //  prev => ptr => next
+    // to
+    //  prev <= ptr <= next
+    //
     while (ptr){
-       next = ptr->next;
-       ptr->next = new_head;
-       new_head = ptr;
-       ptr = next;
+       tmp = ptr->next;
+       ptr->next = prev;
+       prev = ptr;
+       ptr = tmp;
     }
 
-    head->next = new_head;
+    head->next = prev;
     return;
 }
 
