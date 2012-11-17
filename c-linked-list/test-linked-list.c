@@ -11,16 +11,16 @@
 void testBasic(){
     struct node *l = list();
 
-    listAdd(l, 1);
-    listAdd(l, 2);
-    listAdd(l, 3);
-    listAdd(l, 3);
-    listAdd(l, 4);
-    listRemove(l, 3);
-    listReverse(l);
-    assert( 3 == listLength(l));
-    assert( 4 == listValue(l));
-    listDestroy(l);
+    list_add(l, 1);
+    list_add(l, 2);
+    list_add(l, 3);
+    list_add(l, 3);
+    list_add(l, 4);
+    list_remove(l, 3);
+    list_reverse(l);
+    assert( 3 == list_length(l));
+    assert( 4 == list_value(l));
+    list_destroy(l);
     printf("Passed testBasic()\n");
 }
 
@@ -31,17 +31,17 @@ void testReading(){
     struct node* l = list(), *lp;
     int i, len = 100;
     for (i = 0; i < len; i++){
-        listAdd(l, i);
+        list_add(l, i);
     }
     lp = l;
     i = 0;
-    while (!listIsEmpty(lp)){
-        assert( i == listCar(lp) );
-        lp = listCdr(lp);
+    while (!list_is_empty(lp)){
+        assert( i == list_car(lp) );
+        lp = list_cdr(lp);
         i++;
     }
 
-    listDestroy(l);
+    list_destroy(l);
     printf("Passed testReading()\n");
 }
 
@@ -50,35 +50,35 @@ void test(){
     struct node* l = NULL, *r;
     int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 //assert(0);
-    l = listFromArray(data, 11);
-    listPrint(l);
-    printf("List length = %d\n\n", listLength(l));
-    listDestroy(l);
+    l = list_from_array(data, 11);
+    list_print(l);
+    printf("List length = %d\n\n", list_length(l));
+    list_destroy(l);
 
     l = list();
-    listAdd(l, 1);
-    listAdd(l, 2);
-    listAdd(l, 2);
-    listAdd(l, 2);
-    listAdd(l, 2);
-    listAdd(l, 3);
-    listAdd(l, 4);
-    listAdd(l, 5);
-    listRemove(l, 2);
-    listReverse(l);
-    listPrint(l);
-    printf("List length = %d\n\n", listLength(l));
+    list_add(l, 1);
+    list_add(l, 2);
+    list_add(l, 2);
+    list_add(l, 2);
+    list_add(l, 2);
+    list_add(l, 3);
+    list_add(l, 4);
+    list_add(l, 5);
+    list_remove(l, 2);
+    list_reverse(l);
+    list_print(l);
+    printf("List length = %d\n\n", list_length(l));
 
     printf("Rest:\n");
-    listPrint(listRest(l));
+    list_print(list_rest(l));
     printf("\n");
 
-    listRemove(l, 1);
-    listRemove(l, 1);
-    listRemove(l, 1);
-    listRemove(l, 5);
-    listPrint(l);
-    printf("List length = %d\n\n", listLength(l));
+    list_remove(l, 1);
+    list_remove(l, 1);
+    list_remove(l, 1);
+    list_remove(l, 5);
+    list_print(l);
+    printf("List length = %d\n\n", list_length(l));
 }
 
 int main(int argc, char **argv){

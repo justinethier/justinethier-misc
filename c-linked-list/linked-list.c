@@ -10,13 +10,15 @@
 /**
  * Create a new list
  */
-struct node *list(){
+struct node *list()
+{
     struct node *head = (struct node *)malloc(sizeof(struct node));
     head->next = NULL;
     return head;
 }
 
-void listDestroy(struct node *head){
+void list_destroy(struct node *head)
+{
     struct node *tmp = head;
     while (head){
         tmp = head;
@@ -32,7 +34,8 @@ void listDestroy(struct node *head){
  * Constructs a new linked list if a null pointer is passed.
  * Returns a pointer to the beginning of the modified list
  */
-int listAdd(struct node *head, int val){
+int list_add(struct node *head, int val)
+{
     struct node *ptr = head;
 
     if (ptr == NULL) return 0;
@@ -53,7 +56,8 @@ int listAdd(struct node *head, int val){
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void listRemove(struct node* ptr, int val){
+void list_remove(struct node* ptr, int val)
+{
     struct node *tmp;
 
     if (ptr == NULL) return;
@@ -72,7 +76,8 @@ void listRemove(struct node* ptr, int val){
 }
 
 
-void listReverse(struct node* head){
+void list_reverse(struct node* head)
+{
     struct node *ptr, *prev = NULL, *tmp;
 
     if (head == NULL) return;
@@ -95,19 +100,24 @@ void listReverse(struct node* head){
     return;
 }
 
-int listIsEmpty(struct node *head){
+int list_is_empty(struct node *head)
+{
     return (head == NULL || head->next == NULL);
 }
 
-int listCar(struct node *head){
+int list_car(struct node *head)
+{
     if (head == NULL || head->next == NULL) return -1;
     return head->next->val;
 }
-int listValue(struct node *head){
-    return listCar(head);
+
+int list_value(struct node *head)
+{
+    return list_car(head);
 }
 
-struct node *listCdr(struct node *head){
+struct node *list_cdr(struct node *head)
+{
     if (head == NULL) return NULL;
 
     // No need to allocate a new head, we just
@@ -115,24 +125,28 @@ struct node *listCdr(struct node *head){
     // treat it as head
     return head->next;
 }
-struct node *listRest(struct node *head){
-    return listCdr(head);
+
+struct node *list_rest(struct node *head)
+{
+    return list_cdr(head);
 }
 
 // void listCreate-from-array (name TBD)
-struct node *listFromArray(int *data, int length){
+struct node *list_from_array(int *data, int length)
+{
     struct node *l = list();
     int i;
 
     for (i = 0; i < length; i++){
-        listAdd(l, *data);
+        list_add(l, *data);
         data++;
     }
 
     return l;
 }
 
-void listPrint(struct node *head){
+void list_print(struct node *head)
+{
     struct node *ptr;
     
     if (head == NULL) return;
@@ -144,7 +158,8 @@ void listPrint(struct node *head){
     }
 }
 
-int listLength(struct node *head){
+int list_length(struct node *head)
+{
     int count = -1;
     
     while (head){

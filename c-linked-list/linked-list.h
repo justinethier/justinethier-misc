@@ -34,29 +34,29 @@ struct node {
  * Constructs a new linked list if a null pointer is passed.
  * Returns a pointer to the beginning of the modified list
  */
-int listAdd(struct node *ptr, int val);
+int list_add(struct node *ptr, int val);
 
 /**
  * Create a new list
  */
 struct node *list();
-void listDestroy(struct node*);
+void list_destroy(struct node*);
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void listRemove(struct node* head, int val);
+void list_remove(struct node* head, int val);
 
-int listIsEmpty(struct node *head);
-int listCar(struct node *head);
-int listValue(struct node *head);
+int list_is_empty(struct node *head);
+int list_car(struct node *head);
+int list_value(struct node *head);
 
-struct node *listCdr(struct node *head);
-struct node *listRest(struct node *head);
-struct node *listFromArray(int *data, int length);
-void listPrint(struct node *head);
-int listLength(struct node *head);
-void listReverse(struct node* head);
+struct node *list_cdr(struct node *head);
+struct node *list_rest(struct node *head);
+struct node *list_from_array(int *data, int length);
+void list_print(struct node *head);
+int list_length(struct node *head);
+void list_reverse(struct node* head);
 
 // TODO: remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)
 // cons (?)
