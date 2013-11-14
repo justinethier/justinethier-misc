@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Base and optional features</TITLE>
+<META NAME="description" CONTENT="Base and optional features">
+<META NAME="keywords" CONTENT="r7rs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="r7rs.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="node9.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html364"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html358"
+  HREF="node9.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html352"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html360"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html362"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html365"
+  HREF="node11.html">Error situations and unspecified</A>
+<B> Up:</B> <A NAME="tex2html359"
+  HREF="node9.html">Notation and terminology</A>
+<B> Previous:</B> <A NAME="tex2html353"
+  HREF="node9.html">Notation and terminology</A>
+ &nbsp; <B>  <A NAME="tex2html361"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html363"
+  HREF="node106.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00431000000000000000"></A>
+<A NAME="qualifiers"></A>
+<BR>
+Base and optional features
+</H2>
+<P>
+<SMALL CLASS="FOOTNOTESIZE">Every identifier defined in this report appears in one or more of several
+indexfile"libraries" "rm" main <EM>libraries</EM>.  Identifiers defined in the indexfile"base library" "rm" main <EM>base library</EM>
+are not marked specially in the body of the report.  
+This library includes the core syntax of Scheme
+and generally useful procedures that manipulate data.  For example, the
+variable `=13`<TT>&#18;abs</TT> is bound to a
+procedure of one argument that computes the absolute value of a
+number, and the variable `=13`<TT>&#18;+</TT> is bound to a procedure that computes
+sums.  The full list 
+all the standard libraries and the identifiers they export is given in
+Appendix&nbsp;<A HREF="node97.html#stdlibraries">A</A>.
+</SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE">All implementations of Scheme:
+</SMALL>
+<UL>
+<LI>Must provide the base library and all the identifiers
+exported from it.
+
+<P>
+</LI>
+<LI>May provide or omit the other
+libraries given in this report, but each library must either be provided
+in its entirety, exporting no additional identifiers, or else omitted
+altogether.
+
+<P>
+</LI>
+<LI>May provide other libraries not described in this report.
+
+<P>
+</LI>
+<LI>May also extend the function of any identifier in this
+report, provided the extensions are not in conflict with the language
+reported here.
+
+<P>
+</LI>
+<LI>Must support portable
+code by providing a mode of operation in which the lexical syntax does
+not conflict with the lexical syntax described in this report.
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html364"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html358"
+  HREF="node9.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html352"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html360"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html362"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html365"
+  HREF="node11.html">Error situations and unspecified</A>
+<B> Up:</B> <A NAME="tex2html359"
+  HREF="node9.html">Notation and terminology</A>
+<B> Previous:</B> <A NAME="tex2html353"
+  HREF="node9.html">Notation and terminology</A>
+ &nbsp; <B>  <A NAME="tex2html361"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html363"
+  HREF="node106.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Justin
+2013-11-14
+</ADDRESS>
+</BODY>
+</HTML>

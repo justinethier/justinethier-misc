@@ -1,0 +1,27 @@
+No implementation found for style `algol60'
+No implementation found for style `ulem'
+No implementation found for style `hyperref'
+
+redefining command \index 
+
+*** wrap_cmd_index not defined, cannot wrap \index 
+
+redefining command \bibname 
+
+Substitution of arg to newlabelxx delayed.
+
+? brace missing for \hspace
+
+? brace missing for \newedcommand
+couldn't convert character =grave into available encodings
+
+ ...set $ACCENT_IMAGES  to get an image 
+couldn't convert character inodot into available encodings
+
+*** Images are not strictly valid within HTML <pre> tags
+Please change your use of {tabbing} to a {tabular} environment.
+
+
+? brace missing for \setbox
+
+? brace missing for \mbox

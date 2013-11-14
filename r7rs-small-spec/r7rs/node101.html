@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Other language changes since RRS</TITLE>
+<META NAME="description" CONTENT="Other language changes since RRS">
+<META NAME="keywords" CONTENT="r7rs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="r7rs.css">
+
+<LINK REL="next" HREF="node102.html">
+<LINK REL="previous" HREF="node100.html">
+<LINK REL="up" HREF="node99.html">
+<LINK REL="next" HREF="node102.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1728"
+  HREF="node102.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1722"
+  HREF="node99.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1716"
+  HREF="node100.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1724"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html1726"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1729"
+  HREF="node102.html">Incompatibilities with RRS</A>
+<B> Up:</B> <A NAME="tex2html1723"
+  HREF="node99.html">Language changes</A>
+<B> Previous:</B> <A NAME="tex2html1717"
+  HREF="node100.html">Incompatibilities with RRS</A>
+ &nbsp; <B>  <A NAME="tex2html1725"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1727"
+  HREF="node106.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001302000000000000000"></A>
+<A NAME="differences"></A>
+<BR>
+Other language changes since R<SPAN CLASS="MATH"><IMG
+ WIDTH="593" HEIGHT="245" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$ ^{5}$"></SPAN>RS
+</H2><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+This section enumerates the additional differences between this report and
+the ``Revised<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img151.png"
+ ALT="$ ^5$"></SPAN> report''&nbsp;[<A
+ HREF="node105.html#R5RS">20</A>].
+</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><EM>This list is not authoritative, but is believed to be correct and complete.</EM>
+</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<UL>
+<LI>Various minor ambiguities and unclarities in R<SPAN CLASS="MATH"><IMG
+ WIDTH="593" HEIGHT="245" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$ ^{5}$"></SPAN>RS have been cleaned up.
+
+<P>
+</LI>
+<LI>Libraries have been added as a new program structure to improve
+encapsulation and sharing of code.  Some existing and new identifiers
+have been factored out into separate libraries.
+Libraries can be imported into other libraries or main programs, with
+controlled exposure and renaming of identifiers.
+The contents of a library can be made conditional on the features of
+the implementation on which it is to be used.
+There is an R<SPAN CLASS="MATH"><IMG
+ WIDTH="593" HEIGHT="245" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$ ^{5}$"></SPAN>RS compatibility library.
+
+<P>
+</LI>
+<LI>The expressions types `=13`<TT>&#18;include</TT>, `=13`<TT>&#18;include-ci</TT>, and `=13`<TT>&#18;cond-expand</TT>
+have been added to the base library; they have the same semantics as the
+corresponding library declarations.
+
+<P>
+</LI>
+<LI>Exceptions can now be signaled explicitly with `=13`<TT>&#18;raise</TT>,
+`=13`<TT>&#18;raise-continuable</TT> or `=13`<TT>&#18;error</TT>, and can be handled with `=13`<TT>&#18;with-exception-handler</TT> and the `=13`<TT>&#18;guard</TT> syntax.
+Any object can specify an error condition; the implementation-defined
+conditions signaled by `=13`<TT>&#18;error</TT> have a predicate to detect them and accessor functions to
+retrieve the arguments passed to `=13`<TT>&#18;error</TT>.
+Conditions signaled by `=13`<TT>&#18;read</TT> and by file-related procedures
+also have predicates to detect them.
+
+<P>
+</LI>
+<LI>New disjoint types supporting access to multiple fields can be
+generated with the `=13`<TT>&#18;define-record-type</TT> of SRFI 9&nbsp;[<A
+ HREF="node105.html#srfi9">19</A>]
+
+<P>
+</LI>
+<LI>Parameter objects can be created with `=13`<TT>&#18;make-parameter</TT>, and
+dynamically rebound with `=13`<TT>&#18;parameterize</TT>.
+The procedures `=13`<TT>&#18;current-input-port</TT> and `=13`<TT>&#18;current-output-port</TT> are now
+parameter objects, as is the newly introduced `=13`<TT>&#18;current-error-port</TT>.
+
+<P>
+</LI>
+<LI>Support for promises has been enhanced based on SRFI 45&nbsp;[<A
+ HREF="node105.html#srfi45">38</A>].
+
+<P>
+</LI>
+<LI><EM>Bytevectors</EM>, vectors of exact integers in the range
+from 0 to 255 inclusive, have been added as a new disjoint type.
+A subset of the vector procedures is provided.  Bytevectors
+can be converted to and from strings in accordance with the UTF-8 character encoding.
+Bytevectors have a datum representation and evaluate to themselves.
+
+<P>
+</LI>
+<LI>Vector constants evaluate to themselves.
+
+<P>
+</LI>
+<LI>The procedure `=13`<TT>&#18;read-line</TT> is provided to make line-oriented textual input
+simpler.
+
+<P>
+</LI>
+<LI>The procedure `=13`<TT>&#18;flush-output-port</TT> is provided to allow minimal
+control of output port buffering.
+
+<P>
+</LI>
+<LI><EM>Ports</EM> can now be designated as <EM>textual</EM> or <EM>binary</EM> ports, with new procedures for reading and writing binary
+data.
+The new predicates `=13`<TT>&#18;input-port-open?</TT> and `=13`<TT>&#18;output-port-open?</TT> return whether a port is open or closed.
+The new procedure `=13`<TT>&#18;close-port</TT> now closes a port; if the port
+has both input and output sides, both are closed.
+
+<P>
+</LI>
+<LI><EM>String ports</EM> have been added as a way to read and write
+characters to and from strings, and <EM>bytevector ports</EM> to read
+and write bytes to and from bytevectors.
+
+<P>
+</LI>
+<LI>There are now I/O procedures specific to strings and bytevectors.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;write</TT> procedure now generates datum labels when applied to
+circular objects.  The new procedure `=13`<TT>&#18;write-simple</TT> never generates
+labels; `=13`<TT>&#18;write-shared</TT> generates labels for all shared and circular
+structure.
+The `=13`<TT>&#18;display</TT> procedure must not loop on circular objects.
+
+<P>
+</LI>
+<LI>The R<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$ ^{6}$"></SPAN>RS procedure `=13`<TT>&#18;eof-object</TT> has been added.
+Eof-objects are now required to be a disjoint type.
+
+<P>
+</LI>
+<LI>Syntax definitions are now allowed wherever variable definitions are.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;syntax-rules</TT> construct now allows
+the ellipsis symbol to be specified explicitly instead of the default
+`=13`<TT>&#18;...</TT>, allows template escapes with an ellipsis-prefixed list, and
+allows tail patterns to follow an ellipsis pattern.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;syntax-error</TT> syntax has been added as a way to signal immediate
+and more informative errors when a macro is expanded.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;letrec*</TT> binding construct has been added, and internal `=13`<TT>&#18;define</TT> 
+is specified in terms of it.
+
+<P>
+</LI>
+<LI>Support for capturing multiple values has been enhanced with `=13`<TT>&#18;define-values</TT>, `=13`<TT>&#18;let-values</TT>, and `=13`<TT>&#18;let*-values</TT>.
+Standard expression types which contain a sequence of expressions now
+permit passing zero or more than one value to the continuations of all
+non-final expressions of the sequence.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;case</TT> conditional now supports <TT>=&gt;</TT> syntax
+analogous to `=13`<TT>&#18;cond</TT> not only in regular clauses but in the `=13`<TT>&#18;else</TT> clause as well.
+
+<P>
+</LI>
+<LI>To support dispatching on the number of arguments passed to a
+procedure, `=13`<TT>&#18;case-lambda</TT> has been added in its own library.
+
+<P>
+</LI>
+<LI>The convenience conditionals `=13`<TT>&#18;when</TT> and `=13`<TT>&#18;unless</TT> have been added.
+
+<P>
+</LI>
+<LI>The behavior of `=13`<TT>&#18;eqv?</TT> on inexact numbers now conforms to the
+R<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$ ^{6}$"></SPAN>RS definition.
+
+<P>
+</LI>
+<LI>When applied to procedures, `=13`<TT>&#18;eq?</TT> and `=13`<TT>&#18;eqv?</TT> are permitted to
+return different answers.
+
+<P>
+</LI>
+<LI>The R<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$ ^{6}$"></SPAN>RS procedures `=13`<TT>&#18;boolean=?</TT> and `=13`<TT>&#18;symbol=?</TT> have been added.
+
+<P>
+</LI>
+<LI>Positive infinity, negative infinity, NaN, and negative inexact zero have been added
+to the numeric tower as inexact values with the written
+representations <TT>+inf.0</TT>, <TT>-inf.0</TT>, <TT>+nan.0</TT>, and `=13`<TT>&#18;-0.0</TT>
+respectively.  Support for them is not required.
+The representation <TT>-nan.0</TT> is synonymous with <TT>+nan.0</TT>.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;log</TT> procedure now accepts a second argument specifying
+the logarithm base.
+
+<P>
+</LI>
+<LI>The procedures `=13`<TT>&#18;map</TT> and `=13`<TT>&#18;for-each</TT> are now required to terminate on
+the shortest argument list.
+
+<P>
+</LI>
+<LI>The procedures `=13`<TT>&#18;member</TT> and `=13`<TT>&#18;assoc</TT> now take an optional third argument
+specifying the equality predicate to be used.
+
+<P>
+</LI>
+<LI>The numeric procedures `=13`<TT>&#18;finite?</TT>, `=13`<TT>&#18;infinite?</TT>, `=13`<TT>&#18;nan?</TT>,
+`=13`<TT>&#18;exact-integer?</TT>, `=13`<TT>&#18;square</TT>, and `=13`<TT>&#18;exact-integer-sqrt</TT>
+have been added.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;-</TT> and `=13`<TT>&#18;/</TT> procedures
+and the character and string comparison
+predicates are now required to support more than two arguments.
+
+<P>
+</LI>
+<LI>The forms <TT>#true</TT> and <TT>#false</TT> are now supported
+as well as <TT>#t</TT> and <TT>#f</TT>.
+
+<P>
+</LI>
+<LI>The procedures `=13`<TT>&#18;make-list</TT>, `=13`<TT>&#18;list-copy</TT>, `=13`<TT>&#18;list-set!</TT>,
+`=13`<TT>&#18;string-map</TT>, `=13`<TT>&#18;string-for-each</TT>, `=13`<TT>&#18;string-&gt;vector</TT>, 
+`=13`<TT>&#18;vector-append</TT>,
+`=13`<TT>&#18;vector-copy</TT>, `=13`<TT>&#18;vector-map</TT>, `=13`<TT>&#18;vector-for-each</TT>, 
+`=13`<TT>&#18;vector-&gt;string</TT>, `=13`<TT>&#18;vector-copy!</TT>, and `=13`<TT>&#18;string-copy!</TT>
+have been added to round out the sequence operations.
+
+<P>
+</LI>
+<LI>Some string and vector procedures support processing of part of a string or vector using
+optional <I>start</I> and <I>end</I> arguments.
+
+<P>
+</LI>
+<LI>Some list procedures are now defined on circular lists.
+
+<P>
+</LI>
+<LI>Implementations may provide any subset of the full Unicode
+repertoire that includes ASCII, but implementations must support any
+such subset in a way consistent with Unicode.
+Various character and string procedures have been extended accordingly,
+and case conversion procedures added for strings.
+String comparison is no longer
+required to be consistent with character comparison, which is based
+solely on Unicode scalar values.
+The new `=13`<TT>&#18;digit-value</TT> procedure has been added to obtain the numerical
+value of a numeric character.
+
+<P>
+</LI>
+<LI>There are now two additional comment syntaxes: <TT>#;</TT> to
+skip the next datum, and <TT>#| ... |#</TT>
+for nestable block comments.
+
+<P>
+</LI>
+<LI>Data prefixed with datum labels <TT>#&lt;n&gt;=</TT> can be referenced
+with <TT>#&lt;n&gt;#</TT>, allowing for reading and writing of data with
+shared structure.
+
+<P>
+</LI>
+<LI>Strings and symbols now allow mnemonic and numeric escape
+sequences, and the list of named characters has been extended.
+
+<P>
+</LI>
+<LI>The procedures `=13`<TT>&#18;file-exists?</TT> and `=13`<TT>&#18;delete-file</TT> are available in the
+<TT>(scheme file)</TT> library.
+
+<P>
+</LI>
+<LI>An interface to the system environment, command line, and process exit status is
+available in the <TT>(scheme process-context)</TT> library.
+
+<P>
+</LI>
+<LI>Procedures for accessing time-related values are available in the
+<TT>(scheme time)</TT> library.
+
+<P>
+</LI>
+<LI>A less irregular set of integer division operators is provided
+with new and clearer names.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;load</TT> procedure now accepts a second argument specifying the environment to
+load into.
+
+<P>
+</LI>
+<LI>The `=13`<TT>&#18;call-with-current-continuation</TT> procedure now has the synonym
+`=13`<TT>&#18;call/cc</TT>.
+
+<P>
+</LI>
+<LI>The semantics of read-eval-print loops are now partly prescribed,
+requiring the redefinition of procedures, but not syntax keywords, to have retroactive effect.
+
+<P>
+</LI>
+<LI>The formal semantics now handles `=13`<TT>&#18;dynamic-wind</TT>.
+</LI>
+</UL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1728"
+  HREF="node102.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1722"
+  HREF="node99.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1716"
+  HREF="node100.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1724"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html1726"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1729"
+  HREF="node102.html">Incompatibilities with RRS</A>
+<B> Up:</B> <A NAME="tex2html1723"
+  HREF="node99.html">Language changes</A>
+<B> Previous:</B> <A NAME="tex2html1717"
+  HREF="node100.html">Incompatibilities with RRS</A>
+ &nbsp; <B>  <A NAME="tex2html1725"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1727"
+  HREF="node106.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Justin
+2013-11-14
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Whitespace and comments</TITLE>
+<META NAME="description" CONTENT="Whitespace and comments">
+<META NAME="keywords" CONTENT="r7rs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="r7rs.css">
+
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html464"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html458"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html452"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html460"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html462"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html465"
+  HREF="node18.html">Other notations</A>
+<B> Up:</B> <A NAME="tex2html459"
+  HREF="node15.html">Lexical conventions</A>
+<B> Previous:</B> <A NAME="tex2html453"
+  HREF="node16.html">Identifiers</A>
+ &nbsp; <B>  <A NAME="tex2html461"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html463"
+  HREF="node106.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00520000000000000000"></A>
+<A NAME="wscommentsection"></A>
+<BR>
+Whitespace and comments
+</H1><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>indexfile"Whitespace" "rm" main <EM>Whitespace</EM> characters include the space, tab, and newline characters.
+(Implementations may provide additional whitespace characters such
+as page break.)  Whitespace is used for improved readability and
+as necessary to separate tokens from each other, a token being an
+indivisible lexical unit such as an identifier or number, but is
+otherwise insignificant.  Whitespace can occur between any two tokens,
+but not within a token.  Whitespace occurring inside a string
+or inside a symbol delimited by vertical lines
+is significant.
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>The lexical syntax includes several comment forms.  
+Comments are treated exactly like whitespace.
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>A semicolon (<TT>;</TT>) indicates the start of a line
+comment.indexfile"comment" "rm" main <A NAME="_"></A>indexfile";" "tt" main   The comment continues to the
+end of the line on which the semicolon appears.  
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Another way to indicate a comment is to prefix a datum
+(cf. section&nbsp;<A HREF="node90.html#datumsyntax">7.1.2</A>) with <TT>#;</TT>indexfile";" "sharpfoo" aux  and optional
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL"><SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="16" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$ \langle$"></SPAN>whitespace<SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$ \rangle$"></SPAN></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>.  The comment consists of
+the comment prefix <TT>#;</TT>, the space, and the datum together.  This
+notation is useful for ``commenting out'' sections of code.
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Block comments are indicated with properly nested <TT>  #|</TT>indexfile"#"|@<TT><TT>#|</TT></TT>" "rm" aux indexfile""|#@<TT><TT>|#</TT></TT>" "rm" aux 
+and <TT>|#</TT> pairs.
+</TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+  <!-- MATH
+ $\Longrightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$ \Longrightarrow$"></SPAN>
+  
+<BR><!-- MATH
+ $\Longrightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$ \Longrightarrow$"></SPAN>
+  </TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+  <EM>unspecified</EM>
+  <EM>error</EM>
+  makeother^<SMALL CLASS="SMALL">`=13`<TT>&#18;
+<BR>
+  </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><PRE><TT>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr#|   The FACT procedure computes the factorial   of a non-negative integer.|#(define fact  (lambda (n)    (if (= n 0)        #;(= n 1)        1        ;Base case: return 1        (* n (fact (- n 1))))))</TT></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html464"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html458"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html452"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html460"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html462"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html465"
+  HREF="node18.html">Other notations</A>
+<B> Up:</B> <A NAME="tex2html459"
+  HREF="node15.html">Lexical conventions</A>
+<B> Previous:</B> <A NAME="tex2html453"
+  HREF="node16.html">Identifiers</A>
+ &nbsp; <B>  <A NAME="tex2html461"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html463"
+  HREF="node106.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Justin
+2013-11-14
+</ADDRESS>
+</BODY>
+</HTML>

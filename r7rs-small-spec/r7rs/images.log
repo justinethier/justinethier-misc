@@ -1,0 +1,3168 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.8.15)  14 NOV 2013 17:19
+entering extended mode
+ %&-line parsing enabled.
+**./images.tex
+(./images.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+
+(/home/justin/Documents/r7rs-small-spec/algol60.cls
+Document Class: algol60 1997/03/13 Algol 60 document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks14
+\ex@=\dimen103
+)) (/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen104
+) (/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen105
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip10
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks15
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks16
+\eqnshift@=\dimen106
+\alignsep@=\dimen107
+\tagshift@=\dimen108
+\tagwidth@=\dimen109
+\totwidth@=\dimen110
+\lineht@=\dimen111
+\@envbody=\toks17
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+\@indexfile=\write3
+\openout3 = `images.idx'.
+
+Writing index file images.idx
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 \let\hyper={\noindent
+                          {\hskip0.5em}{\rm$\langle$
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing control sequence inserted.
+<inserted text> 
+                \inaccessible 
+l.76 \newcommand $\rangle
+                         $}}{hyperi}[1]{\hyper{#1$_1$}}%
+Please don't say `\def cs{...}', say `\def\cs{...}'.
+I've inserted an inaccessible control sequence so that your
+definition will be completed without mixing me up too badly.
+You can recover graciously from this error, if you're
+careful; see exercise 27.2 in The TeXbook.
+
+! Extra }, or forgotten $.
+<recently read> }
+                 
+l.76 \newcommand $\rangle$}
+                           }{hyperi}[1]{\hyper{#1$_1$}}%
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Extra }, or forgotten $.
+l.76 \newcommand $\rangle$}}
+                            {hyperi}[1]{\hyper{#1$_1$}}%
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! You can't use `macro parameter character #' in math mode.
+l.76 \newcommand $\rangle$}}{hyperi}[1]{\hyper{#
+                                                1$_1$}}%
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.76 \newcommand $\rangle$}}{hyperi}[1]{\hyper{#1$
+                                                  _1$}}%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.76 \newcommand $\rangle$}}{hyperi}[1]{\hyper{#1$
+                                                  _1$}}%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.76 \newcommand $\rangle$}}{hyperi}[1]{\hyper{#1$
+                                                  _1$}}%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.76 ...command $\rangle$}}{hyperi}[1]{\hyper{#1$_
+                                                  1$}}%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Too many }'s.
+l.76 ...and $\rangle$}}{hyperi}[1]{\hyper{#1$_1$}}
+                                                  %
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! You can't use a prefix with `\par'.
+<to be read again> 
+                   \par 
+l.111 
+      
+I'll pretend you didn't say \long or \outer or \global.
+
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/ulem.sty
+\UL@box=\box28
+\UL@hyphenbox=\box29
+\UL@skip=\skip46
+\UL@hook=\toks19
+\UL@pe=\count100
+\UL@pixel=\dimen112
+\ULC@box=\box30
+Package: ulem 2000/05/26
+\ULdepth=\dimen113
+) (/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: dvips.def on input line 130.
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+) (/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks20
+) (/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode not detected.
+) (/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+) (/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+) (/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
+\@linkdim=\dimen114
+\Hy@linkcounter=\count101
+\Hy@pagecounter=\count102
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+) (/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+) (/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+) (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+))
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 3428.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+) (/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+) (/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)))
+\Fld@menulength=\count103
+\Field@Width=\dimen115
+\Fld@charsize=\dimen116
+\Field@toks=\toks21
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring OFF on input line 4397.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count104
+\c@Item=\count105
+\c@Hfootnote=\count106
+)
+*hyperref using default driver hdvips*
+(/usr/share/texmf-texlive/tex/latex/hyperref/hdvips.def
+File: hdvips.def 2009/10/09 v6.79a Hyperref driver for dvips
+(/usr/share/texmf-texlive/tex/latex/hyperref/pdfmark.def
+File: pdfmark.def 2009/10/09 v6.79a Hyperref definitions for pdfmark specials
+\pdf@docset=\toks22
+\pdf@box=\box31
+\pdf@toks=\toks23
+\pdf@defaulttoks=\toks24
+\Fld@listcount=\count107
+)) (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks25
+\inpenc@posthook=\toks26
+(/usr/share/texmf-texlive/tex/latex/base/latin1.def
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+\sizebox=\box32
+\lthtmlwrite=\write4
+(./images.aux)
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 426.
+LaTeX Font Info:    ... okay on input line 426.
+Package hyperref Info: Link coloring OFF on input line 426.
+(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count108
+)
+LaTeX Info: Redefining \ref on input line 426.
+LaTeX Info: Redefining \pageref on input line 426.
+\@outlinefile=\write5
+\openout5 = `images.out'.
+
+\AtBeginShipoutBox=\box33
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(/home/justin/Documents/r7rs-small-spec/r7rs.aux
+
+LaTeX Warning: Label `historysection' multiply defined.
+
+
+LaTeX Warning: Label `semanticsection' multiply defined.
+
+
+LaTeX Warning: Label `qualifiers' multiply defined.
+
+
+LaTeX Warning: Label `errorsituations' multiply defined.
+
+
+LaTeX Warning: Label `typeconventions' multiply defined.
+
+
+LaTeX Warning: Label `syntaxsection' multiply defined.
+
+
+LaTeX Warning: Label `wscommentsection' multiply defined.
+
+
+LaTeX Warning: Label `;' multiply defined.
+
+
+LaTeX Warning: Label `labelsection' multiply defined.
+
+
+LaTeX Warning: Label `basicchapter' multiply defined.
+
+
+LaTeX Warning: Label `specialformsection' multiply defined.
+
+
+LaTeX Warning: Label `variablesection' multiply defined.
+
+
+LaTeX Warning: Label `disjointness' multiply defined.
+
+
+LaTeX Warning: Label `externalreps' multiply defined.
+
+
+LaTeX Warning: Label `storagemodel' multiply defined.
+
+
+LaTeX Warning: Label `proper tail recursion' multiply defined.
+
+
+LaTeX Warning: Label `expressionchapter' multiply defined.
+
+
+LaTeX Warning: Label `primitivexps' multiply defined.
+
+
+LaTeX Warning: Label `literalsection' multiply defined.
+
+
+LaTeX Warning: Label `quote' multiply defined.
+
+
+LaTeX Warning: Label `'' multiply defined.
+
+
+LaTeX Warning: Label `lamba' multiply defined.
+
+
+LaTeX Warning: Label `lambda' multiply defined.
+
+
+LaTeX Warning: Label `if' multiply defined.
+
+
+LaTeX Warning: Label `assignment' multiply defined.
+
+
+LaTeX Warning: Label `set!' multiply defined.
+
+
+LaTeX Warning: Label `inclusion' multiply defined.
+
+
+LaTeX Warning: Label `include' multiply defined.
+
+
+LaTeX Warning: Label `derivedexps' multiply defined.
+
+
+LaTeX Warning: Label `cond' multiply defined.
+
+
+LaTeX Warning: Label `else' multiply defined.
+
+
+LaTeX Warning: Label `=>' multiply defined.
+
+
+LaTeX Warning: Label `case' multiply defined.
+
+
+LaTeX Warning: Label `and' multiply defined.
+
+
+LaTeX Warning: Label `or' multiply defined.
+
+
+LaTeX Warning: Label `when' multiply defined.
+
+
+LaTeX Warning: Label `unless' multiply defined.
+
+
+LaTeX Warning: Label `cond-expand' multiply defined.
+
+
+LaTeX Warning: Label `bindingsection' multiply defined.
+
+
+LaTeX Warning: Label `let' multiply defined.
+
+
+LaTeX Warning: Label `let*' multiply defined.
+
+
+LaTeX Warning: Label `letrec' multiply defined.
+
+
+LaTeX Warning: Label `letrec*' multiply defined.
+
+
+LaTeX Warning: Label `letrecstar' multiply defined.
+
+
+LaTeX Warning: Label `let-values' multiply defined.
+
+
+LaTeX Warning: Label `let*-values' multiply defined.
+
+
+LaTeX Warning: Label `sequencing' multiply defined.
+
+
+LaTeX Warning: Label `begin' multiply defined.
+
+
+LaTeX Warning: Label `do' multiply defined.
+
+
+LaTeX Warning: Label `namedlet' multiply defined.
+
+
+LaTeX Warning: Label `delay' multiply defined.
+
+
+LaTeX Warning: Label `delay-force' multiply defined.
+
+
+LaTeX Warning: Label `force' multiply defined.
+
+
+LaTeX Warning: Label `promise?' multiply defined.
+
+
+LaTeX Warning: Label `make-promise' multiply defined.
+
+
+LaTeX Warning: Label `make-parameter' multiply defined.
+
+
+LaTeX Warning: Label `parameterize' multiply defined.
+
+
+LaTeX Warning: Label `guard' multiply defined.
+
+
+LaTeX Warning: Label `quasiquotesection' multiply defined.
+
+
+LaTeX Warning: Label `quasiquote' multiply defined.
+
+
+LaTeX Warning: Label `,' multiply defined.
+
+
+LaTeX Warning: Label `,@' multiply defined.
+
+
+LaTeX Warning: Label ``' multiply defined.
+
+
+LaTeX Warning: Label `caselambdasection' multiply defined.
+
+
+LaTeX Warning: Label `case-lambda' multiply defined.
+
+
+LaTeX Warning: Label `macrosection' multiply defined.
+
+
+LaTeX Warning: Label `bindsyntax' multiply defined.
+
+
+LaTeX Warning: Label `let-syntax' multiply defined.
+
+
+LaTeX Warning: Label `letrec-syntax' multiply defined.
+
+
+LaTeX Warning: Label `patternlanguage' multiply defined.
+
+
+LaTeX Warning: Label `_' multiply defined.
+
+
+LaTeX Warning: Label `syntax-error' multiply defined.
+
+
+LaTeX Warning: Label `programchapter' multiply defined.
+
+
+LaTeX Warning: Label `import' multiply defined.
+
+
+LaTeX Warning: Label `defines' multiply defined.
+
+
+LaTeX Warning: Label `define' multiply defined.
+
+
+LaTeX Warning: Label `internaldefines' multiply defined.
+
+
+LaTeX Warning: Label `define-values' multiply defined.
+
+
+LaTeX Warning: Label `define-syntax' multiply defined.
+
+
+LaTeX Warning: Label `usertypes' multiply defined.
+
+
+LaTeX Warning: Label `define-record-type' multiply defined.
+
+
+LaTeX Warning: Label `libraries' multiply defined.
+
+
+LaTeX Warning: Label `define-library' multiply defined.
+
+
+LaTeX Warning: Label `librarydeclarations' multiply defined.
+
+
+LaTeX Warning: Label `initialenv' multiply defined.
+
+
+LaTeX Warning: Label `builtinchapter' multiply defined.
+
+
+LaTeX Warning: Label `equivalencesection' multiply defined.
+
+
+LaTeX Warning: Label `eqv?' multiply defined.
+
+
+LaTeX Warning: Label `eq?' multiply defined.
+
+
+LaTeX Warning: Label `equal?' multiply defined.
+
+
+LaTeX Warning: Label `numbersection' multiply defined.
+
+
+LaTeX Warning: Label `numericaltypes' multiply defined.
+
+
+LaTeX Warning: Label `exactly' multiply defined.
+
+
+LaTeX Warning: Label `restrictions' multiply defined.
+
+
+LaTeX Warning: Label `numbernotations' multiply defined.
+
+
+LaTeX Warning: Label `number?' multiply defined.
+
+
+LaTeX Warning: Label `complex?' multiply defined.
+
+
+LaTeX Warning: Label `real?' multiply defined.
+
+
+LaTeX Warning: Label `rational?' multiply defined.
+
+
+LaTeX Warning: Label `integer?' multiply defined.
+
+
+LaTeX Warning: Label `exact?' multiply defined.
+
+
+LaTeX Warning: Label `inexact?' multiply defined.
+
+
+LaTeX Warning: Label `exact-integer?' multiply defined.
+
+
+LaTeX Warning: Label `finite?' multiply defined.
+
+
+LaTeX Warning: Label `infinite?' multiply defined.
+
+
+LaTeX Warning: Label `nan?' multiply defined.
+
+
+LaTeX Warning: Label `=' multiply defined.
+
+
+LaTeX Warning: Label `<' multiply defined.
+
+
+LaTeX Warning: Label `>' multiply defined.
+
+
+LaTeX Warning: Label `<=' multiply defined.
+
+
+LaTeX Warning: Label `>=' multiply defined.
+
+
+LaTeX Warning: Label `zero?' multiply defined.
+
+
+LaTeX Warning: Label `positive?' multiply defined.
+
+
+LaTeX Warning: Label `negative?' multiply defined.
+
+
+LaTeX Warning: Label `odd?' multiply defined.
+
+
+LaTeX Warning: Label `even?' multiply defined.
+
+
+LaTeX Warning: Label `max' multiply defined.
+
+
+LaTeX Warning: Label `min' multiply defined.
+
+
+LaTeX Warning: Label `+' multiply defined.
+
+
+LaTeX Warning: Label `*' multiply defined.
+
+
+LaTeX Warning: Label `-' multiply defined.
+
+
+LaTeX Warning: Label `/' multiply defined.
+
+
+LaTeX Warning: Label `abs' multiply defined.
+
+
+LaTeX Warning: Label `floor/' multiply defined.
+
+
+LaTeX Warning: Label `floor-quotient' multiply defined.
+
+
+LaTeX Warning: Label `floor-remainder' multiply defined.
+
+
+LaTeX Warning: Label `truncate/' multiply defined.
+
+
+LaTeX Warning: Label `truncate-quotient' multiply defined.
+
+
+LaTeX Warning: Label `truncate-remainder' multiply defined.
+
+
+LaTeX Warning: Label `quotient' multiply defined.
+
+
+LaTeX Warning: Label `remainder' multiply defined.
+
+
+LaTeX Warning: Label `modulo' multiply defined.
+
+
+LaTeX Warning: Label `gcd' multiply defined.
+
+
+LaTeX Warning: Label `lcm' multiply defined.
+
+
+LaTeX Warning: Label `numerator' multiply defined.
+
+
+LaTeX Warning: Label `denominator' multiply defined.
+
+
+LaTeX Warning: Label `floor' multiply defined.
+
+
+LaTeX Warning: Label `ceiling' multiply defined.
+
+
+LaTeX Warning: Label `truncate' multiply defined.
+
+
+LaTeX Warning: Label `round' multiply defined.
+
+
+LaTeX Warning: Label `rationalize' multiply defined.
+
+
+LaTeX Warning: Label `exp' multiply defined.
+
+
+LaTeX Warning: Label `log' multiply defined.
+
+
+LaTeX Warning: Label `sin' multiply defined.
+
+
+LaTeX Warning: Label `cos' multiply defined.
+
+
+LaTeX Warning: Label `tan' multiply defined.
+
+
+LaTeX Warning: Label `asin' multiply defined.
+
+
+LaTeX Warning: Label `acos' multiply defined.
+
+
+LaTeX Warning: Label `atan' multiply defined.
+
+
+LaTeX Warning: Label `square' multiply defined.
+
+
+LaTeX Warning: Label `sqrt' multiply defined.
+
+
+LaTeX Warning: Label `exact-integer-sqrt' multiply defined.
+
+
+LaTeX Warning: Label `expt' multiply defined.
+
+
+LaTeX Warning: Label `make-rectangular' multiply defined.
+
+
+LaTeX Warning: Label `make-polar' multiply defined.
+
+
+LaTeX Warning: Label `real-part' multiply defined.
+
+
+LaTeX Warning: Label `imag-part' multiply defined.
+
+
+LaTeX Warning: Label `magnitude' multiply defined.
+
+
+LaTeX Warning: Label `angle' multiply defined.
+
+
+LaTeX Warning: Label `inexact' multiply defined.
+
+
+LaTeX Warning: Label `exact' multiply defined.
+
+
+LaTeX Warning: Label `number->string' multiply defined.
+
+
+LaTeX Warning: Label `string->number' multiply defined.
+
+
+LaTeX Warning: Label `booleansection' multiply defined.
+
+
+LaTeX Warning: Label `not' multiply defined.
+
+
+LaTeX Warning: Label `boolean?' multiply defined.
+
+
+LaTeX Warning: Label `boolean=?' multiply defined.
+
+
+LaTeX Warning: Label `listsection' multiply defined.
+
+
+LaTeX Warning: Label `pair?' multiply defined.
+
+
+LaTeX Warning: Label `cons' multiply defined.
+
+
+LaTeX Warning: Label `car' multiply defined.
+
+
+LaTeX Warning: Label `cdr' multiply defined.
+
+
+LaTeX Warning: Label `set-car!' multiply defined.
+
+
+LaTeX Warning: Label `set-cdr!' multiply defined.
+
+
+LaTeX Warning: Label `caar' multiply defined.
+
+
+LaTeX Warning: Label `cadr' multiply defined.
+
+
+LaTeX Warning: Label `cdar' multiply defined.
+
+
+LaTeX Warning: Label `cddr' multiply defined.
+
+
+LaTeX Warning: Label `caaar' multiply defined.
+
+
+LaTeX Warning: Label `caadr' multiply defined.
+
+
+LaTeX Warning: Label `cadar' multiply defined.
+
+
+LaTeX Warning: Label `caddr' multiply defined.
+
+
+LaTeX Warning: Label `cdaar' multiply defined.
+
+
+LaTeX Warning: Label `cdadr' multiply defined.
+
+
+LaTeX Warning: Label `cddar' multiply defined.
+
+
+LaTeX Warning: Label `cdddr' multiply defined.
+
+
+LaTeX Warning: Label `caaaar' multiply defined.
+
+
+LaTeX Warning: Label `caaadr' multiply defined.
+
+
+LaTeX Warning: Label `caadar' multiply defined.
+
+
+LaTeX Warning: Label `caaddr' multiply defined.
+
+
+LaTeX Warning: Label `cadaar' multiply defined.
+
+
+LaTeX Warning: Label `cadadr' multiply defined.
+
+
+LaTeX Warning: Label `caddar' multiply defined.
+
+
+LaTeX Warning: Label `cadddr' multiply defined.
+
+
+LaTeX Warning: Label `cdaaar' multiply defined.
+
+
+LaTeX Warning: Label `cdaadr' multiply defined.
+
+
+LaTeX Warning: Label `cdadar' multiply defined.
+
+
+LaTeX Warning: Label `cdaddr' multiply defined.
+
+
+LaTeX Warning: Label `cddaar' multiply defined.
+
+
+LaTeX Warning: Label `cddadr' multiply defined.
+
+
+LaTeX Warning: Label `cdddar' multiply defined.
+
+
+LaTeX Warning: Label `cddddr' multiply defined.
+
+
+LaTeX Warning: Label `null?' multiply defined.
+
+
+LaTeX Warning: Label `list?' multiply defined.
+
+
+LaTeX Warning: Label `make-list' multiply defined.
+
+
+LaTeX Warning: Label `list' multiply defined.
+
+
+LaTeX Warning: Label `length' multiply defined.
+
+
+LaTeX Warning: Label `append' multiply defined.
+
+
+LaTeX Warning: Label `reverse' multiply defined.
+
+
+LaTeX Warning: Label `list-tail' multiply defined.
+
+
+LaTeX Warning: Label `list-ref' multiply defined.
+
+
+LaTeX Warning: Label `list-set!' multiply defined.
+
+
+LaTeX Warning: Label `memq' multiply defined.
+
+
+LaTeX Warning: Label `memv' multiply defined.
+
+
+LaTeX Warning: Label `member' multiply defined.
+
+
+LaTeX Warning: Label `assq' multiply defined.
+
+
+LaTeX Warning: Label `assv' multiply defined.
+
+
+LaTeX Warning: Label `assoc' multiply defined.
+
+
+LaTeX Warning: Label `list-copy' multiply defined.
+
+
+LaTeX Warning: Label `symbolsection' multiply defined.
+
+
+LaTeX Warning: Label `symbol?' multiply defined.
+
+
+LaTeX Warning: Label `symbol=?' multiply defined.
+
+
+LaTeX Warning: Label `symbol->string' multiply defined.
+
+
+LaTeX Warning: Label `string->symbol' multiply defined.
+
+
+LaTeX Warning: Label `charactersection' multiply defined.
+
+
+LaTeX Warning: Label `char?' multiply defined.
+
+
+LaTeX Warning: Label `char=?' multiply defined.
+
+
+LaTeX Warning: Label `char<?' multiply defined.
+
+
+LaTeX Warning: Label `char>?' multiply defined.
+
+
+LaTeX Warning: Label `char<=?' multiply defined.
+
+
+LaTeX Warning: Label `char>=?' multiply defined.
+
+
+LaTeX Warning: Label `characterequality' multiply defined.
+
+
+LaTeX Warning: Label `char-ci=?' multiply defined.
+
+
+LaTeX Warning: Label `char-ci<?' multiply defined.
+
+
+LaTeX Warning: Label `char-ci>?' multiply defined.
+
+
+LaTeX Warning: Label `char-ci<=?' multiply defined.
+
+
+LaTeX Warning: Label `char-ci>=?' multiply defined.
+
+
+LaTeX Warning: Label `char-alphabetic?' multiply defined.
+
+
+LaTeX Warning: Label `char-numeric?' multiply defined.
+
+
+LaTeX Warning: Label `char-whitespace?' multiply defined.
+
+
+LaTeX Warning: Label `char-upper-case?' multiply defined.
+
+
+LaTeX Warning: Label `char-lower-case?' multiply defined.
+
+
+LaTeX Warning: Label `digit-value' multiply defined.
+
+
+LaTeX Warning: Label `char->integer' multiply defined.
+
+
+LaTeX Warning: Label `integer->char' multiply defined.
+
+
+LaTeX Warning: Label `char-upcase' multiply defined.
+
+
+LaTeX Warning: Label `char-downcase' multiply defined.
+
+
+LaTeX Warning: Label `char-foldcase' multiply defined.
+
+
+LaTeX Warning: Label `stringsection' multiply defined.
+
+
+LaTeX Warning: Label `string?' multiply defined.
+
+
+LaTeX Warning: Label `make-string' multiply defined.
+
+
+LaTeX Warning: Label `string' multiply defined.
+
+
+LaTeX Warning: Label `string-length' multiply defined.
+
+
+LaTeX Warning: Label `string-ref' multiply defined.
+
+
+LaTeX Warning: Label `string-set!' multiply defined.
+
+
+LaTeX Warning: Label `string=?' multiply defined.
+
+
+LaTeX Warning: Label `string-ci=?' multiply defined.
+
+
+LaTeX Warning: Label `string<?' multiply defined.
+
+
+LaTeX Warning: Label `string-ci<?' multiply defined.
+
+
+LaTeX Warning: Label `string>?' multiply defined.
+
+
+LaTeX Warning: Label `string-ci>?' multiply defined.
+
+
+LaTeX Warning: Label `string<=?' multiply defined.
+
+
+LaTeX Warning: Label `string-ci<=?' multiply defined.
+
+
+LaTeX Warning: Label `string>=?' multiply defined.
+
+
+LaTeX Warning: Label `string-ci>=?' multiply defined.
+
+
+LaTeX Warning: Label `string-upcase' multiply defined.
+
+
+LaTeX Warning: Label `string-downcase' multiply defined.
+
+
+LaTeX Warning: Label `string-foldcase' multiply defined.
+
+
+LaTeX Warning: Label `substring' multiply defined.
+
+
+LaTeX Warning: Label `string-append' multiply defined.
+
+
+LaTeX Warning: Label `string->list' multiply defined.
+
+
+LaTeX Warning: Label `list->string' multiply defined.
+
+
+LaTeX Warning: Label `string-copy' multiply defined.
+
+
+LaTeX Warning: Label `string-copy!' multiply defined.
+
+
+LaTeX Warning: Label `string-fill!' multiply defined.
+
+
+LaTeX Warning: Label `vectorsection' multiply defined.
+
+
+LaTeX Warning: Label `vector?' multiply defined.
+
+
+LaTeX Warning: Label `make-vector' multiply defined.
+
+
+LaTeX Warning: Label `vector' multiply defined.
+
+
+LaTeX Warning: Label `vector-length' multiply defined.
+
+
+LaTeX Warning: Label `vector-ref' multiply defined.
+
+
+LaTeX Warning: Label `vector-set!' multiply defined.
+
+
+LaTeX Warning: Label `vector->list' multiply defined.
+
+
+LaTeX Warning: Label `list->vector' multiply defined.
+
+
+LaTeX Warning: Label `vector->string' multiply defined.
+
+
+LaTeX Warning: Label `string->vector' multiply defined.
+
+
+LaTeX Warning: Label `vectortostring' multiply defined.
+
+
+LaTeX Warning: Label `vector-copy' multiply defined.
+
+
+LaTeX Warning: Label `vector-copy!' multiply defined.
+
+
+LaTeX Warning: Label `vector-append' multiply defined.
+
+
+LaTeX Warning: Label `vector-fill!' multiply defined.
+
+
+LaTeX Warning: Label `bytevectorsection' multiply defined.
+
+
+LaTeX Warning: Label `bytevector?' multiply defined.
+
+
+LaTeX Warning: Label `make-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `bytevector' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-length' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-u8-ref' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-u8-set!' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-copy' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-copy!' multiply defined.
+
+
+LaTeX Warning: Label `bytevector-append' multiply defined.
+
+
+LaTeX Warning: Label `utf8tostring' multiply defined.
+
+
+LaTeX Warning: Label `utf8->string' multiply defined.
+
+
+LaTeX Warning: Label `string->utf8' multiply defined.
+
+
+LaTeX Warning: Label `proceduresection' multiply defined.
+
+
+LaTeX Warning: Label `procedure?' multiply defined.
+
+
+LaTeX Warning: Label `apply' multiply defined.
+
+
+LaTeX Warning: Label `map' multiply defined.
+
+
+LaTeX Warning: Label `string-map' multiply defined.
+
+
+LaTeX Warning: Label `stringmap' multiply defined.
+
+
+LaTeX Warning: Label `vector-map' multiply defined.
+
+
+LaTeX Warning: Label `for-each' multiply defined.
+
+
+LaTeX Warning: Label `string-for-each' multiply defined.
+
+
+LaTeX Warning: Label `vector-for-each' multiply defined.
+
+
+LaTeX Warning: Label `call-with-current-continuation' multiply defined.
+
+
+LaTeX Warning: Label `call/cc' multiply defined.
+
+
+LaTeX Warning: Label `continuations' multiply defined.
+
+
+LaTeX Warning: Label `values' multiply defined.
+
+
+LaTeX Warning: Label `call-with-values' multiply defined.
+
+
+LaTeX Warning: Label `dynamic-wind' multiply defined.
+
+
+LaTeX Warning: Label `exceptionsection' multiply defined.
+
+
+LaTeX Warning: Label `with-exception-handler' multiply defined.
+
+
+LaTeX Warning: Label `raise' multiply defined.
+
+
+LaTeX Warning: Label `raise-continuable' multiply defined.
+
+
+LaTeX Warning: Label `error' multiply defined.
+
+
+LaTeX Warning: Label `error-object?' multiply defined.
+
+
+LaTeX Warning: Label `error-object-message' multiply defined.
+
+
+LaTeX Warning: Label `error-object-irritants' multiply defined.
+
+
+LaTeX Warning: Label `read-error?' multiply defined.
+
+
+LaTeX Warning: Label `file-error?' multiply defined.
+
+
+LaTeX Warning: Label `environment' multiply defined.
+
+
+LaTeX Warning: Label `environments' multiply defined.
+
+
+LaTeX Warning: Label `scheme-report-environment' multiply defined.
+
+
+LaTeX Warning: Label `null-environment' multiply defined.
+
+
+LaTeX Warning: Label `interaction-environment' multiply defined.
+
+
+LaTeX Warning: Label `eval' multiply defined.
+
+
+LaTeX Warning: Label `portsection' multiply defined.
+
+
+LaTeX Warning: Label `call-with-port' multiply defined.
+
+
+LaTeX Warning: Label `call-with-input-file' multiply defined.
+
+
+LaTeX Warning: Label `call-with-output-file' multiply defined.
+
+
+LaTeX Warning: Label `input-port?' multiply defined.
+
+
+LaTeX Warning: Label `output-port?' multiply defined.
+
+
+LaTeX Warning: Label `textual-port?' multiply defined.
+
+
+LaTeX Warning: Label `binary-port?' multiply defined.
+
+
+LaTeX Warning: Label `port?' multiply defined.
+
+
+LaTeX Warning: Label `input-port-open?' multiply defined.
+
+
+LaTeX Warning: Label `output-port-open?' multiply defined.
+
+
+LaTeX Warning: Label `current-input-port' multiply defined.
+
+
+LaTeX Warning: Label `current-output-port' multiply defined.
+
+
+LaTeX Warning: Label `current-error-port' multiply defined.
+
+
+LaTeX Warning: Label `with-input-from-file' multiply defined.
+
+
+LaTeX Warning: Label `with-output-to-file' multiply defined.
+
+
+LaTeX Warning: Label `open-input-file' multiply defined.
+
+
+LaTeX Warning: Label `open-binary-input-file' multiply defined.
+
+
+LaTeX Warning: Label `open-output-file' multiply defined.
+
+
+LaTeX Warning: Label `open-binary-output-file' multiply defined.
+
+
+LaTeX Warning: Label `close-port' multiply defined.
+
+
+LaTeX Warning: Label `close-input-port' multiply defined.
+
+
+LaTeX Warning: Label `close-output-port' multiply defined.
+
+
+LaTeX Warning: Label `open-input-string' multiply defined.
+
+
+LaTeX Warning: Label `open-output-string' multiply defined.
+
+
+LaTeX Warning: Label `get-output-string' multiply defined.
+
+
+LaTeX Warning: Label `open-input-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `open-output-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `get-output-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `inputsection' multiply defined.
+
+
+LaTeX Warning: Label `read' multiply defined.
+
+
+LaTeX Warning: Label `read-char' multiply defined.
+
+
+LaTeX Warning: Label `peek-char' multiply defined.
+
+
+LaTeX Warning: Label `read-line' multiply defined.
+
+
+LaTeX Warning: Label `eof-object?' multiply defined.
+
+
+LaTeX Warning: Label `eof-object' multiply defined.
+
+
+LaTeX Warning: Label `char-ready?' multiply defined.
+
+
+LaTeX Warning: Label `read-string' multiply defined.
+
+
+LaTeX Warning: Label `readstring' multiply defined.
+
+
+LaTeX Warning: Label `read-u8' multiply defined.
+
+
+LaTeX Warning: Label `peek-u8' multiply defined.
+
+
+LaTeX Warning: Label `u8-ready?' multiply defined.
+
+
+LaTeX Warning: Label `read-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `read-bytevector!' multiply defined.
+
+
+LaTeX Warning: Label `outputsection' multiply defined.
+
+
+LaTeX Warning: Label `write' multiply defined.
+
+
+LaTeX Warning: Label `write-shared' multiply defined.
+
+
+LaTeX Warning: Label `write-simple' multiply defined.
+
+
+LaTeX Warning: Label `display' multiply defined.
+
+
+LaTeX Warning: Label `newline' multiply defined.
+
+
+LaTeX Warning: Label `write-char' multiply defined.
+
+
+LaTeX Warning: Label `write-string' multiply defined.
+
+
+LaTeX Warning: Label `write-u8' multiply defined.
+
+
+LaTeX Warning: Label `write-bytevector' multiply defined.
+
+
+LaTeX Warning: Label `flush-output-port' multiply defined.
+
+
+LaTeX Warning: Label `load' multiply defined.
+
+
+LaTeX Warning: Label `file-exists?' multiply defined.
+
+
+LaTeX Warning: Label `delete-file' multiply defined.
+
+
+LaTeX Warning: Label `command-line' multiply defined.
+
+
+LaTeX Warning: Label `exit' multiply defined.
+
+
+LaTeX Warning: Label `emergency-exit' multiply defined.
+
+
+LaTeX Warning: Label `get-environment-variable' multiply defined.
+
+
+LaTeX Warning: Label `get-environment-variables' multiply defined.
+
+
+LaTeX Warning: Label `current-second' multiply defined.
+
+
+LaTeX Warning: Label `current-jiffy' multiply defined.
+
+
+LaTeX Warning: Label `jiffies-per-second' multiply defined.
+
+
+LaTeX Warning: Label `features' multiply defined.
+
+
+LaTeX Warning: Label `formalchapter' multiply defined.
+
+
+LaTeX Warning: Label `BNF' multiply defined.
+
+
+LaTeX Warning: Label `extendedalphas' multiply defined.
+
+
+LaTeX Warning: Label `identifiersyntax' multiply defined.
+
+
+LaTeX Warning: Label `charactersyntax' multiply defined.
+
+
+LaTeX Warning: Label `numbersyntax' multiply defined.
+
+
+LaTeX Warning: Label `datumsyntax' multiply defined.
+
+
+LaTeX Warning: Label `datum' multiply defined.
+
+
+LaTeX Warning: Label `formalsemanticssection' multiply defined.
+
+
+LaTeX Warning: Label `derivedsection' multiply defined.
+
+
+LaTeX Warning: Label `stdlibraries' multiply defined.
+
+
+LaTeX Warning: Label `stdfeatures' multiply defined.
+
+
+LaTeX Warning: Label `standard_features' multiply defined.
+
+
+LaTeX Warning: Label `incompatibilities' multiply defined.
+
+
+LaTeX Warning: Label `differences' multiply defined.
+
+
+LaTeX Warning: Label `SICP' multiply defined.
+
+
+LaTeX Warning: Label `Bawden88' multiply defined.
+
+
+LaTeX Warning: Label `rfc2119' multiply defined.
+
+
+LaTeX Warning: Label `howtoprint' multiply defined.
+
+
+LaTeX Warning: Label `howtoread' multiply defined.
+
+
+LaTeX Warning: Label `propertailrecursion' multiply defined.
+
+
+LaTeX Warning: Label `srfi6' multiply defined.
+
+
+LaTeX Warning: Label `RRRS' multiply defined.
+
+
+LaTeX Warning: Label `macrosthatwork' multiply defined.
+
+
+LaTeX Warning: Label `R4RS' multiply defined.
+
+
+LaTeX Warning: Label `uax29' multiply defined.
+
+
+LaTeX Warning: Label `syntacticabstraction' multiply defined.
+
+
+LaTeX Warning: Label `srfi4' multiply defined.
+
+
+LaTeX Warning: Label `Scheme311' multiply defined.
+
+
+LaTeX Warning: Label `Scheme84' multiply defined.
+
+
+LaTeX Warning: Label `life' multiply defined.
+
+
+LaTeX Warning: Label `IEEE' multiply defined.
+
+
+LaTeX Warning: Label `IEEEScheme' multiply defined.
+
+
+LaTeX Warning: Label `srfi9' multiply defined.
+
+
+LaTeX Warning: Label `R5RS' multiply defined.
+
+
+LaTeX Warning: Label `Kohlbecker86' multiply defined.
+
+
+LaTeX Warning: Label `hygienic' multiply defined.
+
+
+LaTeX Warning: Label `McCarthy' multiply defined.
+
+
+LaTeX Warning: Label `MITScheme' multiply defined.
+
+
+LaTeX Warning: Label `Naur63' multiply defined.
+
+
+LaTeX Warning: Label `Penfield81' multiply defined.
+
+
+LaTeX Warning: Label `Rees82' multiply defined.
+
+
+LaTeX Warning: Label `Rees84' multiply defined.
+
+
+LaTeX Warning: Label `R3RS' multiply defined.
+
+
+LaTeX Warning: Label `srfi1' multiply defined.
+
+
+LaTeX Warning: Label `Scheme78' multiply defined.
+
+
+LaTeX Warning: Label `Rabbit' multiply defined.
+
+
+LaTeX Warning: Label `R6RS' multiply defined.
+
+
+LaTeX Warning: Label `CLtL' multiply defined.
+
+
+LaTeX Warning: Label `Scheme75' multiply defined.
+
+
+LaTeX Warning: Label `Stoy77' multiply defined.
+
+
+LaTeX Warning: Label `TImanual85' multiply defined.
+
+
+LaTeX Warning: Label `srfi45' multiply defined.
+
+
+LaTeX Warning: Label `GasbichlerKnauelSperberKelsey2003' multiply defined.
+
+)
+
+latex2htmlLength hsize=167.0pt
+
+latex2htmlLength vsize=692.89876pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=5.0pt plus 2.0pt minus 2.0pt
+
+latex2htmlLength oddsidemargin=-36.135pt
+
+latex2htmlLength evensidemargin=-36.135pt
+
+[1
+
+
+]
+l2hSize :tex2html_wrap_inline71112:8.0pt::8.0pt::4.38893pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline71114:8.0pt::8.0pt::4.38893pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline71116:6.95831pt::6.95831pt::4.98616pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline71118:8.14003pt::0.0pt::5.53058pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_indisplay71120:75.0pt::75.0pt::377.20427pt.
+
+Overfull \hbox (31.20428pt too wide) in paragraph at lines 506--507
+[]|[] 
+
+\hbox(76.80006+77.10007)x349.0 []
+
+[6
+
+
+]
+l2hSize :tex2html_wrap_inline71123:8.14003pt::0.0pt::4.98616pt.
+[7
+
+
+]
+l2hSize :tex2html_wrap_inline71125:8.14003pt::0.0pt::4.98616pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline71135:8.14003pt::0.0pt::4.98616pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline71137:8.14003pt::0.0pt::4.98616pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline71164:6.45831pt::0.0pt::12.16664pt.
+[11
+
+
+]
+l2hSize :tex2html_wrap_inline71168:6.95831pt::6.95831pt::4.98616pt.
+[12
+
+
+]
+l2hSize :tex2html_wrap_indisplay71172:141.0pt::141.0pt::262.72284pt.
+[13
+
+
+]
+l2hSize :tex2html_wrap_inline71174:6.45831pt::0.0pt::22.48502pt.
+[14
+
+
+]
+l2hSize :tex2html_wrap_inline71176:6.94444pt::0.0pt::16.36351pt.
+[15
+
+
+]
+l2hSize :tex2html_wrap_inline71179:6.45831pt::0.0pt::16.61122pt.
+[16
+
+
+]
+l2hSize :tex2html_wrap_inline71192:8.0pt::8.0pt::3.27782pt.
+[17
+
+
+]
+l2hSize :tex2html_wrap_inline71198:6.94444pt::0.0pt::6.33339pt.
+[18
+
+
+]
+! Missing number, treated as zero.
+<to be read again> 
+                   \par 
+l.631 
+      
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! A <box> was supposed to be here.
+<to be read again> 
+                   \par 
+l.631 
+      
+I was expecting to see \hbox or \vbox or \copy or \box or
+something like that. So you might find something missing in
+your output. But keep trying; you can fix this later.
+
+l2hSize :tex2html_wrap_inline71276:6.45831pt::0.0pt::16.61122pt.
+[19
+
+
+]
+l2hSize :tex2html_wrap_inline71278:8.0pt::8.0pt::3.27782pt.
+[20
+
+
+]
+l2hSize :tex2html_wrap_inline71360:7.96227pt::0.0pt::7.13895pt.
+[21
+
+
+]
+l2hSize :tex2html_wrap_inline71607:6.45831pt::0.0pt::13.83327pt.
+[22
+
+
+]
+l2hSize :tex2html_wrap_inline71626:6.95831pt::6.95831pt::5.94336pt.
+[23
+
+
+]
+l2hSize :tex2html_wrap_inline71628:6.95831pt::6.95831pt::16.0684pt.
+[24
+
+
+]
+l2hSize :tex2html_wrap_inline71630:6.45831pt::0.0pt::6.50238pt.
+[25
+
+
+]
+l2hSize :tex2html_wrap_inline72070:6.83331pt::0.0pt::8.45834pt.
+[26
+
+
+]
+l2hSize :tex2html_wrap_inline72072:6.83331pt::0.0pt::8.30907pt.
+[27
+
+
+]
+l2hSize :tex2html_wrap_inline72084:7.33331pt::7.33331pt::11.4063pt.
+[28
+
+
+]
+l2hSize :tex2html_wrap_inline72086:6.45831pt::0.0pt::13.83327pt.
+[29
+
+
+]
+l2hSize :tex2html_wrap_inline72088:7.33331pt::7.33331pt::12.3635pt.
+[30
+
+
+]
+l2hSize :tex2html_wrap_inline72102:7.33331pt::7.33331pt::11.4063pt.
+[31
+
+
+]
+l2hSize :tex2html_wrap_inline72108:7.33331pt::7.33331pt::22.48854pt.
+[32
+
+
+]
+l2hSize :tex2html_wrap_inline72128:7.33331pt::7.33331pt::11.84033pt.
+[33
+
+
+]
+l2hSize :tex2html_wrap_inline72130:7.33331pt::7.33331pt::11.21428pt.
+[34
+
+
+]
+l2hSize :tex2html_wrap_inline72136:7.33331pt::7.33331pt::24.64133pt.
+[35
+
+
+]
+l2hSize :tex2html_wrap_inline72146:6.94444pt::0.0pt::6.02087pt.
+[36
+
+
+]
+l2hSize :tex2html_wrap_inline72152:7.44444pt::7.44444pt::27.02315pt.
+[37
+
+
+]
+l2hSize :tex2html_wrap_inline72156:6.95831pt::6.95831pt::27.50465pt.
+[38
+
+
+]
+l2hSize :tex2html_wrap_inline72170:7.33331pt::7.33331pt::11.21428pt.
+[39
+
+
+]
+l2hSize :tex2html_wrap_inline72182:7.33331pt::7.33331pt::11.9549pt.
+[40
+
+
+]
+l2hSize :tex2html_wrap_inline72599:6.95831pt::6.95831pt::14.33688pt.
+[41
+
+
+]
+l2hSize :tex2html_wrap_inline72601:6.45831pt::0.0pt::6.55908pt.
+[42
+
+
+]
+l2hSize :tex2html_wrap_inline72608:6.94444pt::0.0pt::5.47226pt.
+[43
+
+
+]
+l2hSize :tex2html_wrap_inline72612:8.0pt::8.0pt::113.04485pt.
+[44
+
+
+]
+l2hSize :tex2html_wrap_inline72617:6.45831pt::0.0pt::5.59033pt.
+[45
+
+
+]
+l2hSize :tex2html_wrap_inline72623:6.45831pt::0.0pt::6.2153pt.
+[46
+
+
+]
+l2hSize :tex2html_wrap_inline72669:6.95831pt::6.95831pt::9.63666pt.
+[47
+
+
+]
+l2hSize :tex2html_wrap_inline72671:6.95831pt::6.95831pt::9.63666pt.
+[48
+
+
+]
+l2hSize :tex2html_wrap_inline72673:6.95831pt::6.95831pt::9.63666pt.
+[49
+
+
+]
+l2hSize :tex2html_wrap_inline72677:6.95831pt::6.95831pt::10.70143pt.
+[50
+
+
+]
+l2hSize :tex2html_wrap_inline72679:6.95831pt::6.95831pt::10.70143pt.
+[51
+
+
+]
+l2hSize :tex2html_wrap_inline72681:6.95831pt::6.95831pt::10.70143pt.
+[52
+
+
+]
+l2hSize :tex2html_wrap_inline72771:6.95831pt::6.95831pt::10.98851pt.
+[53
+
+
+]
+l2hSize :tex2html_wrap_inline72773:6.95831pt::6.95831pt::10.98851pt.
+[54
+
+
+]
+l2hSize :tex2html_wrap_inline72797:6.95831pt::6.95831pt::10.91872pt.
+[55
+
+
+]
+l2hSize :tex2html_wrap_inline72799:6.95831pt::6.95831pt::10.93063pt.
+[56
+
+
+]
+! Missing } inserted.
+<inserted text> 
+                }
+l.948 $ {\noindent{\hskip0.5em}{$
+                                 n_1$\/}} = {\noindent{\hskip0.5em}{$n_2$\/}...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.948 $ {\noindent{\hskip0.5em}{$
+                                 n_1$\/}} = {\noindent{\hskip0.5em}{$n_2$\/}...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.948 $ {\noindent{\hskip0.5em}{$n_
+                                   1$\/}} = {\noindent{\hskip0.5em}{$n_2$\/}...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.949 \lthtmlinlinemathZ
+                        
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+l2hSize :tex2html_wrap_inline72801:0.0pt::0.0pt::0.0pt.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.950 \lthtmlcheckvsize
+                       \clearpage}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+[57
+
+
+]
+! Too many }'s.
+l.950 \lthtmlcheckvsize\clearpage}
+                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.954 $ {\noindent{\hskip0.5em}{$
+                                 n_r$\/}} = {\noindent{\hskip0.5em}{$n_1$\/}...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.954 $ {\noindent{\hskip0.5em}{$
+                                 n_r$\/}} = {\noindent{\hskip0.5em}{$n_1$\/}...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.954 $ {\noindent{\hskip0.5em}{$n_
+                                   r$\/}} = {\noindent{\hskip0.5em}{$n_1$\/}...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.955 \lthtmlinlinemathZ
+                        
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+l2hSize :tex2html_wrap_inline72831:0.0pt::0.0pt::0.0pt.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.956 \lthtmlcheckvsize
+                       \clearpage}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+[58
+
+
+]
+! Too many }'s.
+l.956 \lthtmlcheckvsize\clearpage}
+                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.960 $ {\noindent{\hskip0.5em}{$
+                                 n_q$\/}} = \lfloor{\noindent{\hskip0.5em}{$...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.960 $ {\noindent{\hskip0.5em}{$
+                                 n_q$\/}} = \lfloor{\noindent{\hskip0.5em}{$...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.960 $ {\noindent{\hskip0.5em}{$n_
+                                   q$\/}} = \lfloor{\noindent{\hskip0.5em}{$...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.960 ...noindent{\hskip0.5em}{$n_q$\/}} = \lfloor
+                                                  {\noindent{\hskip0.5em}{$n...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.960 ...q$\/}} = \lfloor{\noindent{\hskip0.5em}{$
+                                                  n_1$\/}} / {\noindent{\hsk...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.960 ...q$\/}} = \lfloor{\noindent{\hskip0.5em}{$
+                                                  n_1$\/}} / {\noindent{\hsk...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.960 ...\/}} = \lfloor{\noindent{\hskip0.5em}{$n_
+                                                  1$\/}} / {\noindent{\hskip...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Too many }'s.
+l.960 ...= \lfloor{\noindent{\hskip0.5em}{$n_1$\/}
+                                                  } / {\noindent{\hskip0.5em...
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Too many }'s.
+l.960 ... \lfloor{\noindent{\hskip0.5em}{$n_1$\/}}
+                                                   / {\noindent{\hskip0.5em}...
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.960 ... {\noindent{\hskip0.5em}{$n_2$\/}}\rfloor
+                                                  $%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Too many }'s.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.961 \lthtmlinlinemathZ
+                        
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_inline72835:0.0pt::0.0pt::0.0pt.
+[59
+
+
+]
+! Too many }'s.
+l.962 \lthtmlcheckvsize\clearpage}
+                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.966 $ {\noindent{\hskip0.5em}{$
+                                 n_q$\/}} =$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.966 $ {\noindent{\hskip0.5em}{$
+                                 n_q$\/}} =$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.966 $ {\noindent{\hskip0.5em}{$n_
+                                   q$\/}} =$%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.967 \lthtmlinlinemathZ
+                        
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+l2hSize :tex2html_wrap_inline72837:0.0pt::0.0pt::0.0pt.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.968 \lthtmlcheckvsize
+                       \clearpage}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+[60
+
+
+]
+! Too many }'s.
+l.968 \lthtmlcheckvsize\clearpage}
+                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.972 $ ({\noindent{\hskip0.5em}{$
+                                  n_1$\/}} / {\noindent{\hskip0.5em}{$n_2$\/...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.972 $ ({\noindent{\hskip0.5em}{$
+                                  n_1$\/}} / {\noindent{\hskip0.5em}{$n_2$\/...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.972 $ ({\noindent{\hskip0.5em}{$n_
+                                    1$\/}} / {\noindent{\hskip0.5em}{$n_2$\/...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.973 \lthtmlinlinemathZ
+                        
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+l2hSize :tex2html_wrap_inline72838:0.0pt::0.0pt::0.0pt.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.974 \lthtmlcheckvsize
+                       \clearpage}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+[61
+
+
+]
+! Too many }'s.
+l.974 \lthtmlcheckvsize\clearpage}
+                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_inline72894:6.95831pt::6.95831pt::5.32294pt.
+[62
+
+
+]
+l2hSize :tex2html_wrap_inline72920:6.95831pt::6.95831pt::5.76163pt.
+[63
+
+
+]
+l2hSize :tex2html_wrap_inline72922:6.95831pt::6.95831pt::9.49774pt.
+[64
+
+
+]
+l2hSize :tex2html_wrap_inline72924:6.95831pt::6.95831pt::9.49774pt.
+[65
+
+
+]
+l2hSize :tex2html_wrap_inline72926:8.0pt::8.0pt::46.29861pt.
+[66
+
+
+]
+l2hSize :tex2html_wrap_inline72928:8.0pt::8.0pt::46.29861pt.
+[67
+
+
+]
+l2hSize :tex2html_wrap_inline72930:8.0pt::8.0pt::43.97916pt.
+[68
+
+
+]
+l2hSize :tex2html_wrap_inline72932:8.0pt::8.0pt::42.84491pt.
+[69
+
+
+]
+l2hSize :tex2html_wrap_inline72934:8.0pt::8.0pt::15.50008pt.
+[70
+
+
+]
+l2hSize :tex2html_wrap_inline72936:8.0pt::8.0pt::15.50008pt.
+[71
+
+
+]
+l2hSize :tex2html_wrap_inline72938:8.0pt::8.0pt::15.50008pt.
+[72
+
+
+]
+l2hSize :tex2html_wrap_inline72942:8.0pt::8.0pt::15.50008pt.
+[73
+
+
+]
+l2hSize :tex2html_wrap_inline72948:8.0pt::8.0pt::33.83331pt.
+[74
+
+
+]
+l2hSize :tex2html_wrap_inline72984:8.7175pt::0.0pt::23.51398pt.
+[75
+
+
+]
+l2hSize :tex2html_wrap_inline72986:8.14003pt::0.0pt::24.62508pt.
+[76
+
+
+]
+l2hSize :tex2html_wrap_inline72988:8.1897pt::0.0pt::25.68066pt.
+[77
+
+
+]
+l2hSize :tex2html_wrap_inline72994:7.44444pt::7.44444pt::20.17365pt.
+[78
+
+
+]
+l2hSize :tex2html_wrap_inline73000:7.44444pt::7.44444pt::20.08336pt.
+[79
+
+
+]
+l2hSize :tex2html_wrap_inline73002:7.44444pt::7.44444pt::13.41672pt.
+[80
+
+
+]
+l2hSize :tex2html_wrap_inline73004:8.7175pt::0.0pt::30.2709pt.
+[81
+
+
+]
+l2hSize :tex2html_wrap_inline73006:8.14003pt::0.0pt::31.382pt.
+[82
+
+
+]
+l2hSize :tex2html_wrap_inline73008:8.1897pt::0.0pt::32.43759pt.
+[83
+
+
+]
+l2hSize :tex2html_wrap_indisplay73010:11.12154pt::11.12154pt::134.74434pt.
+[84
+
+
+]
+l2hSize :tex2html_wrap_indisplay73012:9.2175pt::9.2175pt::102.76732pt.
+[85
+
+
+]
+l2hSize :tex2html_wrap_indisplay73014:9.14003pt::9.14003pt::179.89786pt.
+[86
+
+
+]
+l2hSize :tex2html_wrap_inline73022:6.45831pt::0.0pt::5.2894pt.
+[87
+
+
+]
+l2hSize :tex2html_wrap_inline73024:6.95831pt::6.95831pt::31.87267pt.
+[88
+
+
+]
+l2hSize :tex2html_wrap_inline73026:6.95831pt::6.95831pt::32.32634pt.
+[89
+
+
+]
+l2hSize :tex2html_wrap_inline73028:6.45831pt::0.0pt::13.27785pt.
+[90
+
+
+]
+l2hSize :tex2html_wrap_inline73030:6.45831pt::0.0pt::5.50005pt.
+[91
+
+
+]
+l2hSize :tex2html_wrap_inline73032:6.95831pt::6.95831pt::39.65047pt.
+[92
+
+
+]
+l2hSize :tex2html_wrap_inline73036:6.95831pt::6.95831pt::21.05565pt.
+[93
+
+
+]
+l2hSize :tex2html_wrap_inline73040:6.95831pt::6.95831pt::39.65047pt.
+[94
+
+
+]
+l2hSize :tex2html_wrap_inline73044:6.95831pt::6.95831pt::21.05565pt.
+[95
+
+
+]
+l2hSize :tex2html_wrap_inline73046:6.95831pt::6.95831pt::31.87267pt.
+[96
+
+
+]
+l2hSize :tex2html_wrap_inline73050:7.4512pt::7.4512pt::52.06113pt.
+[97
+
+
+]
+l2hSize :tex2html_wrap_inline73054:6.45831pt::0.0pt::32.32634pt.
+[98
+
+
+]
+l2hSize :tex2html_wrap_inline73056:7.4512pt::7.4512pt::7.8275pt.
+[99
+
+
+]
+l2hSize :tex2html_wrap_inline73060:6.95831pt::6.95831pt::32.32634pt.
+[100
+
+
+]
+l2hSize :tex2html_wrap_inline73062:7.4512pt::7.4512pt::45.34236pt.
+[101
+
+
+]
+l2hSize :tex2html_wrap_inline73066:6.95831pt::6.95831pt::24.54854pt.
+[102
+
+
+]
+l2hSize :tex2html_wrap_inline73086:6.95831pt::6.95831pt::31.87267pt.
+[103
+
+
+]
+l2hSize :tex2html_wrap_inline73090:7.4512pt::7.4512pt::60.89796pt.
+[104
+
+
+]
+l2hSize :tex2html_wrap_inline73096:7.4512pt::7.4512pt::15.6053pt.
+[105
+
+
+]
+l2hSize :tex2html_wrap_inline73102:7.4512pt::7.4512pt::59.83893pt.
+[106
+
+
+]
+l2hSize :tex2html_wrap_inline73112:6.95831pt::6.95831pt::40.10414pt.
+[107
+
+
+]
+l2hSize :tex2html_wrap_inline73128:6.95831pt::6.95831pt::40.10414pt.
+[108
+
+
+]
+l2hSize :tex2html_wrap_inline73144:6.45831pt::0.0pt::24.54854pt.
+[109
+
+
+]
+l2hSize :tex2html_wrap_inline73252:6.45831pt::0.0pt::5.18753pt.
+[110
+
+
+]
+l2hSize :tex2html_wrap_inline73256:8.64003pt::8.64003pt::50.69472pt.
+[111
+
+
+]
+l2hSize :tex2html_wrap_inline73258:8.64003pt::8.64003pt::58.68317pt.
+[112
+
+
+]
+l2hSize :tex2html_wrap_indisplay73274:9.49002pt::9.49002pt::64.87184pt.
+[113
+
+
+]
+l2hSize :tex2html_wrap_inline73276:6.6428pt::0.0pt::10.10773pt.
+[114
+
+
+]
+l2hSize :tex2html_wrap_inline73278:6.45831pt::0.0pt::5.50005pt.
+[115
+
+
+]
+l2hSize :tex2html_wrap_inline73281:6.6428pt::0.0pt::17.88553pt.
+[116
+
+
+]
+l2hSize :tex2html_wrap_inline73289:6.95831pt::6.95831pt::10.70143pt.
+[117
+
+
+]
+! Missing } inserted.
+<inserted text> 
+                }
+l.1318 $\displaystyle {\noindent{\hskip0.5em}{$
+                                               z$\/}} = {\noindent{\hskip0.5...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1318 $\displaystyle {\noindent{\hskip0.5em}{$
+                                               z$\/}} = {\noindent{\hskip0.5...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Extra }, or forgotten $.
+l.1318 ...playstyle {\noindent{\hskip0.5em}{$z$\/}
+                                                  } = {\noindent{\hskip0.5em...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Extra }, or forgotten $.
+l.1318 ...laystyle {\noindent{\hskip0.5em}{$z$\/}}
+                                                   = {\noindent{\hskip0.5em}...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1318 ...5em}{$z$\/}} = {\noindent{\hskip0.5em}{$
+                                                  x_1$\/}} + {\noindent{\hsk...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1318 ...5em}{$z$\/}} = {\noindent{\hskip0.5em}{$
+                                                  x_1$\/}} + {\noindent{\hsk...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1318 ...m}{$z$\/}} = {\noindent{\hskip0.5em}{$x_
+                                                  1$\/}} + {\noindent{\hskip...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1319  = {\noindent{\hskip0.5em}{$x_3$\/}} \cdot
+                                                  e^{i x_4}$%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Too many }'s.
+\lthtmlindisplaymathZ ->\egroup 
+                                \centerinlinemath \lthtmllogmath \lthtmlsetm...
+l.1320 \lthtmlindisplaymathZ
+                            
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_indisplay73309:0.0pt::0.0pt::0.0pt.
+[118
+
+
+]
+! Too many }'s.
+l.1321 \lthtmlcheckvsize\clearpage}
+                                   
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1325 $ |{\noindent{\hskip0.5em}{$
+                                   x_3$\/}}|$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1325 $ |{\noindent{\hskip0.5em}{$
+                                   x_3$\/}}|$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1325 $ |{\noindent{\hskip0.5em}{$x_
+                                     3$\/}}|$%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.1326 \lthtmlinlinemathZ
+                         
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+l2hSize :tex2html_wrap_inline73337:0.0pt::0.0pt::0.0pt.
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1327 \lthtmlcheckvsize
+                        \clearpage}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+[119
+
+
+]
+! Too many }'s.
+l.1327 \lthtmlcheckvsize\clearpage}
+                                   
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_inline73341:6.95831pt::6.95831pt::26.5123pt.
+[120
+
+
+]
+l2hSize :tex2html_wrap_inline73343:6.95831pt::6.95831pt::73.07465pt.
+[121
+
+
+]
+! Missing } inserted.
+<inserted text> 
+                }
+l.1343 $ x_{angle} = {\noindent{\hskip0.5em}{$
+                                              x_4$\/}} + 2\pi n$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1343 $ x_{angle} = {\noindent{\hskip0.5em}{$
+                                              x_4$\/}} + 2\pi n$%
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1343 $ x_{angle} = {\noindent{\hskip0.5em}{$x_
+                                                4$\/}} + 2\pi n$%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1343 ...{\noindent{\hskip0.5em}{$x_4$\/}} + 2\pi
+                                                   n$%
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Too many }'s.
+\lthtmlinlinemathZ ->\egroup 
+                             \expandafter \ifdim \dp \sizebox >0pt \expandaf...
+l.1344 \lthtmlinlinemathZ
+                         
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_inline73345:0.0pt::0.0pt::0.0pt.
+[122
+
+
+]
+! Too many }'s.
+l.1345 \lthtmlcheckvsize\clearpage}
+                                   
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+l2hSize :tex2html_wrap_inline73362:6.94444pt::0.0pt::24.94055pt.
+[123
+
+
+]
+l2hSize :tex2html_wrap_inline73368:6.94444pt::0.0pt::34.74438pt.
+[124
+
+
+]
+l2hSize :tex2html_wrap_inline73380:7.09525pt::7.09525pt::28.16396pt.
+[125
+
+
+]
+l2hSize :tex2html_wrap_inline73421:6.95831pt::6.95831pt::4.98616pt.
+[126
+
+
+]
+! Missing number, treated as zero.
+<to be read again> 
+                   \par 
+l.1384 
+       
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! A <box> was supposed to be here.
+<to be read again> 
+                   \par 
+l.1384 
+       
+I was expecting to see \hbox or \vbox or \copy or \box or
+something like that. So you might find something missing in
+your output. But keep trying; you can fix this later.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \par 
+l.1388 
+       
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! A <box> was supposed to be here.
+<to be read again> 
+                   \par 
+l.1388 
+       
+I was expecting to see \hbox or \vbox or \copy or \box or
+something like that. So you might find something missing in
+your output. But keep trying; you can fix this later.
+
+l2hSize :tex2html_wrap_inline73502:15.05554pt::0.0pt::3.27782pt.
+[127
+
+
+]
+l2hSize :tex2html_wrap_indisplay73618:57.0pt::57.0pt::237.97197pt.
+[128
+
+
+]
+l2hSize :tex2html_wrap_indisplay73620:39.0pt::39.0pt::241.34497pt.
+[129
+
+
+]
+l2hSize :tex2html_wrap_inline73630:7.44444pt::7.44444pt::24.87277pt.
+[130
+
+
+]
+l2hSize :tex2html_wrap_inline73632:7.44444pt::7.44444pt::24.87277pt.
+[131
+
+
+]
+l2hSize :tex2html_wrap_inline73634:7.44444pt::7.44444pt::24.87277pt.
+[132
+
+
+]
+l2hSize :tex2html_wrap_inline73747:7.09525pt::7.09525pt::32.2913pt.
+[133
+
+
+]
+l2hSize :tex2html_wrap_inline73749:7.09525pt::7.09525pt::32.2913pt.
+[134
+
+
+]
+l2hSize :tex2html_wrap_inline73751:7.09525pt::7.09525pt::32.2913pt.
+[135
+
+
+]
+l2hSize :tex2html_wrap_inline73827:6.83331pt::0.0pt::7.72226pt.
+[136
+
+
+]
+l2hSize :tex2html_wrap_inline73829:6.45831pt::0.0pt::6.57294pt.
+[137
+
+
+]
+l2hSize :tex2html_wrap_inline73831:6.95831pt::6.95831pt::4.9271pt.
+[138
+
+
+]
+l2hSize :tex2html_wrap_inline74068:7.44444pt::7.44444pt::19.91048pt.
+[139
+
+
+]
+l2hSize :tex2html_wrap_inline74095:7.44444pt::7.44444pt::50.57063pt.
+[140
+
+
+]
+! Missing number, treated as zero.
+<to be read again> 
+                   \par 
+l.1524 
+       
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! A <box> was supposed to be here.
+<to be read again> 
+                   \par 
+l.1524 
+       
+I was expecting to see \hbox or \vbox or \copy or \box or
+something like that. So you might find something missing in
+your output. But keep trying; you can fix this later.
+
+l2hSize :tex2html_wrap_inline74636:6.45831pt::0.0pt::5.50005pt.
+[141
+
+
+]
+l2hSize :tex2html_wrap_inline74642:6.45831pt::0.0pt::5.50005pt.
+[142
+
+
+]
+l2hSize :tex2html_wrap_inline74648:6.45831pt::0.0pt::10.50006pt.
+[143
+
+
+]
+l2hSize :tex2html_wrap_inline74654:6.45831pt::0.0pt::10.50006pt.
+[144
+
+
+]
+l2hSize :tex2html_wrap_inline74660:6.83331pt::0.0pt::8.17018pt.
+[145
+
+
+]
+l2hSize :tex2html_wrap_inline74694:7.33331pt::7.33331pt::53.17007pt.
+[146
+
+
+]
+l2hSize :tex2html_wrap_inline75859:7.33331pt::7.33331pt::62.39009pt.
+[147
+
+
+]
+l2hSize :tex2html_wrap_inline75861:6.83331pt::0.0pt::9.05698pt.
+[148
+
+
+]
+l2hSize :tex2html_wrap_inline75963:7.33331pt::7.33331pt::26.27913pt.
+[149
+
+
+]
+l2hSize :tex2html_wrap_inline75987:7.33331pt::7.33331pt::26.27913pt.
+[150
+
+
+]
+l2hSize :tex2html_wrap_inline76861:8.14003pt::0.0pt::4.98616pt.
+[151
+
+
+]
+l2hSize :tex2html_wrap_inline76867:8.14003pt::0.0pt::4.98616pt.
+[152
+
+
+]
+l2hSize :tex2html_wrap_inline76895:8.14003pt::0.0pt::4.98616pt.
+[153
+
+
+]
+l2hSize :tex2html_wrap_indisplay76945:8.51782pt::8.51782pt::156.34119pt.
+[154
+
+
+]
+l2hSize :tex2html_wrap_inline76947:6.95831pt::6.95831pt::42.45718pt.
+[155
+
+
+]
+l2hSize :tex2html_wrap_inline76949:8.01782pt::8.01782pt::42.45718pt.
+[156
+
+
+]
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 1635.
+
+l2hSize :tex2html_wrap_indisplay76967:14.20952pt::14.20952pt::84.27823pt.
+[157
+
+
+]
+l2hSize :tex2html_wrap_indisplay76969:14.20952pt::14.20952pt::49.24817pt.
+[158
+
+
+]
+l2hSize :tex2html_wrap_inline76976:8.14003pt::0.0pt::4.98616pt.
+[159
+
+
+]
+l2hSize :tex2html_wrap_inline76980:8.14003pt::0.0pt::4.98616pt.
+[160
+
+
+] (./images.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5174 strings out of 495062
+ 71909 string characters out of 1182644
+ 160012 words of memory out of 3000000
+ 8304 multiletter control sequences out of 15000+50000
+ 6640 words of font info for 25 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 38i,11n,21p,292b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on images.dvi (160 pages, 108248 bytes).

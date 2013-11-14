@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Procedure calls</TITLE>
+<META NAME="description" CONTENT="Procedure calls">
+<META NAME="keywords" CONTENT="r7rs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="r7rs.css">
+
+<LINK REL="next" HREF="node31.html">
+<LINK REL="previous" HREF="node29.html">
+<LINK REL="up" HREF="node27.html">
+<LINK REL="next" HREF="node31.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html676"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html670"
+  HREF="node27.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html664"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html672"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html674"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html677"
+  HREF="node31.html">Procedures</A>
+<B> Up:</B> <A NAME="tex2html671"
+  HREF="node27.html">Primitive expression types</A>
+<B> Previous:</B> <A NAME="tex2html665"
+  HREF="node29.html">Literal expressions</A>
+ &nbsp; <B>  <A NAME="tex2html673"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html675"
+  HREF="node106.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00713000000000000000">
+Procedure calls</A>
+</H2><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+  <BR>
+<BR>
+<BR>
+<BR>`=13`<TT>&#18;=0.5em(operator operand<SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$ _1$"></SPAN> <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img21.png"
+ ALT="$ \ldots\,$"></SPAN>)</TT> </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL">syntax</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+<BR></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>A procedure call is written by enclosing in parentheses an
+expression for the procedure to be called followed by expressions for the arguments to be
+passed to it.  The operator and operand expressions are evaluated (in an
+unspecified order) and the resulting procedure is passed the resulting
+arguments.indexfile"call" "rm" main indexfile"procedure call" "rm" main 
+
+  <!-- MATH
+ $\Longrightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$ \Longrightarrow$"></SPAN>
+  
+<BR><!-- MATH
+ $\Longrightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$ \Longrightarrow$"></SPAN>
+  </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+  <EM>unspecified</EM>
+  <EM>error</EM>
+  makeother^<SMALL CLASS="SMALL">`=13`<TT>&#18;
+<BR>
+  </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><PRE><TT>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(+ 3 4)                          7((if <TT>#f</TT>+ *) 3 4)         12
+</TT></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>The procedures in this document are available as the values of variables exported by the
+standard libraries.  For example, the addition and multiplication
+procedures in the above examples are the values of the variables `=13`<TT>&#18;+</TT>
+and `=13`<TT>&#18;*</TT> in the base library.  New procedures are created by evaluating `=13`<TT>&#18;lambda</TT> expressions
+(see section&nbsp;<A HREF="node31.html#lambda">4.1.4</A>).
+</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Procedure calls can return any number of values (see indexfile"values" "tt" aux <TT>values</TT> in
+section&nbsp;<A HREF="node79.html#proceduresection">6.10</A>).
+Most of the procedures defined in this report return one
+value or, for procedures such as `=13`<TT>&#18;apply</TT>, pass on the values returned
+by a call to one of their arguments.
+Exceptions are noted in the individual descriptions.
+</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL"><EM>Note:</EM> In contrast to other dialects of Lisp, the order of
+evaluation is unspecified, and the operator expression and the operand
+expressions are always evaluated with the same evaluation rules.</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL"><EM>Note:</EM> Although the order of evaluation is otherwise unspecified, the effect of
+any concurrent evaluation of the operator and operand expressions is
+constrained to be consistent with some sequential order of evaluation.
+The order of evaluation may be chosen differently for each procedure call.</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL"><EM>Note:</EM> In many dialects of Lisp, the empty list, <TT>()</TT>, is a legitimate expression evaluating to itself.  In Scheme, it is an error.</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
+<BR></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html676"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html670"
+  HREF="node27.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html664"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html672"
+  HREF="node3.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A> 
+<A NAME="tex2html674"
+  HREF="node106.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="/usr/share/latex2html/icons/index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html677"
+  HREF="node31.html">Procedures</A>
+<B> Up:</B> <A NAME="tex2html671"
+  HREF="node27.html">Primitive expression types</A>
+<B> Previous:</B> <A NAME="tex2html665"
+  HREF="node29.html">Literal expressions</A>
+ &nbsp; <B>  <A NAME="tex2html673"
+  HREF="node3.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html675"
+  HREF="node106.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Justin
+2013-11-14
+</ADDRESS>
+</BODY>
+</HTML>
