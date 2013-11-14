@@ -1,0 +1,4390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 4.01">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+
+<title> Standard procedures</title>
+
+
+
+
+<div class="p"><!----></div>
+This chapter describes Scheme's built-in procedures.  
+
+<div class="p"><!----></div>
+The procedures  force,  promise?, and  make-promise are intimately associated
+with the expression types  delay and  delay-force, and are described
+with them in section&nbsp;.  In the same way, the procedure
+ make-parameter is intimately associated with the expression type
+ parameterize, and is described with it in section&nbsp;.
+
+<div class="p"><!----></div>
+A program can use a global variable definition to bind any variable.  It may
+subsequently alter any such binding by an assignment (see
+section&nbsp;).  These operations do not modify the behavior of
+any procedure defined in this report or imported from a library
+(see section&nbsp;).  Altering any global binding that has
+not been introduced by a definition has an unspecified effect on the
+behavior of the procedures defined in this chapter.
+
+<div class="p"><!----></div>
+When a procedure is said to return a  object,
+it means that the locations in the object are fresh.
+
+<div class="p"><!----></div>
+A  is a procedure that always returns a boolean
+value ( or ).  An  is
+the computational analogue of a mathematical equivalence relation; it is
+symmetric, reflexive, and transitive.  Of the equivalence predicates
+described in this section,  eq?&nbsp;is the finest or most
+discriminating,  equal?&nbsp;is the coarsest, and  eqv?&nbsp;is
+slightly less discriminating than  eq?.  
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  eqv? procedure defines a useful equivalence relation on objects.
+Briefly, it returns  if  and  are
+normally regarded as the same object.  This relation is left slightly
+open to interpretation, but the following partial specification of
+ eqv? holds for all implementations of Scheme.
+
+<div class="p"><!----></div>
+The  eqv? procedure returns  if:
+
+<div class="p"><!----></div>
+
+<ul>
+<li>  and  are both  or both .
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both symbols and are the same
+symbol according to the  symbol=? procedure
+(section&nbsp;).
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both exact numbers and
+are numerically equal (in the sense of ).
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both inexact numbers such that
+they are numerically equal (in the sense of )
+and they yield the same results (in the sense of  eqv?)
+when passed as arguments to any other procedure
+that can be defined as a finite composition of Scheme's standard
+arithmetic procedures, provided it does not result in a NaN value.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both characters and are the same
+character according to the  char=? procedure
+(section&nbsp;).
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both the empty list.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are pairs, vectors, bytevectors, records,
+or strings that denote the same location in the store
+(section&nbsp;).
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are procedures whose location tags are
+equal (section&nbsp;).
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+The  eqv? procedure returns  if:
+
+<div class="p"><!----></div>
+
+<ul>
+<li>  and  are of different types
+(section&nbsp;).
+<div class="p"><!----></div>
+</li>
+
+<li> one of  and  is  but the other is
+.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are symbols but are not the same
+symbol according to the  symbol=? procedure
+(section&nbsp;).
+<div class="p"><!----></div>
+</li>
+
+<li> one of  and  is an exact number but the other
+is an inexact number.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both exact numbers and
+are numerically unequal (in the sense of ).
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are both inexact numbers such that either
+they are numerically unequal (in the sense of ),
+or they do not yield the same results (in the sense of  eqv?)
+when passed as arguments to any other procedure
+that can be defined as a finite composition of Scheme's standard
+arithmetic procedures, provided it does not result in a NaN value.
+As an exception, the behavior of  eqv? is unspecified
+when both  and  are NaN.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are characters for which the  char=?
+procedure returns .
+<div class="p"><!----></div>
+</li>
+
+<li> one of  and  is the empty list but the other
+is not.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are pairs, vectors, bytevectors, records,
+or strings that denote distinct locations.
+<div class="p"><!----></div>
+</li>
+
+<li>  and  are procedures that would behave differently
+(return different values or have different side effects) for some arguments.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+(eqv? 'a 'a)                       
+(eqv? 'a 'b)                       
+(eqv? 2 2)                         
+(eqv? 2 2.0)                       
+(eqv? '() '())                     
+(eqv? 100000000 100000000)         
+(eqv? 0.0 +nan.0)                  
+(eqv? (cons 1 2) (cons 1 2))       
+(eqv? (lambda () 1)
+      (lambda () 2))               
+(let ((p (lambda (x) x)))
+  (eqv? p p))                      
+(eqv? #f 'nil)                    
+
+<div class="p"><!----></div>
+The following examples illustrate cases in which the above rules do
+not fully specify the behavior of  eqv?.  All that can be said
+about such cases is that the value returned by  eqv? must be a
+boolean.
+
+<div class="p"><!----></div>
+(eqv? "" "")               
+(eqv? '#() '#())           
+(eqv? (lambda (x) x)
+      (lambda (x) x))      
+(eqv? (lambda (x) x)
+      (lambda (y) y))      
+(eqv? 1.0e0 1.0f0)         
+(eqv? +nan.0 +nan.0)       
+
+<div class="p"><!----></div>
+Note that  (eqv? 0.0 -0.0) will return  if negative zero
+is distinguished, and  if negative zero is not distinguished.
+
+<div class="p"><!----></div>
+The next set of examples shows the use of  eqv?&nbsp;with procedures
+that have local state.  The  gen-counter procedure must return a distinct
+procedure every time, since each procedure has its own internal counter.
+The  gen-loser procedure, however, returns operationally equivalent procedures each time, since
+the local state does not affect the value or side effects of the
+procedures.  However,  eqv? may or may not detect this equivalence.
+
+<div class="p"><!----></div>
+(define gen-counter
+  (lambda ()
+    (let ((n 0))
+      (lambda () (set! n (+ n 1)) n))))
+(let ((g (gen-counter)))
+  (eqv? g g))             
+(eqv? (gen-counter) (gen-counter))
+                          
+(define gen-loser
+  (lambda ()
+    (let ((n 0))
+      (lambda () (set! n (+ n 1)) 27))))
+(let ((g (gen-loser)))
+  (eqv? g g))             
+(eqv? (gen-loser) (gen-loser))
+                          
+
+<div class="p"><!----></div>
+(letrec ((f (lambda () (if (eqv? f g) 'both 'f)))
+         (g (lambda () (if (eqv? f g) 'both 'g))))
+  (eqv? f g))
+                          
+
+<div class="p"><!----></div>
+(letrec ((f (lambda () (if (eqv? f g) 'f 'both)))
+         (g (lambda () (if (eqv? f g) 'g 'both))))
+  (eqv? f g))
+                          
+
+<div class="p"><!----></div>
+Since it is an error to modify constant objects (those returned by
+literal expressions), implementations may
+share structure between constants where appropriate.  Thus
+the value of  eqv? on constants is sometimes
+implementation-dependent.
+
+<div class="p"><!----></div>
+(eqv? '(a) '(a))                   
+(eqv? &#228;" &#228;")                     
+(eqv? '(b) (cdr '(a b)))	   
+(let ((x '(a)))
+  (eqv? x x))                      
+
+<div class="p"><!----></div>
+The above definition of  eqv? allows implementations latitude in
+their treatment of procedures and literals:  implementations may
+either detect or fail to detect that two procedures or two literals
+are equivalent to each other, and can decide whether or not to
+merge representations of equivalent objects by using the same pointer or
+bit pattern to represent both.
+
+<div class="p"><!----></div>
+If inexact numbers are represented as IEEE binary floating-point numbers,
+then an implementation of  eqv? that simply compares equal-sized
+inexact numbers for bitwise equality is correct by the above definition.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  eq?&nbsp;procedure is similar to  eqv?&nbsp;except that in some cases it is
+capable of discerning distinctions finer than those detectable by
+ eqv?.  It must always return  when  eqv?&nbsp;also
+would, but may return  in some cases where  eqv?&nbsp;would return .
+
+<div class="p"><!----></div>
+ On symbols, booleans, the empty list, pairs, and records,
+and also on non-empty
+strings, vectors, and bytevectors,  eq?&nbsp;and  eqv?&nbsp;are guaranteed to have the same
+behavior.  On procedures,  eq?&nbsp;must return true if the arguments' location
+tags are equal.  On numbers and characters,  eq?'s behavior is
+implementation-dependent, but it will always return either true or
+false.  On empty strings, empty vectors, and empty bytevectors,  eq? may also behave
+differently from  eqv?.
+
+<div class="p"><!----></div>
+(eq? 'a 'a)                       
+(eq? '(a) '(a))                   
+(eq? (list 'a) (list 'a))         
+(eq? &#228;" &#228;")                     
+(eq? "" "")                       
+(eq? '() '())                     
+(eq? 2 2)                         
+(eq? #A #A)   
+(eq? car car)                     
+(let ((n (+ 2 3)))
+  (eq? n n))        
+(let ((x '(a)))
+  (eq? x x))        
+(let ((x '#()))
+  (eq? x x))        
+(let ((p (lambda (x) x)))
+  (eq? p p))        
+
+<div class="p"><!----></div>
+ It will usually be possible to implement  eq?&nbsp;much
+more efficiently than  eqv?, for example, as a simple pointer
+comparison instead of as some more complicated operation.  One reason is
+that it is not always possible to compute  eqv?&nbsp;of two numbers in
+constant time, whereas  eq?&nbsp;implemented as pointer comparison will
+always finish in constant time.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  equal? procedure, when applied to pairs, vectors, strings and
+bytevectors, recursively compares them, returning  when the
+unfoldings of its arguments into (possibly infinite) trees are equal
+(in the sense of  equal?)
+as ordered trees, and  otherwise.  It returns the same as
+ eqv? when applied to booleans, symbols, numbers, characters,
+ports, procedures, and the empty list.  If two objects are  eqv?,
+they must be  equal? as well.  In all other cases,  equal?
+may return either  or .
+
+<div class="p"><!----></div>
+Even if its arguments are
+circular data structures,  equal?&nbsp;must always terminate.
+
+<div class="p"><!----></div>
+(equal? 'a 'a)                    
+(equal? '(a) '(a))                
+(equal? '(a (b) c)
+        '(a (b) c))               
+(equal? &#228;bc" &#228;bc")              
+(equal? 2 2)                      
+(equal? (make-vector 5 'a)
+        (make-vector 5 'a))       
+(equal? '#1=(a b . #1#)
+        '#2=(a b a b . #2#))      
+(equal? (lambda (x) x)
+        (lambda (y) y))    
+
+<div class="p"><!----></div>
+A rule of thumb is that objects are generally  equal? if they print
+the same.
+
+
+<div class="p"><!----></div>
+It is important to distinguish between mathematical numbers, the
+Scheme numbers that attempt to model them, the machine representations
+used to implement the Scheme numbers, and notations used to write numbers.
+This report uses the types <i>number</i>, <i>complex</i>, <i>real</i>,
+<i>rational</i>, and <i>integer</i> to refer to both mathematical numbers
+and Scheme numbers.  
+
+<div class="p"><!----></div>
+ Mathematically, numbers are arranged into a tower of subtypes
+in which each level is a subset of the level above it:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#175;number <br />
+&nbsp;complex number <br />
+&nbsp;real number <br />
+&nbsp;rational number <br />
+&nbsp;integer 
+
+
+<div class="p"><!----></div>
+For example, 3 is an integer.  Therefore 3 is also a rational,
+a real, and a complex number.  The same is true of the Scheme numbers
+that model 3.  For Scheme numbers, these types are defined by the
+predicates , , , ,
+and .
+
+<div class="p"><!----></div>
+There is no simple relationship between a number's type and its
+representation inside a computer.  Although most implementations of
+Scheme will offer at least two different representations of 3, these
+different representations denote the same integer.
+
+<div class="p"><!----></div>
+Scheme's numerical operations treat numbers as abstract data, as
+independent of their representation as possible.  Although an implementation
+of Scheme may use multiple internal representations of
+numbers, this ought not to be apparent to a casual programmer writing
+simple programs.
+
+<div class="p"><!----></div>
+ It is useful to distinguish between numbers that are
+represented exactly and those that might not be.  For example, indexes
+into data structures must be known exactly, as must some polynomial
+coefficients in a symbolic algebra system.  On the other hand, the
+results of measurements are inherently inexact, and irrational numbers
+may be approximated by rational and therefore inexact approximations.
+In order to catch uses of inexact numbers where exact numbers are
+required, Scheme explicitly distinguishes exact from inexact numbers.
+This distinction is orthogonal to the dimension of type.
+
+<div class="p"><!----></div>
+A Scheme number is
+<i>exact</i> if it was written as an exact constant or was derived from
+exact numbers using only exact operations.  A number is
+<i>inexact</i> if it was written as an inexact constant,
+if it was
+derived using inexact ingredients, or if it was derived using
+inexact operations. Thus inexactness is a contagious
+property of a number.
+In particular, an  has an exact real part
+and an exact imaginary part; all other complex numbers are .
+
+<div class="p"><!----></div>
+ If two implementations produce exact results for a
+computation that did not involve inexact intermediate results,
+the two ultimate results will be mathematically equal.  This is
+generally not true of computations involving inexact numbers
+since approximate methods such as floating-point arithmetic may be used,
+but it is the duty of each implementation to make the result as close as
+practical to the mathematically ideal result.
+
+<div class="p"><!----></div>
+ Rational operations such as  + should always produce
+exact results when given exact arguments.
+If the operation is unable to produce an exact result,
+then it may either report the violation of an implementation restriction
+or it may silently coerce its
+result to an inexact value.
+However,  (/&nbsp;3&nbsp;4) must not return the mathematically incorrect value  0.
+See section&nbsp;.
+
+<div class="p"><!----></div>
+ Except for , the operations described in
+this section must generally return inexact results when given any inexact
+arguments.  An operation may, however, return an exact result if it can
+prove that the value of the result is unaffected by the inexactness of its
+arguments.  For example, multiplication of any number by an exact zero
+may produce an exact zero result, even if the other argument is
+inexact.
+
+<div class="p"><!----></div>
+Specifically, the expression  (* 0 +inf.0) may return  0,
+or  +nan.0, or report that inexact numbers are not supported,
+or report that non-rational real numbers are not supported, or fail
+silently or noisily in other implementation-specific ways.
+
+<div class="p"><!----></div>
+ Implementations of Scheme are not required to implement the whole
+tower of subtypes given in section&nbsp;,
+but they must implement a coherent subset consistent with both the
+purposes of the implementation and the spirit of the Scheme language.
+For example, implementations in which all numbers are real,
+or in which non-real numbers are always inexact,
+or in which exact numbers are always integer,
+are still quite useful.
+
+<div class="p"><!----></div>
+ Implementations may also support only a limited range of numbers of
+any type, subject to the requirements of this section.  The supported
+range for exact numbers of any type may be different from the
+supported range for inexact numbers of that type.  For example,
+an implementation that uses IEEE binary double-precision floating-point numbers to represent all its
+inexact real numbers may also
+support a practically unbounded range of exact integers
+and rationals
+while limiting the range of inexact reals (and therefore
+the range of inexact integers and rationals)
+to the dynamic range of the IEEE binary double format.
+Furthermore,
+the gaps between the representable inexact integers and
+rationals are
+likely to be very large in such an implementation as the limits of this
+range are approached.
+
+<div class="p"><!----></div>
+ An implementation of Scheme must support exact integers
+throughout the range of numbers permitted as indexes of
+lists, vectors, bytevectors, and strings or that result from computing the length of
+one of these.  The , ,
+, and  procedures must return an exact
+integer, and it is an error to use anything but an exact integer as an
+index.  Furthermore, any integer constant within the index range, if
+expressed by an exact integer syntax, must be read as an exact
+integer, regardless of any implementation restrictions that apply
+outside this range.  Finally, the procedures listed below will always
+return exact integer results provided all their arguments are exact integers
+and the mathematically expected results are representable as exact integers
+within the implementation:
+
+<div class="p"><!----></div>
+-                     *
++                     abs
+ceiling               denominator
+exact-integer-sqrt    expt
+floor                 floor/
+floor-quotient        floor-remainder
+gcd                   lcm
+max                   min
+modulo                numerator
+quotient              rationalize
+remainder             round
+square                truncate
+truncate/             truncate-quotient
+truncate-remainder
+
+
+<div class="p"><!----></div>
+ It is recommended, but not required, that implementations support
+exact integers and exact rationals of
+practically unlimited size and precision, and to implement the
+above procedures and the  / procedure in
+such a way that they always return exact results when given exact
+arguments.  If one of these procedures is unable to deliver an exact
+result when given exact arguments, then it may either report a
+violation of an
+implementation restriction or it may silently coerce its result to an
+inexact number; such a coercion can cause an error later.
+Nevertheless, implementations that do not provide exact rational
+numbers should return inexact rational numbers rather than
+reporting an implementation restriction.
+
+<div class="p"><!----></div>
+ An implementation may use floating-point and other approximate 
+representation strategies for inexact numbers.
+This report recommends, but does not require, that 
+implementations that use
+floating-point representations
+follow the IEEE 754 standard,
+and that implementations using
+other representations should match or exceed the precision achievable
+using these floating-point standards&nbsp;.
+In particular, the description of transcendental functions in IEEE 754-2008
+should be followed by such implementations, particularly with respect
+to infinities and NaNs.
+
+<div class="p"><!----></div>
+Although Scheme allows a variety of written
+notations for
+numbers, any particular implementation may support only some of them.
+For example, an implementation in which all numbers are real
+need not support the rectangular and polar notations for complex
+numbers.  If an implementation encounters an exact numerical constant that
+it cannot represent as an exact number, then it may either report a
+violation of an implementation restriction or it may silently represent the
+constant by an inexact number.
+
+<div class="p"><!----></div>
+ Implementations may provide more than one representation of
+floating-point numbers with differing precisions.  In an implementation
+which does so, an inexact result must be represented with at least
+as much precision as is used to express any of the inexact arguments
+to that operation.  Although it is desirable for potentially inexact
+operations such as  sqrt to produce exact answers when
+applied to exact arguments, if an exact number is operated
+upon so as to produce an inexact result, then the most precise
+representation available must be used.  For example, the value of 
+(sqrt 4) should be  2, but in an implementation that provides both
+single and double precision floating point numbers it may be the latter
+but must not be the former.
+
+<div class="p"><!----></div>
+It is the programmer's responsibility to avoid using inexact
+number objects with magnitude or significand too large to be
+represented in the implementation.
+
+<div class="p"><!----></div>
+In addition, implementations may
+distinguish special numbers called positive infinity,
+negative infinity, NaN, and negative zero.
+
+<div class="p"><!----></div>
+Positive infinity is regarded as an inexact real (but not rational)
+number that represents an indeterminate value greater than the
+numbers represented by all rational numbers. Negative infinity
+is regarded as an inexact real (but not rational) number that
+represents an indeterminate value less than the numbers represented
+by all rational numbers.
+
+<div class="p"><!----></div>
+Adding or multiplying an infinite value by any finite real value results
+in an appropriately signed infinity; however, the sum of positive and
+negative infinities is a NaN.  Positive infinity is the reciprocal
+of zero, and negative infinity is the reciprocal of negative zero.
+The behavior of the transcendental functions is sensitive to infinity
+in accordance with IEEE 754.
+
+<div class="p"><!----></div>
+A NaN is regarded as an inexact real (but not rational) number
+so indeterminate that it might represent any real value, including
+positive or negative infinity, and might even be greater than positive
+infinity or less than negative infinity.
+An implementation that does not support non-real numbers may use NaN
+to represent non-real values like  (sqrt -1.0) and  (asin 2.0).
+
+<div class="p"><!----></div>
+A NaN always compares false to any number, including a NaN.  
+An arithmetic operation where one operand is NaN returns NaN, unless the
+implementation can prove that the result would be the same if the NaN
+were replaced by any rational number.  Dividing zero by zero results in
+NaN unless both zeros are exact.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Negative zero is an inexact real value written  -0.0 and is distinct
+(in the sense of  eqv?) from  0.0.  A Scheme implementation
+is not required to distinguish negative zero.  If it does, however, the
+behavior of the transcendental functions is sensitive to the distinction
+in accordance with IEEE 754.
+Specifically, in a Scheme implementing both complex numbers and negative zero,
+the branch cut of the complex logarithm function is such that
+ (imag-part (log -1.0-0.0i)) is &#8722;&#960; rather than &#960;.
+
+<div class="p"><!----></div>
+Furthermore, the negation of negative zero is ordinary zero and vice
+versa.  This implies that the sum of two or more negative zeros is negative,
+and the result of subtracting (positive) zero from a negative zero is
+likewise negative.  However, numerical comparisons treat negative zero
+as equal to zero.
+
+<div class="p"><!----></div>
+Note that both the real and the imaginary parts of a complex number
+can be infinities, NaNs, or negative zero.
+
+<div class="p"><!----></div>
+The syntax of the written representations for numbers is described formally in
+section&nbsp;.  Note that case is not significant in numerical
+constants.
+
+<div class="p"><!----></div>
+A number can be written in binary, octal, decimal, or
+hexadecimal by the use of a radix prefix.  The radix prefixes are 
+#b (binary),  #o (octal), 
+#d (decimal), and  #x (hexadecimal).  With
+no radix prefix, a number is assumed to be expressed in decimal.
+
+<div class="p"><!----></div>
+A
+numerical constant can be specified to be either exact or
+inexact by a prefix.  The prefixes are  #e
+for exact, and  #i for inexact.  An exactness
+prefix can appear before or after any radix prefix that is used.  If
+the written representation of a number has no exactness prefix, the
+constant is
+inexact if it contains a decimal point or an
+exponent.
+Otherwise, it is exact.
+
+<div class="p"><!----></div>
+In systems with inexact numbers
+of varying precisions it can be useful to specify
+the precision of a constant.  For this purpose,
+implementations may accept numerical constants
+written with an exponent marker that indicates the
+desired precision of the inexact
+representation.  If so, the letter  s,  f,
+ d, or  l, meaning , ,
+, or  precision, respectively,
+can be used in place of  e.
+The default precision has at least as much precision
+as , but
+implementations may allow this default to be set by the user.
+
+<div class="p"><!----></div>
+3.14159265358979F0
+       <span class="roman">Round to single -</span> 3.141593
+0.6L0
+       <span class="roman">Extend to long -</span> .600000000000000
+
+<div class="p"><!----></div>
+The numbers positive infinity, negative infinity, and NaN are written
+ +inf.0,  -inf.0 and  +nan.0 respectively.
+NaN may also be written  -nan.0.
+The use of signs in the written representation does not necessarily
+reflect the underlying sign of the NaN value, if any.
+Implementations are not required to support these numbers, but if they do,
+they must do so in general conformance with IEEE 754.  However, implementations
+are not required to support signaling NaNs, nor to provide a way to distinguish
+between different NaNs.
+
+<div class="p"><!----></div>
+There are two notations provided for non-real complex numbers:
+the 
+,
+where  is the real part and  is the imaginary part;
+and the 
+&#952;,
+where  is the magnitude and &#952; is the phase (angle) in radians.
+These are related by the equation
+a+b<span class="roman">i</span> = r cos&#952;+ (r sin&#952;) <span class="roman">i</span>.
+All of , , , and &#952; are real numbers.
+
+<div class="p"><!----></div>
+The reader is referred to section&nbsp; for a summary
+of the naming conventions used to specify restrictions on the types of
+arguments to numerical routines.
+The examples used in this section assume that any numerical constant written
+using an exact notation is indeed represented as an exact
+number.  Some examples also assume that certain numerical constants written
+using an inexact notation can be represented without loss of
+accuracy; the inexact constants were chosen so that this is
+likely to be true in implementations that use IEEE binary doubles to represent
+inexact numbers.
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These numerical type predicates can be applied to any kind of
+argument, including non-numbers.  They return  if the object is
+of the named type, and otherwise they return .
+In general, if a type predicate is true of a number then all higher
+type predicates are also true of that number.  Consequently, if a type
+predicate is false of a number, then all lower type predicates are
+also false of that number.
+
+<div class="p"><!----></div>
+If  is a complex number, then  (real? ) is true if
+and only if  (zero? (imag-part )) is true.
+If  is an inexact real number, then 
+(integer? ) is true if and only if  (=  (round )).
+
+<div class="p"><!----></div>
+The numbers  +inf.0,  -inf.0, and  +nan.0 are real but
+not rational.
+
+<div class="p"><!----></div>
+(complex? 3+4i)           
+(complex? 3)              
+(real? 3)                 
+(real? -2.5+0i)           
+(real? -2.5+0.0i)         
+(real? #e1e10)            
+(real? +inf.0)             
+(real? +nan.0)             
+(rational? -inf.0)         
+(rational? 3.5)            
+(rational? 6/10)          
+(rational? 6/3)           
+(integer? 3+0i)           
+(integer? 3.0)            
+(integer? 8/4)            
+
+<div class="p"><!----></div>
+The behavior of these type predicates on inexact numbers
+is unreliable, since any inaccuracy might affect the result.
+
+
+<div class="p"><!----></div>
+In many implementations the  procedure will be the same as
+, but unusual implementations may represent
+some irrational numbers exactly or may extend the number system to
+support some kind of non-complex numbers.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These numerical predicates provide tests for the exactness of a
+quantity.  For any Scheme number, precisely one of these predicates
+is true.
+
+<div class="p"><!----></div>
+(exact? 3.0)             
+(exact? #e3.0)           
+(inexact? 3.)            
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is both exact and an integer;
+otherwise returns .
+
+<div class="p"><!----></div>
+(exact-integer? 32)  
+(exact-integer? 32.0)  
+(exact-integer? 32/5)  
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  finite? procedure returns  on all real numbers except
+ +inf.0,  -inf.0, and  +nan.0, and on complex
+numbers if their real and imaginary parts are both finite.
+Otherwise it returns .
+
+<div class="p"><!----></div>
+(finite? 3)           
+(finite? +inf.0)         
+(finite? 3.0+inf.0i)     
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  infinite? procedure returns  on the real numbers
+ +inf.0 and  -inf.0, and on complex
+numbers if their real or imaginary parts or both are infinite.
+Otherwise it returns .
+
+<div class="p"><!----></div>
+(infinite? 3)           
+(infinite? +inf.0)         
+(infinite? +nan.0)         
+(infinite? 3.0+inf.0i)     
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  nan? procedure returns  on  +nan.0, and on complex
+numbers if their real or imaginary parts or both are  +nan.0.
+Otherwise it returns .
+
+<div class="p"><!----></div>
+(nan? +nan.0)            
+(nan? 32)                
+(nan? +nan.0+5.0i)       
+(nan? 1+2i)              
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return  if their arguments are (respectively):
+equal, monotonically increasing, monotonically decreasing,
+monotonically non-decreasing, or monotonically non-increasing,
+and  otherwise.
+If any of the arguments are  +nan.0, all the predicates return .
+They do not distinguish between inexact zero and inexact negative zero.
+
+<div class="p"><!----></div>
+These predicates are required to be transitive.
+
+<div class="p"><!----></div>
+The implementation approach
+of converting all arguments to inexact numbers
+if any argument is inexact is not transitive.  For example, let
+ big be  (expt 2 1000), and assume that  big is exact and that
+inexact numbers are represented by 64-bit IEEE binary floating point numbers.
+Then  (= (- big 1) (inexact big)) and
+ (= (inexact big) (+ big 1)) would both be true with this approach,
+because of the limitations of IEEE
+representations of large integers, whereas  (= (- big 1) (+ big 1))
+is false.  Converting inexact values to exact numbers that are the same (in the sense of ) to them will avoid
+this problem, though special care must be taken with infinities.
+
+
+<div class="p"><!----></div>
+While it is not an error to compare inexact numbers using these
+predicates, the results are unreliable because a small inaccuracy
+can affect the result; this is especially true of  and .
+When in doubt, consult a numerical analyst.
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These numerical predicates test a number for a particular property,
+returning  or .  See note above.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These procedures return the maximum or minimum of their arguments.
+
+<div class="p"><!----></div>
+(max 3 4)                4    ; exact
+(max 3.9 4)              4.0  ; inexact
+
+<div class="p"><!----></div>
+If any argument is inexact, then the result will also be inexact (unless
+the procedure can prove that the inaccuracy is not large enough to affect the
+result, which is possible only in unusual implementations).  If  min or
+ max is used to compare numbers of mixed exactness, and the numerical
+value of the result cannot be represented as an inexact number without loss of
+accuracy, then the procedure may report a violation of an implementation
+restriction.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These procedures return the sum or product of their arguments.
+
+<div class="p"><!----></div>
+(+ 3 4)                   7
+(+ 3)                     3
+(+)                       0
+(* 4)                     4
+(*)                       1 
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+With two or more arguments, these procedures return the difference or
+quotient of their arguments, associating to the left.  With one argument,
+however, they return the additive or multiplicative inverse of their argument.
+
+<div class="p"><!----></div>
+It is an error if any argument of  / other than the first is an exact zero.
+If the first argument is an exact zero, an implementation may return an
+exact zero unless one of the other arguments is a NaN.
+
+<div class="p"><!----></div>
+(- 3 4)                   -1
+(- 3 4 5)                 -6
+(- 3)                     -3
+(/ 3 4 5)                 3/20
+(/ 3)                     1/3
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  abs procedure returns the absolute value of its argument.  
+
+(abs -7)                  7
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures implement
+number-theoretic (integer) division.  It is an error if  is zero.
+The procedures ending in  / return two integers; the other
+procedures return an integer.  All the procedures compute a
+quotient  and remainder  such that
+\vrin = \vriin \vrn<sub>q</sub> + \vrn<sub>r</sub>.  For each of the 
+division operators, there are three procedures defined as follows:
+
+<div class="p"><!----></div>
+(/  )               
+(-quotient  )      
+(-remainder  )     
+
+<div class="p"><!----></div>
+The remainder  is determined by the choice of integer
+: \vrn<sub>r</sub> = \vrin &#8722; \vriin \vrn<sub>q</sub>.  Each set of
+operators uses a different choice of :
+
+<div class="p"><!----></div>
+
+<table>
+<tr><td align="left"><tt>floor</tt>     </td><td align="left">\vrn<sub>q</sub> = &#x23A3;\vrin / \vriin&#x23A6; </td></tr>
+<tr><td align="left"><tt>truncate</tt>  </td><td align="left">\vrn<sub>q</sub> = \texttruncate(\vrin / \vriin) </td></tr></table>
+
+
+<div class="p"><!----></div>
+For any of the operators, and for integers  and 
+with  not equal to 0,
+
+     (=  (+ (*  (-quotient  ))
+           (-remainder  )))
+                                   
+provided all numbers involved in that computation are exact.
+
+<div class="p"><!----></div>
+Examples:
+
+<div class="p"><!----></div>
+(floor/ 5 2)          2 1
+(floor/ -5 2)         -3 1
+(floor/ 5 -2)         -3 -1
+(floor/ -5 -2)        2 -1
+(truncate/ 5 2)       2 1
+(truncate/ -5 2)      -2 -1
+(truncate/ 5 -2)      -2 1
+(truncate/ -5 -2)     2 -1
+(truncate/ -5.0 -2)   2.0 -1.0
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+The  quotient and  remainder procedures are equivalent to 
+truncate-quotient and  truncate-remainder, respectively, and 
+modulo is equivalent to  floor-remainder.
+
+<div class="p"><!----></div>
+These procedures are provided for backward compatibility with earlier
+versions of this report.
+
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These procedures return the greatest common divisor or least common
+multiple of their arguments.  The result is always non-negative.
+
+<div class="p"><!----></div>
+(gcd 32 -36)              4
+(gcd)                     0
+(lcm 32 -36)              288
+(lcm 32.0 -36)            288.0  ; inexact
+(lcm)                     1
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These procedures return the numerator or denominator of their
+argument; the result is computed as if the argument was represented as
+a fraction in lowest terms.  The denominator is always positive.  The
+denominator of 0 is defined to be 1.
+
+
+(numerator (/ 6 4))    3
+(denominator (/ 6 4))    2
+(denominator
+  (inexact (/ 6 4)))  2.0
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return integers.
+ The  floor procedure returns the largest integer not larger than .
+The  ceiling procedure returns the smallest integer not smaller than&nbsp;,
+ truncate returns the integer closest to  whose absolute
+value is not larger than the absolute value of , and  round returns the
+closest integer to , rounding to even when  is halfway between two
+integers.
+
+<div class="p"><!----></div>
+The  round procedure rounds to even for consistency with the default rounding
+mode specified by the IEEE 754 IEEE floating-point standard.
+
+
+<div class="p"><!----></div>
+If the argument to one of these procedures is inexact, then the result
+will also be inexact.  If an exact value is needed, the
+result can be passed to the  exact procedure.
+If the argument is infinite or a NaN, then it is returned.
+
+
+<div class="p"><!----></div>
+(floor -4.3)            -5.0
+(ceiling -4.3)          -4.0
+(truncate -4.3)         -4.0
+(round -4.3)            -4.0
+
+<div class="p"><!----></div>
+(floor 3.5)             3.0
+(ceiling 3.5)           4.0
+(truncate 3.5)          3.0
+(round 3.5)             4.0  ; inexact
+
+<div class="p"><!----></div>
+(round 7/2)             4    ; exact
+(round 7)               7
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  rationalize procedure returns the <em>simplest</em> rational number
+differing from  by no more than .  A rational number r<sub>1</sub> is
+<em>simpler</em>  than another rational number
+r<sub>2</sub> if r<sub>1</sub> = p<sub>1</sub>/q<sub>1</sub> and r<sub>2</sub> = p<sub>2</sub>/q<sub>2</sub> (in lowest terms) and &#124;p<sub>1</sub>&#124; &#8804; &#124;p<sub>2</sub>&#124; and &#124;q<sub>1</sub>&#124;  &#8804; &#124;q<sub>2</sub>&#124;.  Thus 3/5 is simpler than 4/7.
+Although not all rationals are comparable in this ordering (consider 2/7
+and 3/5), any interval contains a rational number that is simpler than
+every other rational number in that interval (the simpler 2/5 lies
+between 2/7 and 3/5).  Note that 0 = 0/1 is the simplest rational of
+all.
+
+<div class="p"><!----></div>
+(rationalize
+  (exact .3) 1/10)   1/3    ; exact
+(rationalize .3 1/10)         #i1/3  ; inexact
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures 
+compute the usual transcendental functions.  The  log procedure
+computes the natural logarithm of  (not the base ten logarithm)
+if a single argument is given, or the base- logarithm of 
+if two arguments are given.
+The  asin,  acos, and  atan procedures compute arcsine (sin<sup>&#8722;1</sup>),
+arc-cosine (cos<sup>&#8722;1</sup>), and arctangent (tan<sup>&#8722;1</sup>), respectively.
+The two-argument variant of  atan computes <tt>(angle
+(make-rectangular  ))</tt> (see below), even in implementations
+that don't support complex numbers.
+
+<div class="p"><!----></div>
+In general, the mathematical functions log, arcsine, arc-cosine, and
+arctangent are multiply defined.
+The value of logz is defined to be the one whose imaginary part
+lies in the range from &#8722;&#960; (inclusive if  -0.0 is distinguished,
+exclusive otherwise) to &#960; (inclusive).
+The value of log0 is mathematically undefined.
+With log defined this way, the values of sin<sup>&#8722;1</sup> z, cos<sup>&#8722;1</sup> z,
+and tan<sup>&#8722;1</sup> z are according to the following formul&#230;:
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+sin<sup>&#8722;1</sup> z = &#8722;i log(i z + </td><td align="left" class="cl"><br /><font size="+2">&#8730;</font><br />
+<div class="comb">&nbsp;</div>
+</td><td nowrap="nowrap" align="center">
+
+<div class="hrcomp"><hr noshade="noshade" size="1"/></div>
+<div class="norm">1 &#8722; z<sup>2</sup><br /></div>
+<div class="comb">&nbsp;</div>
+</td><td nowrap="nowrap" align="center">
+)</td></tr></table>
+</td></tr></table>
+
+
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+cos<sup>&#8722;1</sup> z = &#960;/ 2 &#8722; sin<sup>&#8722;1</sup> z</td></tr></table>
+</td></tr></table>
+
+
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+tan<sup>&#8722;1</sup> z = (log(1 + i z) &#8722; log(1 &#8722; i z)) / (2 i)</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+However,  (log 0.0) returns  -inf.0 
+(and  (log -0.0) returns  -inf.0+&#960;i) if the
+implementation supports infinities (and  -0.0).
+
+<div class="p"><!----></div>
+The range of <tt>( atan  )</tt> is as in the
+following table. The asterisk (*) indicates that the entry applies to
+implementations that distinguish minus zero.
+
+<div class="p"><!----></div>
+
+<center>
+<table>
+<tr><td align="center"></td><td align="left">y condition </td><td align="left">x condition </td><td align="left">range of result r</td></tr>
+<tr><td align="center"></td><td align="left">y = 0.0 </td><td align="left">x  &gt;  0.0 </td><td align="left">0.0</td></tr>
+<tr><td align="center">&#8727; </td><td align="left">y = +0.0  </td><td align="left">x  &gt;  0.0 </td><td align="left">+0.0</td></tr>
+<tr><td align="center">&#8727; </td><td align="left">y = &#8722;0.0 </td><td align="left">x  &gt;  0.0 </td><td align="left">&#8722;0.0</td></tr>
+<tr><td align="center"></td><td align="left">y  &gt;  0.0 </td><td align="left">x  &gt;  0.0 </td><td align="left">0.0  &lt;  r  &lt;  \frac&#960;2</td></tr>
+<tr><td align="center"></td><td align="left">y  &gt;  0.0 </td><td align="left">x = 0.0 </td><td align="left">\frac&#960;2</td></tr>
+<tr><td align="center"></td><td align="left">y  &gt;  0.0 </td><td align="left">x  &lt;  0.0 </td><td align="left">\frac&#960;2  &lt;  r  &lt;  &#960;</td></tr>
+<tr><td align="center"></td><td align="left">y = 0.0 </td><td align="left">x  &lt;  0 </td><td align="left">&#960;</td></tr>
+<tr><td align="center">&#8727; </td><td align="left">y = +0.0 </td><td align="left">x  &lt;  0.0 </td><td align="left">&#960;</td></tr>
+<tr><td align="center">&#8727; </td><td align="left">y = &#8722;0.0 </td><td align="left">x  &lt;  0.0 </td><td align="left">&#8722;&#960;</td></tr>
+<tr><td align="center"></td><td align="left">y  &lt;  0.0 </td><td align="left">x  &lt;  0.0 </td><td align="left">&#8722;&#960; &lt;  r &lt;  &#8722;\frac&#960;2</td></tr>
+<tr><td align="center"></td><td align="left">y  &lt;  0.0 </td><td align="left">x = 0.0 </td><td align="left">&#8722;\frac&#960;2</td></tr>
+<tr><td align="center"></td><td align="left">y  &lt;  0.0 </td><td align="left">x  &gt;  0.0 </td><td align="left">&#8722;\frac&#960;2  &lt;  r &lt;  0.0</td></tr>
+<tr><td align="center"></td><td align="left">y = 0.0 </td><td align="left">x = 0.0 </td><td align="left">undefined</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = +0.0 </td><td align="left">x = +0.0 </td><td align="left">+0.0</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = &#8722;0.0 </td><td align="left">x = +0.0</td><td align="left">&#8722;0.0</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = +0.0 </td><td align="left">x = &#8722;0.0 </td><td align="left">&#960;</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = &#8722;0.0 </td><td align="left">x = &#8722;0.0 </td><td align="left">&#8722;&#960;</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = +0.0 </td><td align="left">x = 0 </td><td align="left">\frac&#960;2</td></tr>
+<tr><td align="center">&#8727;</td><td align="left">y = &#8722;0.0 </td><td align="left">x = 0    </td><td align="left">&#8722;\frac&#960;2
+</td></tr></table>
+
+</center>
+
+<div class="p"><!----></div>
+The above specification follows&nbsp;, which in turn
+cites&nbsp;; refer to these sources for more detailed
+discussion of branch cuts, boundary conditions, and implementation of
+these functions.  When it is possible, these procedures produce a real
+result from a real argument.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the square of .
+This is equivalent to <tt>( *  )</tt>.
+
+(square 42)        1764
+(square 2.0)      4.0
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the principal square root of .  The result will have
+either a positive real part, or a zero real part and a non-negative imaginary
+part.
+
+<div class="p"><!----></div>
+(sqrt 9)   3
+(sqrt -1)  +i
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns two non-negative exact integers s and r where
+\vark = s<sup>2</sup> + r and \vark  &lt;  (s+1)<sup>2</sup>.
+
+<div class="p"><!----></div>
+(exact-integer-sqrt 4)  2 0
+(exact-integer-sqrt 5)  2 1
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  raised to the power .  For nonzero , this is
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+z<sub>1</sub><sup>z<sub>2</sub></sup> = e<sup>z<sub>2</sub> logz<sub>1</sub></sup></td></tr></table>
+</td></tr></table>
+
+
+The value of 0<sup>z</sup> is 1 if  (zero? z), 0 if  (real-part z)
+is positive, and an error otherwise.  Similarly for 0.0<sup>z</sup>,
+with inexact results.
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+
+<div class="p"><!----></div>
+Let , , , and  be
+real numbers and  be a complex number such that
+ 
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+ \vrz = \vrix + \vriix<span class="roman">i</span> = \vriiix &#183;e<sup>i x<sub>4</sub></sup></td></tr></table>
+</td></tr></table>
+
+
+Then all of
+
+(make-rectangular  )  
+(make-polar  )      
+(real-part )                   
+(imag-part )                   
+(magnitude )                   &#124;\vriiix&#124;
+(angle )                       x<sub>angle</sub>
+are true, where &#8722;&#960; &#8804; x<sub>angle</sub>  &#8804; &#960; with x<sub>angle</sub> = \vrivx + 2&#960;n
+for some integer n.
+
+<div class="p"><!----></div>
+The  make-polar procedure may return an inexact complex number even if its
+arguments are exact.
+The  real-part and  imag-part procedures may return exact real
+numbers when applied to an inexact complex number if the corresponding
+argument passed to  make-rectangular was exact.
+
+<div class="p"><!----></div>
+The  magnitude procedure is the same as  for a real argument,
+but  abs is in the base library, whereas
+ magnitude is in the optional complex library.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The procedure  inexact returns an inexact representation of .
+The value returned is the
+inexact number that is numerically closest to the argument.  
+For inexact arguments, the result is the same as the argument. For exact
+complex numbers, the result is a complex number whose real and imaginary
+parts are the result of applying  inexact to the real
+and imaginary parts of the argument, respectively.
+If an exact argument has no reasonably close inexact equivalent
+(in the sense of ),
+then a violation of an implementation restriction may be reported.
+
+<div class="p"><!----></div>
+The procedure  exact returns an exact representation of
+.  The value returned is the exact number that is numerically
+closest to the argument.
+For exact arguments, the result is the same as the argument. For inexact
+non-integral real arguments, the implementation may return a rational
+approximation, or may report an implementation violation. For inexact
+complex arguments, the result is a complex number whose real and
+imaginary parts are the result of applying  exact to the
+real and imaginary parts of the argument, respectively.
+If an inexact argument has no reasonably close exact equivalent,
+(in the sense of ),
+then a violation of an implementation restriction may be reported.
+
+<div class="p"><!----></div>
+These procedures implement the natural one-to-one correspondence between
+exact and inexact integers throughout an
+implementation-dependent range.  See section&nbsp;.
+
+<div class="p"><!----></div>
+These procedures were known in &nbsp;as  exact-&#62;inexact and
+ inexact-&#62;exact, respectively, but they have always accepted
+arguments of any exactness.  The new names are clearer and shorter,
+as well as being compatible with .
+
+
+<div class="p"><!----></div>
+<br />
+
+
+<div class="p"><!----></div>
+The procedure  numberstring takes a
+number and a radix and returns as a string an external representation of
+the given number in the given radix such that
+
+(let ((number )
+      (radix ))
+  (eqv? number
+        (string-&#62;number (number-&#62;string number
+                                        radix)
+                        radix)))
+is true.  It is an error if no possible result makes this expression true.
+If omitted,  defaults to 10.
+
+<div class="p"><!----></div>
+If  is inexact, the radix is 10, and the above expression
+can be satisfied by a result that contains a decimal point,
+then the result contains a decimal point and is expressed using the
+minimum number of digits (exclusive of exponent and trailing
+zeroes) needed to make the above expression
+true&nbsp;;
+otherwise the format of the result is unspecified.
+
+<div class="p"><!----></div>
+The result returned by  numberstring
+never contains an explicit radix prefix.
+
+<div class="p"><!----></div>
+The error case can occur only when  is not a complex number
+or is a complex number with a non-rational real or imaginary part.
+
+
+<div class="p"><!----></div>
+If  is an inexact number and
+the radix is 10, then the above expression is normally satisfied by
+a result containing a decimal point.  The unspecified case
+allows for infinities, NaNs, and unusual representations.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns a number of the maximally precise representation expressed by the
+given .
+
+If supplied,  is a default radix that will be overridden
+if an explicit radix prefix is present in  (e.g. <tt>"#o177"</tt>).  If 
+is not supplied, then the default radix is 10.  If  is not
+a syntactically valid notation for a number, or would result in a
+number that the implementation cannot represent, then  string-&#62;number
+returns .
+An error is never signaled due to the content of .
+
+<div class="p"><!----></div>
+(string-&#62;number "100")          100
+(string-&#62;number "100" 16)       256
+(string-&#62;number "1e2")          100.0
+
+<div class="p"><!----></div>
+The domain of  string-&#62;number may be restricted by implementations
+in the following ways.  
+If all numbers supported by an implementation are real, then
+ string-&#62;number is permitted to return  whenever
+ uses the polar or rectangular notations for complex
+numbers.  If all numbers are integers, then
+ string-&#62;number may return  whenever
+the fractional notation is used.  If all numbers are exact, then
+ string-&#62;number may return  whenever
+an exponent marker or explicit exactness prefix is used.
+If all inexact
+numbers are integers, then
+ string-&#62;number may return  whenever
+a decimal point is used.
+
+<div class="p"><!----></div>
+The rules used by a particular implementation for  string-&#62;number must
+also be applied to  read and to the routine that reads programs, in
+order to maintain consistency between internal numeric processing, I/O,
+and the processing of programs.
+As a consequence, the &nbsp;permission to return  when
+ has an explicit radix prefix has been withdrawn.
+
+
+<div class="p"><!----></div>
+The standard boolean objects for true and false are written as
+ and .  
+Alternatively, they can be written &nbsp;and ,
+respectively.  What really
+matters, though, are the objects that the Scheme conditional expressions
+( if,  cond,  and,  or,  when,  unless,  do) treat as
+true or false.  The phrase "a true value"
+(or sometimes just "true") means any object treated as true by the
+conditional expressions, and the phrase "a false value" (or
+"false") means any object treated as false by the conditional expressions.
+
+<div class="p"><!----></div>
+ Of all the Scheme values, only 
+counts as false in conditional expressions.
+All other Scheme values, including ,
+count as true.
+
+<div class="p"><!----></div>
+Unlike some other dialects of Lisp,
+Scheme distinguishes  and the empty list 
+from each other and from the symbol .
+
+
+<div class="p"><!----></div>
+ Boolean constants evaluate to themselves, so they do not need to be quoted
+in programs.
+
+<div class="p"><!----></div>
+                     '         
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  not procedure returns  if  is false, and returns
+ otherwise.
+
+<div class="p"><!----></div>
+(not )     
+(not 3)            
+(not (list 3))     
+(not )    
+(not '())          
+(not (list))       
+(not 'nil)         
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  boolean? predicate returns  if  is either  or
+ and returns  otherwise.
+
+<div class="p"><!----></div>
+(boolean? )    
+(boolean? 0)            
+(boolean? '())          
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if all the arguments are booleans and all 
+are  or all are .
+
+<div class="p"><!----></div>
+ A  (sometimes called a ) is a
+record structure with two fields called the car and cdr fields (for
+historical reasons).  Pairs are created by the procedure  cons.
+The car and cdr fields are accessed by the procedures  car and
+ cdr.  The car and cdr fields are assigned by the procedures
+ set-car!&nbsp;and  set-cdr!.
+
+<div class="p"><!----></div>
+Pairs are used primarily to represent lists.  A  can
+be defined recursively as either the empty list or a pair whose
+cdr is a list.  More precisely, the set of lists is defined as the smallest
+set  such that
+
+<div class="p"><!----></div>
+
+<ul>
+<li> The empty list is in .
+<div class="p"><!----></div>
+</li>
+
+<li> If  is in , then any pair whose cdr field contains
+       is also in .
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+The objects in the car fields of successive pairs of a list are the
+elements of the list.  For example, a two-element list is a pair whose car
+is the first element and whose cdr is a pair whose car is the second element
+and whose cdr is the empty list.  The length of a list is the number of
+elements, which is the same as the number of pairs.
+
+<div class="p"><!----></div>
+The empty list is a special object of its own type.
+It is not a pair, it has no elements, and its length is zero.
+
+<div class="p"><!----></div>
+The above definitions imply that all lists have finite length and are
+terminated by the empty list.
+
+
+<div class="p"><!----></div>
+The most general notation (external representation) for Scheme pairs is
+the "dotted" notation  ( .&nbsp;)<!--hbox--> where
+ is the value of the car field and  is the value of the
+cdr field.  For example  (4 .&nbsp;5) is a pair whose car is 4 and whose
+cdr is 5.  Note that  (4 .&nbsp;5) is the external representation of a
+pair, not an expression that evaluates to a pair.
+
+<div class="p"><!----></div>
+A more streamlined notation can be used for lists: the elements of the
+list are simply enclosed in parentheses and separated by spaces.  The
+empty list is written <tt>()</tt>.  For example,
+
+<div class="p"><!----></div>
+(a b c d e)
+
+<div class="p"><!----></div>
+and
+
+<div class="p"><!----></div>
+(a . (b . (c . (d . (e . ())))))
+
+<div class="p"><!----></div>
+are equivalent notations for a list of symbols.
+
+<div class="p"><!----></div>
+A chain of pairs not ending in the empty list is called an
+.  Note that an improper list is not a list.
+The list and dotted notations can be combined to represent
+improper lists:
+
+<div class="p"><!----></div>
+(a b c . d)
+
+<div class="p"><!----></div>
+is equivalent to
+
+<div class="p"><!----></div>
+(a . (b . (c . d)))
+
+<div class="p"><!----></div>
+Whether a given pair is a list depends upon what is stored in the cdr
+field.  When the  procedure is used, an object can be a
+list one moment and not the next:
+
+<div class="p"><!----></div>
+(define x (list 'a 'b 'c))
+(define y x)
+y                         (a b c)
+(list? y)                 
+(set-cdr! x 4)            
+x                         (a . 4)
+(eqv? x y)                
+y                         (a . 4)
+(list? y)                 
+(set-cdr! x x)            
+(list? x)                 
+
+<div class="p"><!----></div>
+Within literal expressions and representations of objects read by the
+ procedure, the forms ,
+, <tt>,</tt>, and
+<tt>,@</tt> denote two-element lists whose first elements are
+the symbols , , <!--hbox-->, and
+, respectively.  The second element in each case
+is .  This convention is supported so that arbitrary Scheme
+programs can be represented as lists.  
+That is, according to Scheme's grammar, every
+ is also a  (see section&nbsp;).
+Among other things, this permits the use of the  read procedure to
+parse Scheme programs.  See section&nbsp;. 
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  pair? predicate returns  if  is a pair, and otherwise
+returns .
+
+<div class="p"><!----></div>
+(pair? '(a . b))          
+(pair? '(a b c))          
+(pair? '())               
+(pair? '#(a b))           
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated pair whose car is  and whose cdr is
+.  The pair is guaranteed to be different (in the sense of
+ eqv?) from every existing object.
+
+<div class="p"><!----></div>
+(cons 'a '())             (a)
+(cons '(a) '(b c d))      ((a) b c d)
+(cons &#228;" '(b c))         (&#228;" b c)
+(cons 'a 3)               (a . 3)
+(cons '(a b) 'c)          ((a b) . c)
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the contents of the car field of .  Note that it is an
+error to take the car of the empty list.
+
+<div class="p"><!----></div>
+(car '(a b c))            a
+(car '((a) b c d))        (a)
+(car '(1 . 2))            1
+(car '())                 
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the contents of the cdr field of .
+Note that it is an error to take the cdr of the empty list.
+
+<div class="p"><!----></div>
+(cdr '((a) b c d))        (b c d)
+(cdr '(1 . 2))            2
+(cdr '())                 
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Stores  in the car field of .
+
+(define (f) (list 'not-a-constant-list))
+(define (g) '(constant-list))
+(set-car! (f) 3)               
+(set-car! (g) 3)               
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Stores  in the cdr field of .
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures are compositions of  car and  cdr as follows:
+
+<div class="p"><!----></div>
+(define (caar x) (car (car x)))
+(define (cadr x) (car (cdr x)))
+(define (cdar x) (cdr (car x)))
+(define (cddr x) (cdr (cdr x)))
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+These twenty-four procedures are further compositions of  car and  cdr
+on the same principles.
+For example,  caddr could be defined by
+
+<div class="p"><!----></div>
+(define caddr (lambda (x) (car (cdr (cdr x)))))<span class="roman">.</span>
+
+<div class="p"><!----></div>
+Arbitrary compositions up to four deep are provided.  
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is the empty list,
+otherwise returns .
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a list.  Otherwise, it returns .
+By definition, all lists have finite length and are terminated by
+the empty list.
+
+<div class="p"><!----></div>
+        (list? '(a b c))       
+        (list? '())            
+        (list? '(a . b))       
+        (let ((x (list 'a)))
+          (set-cdr! x x)
+          (list? x))           
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns a newly allocated list of  elements.  If a second
+argument is given, then each element is initialized to .
+Otherwise the initial contents of each element is unspecified.
+
+<div class="p"><!----></div>
+(make-list 2 3)      (3 3)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated list of its arguments.
+
+<div class="p"><!----></div>
+(list 'a (+ 3 4) 'c)              (a 7 c)
+(list)                            ()
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the length of .
+
+<div class="p"><!----></div>
+(length '(a b c))                 3
+(length '(a (b) (c d e)))         3
+(length '())                      0
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a list consisting of the elements of the first 
+followed by the elements of the other s.
+If there are no arguments, the empty list is returned.
+If there is exactly one argument, it is returned.
+Otherwise the resulting list is always newly allocated, except that it shares
+structure with the last argument.  
+An improper list results if the last argument is not a
+proper list.  
+
+<div class="p"><!----></div>
+(append '(x) '(y))                (x y)
+(append '(a) '(b c d))            (a b c d)
+(append '(a (b)) '((c)))          (a (b) (c))
+
+<div class="p"><!----></div>
+(append '(a b) '(c . d))          (a b c . d)
+(append '() 'a)                   a
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated list consisting of the elements of 
+in reverse order.
+
+<div class="p"><!----></div>
+(reverse '(a b c))                (c b a)
+(reverse '(a (b c) d (e (f))))    ((e (f)) d (b c) a)
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the sublist of  obtained by omitting the first 
+elements.
+The  list-tail procedure could be defined by
+
+<div class="p"><!----></div>
+(define list-tail
+  (lambda (x k)
+    (if (zero? k)
+        x
+        (list-tail (cdr x) (- k 1))))) 
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the th element of .  (This is the same
+as the car of <tt>(list-tail  )</tt>.)
+
+<div class="p"><!----></div>
+(list-ref '(a b c d) 2)                   c
+(list-ref '(a b c d)
+          (exact (round 1.8)))   c
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  list-set! procedure stores  in element  of .
+
+(let ((ls (list 'one 'two 'five!)))
+  (list-set! ls 2 'three)
+  ls)        (one two three)
+
+<div class="p"><!----></div>
+(list-set! '(0 1 2) 1 &#246;ops")      ; constant list
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return the first sublist of  whose car is
+, where the sublists of  are the non-empty lists
+returned by <tt>(list-tail  )</tt> for  less
+than the length of .  If
+ does not occur in , then  (not the empty list) is
+returned.  The  memq procedure uses  eq?&nbsp;to compare  with the elements of
+, while  memv uses  eqv? and 
+ member uses , if given, and  equal? otherwise.
+
+<div class="p"><!----></div>
+(memq 'a '(a b c))                (a b c)
+(memq 'b '(a b c))                (b c)
+(memq 'a '(b c d))                
+(memq (list 'a) '(b (a) c))       
+(member (list 'a)
+        '(b (a) c))               ((a) c)
+(member "B"
+        '(&#228;" "b" "c")
+        string-ci=?)              ("b" "c")
+(memq 101 '(100 101 102))         
+(memv 101 '(100 101 102))         (101 102) 
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures find the first pair in  whose car field is ,
+and returns that pair.  If no pair in  has  as its
+car, then  (not the empty list) is returned.  The  assq procedure uses
+ eq?&nbsp;to compare  with the car fields of the pairs in ,
+while  assv uses  eqv?&nbsp;and  assoc uses  if given
+and  equal? otherwise.
+
+<div class="p"><!----></div>
+(define e '((a 1) (b 2) (c 3)))
+(assq 'a e)       (a 1)
+(assq 'b e)       (b 2)
+(assq 'd e)       
+(assq (list 'a) '(((a)) ((b)) ((c))))
+                  
+(assoc (list 'a) '(((a)) ((b)) ((c))))   
+                             ((a))
+(assoc 2.0 '((1 1) (2 4) (3 9)) =)
+                            (2 4)
+(assq 5 '((2 3) (5 7) (11 13)))    
+                             
+(assv 5 '((2 3) (5 7) (11 13)))    
+                             (5 7)
+
+<div class="p"><!----></div>
+Although they are often used as predicates,
+ memq,  memv,  member,  assq,  assv, and  assoc do not
+have question marks in their names because they return 
+potentially useful values rather than just  or .
+
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated copy of the given  if it is a list.
+Only the pairs themselves are copied; the cars of the result are
+the same (in the sense of  eqv?) as the cars of .
+If  is an improper list, so is the result, and the final
+cdrs are the same in the sense of  eqv?.
+An  which is not a list is returned unchanged.
+It is an error if  is a circular list.
+
+<div class="p"><!----></div>
+(define a '(1 8 2 8)) ; a may be immutable
+(define b (list-copy a))
+(set-car! b 3)        ; b is mutable
+b  (3 8 2 8)
+a  (1 8 2 8)
+
+<div class="p"><!----></div>
+Symbols are objects whose usefulness rests on the fact that two
+symbols are identical (in the sense of  eqv?) if and only if their
+names are spelled the same way.  For instance, they can be used
+the way enumerated values are used in other languages.
+
+<div class="p"><!----></div>
+ The rules for writing a symbol are exactly the same as the rules for
+writing an identifier; see sections&nbsp;
+and&nbsp;.
+
+<div class="p"><!----></div>
+ It is guaranteed that any symbol that has been returned as part of
+a literal expression, or read using the  read procedure, and
+subsequently written out using the  write procedure, will read back
+in as the identical symbol (in the sense of  eqv?).
+
+<div class="p"><!----></div>
+Some implementations have values known as "uninterned symbols,"
+which defeat write/read invariance, and also violate the rule that two
+symbols are the same if and only if their names are spelled the same.
+This report does not specify the behavior of
+implementation-dependent extensions.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a symbol, otherwise returns .
+
+<div class="p"><!----></div>
+(symbol? 'foo)            
+(symbol? (car '(a b)))    
+(symbol? "bar")           
+(symbol? 'nil)            
+(symbol? '())             
+(symbol? )       
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if all the arguments are symbols and all have the same
+names in the sense of  string=?.
+
+<div class="p"><!----></div>
+The definition above assumes that none of the arguments
+are uninterned symbols.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the name of  as a string, but without adding escapes.
+It is an error
+to apply mutation procedures like  to strings returned
+by this procedure.
+
+<div class="p"><!----></div>
+(symbol-&#62;string 'flying-fish)     
+                                    "flying-fish"
+(symbol-&#62;string 'Martin)            "Martin"
+(symbol-&#62;string
+   (string-&#62;symbol "Malvina"))     
+                                    "Malvina"
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the symbol whose name is .  This procedure can
+create symbols with names containing special characters that would
+require escaping when written, but does not interpret escapes in its input.
+
+<div class="p"><!----></div>
+(string-&#62;symbol "mISSISSIppi")    mISSISSIppi
+(eqv? 'bitBlt (string-&#62;symbol "bitBlt"))       
+(eqv? 'LollyPop
+     (string-&#62;symbol
+       (symbol-&#62;string 'LollyPop)))    
+(string=? "K. Harper, M.D."
+          (symbol-&#62;string
+            (string-&#62;symbol "K. Harper, M.D.")))    
+
+<div class="p"><!----></div>
+Characters are objects that represent printed characters such as
+letters and digits.  
+All Scheme implementations must support at least the ASCII character
+repertoire: that is, Unicode characters U+0000 through U+007F.
+Implementations may support any other Unicode characters they see fit,
+and may also support non-Unicode characters as well.
+Except as otherwise specified, the result of applying any of the
+following procedures to a non-Unicode character is implementation-dependent.
+
+<div class="p"><!----></div>
+Characters are written using the notation 
+or  or
+x.
+
+<div class="p"><!----></div>
+The following character names must be supported
+by all implementations with the given values.  
+Implementations may add other names
+provided they cannot be interpreted as hex scalar values preceded by  x.
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>alarm</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; <span class="roman">U</span><span class="roman">+</span><span class="roman">0007</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>backspace</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; <span class="roman">U</span><span class="roman">+</span><span class="roman">0008</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>delete</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; <span class="roman">U</span><span class="roman">+</span><span class="roman">007</span><span class="roman">F</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>escape</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; <span class="roman">U</span><span class="roman">+</span><span class="roman">001</span><span class="roman">B</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>newline</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the linefeed character, <span class="roman">U</span><span class="roman">+</span><span class="roman">000</span><span class="roman">A</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>null</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the null character, <span class="roman">U</span><span class="roman">+</span><span class="roman">0000</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>return</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the return character, <span class="roman">U</span><span class="roman">+</span><span class="roman">000</span><span class="roman">D</span></td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>space</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the preferred way to write a space</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>tab</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the tab character, <span class="roman">U</span><span class="roman">+</span><span class="roman">0009</span></td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+Here are some additional examples:
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>a</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; lower case letter</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>A</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; upper case letter</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>(</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; left parenthesis</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack </td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; the space character</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>x</tt><tt>03</tt><tt>BB</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; &#955; (if character is supported)</td></tr></table></td></tr>
+<tr><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>#</tt>\backwhack<tt>iota</tt></td></tr></table></td><td align="left"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+; &#953; (if character and name are supported)</td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+Case is significant in , and in
+,
+but not in x.  
+If  in
+ is alphabetic, then any character
+immediately following  cannot be one that can appear in an identifier.
+This rule resolves the ambiguous case where, for
+example, the sequence of characters "<tt> space</tt>"
+could be taken to be either a representation of the space character or a
+representation of the character "<tt> s</tt>" followed
+by a representation of the symbol "<tt>pace</tt>."
+
+<div class="p"><!----></div>
+Characters written in the  notation are self-evaluating.
+That is, they do not have to be quoted in programs.  
+
+<div class="p"><!----></div>
+ Some of the procedures that operate on characters ignore the
+difference between upper case and lower case.  The procedures that
+ignore case have "<tt>-ci</tt>"<!--hbox--> (for "case
+insensitive") embedded in their names.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a character, otherwise returns .
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return  if 
+the results of passing their arguments to  charinteger
+are respectively
+equal, monotonically increasing, monotonically decreasing,
+monotonically non-decreasing, or monotonically non-increasing.
+
+<div class="p"><!----></div>
+These predicates are required to be transitive.
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures are similar to  char=?&nbsp;et cetera, but they treat
+upper case and lower case letters as the same.  For example, 
+(char-ci=?&nbsp;#A #a) returns .
+
+<div class="p"><!----></div>
+Specifically, these procedures behave as if  char-foldcase were
+applied to their arguments before they were compared.
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return  if their arguments are alphabetic,
+numeric, whitespace, upper case, or lower case characters, respectively,
+otherwise they return .  
+
+<div class="p"><!----></div>
+Specifically, they must return  when applied to characters with
+the Unicode properties Alphabetic, Numeric_Digit, White_Space, Uppercase, and
+Lowercase respectively, and  when applied to any other Unicode
+characters.  Note that many Unicode characters are alphabetic but neither
+upper nor lower case.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+This procedure returns the numeric value (0 to 9) of its argument
+if it is a numeric digit (that is, if  char-numeric? returns ),
+or  on any other character.
+
+<div class="p"><!----></div>
+(digit-value #3)  3
+(digit-value #x0664)  4
+(digit-value #x0AE6)  0
+(digit-value #x0EA6)  
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Given a Unicode character, 
+ charinteger returns an exact integer 
+between 0 and <tt>#xD7FF</tt> or 
+between <tt>#xE000</tt> and <tt>#x10FFFF</tt> 
+which is equal to the Unicode scalar value of that character.
+Given a non-Unicode character, 
+it returns an exact integer greater than <tt>#x10FFFF</tt>.  
+This is true independent of whether the implementation uses
+the Unicode representation internally.
+
+<div class="p"><!----></div>
+Given an exact integer that is the value returned by
+a character when  charinteger is applied to it,  integerchar
+returns that character.
+
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+The  char-upcase procedure, given an argument that is the
+lowercase part of a Unicode casing pair, returns the uppercase member
+of the pair, provided that both characters are supported by the Scheme
+implementation.  Note that language-sensitive casing pairs are not used.  If the
+argument is not the lowercase member of such a pair, it is returned.
+
+<div class="p"><!----></div>
+The  char-downcase procedure, given an argument that is the
+uppercase part of a Unicode casing pair, returns the lowercase member
+of the pair, provided that both characters are supported by the Scheme
+implementation.  Note that language-sensitive casing pairs are not used.  If the
+argument is not the uppercase member of such a pair, it is returned.
+
+<div class="p"><!----></div>
+The  char-foldcase procedure applies the Unicode simple
+case-folding algorithm to its argument and returns the result.  Note that
+language-sensitive folding is not used.  If the argument is an uppercase
+letter, the result will be either a lowercase letter
+or the same as the argument if the lowercase letter does not exist or
+is not supported by the implementation.
+See UAX #29&nbsp; (part of the Unicode Standard) for details.
+
+<div class="p"><!----></div>
+Note that many Unicode lowercase characters do not have uppercase
+equivalents.
+
+<div class="p"><!----></div>
+Strings are sequences of characters.  
+ Strings are written as sequences of characters enclosed within quotation marks
+( ").  Within a string literal, various escape
+sequences represent characters other than
+themselves.  Escape sequences always start with a backslash ():
+
+<div class="p"><!----></div>
+
+<ul>
+<li>a : alarm, U+0007
+<div class="p"><!----></div>
+</li>
+
+<li>b : backspace, U+0008
+<div class="p"><!----></div>
+</li>
+
+<li>t : character tabulation, U+0009
+<div class="p"><!----></div>
+</li>
+
+<li>n : linefeed, U+000A
+<div class="p"><!----></div>
+</li>
+
+<li>r : return, U+000D
+<div class="p"><!----></div>
+</li>
+
+<li><tt>"</tt> : double quote, U+0022
+<div class="p"><!----></div>
+</li>
+
+<li> : backslash, U+005C
+<div class="p"><!----></div>
+</li>
+
+<li> -  : vertical line, U+007C
+<div class="p"><!----></div>
+</li>
+
+<li>
+       : nothing
+<div class="p"><!----></div>
+</li>
+
+<li>x; : specified character (note the
+  terminating semi-colon).
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+The result is unspecified if any other character in a string occurs
+after a backslash.
+
+<div class="p"><!----></div>
+ Except for a line ending, any character outside of an escape
+sequence stands for itself in the string literal.  A line ending which
+is preceded by  expands
+to nothing (along with any trailing intraline whitespace), and can be
+used to indent strings for improved legibility. Any other line ending
+has the same effect as inserting a n character into
+the string.
+
+<div class="p"><!----></div>
+Examples:
+
+<div class="p"><!----></div>
+"The word "recursion" has many meanings."
+&#196;nother example:ntwo lines of text"
+"Here's text  
+   containing just one line"
+"x03B1; is named GREEK SMALL LETTER ALPHA."
+
+<div class="p"><!----></div>
+ The <em>length</em> of a string is the number of characters that it
+contains.  This number is an exact, non-negative integer that is fixed when the
+string is created.  The  of a string are the
+exact non-negative integers less than the length of the string.  The first
+character of a string has index 0, the second has index 1, and so on.
+
+<div class="p"><!----></div>
+ Some of the procedures that operate on strings ignore the
+difference between upper and lower case.  The names of the versions that ignore case
+end with " -ci"<!--hbox--> (for "case insensitive").
+
+<div class="p"><!----></div>
+Implementations may forbid certain characters from appearing in strings.
+However, with the exception of <tt>#null</tt>, ASCII characters must
+not be forbidden.
+For example, an implementation might support the entire Unicode repertoire,
+but only allow characters U+0001 to U+00FF (the Latin-1 repertoire
+without <tt>#null</tt>) in strings.
+
+<div class="p"><!----></div>
+It is an error to pass such a forbidden character to
+ make-string,  string,  string-set!, or  string-fill!,
+as part of the list passed to  liststring,
+or as part of the vector passed to  vectorstring
+(see section&nbsp;),
+or in UTF-8 encoded form within a bytevector passed to
+ utf8string (see section&nbsp;).
+It is also an error for a procedure passed to  string-map
+(see section&nbsp;) to return a forbidden character,
+or for  read-string (see section&nbsp;)
+to attempt to read one.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a string, otherwise returns .
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  make-string procedure returns a newly allocated string of
+length .  If  is given, then all the characters of the string
+are initialized to , otherwise the contents of the
+string are unspecified.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated string composed of the arguments.
+It is analogous to  list.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the number of characters in the given .
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  string-ref procedure returns character  of  using zero-origin indexing.
+
+There is no requirement for this procedure to execute in constant time.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  string-set! procedure stores  in element  of .
+There is no requirement for this procedure to execute in constant time.
+
+<div class="p"><!----></div>
+(define (f) (make-string 3 *))
+(define (g) "***")
+(string-set! (f) 0 ?)    
+(string-set! (g) 0 ?)    
+(string-set! (symbol-&#62;string 'immutable)
+             0
+             ?)    
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if all the strings are the same length and contain
+exactly the same characters in the same positions, otherwise returns
+.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if, after case-folding, all the strings are the same
+length and contain the same characters in the same positions, otherwise
+returns .  Specifically, these procedures behave as if 
+ string-foldcase were applied to their arguments before comparing them.
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return  if their arguments are (respectively):
+monotonically increasing, monotonically decreasing,
+monotonically non-decreasing, or monotonically non-increasing.
+
+<div class="p"><!----></div>
+These predicates are required to be transitive.
+
+<div class="p"><!----></div>
+These procedures compare strings in an implementation-defined way.
+One approach is to make them the lexicographic extensions to strings of
+the corresponding orderings on characters.  In that case,  string&lt;?&nbsp;would be the lexicographic ordering on strings induced by the ordering
+ char&lt;?&nbsp;on characters, and if the two strings differ in length but
+are the same up to the length of the shorter string, the shorter string
+would be considered to be lexicographically less than the longer string.
+However, it is also permitted to use the natural ordering imposed by the
+implementation's internal representation of strings, or a more complex locale-specific
+ordering.
+
+<div class="p"><!----></div>
+In all cases, a pair of strings must satisfy exactly one of
+ string&lt;?,  string=?, and  string&#62;?, and must satisfy
+ string&lt;=? if and only if they do not satisfy  string&#62;? and
+ string&#62;=? if and only if they do not satisfy  string&lt;?.
+
+<div class="p"><!----></div>
+The "<tt>-ci</tt>"<!--hbox--> procedures behave as if they applied
+ string-foldcase to their arguments before invoking the corresponding
+procedures without  "<tt>-ci</tt>"<!--hbox-->.
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+These procedures apply the Unicode full string uppercasing, lowercasing,
+and case-folding algorithms to their arguments and return the result.
+In certain cases, the result differs in length from the argument.
+If the result is equal to the argument in the sense of  string=?, the argument may be returned.
+Note that language-sensitive mappings and foldings are not used.  
+
+<div class="p"><!----></div>
+The Unicode Standard prescribes special treatment of the Greek letter
+&#931;, whose normal lower-case form is &#963; but which becomes
+&#962; at the end of a word.  See UAX #29&nbsp; (part of
+the Unicode Standard) for details.  However, implementations of 
+string-downcase are not required to provide this behavior, and may
+choose to change &#931; to &#963; in all cases.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  substring procedure returns a newly allocated string formed from the characters of
+ beginning with index  and ending with index
+.
+This is equivalent to calling  string-copy with the same arguments,
+but is provided for backward compatibility and
+stylistic flexibility.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated string whose characters are the concatenation of the
+characters in the given strings.
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+The  stringlist procedure returns a newly allocated list of the
+characters of  between  and .
+ liststring
+returns a newly allocated string formed from the elements in the list
+.
+In both procedures, order is preserved.
+ stringlist
+and  liststring are
+inverses so far as  equal?&nbsp;is concerned.  
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Returns a newly allocated copy of the part of the given 
+between  and .
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Copies the characters of string  between  and 
+to string , starting at .  The order in which characters are
+copied is unspecified, except that if the source and destination overlap,
+copying takes place as if the source is first copied into a temporary
+string and then into the destination.  This can be achieved without
+allocating storage by making sure to copy in the correct direction in
+such circumstances.
+
+<div class="p"><!----></div>
+(define a "12345")
+(define b (string-copy &#228;bcde"))
+(string-copy! b 1 a 0 2)
+b  &#228;12de"
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+The  string-fill! procedure stores 
+in the elements of 
+between  and .
+
+<div class="p"><!----></div>
+Vectors are heterogeneous structures whose elements are indexed
+by integers.  A vector typically occupies less space than a list
+of the same length, and the average time needed to access a randomly
+chosen element is typically less for the vector than for the list.
+
+<div class="p"><!----></div>
+ The <em>length</em> of a vector is the number of elements that it
+contains.  This number is a non-negative integer that is fixed when the
+vector is created.  The <em>valid indexes</em> of a
+vector are the exact non-negative integers less than the length of the
+vector.  The first element in a vector is indexed by zero, and the last
+element is indexed by one less than the length of the vector.
+
+<div class="p"><!----></div>
+Vectors are written using the notation <tt>#( )</tt>.
+For example, a vector of length 3 containing the number zero in element
+0, the list (2 2 2 2) in element 1, and the string  &#196;nna" in
+element 2 can be written as follows:
+
+<div class="p"><!----></div>
+#(0 (2 2 2 2) &#196;nna")
+
+<div class="p"><!----></div>
+Vector constants are self-evaluating, so they do not need to be quoted in programs.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a vector; otherwise returns .
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns a newly allocated vector of  elements.  If a second
+argument is given, then each element is initialized to .
+Otherwise the initial contents of each element is unspecified.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated vector whose elements contain the given
+arguments.  It is analogous to  list.
+
+<div class="p"><!----></div>
+(vector 'a 'b 'c)                 #(a b c)
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the number of elements in  as an exact integer.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  vector-ref procedure returns the contents of element  of
+.
+
+<div class="p"><!----></div>
+(vector-ref '#(1 1 2 3 5 8 13 21)
+            5)    8
+(vector-ref '#(1 1 2 3 5 8 13 21)
+            (exact
+             (round (* 2 (acos -1)))))  13
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  vector-set! procedure stores  in element  of .
+
+(let ((vec (vector 0 '(2 2 2 2) &#196;nna")))
+  (vector-set! vec 1 '("Sue" "Sue"))
+  vec)        #(0 ("Sue" "Sue") &#196;nna")
+
+<div class="p"><!----></div>
+(vector-set! '#(0 1 2) 1 "doe")      ; constant vector
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+The  vector-&#62;list procedure returns a newly allocated list of the objects contained
+in the elements of  between  and .
+The  list-&#62;vector procedure returns a newly
+created vector initialized to the elements of the list .
+
+<div class="p"><!----></div>
+In both procedures, order is preserved.
+
+<div class="p"><!----></div>
+(vector-&#62;list '#(dah dah didah))    (dah dah didah)
+(vector-&#62;list '#(dah dah didah) 1 2)  (dah)
+(list-&#62;vector '(dididit dah))     #(dididit dah)
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+
+
+<div class="p"><!----></div>
+The  vector-&#62;string procedure returns a newly allocated string of the objects contained
+in the elements of 
+between  and .
+The  string-&#62;vector procedure returns a newly
+created vector initialized to the elements of the string 
+between  and .
+
+<div class="p"><!----></div>
+In both procedures, order is preserved.
+
+<div class="p"><!----></div>
+(string-&#62;vector &#196;BC")     #(#A #B #C)
+(vector-&#62;string
+  #(#1 #2 #3)  "123"
+
+
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Returns a newly allocated copy of the elements of the given 
+between  and .
+The elements of the new vector are the same (in the sense of
+ eqv?) as the elements of the old.
+
+<div class="p"><!----></div>
+(define a #(1 8 2 8)) ; a may be immutable
+(define b (vector-copy a))
+(vector-set! b 0 3)   ; b is mutable
+b  #(3 8 2 8)
+(define c (vector-copy b 1 3))
+c  #(8 2)
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Copies the elements of vector  between  and 
+to vector , starting at .  The order in which elements are
+copied is unspecified, except that if the source and destination overlap,
+copying takes place as if the source is first copied into a temporary
+vector and then into the destination.  This can be achieved without
+allocating storage by making sure to copy in the correct direction in
+such circumstances.
+
+<div class="p"><!----></div>
+(define a (vector 1 2 3 4 5))
+(define b (vector 10 20 30 40 50))
+(vector-copy! b 1 a 0 2)
+b  #(10 1 2 40 50)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated vector whose elements are the concatenation
+of the elements of the given vectors.
+
+<div class="p"><!----></div>
+(vector-append #(a b c) #(d e f))  #(a b c d e f)
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+The  vector-fill! procedure stores 
+in the elements of 
+between  and .
+
+<div class="p"><!----></div>
+(define a (vector 1 2 3 4 5))
+(vector-fill! a 'smash 2 4)
+a  #(1 2 smash smash 5)
+
+<div class="p"><!----></div>
+ represent blocks of binary data.
+They are fixed-length sequences of bytes, where
+a  is an exact integer in the range from 0 to 255 inclusive.
+A bytevector is typically more space-efficient than a vector
+containing the same values.
+
+<div class="p"><!----></div>
+ The <em>length</em> of a bytevector is the number of elements that it
+contains.  This number is a non-negative integer that is fixed when
+the bytevector is created.  The <em>valid indexes</em> of
+a bytevector are the exact non-negative integers less than the length of the
+bytevector, starting at index zero as with vectors.
+
+<div class="p"><!----></div>
+Bytevectors are written using the notation <tt>#u8( )</tt>.
+For example, a bytevector of length 3 containing the byte 0 in element
+0, the byte 10 in element 1, and the byte 5 in
+element 2 can be written as follows:
+
+<div class="p"><!----></div>
+#u8(0 10 5)
+
+<div class="p"><!----></div>
+Bytevector constants are self-evaluating, so they do not need to be quoted in programs.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a bytevector.
+Otherwise,  is returned.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  make-bytevector procedure returns a newly allocated bytevector of
+length .  If  is given, then all elements of the bytevector
+are initialized to , otherwise the contents of each
+element are unspecified.
+
+<div class="p"><!----></div>
+(make-bytevector 2 12)  #u8(12 12)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated bytevector containing its arguments.
+
+<div class="p"><!----></div>
+(bytevector 1 3 5 1 3 5)          #u8(1 3 5 1 3 5)
+(bytevector)                            #u8()
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the length of  in bytes as an exact integer.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the th byte of .
+
+<div class="p"><!----></div>
+(bytevector-u8-ref '#u8(1 1 2 3 5 8 13 21)
+            5)    8
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Stores  as the th byte of .
+
+(let ((bv (bytevector 1 2 3 4)))
+  (bytevector-u8-set! bv 1 3)
+  bv)  #u8(1 3 3 4)
+
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Returns a newly allocated bytevector containing the bytes in 
+between  and .
+
+<div class="p"><!----></div>
+(define a #u8(1 2 3 4 5))
+(bytevector-copy a 2 4))  #u8(3 4)
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Copies the bytes of bytevector  between  and 
+to bytevector , starting at .  The order in which bytes are
+copied is unspecified, except that if the source and destination overlap,
+copying takes place as if the source is first copied into a temporary
+bytevector and then into the destination.  This can be achieved without
+allocating storage by making sure to copy in the correct direction in
+such circumstances.
+
+<div class="p"><!----></div>
+(define a (bytevector 1 2 3 4 5))
+(define b (bytevector 10 20 30 40 50))
+(bytevector-copy! b 1 a 0 2)
+b  #u8(10 1 2 40 50)
+
+<div class="p"><!----></div>
+This procedure appears in , but places the source before the destination,
+contrary to other such procedures in Scheme.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a newly allocated bytevector whose elements are the concatenation
+of the elements in the given bytevectors.
+
+<div class="p"><!----></div>
+(bytevector-append #u8(0 1 2) #u8(3 4 5))  #u8(0 1 2 3 4 5)
+
+<div class="p"><!----></div>
+ procedure
+ procedure
+ procedure
+ procedure
+ procedure
+ procedure
+
+<div class="p"><!----></div>
+These procedures translate between strings and bytevectors
+that encode those strings using the UTF-8 encoding.
+The  utf8string procedure decodes the bytes of
+a bytevector between  and 
+and returns the corresponding string;
+the  stringutf8 procedure encodes the characters of a
+string between  and 
+and returns the corresponding bytevector.
+
+<div class="p"><!----></div>
+(utf8-&#62;string #u8(#x41))  &#196;"
+(string-&#62;utf8 "&#955;")  #u8(#xCE #xBB)
+
+<div class="p"><!----></div>
+ This section describes various primitive procedures which control the
+flow of program execution in special ways.
+Procedures in this section that invoke procedure arguments
+always do so in the same dynamic environment as the call of the
+original procedure.
+The  procedure?&nbsp;predicate is also described here.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is a procedure, otherwise returns .
+
+<div class="p"><!----></div>
+(procedure? car)              
+(procedure? 'car)             
+(procedure? (lambda (x) (* x x)))   
+                              
+(procedure? '(lambda (x) (* x x)))  
+                              
+(call-with-current-continuation procedure?)
+                              
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  apply procedure calls  with the elements of the list
+(append (list  ) ) as the actual
+arguments.
+
+<div class="p"><!----></div>
+(apply + (list 3 4))                7
+
+<div class="p"><!----></div>
+(define compose
+  (lambda (f g)
+    (lambda args
+      (f (apply g args)))))
+
+<div class="p"><!----></div>
+((compose sqrt *) 12 75)                30
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  map procedure applies  element-wise to the elements of the
+s and returns a list of the results, in order.
+If more than one  is given and not all lists have the same length,
+ map terminates when the shortest list runs out.
+The s can be circular, but it is an error if all of them are circular.
+It is an error for  to mutate any of the lists.
+The dynamic order in which  is applied to the elements of the
+s is unspecified.  If multiple returns occur from  map,
+the values returned by earlier returns are not mutated.
+
+<div class="p"><!----></div>
+(map cadr '((a b) (d e) (g h)))     (b e h)
+
+<div class="p"><!----></div>
+(map (lambda (n) (expt n n))
+     '(1 2 3 4 5))                  (1 4 27 256 3125)
+
+<div class="p"><!----></div>
+(map + '(1 2 3) '(4 5 6 7))           (5 7 9)
+
+<div class="p"><!----></div>
+(let ((count 0))
+  (map (lambda (ignored)
+         (set! count (+ count 1))
+         count)
+       '(a b)))                   (1 2)  (2 1)
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  string-map procedure applies  element-wise to the elements of the
+s and returns a string of the results, in order.
+If more than one  is given and not all strings have the same length,
+ string-map terminates when the shortest string runs out.
+The dynamic order in which  is applied to the elements of the
+s is unspecified.
+If multiple returns occur from  string-map,
+the values returned by earlier returns are not mutated.
+
+<div class="p"><!----></div>
+(string-map char-foldcase &#196;bdEgH")   &#228;bdegh"
+
+<div class="p"><!----></div>
+(string-map
+ (lambda (c)
+   (integer-&#62;char (+ 1 (char-&#62;integer c))))
+ "HAL")                  &#207;BM"
+
+<div class="p"><!----></div>
+(string-map
+ (lambda (c k)
+   ((if (eqv? k u) char-upcase char-downcase)
+    c))
+ &#223;tudlycaps xxx"
+ &#252;lulululul")      "StUdLyCaPs"
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  vector-map procedure applies  element-wise to the elements of the
+s and returns a vector of the results, in order.
+If more than one  is given and not all vectors have the same length,
+ vector-map terminates when the shortest vector runs out.
+The dynamic order in which  is applied to the elements of the
+s is unspecified.
+If multiple returns occur from  vector-map,
+the values returned by earlier returns are not mutated.
+
+<div class="p"><!----></div>
+(vector-map cadr '#((a b) (d e) (g h)))     #(b e h)
+
+<div class="p"><!----></div>
+(vector-map (lambda (n) (expt n n))
+            '#(1 2 3 4 5))                  #(1 4 27 256 3125)
+
+<div class="p"><!----></div>
+(vector-map + '#(1 2 3) '#(4 5 6 7))         #(5 7 9)
+
+<div class="p"><!----></div>
+(let ((count 0))
+  (vector-map
+   (lambda (ignored)
+     (set! count (+ count 1))
+     count)
+   '#(a b)))                       #(1 2)  #(2 1)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The arguments to  for-each are like the arguments to  map, but
+ for-each calls  for its side effects rather than for its
+values.  Unlike  map,  for-each is guaranteed to call  on
+the elements of the s in order from the first element(s) to the
+last, and the value returned by  for-each is unspecified.
+If more than one  is given and not all lists have the same length,
+ for-each terminates when the shortest list runs out.
+The s can be circular, but it is an error if all of them are circular.
+
+<div class="p"><!----></div>
+It is an error for  to mutate any of the lists.
+
+<div class="p"><!----></div>
+(let ((v (make-vector 5)))
+  (for-each (lambda (i)
+              (vector-set! v i (* i i)))
+            '(0 1 2 3 4))
+  v)                                  #(0 1 4 9 16)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The arguments to  string-for-each are like the arguments to 
+string-map, but  string-for-each calls  for its side
+effects rather than for its values.  Unlike  string-map, 
+string-for-each is guaranteed to call  on the elements of
+the s in order from the first element(s) to the last, and the
+value returned by  string-for-each is unspecified.
+If more than one  is given and not all strings have the same length,
+ string-for-each terminates when the shortest string runs out.
+It is an error for  to mutate any of the strings.
+
+<div class="p"><!----></div>
+(let ((v '()))
+  (string-for-each
+   (lambda (c) (set! v (cons (char-&#62;integer c) v)))
+   &#228;bcde")
+  v)                           (101 100 99 98 97)
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The arguments to  vector-for-each are like the arguments to 
+vector-map, but  vector-for-each calls  for its side
+effects rather than for its values.  Unlike  vector-map, 
+vector-for-each is guaranteed to call  on the elements of
+the s in order from the first element(s) to the last, and
+the value returned by  vector-for-each is unspecified.
+If more than one  is given and not all vectors have the same length,
+ vector-for-each terminates when the shortest vector runs out.
+It is an error for  to mutate any of the vectors.
+
+<div class="p"><!----></div>
+(let ((v (make-list 5)))
+  (vector-for-each
+   (lambda (i) (list-set! v i (* i i)))
+   '#(0 1 2 3 4))
+  v)                                  (0 1 4 9 16)
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+ The procedure  call-with-current-continuation (or its
+equivalent abbreviation  call/cc) packages
+the current continuation (see the rationale below) as an "escape
+procedure" and passes it as an argument to
+.
+The escape procedure is a Scheme procedure that, if it is
+later called, will abandon whatever continuation is in effect at that later
+time and will instead use the continuation that was in effect
+when the escape procedure was created.  Calling the escape procedure
+will cause the invocation of  and  thunks installed using
+.
+
+<div class="p"><!----></div>
+The escape procedure accepts the same number of arguments as the continuation to
+the original call to .
+Most continuations take only one value.
+Continuations created by the  call-with-values
+procedure (including the initialization expressions of
+ define-values,  let-values, and  let*-values expressions),
+take the number of values that the consumer expects.
+The continuations of all non-final expressions within a sequence
+of expressions, such as in  lambda,  case-lambda,  begin,
+ let,  let*,  letrec,  letrec*,  let-values, 
+ let*-values,  let-syntax,  letrec-syntax,  parameterize,
+ guard,  case,  cond,  when, and  unless expressions,
+take an arbitrary number of values because they discard the values passed
+to them in any event.
+The effect of passing no values or more than one value to continuations
+that were not created in one of these ways is unspecified.
+
+<div class="p"><!----></div>
+ The escape procedure that is passed to  has
+unlimited extent just like any other procedure in Scheme.  It can be stored
+in variables or data structures and can be called as many times as desired.
+However, like the  raise and  error procedures, it never
+returns to its caller.
+
+<div class="p"><!----></div>
+ The following examples show only the simplest ways in which
+ call-with-current-continuation is used.  If all real uses were as
+simple as these examples, there would be no need for a procedure with
+the power of  call-with-current-continuation.
+
+<div class="p"><!----></div>
+(call-with-current-continuation
+  (lambda (exit)
+    (for-each (lambda (x)
+                (if (negative? x)
+                    (exit x)))
+              '(54 0 37 -3 245 19))
+    ))                          -3
+
+<div class="p"><!----></div>
+(define list-length
+  (lambda (obj)
+    (call-with-current-continuation
+      (lambda (return)
+        (letrec ((r
+                  (lambda (obj)
+                    (cond ((null? obj) 0)
+                          ((pair? obj)
+                           (+ (r (cdr obj)) 1))
+                          (else (return ))))))
+          (r obj))))))
+
+<div class="p"><!----></div>
+(list-length '(1 2 3 4))              4
+
+<div class="p"><!----></div>
+(list-length '(a b . c))              
+
+<div class="p"><!----></div>
+ A common use of  call-with-current-continuation is for
+structured, non-local exits from loops or procedure bodies, but in fact
+ call-with-current-continuation is useful for implementing a
+wide variety of advanced control structures.
+In fact,  raise and  guard provide a more structured mechanism
+for non-local exits.
+
+<div class="p"><!----></div>
+ Whenever a Scheme expression is evaluated there is a
+ wanting the result of the expression.  The continuation
+represents an entire (default) future for the computation.  If the expression is
+evaluated at the REPL, for example, then the continuation might take the
+result, print it on the screen, prompt for the next input, evaluate it, and
+so on forever.  Most of the time the continuation includes actions
+specified by user code, as in a continuation that will take the result,
+multiply it by the value stored in a local variable, add seven, and give
+the answer to the REPL's continuation to be printed.  Normally these
+ubiquitous continuations are hidden behind the scenes and programmers do not
+think much about them.  On rare occasions, however, a programmer
+needs to deal with continuations explicitly.
+The  call-with-current-continuation procedure allows Scheme programmers to do
+that by creating a procedure that acts just like the current
+continuation.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Delivers all of its arguments to its continuation.
+The <tt>values</tt> procedure might be defined as follows:
+
+(define (values . things)
+  (call-with-current-continuation 
+    (lambda (cont) (apply cont things))))
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Calls its  argument with no arguments and
+a continuation that, when passed some values, calls the
+ procedure with those values as arguments.
+The continuation for the call to  is the
+continuation of the call to <tt>call-with-values</tt>.
+
+<div class="p"><!----></div>
+(call-with-values (lambda () (values 4 5))
+                  (lambda (a b) b))
+                                                     5
+
+<div class="p"><!----></div>
+(call-with-values * -)                               -1
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Calls  without arguments, returning the result(s) of this call.
+ and  are called, also without arguments, as required
+by the following rules.  Note that, in the absence of calls to continuations
+captured using , the three arguments are
+called once each, in order.   is called whenever execution
+enters the dynamic extent of the call to  and  is called
+whenever it exits that dynamic extent.  The dynamic extent of a procedure
+call is the period between when the call is initiated and when it
+returns.
+The  and  thunks are called in the same dynamic
+environment as the call to  dynamic-wind.
+In Scheme, because of  call-with-current-continuation, the
+dynamic extent of a call is not always a single, connected time period.
+It is defined as follows:
+
+<ul>
+<li> The dynamic extent is entered when execution of the body of the
+called procedure begins.
+<div class="p"><!----></div>
+</li>
+
+<li> The dynamic extent is also entered when execution is not within
+the dynamic extent and a continuation is invoked that was captured
+(using  call-with-current-continuation) during the dynamic extent.
+<div class="p"><!----></div>
+</li>
+
+<li> It is exited when the called procedure returns.
+<div class="p"><!----></div>
+</li>
+
+<li> It is also exited when execution is within the dynamic extent and
+a continuation is invoked that was captured while not within the
+dynamic extent.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+If a second call to  dynamic-wind occurs within the dynamic extent of the
+call to  and then a continuation is invoked in such a way that the
+s from these two invocations of  dynamic-wind are both to be
+called, then the  associated with the second (inner) call to
+ dynamic-wind is called first.
+
+<div class="p"><!----></div>
+If a second call to  dynamic-wind occurs within the dynamic extent of the
+call to  and then a continuation is invoked in such a way that the
+s from these two invocations of  dynamic-wind are both to be
+called, then the  associated with the first (outer) call to
+ dynamic-wind is called first.
+
+<div class="p"><!----></div>
+If invoking a continuation requires calling the  from one call
+to  dynamic-wind and the  from another, then the 
+is called first.
+
+<div class="p"><!----></div>
+The effect of using a captured continuation to enter or exit the dynamic
+extent of a call to  or  is unspecified.
+
+<div class="p"><!----></div>
+(let ((path '())
+      (c #f))
+  (let ((add (lambda (s)
+               (set! path (cons s path)))))
+    (dynamic-wind
+      (lambda () (add 'connect))
+      (lambda ()
+        (add (call-with-current-continuation
+               (lambda (c0)
+                 (set! c c0)
+                 'talk1))))
+      (lambda () (add 'disconnect)))
+    (if (&lt; (length path) 4)
+        (c 'talk2)
+        (reverse path))))
+     (connect talk1 disconnect
+               connect talk2 disconnect)
+
+
+<div class="p"><!----></div>
+This section describes Scheme's exception-handling and
+exception-raising procedures.
+For the concept of Scheme exceptions, see section&nbsp;.
+See also  for the  guard syntax.
+
+<div class="p"><!----></div>
+s are one-argument procedures that determine the
+action the program takes when an exceptional situation is signaled.
+The system implicitly maintains a current exception handler
+in the dynamic environment.
+
+<div class="p"><!----></div>
+The program raises an exception by
+invoking the current exception handler, passing it an object
+encapsulating information about the exception.  Any procedure
+accepting one argument can serve as an exception handler and any
+object can be used to represent an exception.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  with-exception-handler procedure returns the results of invoking
+.   is installed as the current
+exception handler 
+in the dynamic environment used for the invocation of .
+
+<div class="p"><!----></div>
+(call-with-current-continuation
+ (lambda (k)
+  (with-exception-handler
+   (lambda (x)
+    (display "condition: ")
+    (write x)
+    (newline)
+    (k 'exception))
+   (lambda ()
+    (+ 1 (raise 'an-error))))))
+         exception
+ &nbsp;<em>and prints</em>  condition: an-error
+
+<div class="p"><!----></div>
+(with-exception-handler
+ (lambda (x)
+  (display &#223;omething went wrongn"))
+ (lambda ()
+  (+ 1 (raise 'an-error))))
+ &nbsp;<em>prints</em>  something went wrong
+
+<div class="p"><!----></div>
+After printing, the second example then raises another exception.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Raises an exception by invoking the current exception
+handler on . The handler is called with the same
+dynamic environment as that of the call to  raise, except that
+the current exception handler is the one that was in place when the
+handler being called was installed.  If the handler returns, a secondary
+exception is raised in the same dynamic environment as the handler.
+The relationship between  and the object raised by
+the secondary exception is unspecified.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Raises an exception by invoking the current
+exception handler on . The handler is called with
+the same dynamic environment as the call to
+ raise-continuable, except that: (1) the current
+exception handler is the one that was in place when the handler being
+called was installed, and (2) if the handler being called returns,
+then it will again become the current exception handler.  If the
+handler returns, the values it returns become the values returned by
+the call to  raise-continuable.
+
+
+<div class="p"><!----></div>
+(with-exception-handler
+  (lambda (con)
+    (cond
+      ((string? con)
+       (display con))
+      (else
+       (display &#228; warning has been issued")))
+    42)
+  (lambda ()
+    (+ (raise-continuable &#223;hould be a number")
+       23)))
+   <i>prints:</i> should be a number
+    65
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Raises an exception as if by calling
+ raise on a newly allocated implementation-defined object which encapsulates
+the information provided by ,
+as well as any s, known as the .
+The procedure  error-object? must return  on such objects.
+
+<div class="p"><!----></div>
+(define (null-list? l)
+  (cond ((pair? l) #f)
+        ((null? l) #t)
+        (else
+          (error
+            "null-list?: argument out of domain"
+            l))))
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is an object created by  error 
+or one of an implementation-defined set of objects.  Otherwise, it returns
+.  
+The objects used to signal errors, including those which satisfy the
+predicates  file-error? and  read-error?, may or may not
+satisfy  error-object?.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the message encapsulated by .
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a list of the irritants encapsulated by .
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Error type predicates.  Returns  if  is an
+object raised by the  read procedure or by the inability to open
+an input or output port on a file, respectively.  Otherwise, it
+returns .
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+This procedure returns a specifier for the environment that results by
+starting with an empty environment and then importing each ,
+considered as an import set, into it.  (See section&nbsp; for
+a description of import sets.)  The bindings of the environment
+represented by the specifier are immutable, as is the environment itself.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+If  is equal to  5,
+corresponding to ,
+ scheme-report-environment returns a specifier for an
+environment that contains only the bindings
+defined in the &nbsp;library.
+Implementations must support this value of .
+
+<div class="p"><!----></div>
+Implementations may also support other values of , in which
+case they return a specifier for an environment containing bindings corresponding to the specified version of the report.
+If 
+is neither  5 nor another value supported by
+the implementation, an error is signaled.
+
+<div class="p"><!----></div>
+The effect of defining or assigning (through the use of  eval)
+an identifier bound in a  scheme-report-environment (for example
+ car) is unspecified.  Thus both the environment and the bindings
+it contains may be immutable.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+If  is equal to  5,
+corresponding to ,
+the  null-environment procedure returns
+a specifier for an environment that contains only the
+bindings for all syntactic keywords
+defined in the &nbsp;library.
+Implementations must support this value of .
+
+<div class="p"><!----></div>
+Implementations may also support other values of , in which
+case they return a specifier for an environment containing appropriate bindings corresponding to the specified version of the report.
+If 
+is neither  5 nor another value supported by
+the implementation, an error is signaled.
+
+<div class="p"><!----></div>
+The effect of defining or assigning (through the use of  eval)
+an identifier bound in a  scheme-report-environment (for example
+ car) is unspecified.  Thus both the environment and the bindings
+it contains may be immutable.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+This procedure returns a specifier for a mutable environment that contains an
+implementation-defined set of bindings, typically a superset of
+those exported by (scheme base).  The intent is that this procedure
+will return the environment in which the implementation would evaluate
+expressions entered by the user into a REPL.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+If  is an expression, it is evaluated in the
+specified environment and its values are returned.
+If it is a definition, the specified identifier(s) are defined in the specified
+environment, provided the environment is not immutable.
+Implementations may extend  eval to allow other objects.
+
+<div class="p"><!----></div>
+(eval '(* 7 3) (environment '(scheme base)))
+                                                     21
+
+<div class="p"><!----></div>
+(let ((f (eval '(lambda (f x) (f x x))
+               (null-environment 5))))
+  (f + 10))
+                                                     20
+(eval '(define foo 32)
+      (environment '(scheme base)))
+                                                    <i> error is signaled</i>
+
+<div class="p"><!----></div>
+Ports represent input and output devices.  To Scheme, an input port is
+a Scheme object that can deliver data upon command, while an output
+port is a Scheme object that can accept data.
+Whether the input and output port types are disjoint is
+implementation-dependent.
+
+<div class="p"><!----></div>
+Different <em>port types</em> operate on different data.  Scheme
+implementations are required to support <em>textual ports</em>
+and <em>binary ports</em>, but may also provide other port types.
+
+<div class="p"><!----></div>
+A textual port supports reading or writing of individual characters
+from or to a backing store containing characters
+using  read-char and  write-char below, and it supports operations
+defined in terms of characters, such as  read and  write.
+
+<div class="p"><!----></div>
+A binary port supports reading or writing of individual bytes from
+or to a backing store containing bytes using  read-u8 and 
+write-u8 below, as well as operations defined in terms of bytes.
+Whether the textual and binary port types are disjoint is
+implementation-dependent.
+
+<div class="p"><!----></div>
+Ports can be used to access files, devices, and similar things on the host
+system on which the Scheme program is running.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  call-with-port
+procedure calls  with  as an argument.  
+If  returns,
+then the port is closed automatically and the values yielded by the
+ are returned.  If  does not return, then 
+the port must not be closed automatically unless it is possible to
+prove that the port will never again be used for a read or write
+operation.
+
+<div class="p"><!----></div>
+Because Scheme's escape procedures have unlimited extent, it  is
+possible to escape from the current continuation but later to resume it. 
+If implementations were permitted to close the port on any escape from the
+current continuation, then it would be impossible to write portable code using
+both  call-with-current-continuation and  call-with-port.
+ 
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+These procedures obtain a
+textual port obtained by opening the named file for input or output
+as if by  open-input-file or  open-output-file.  
+The port and  are then passed to a procedure equivalent
+to  call-with-port.
+
+
+<div class="p"><!----></div>
+
+
+
+
+
+
+<div class="p"><!----></div>
+These procedures return  if  is an input port, output port, 
+textual port, binary port, or any
+kind of port, respectively.  Otherwise they return .
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns  if  is still open and capable of
+performing input or output, respectively, and  otherwise.
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Returns the current default input port, output port, or error port (an
+output port), respectively.  These procedures are parameter objects, which can be
+overridden with  parameterize (see
+section&nbsp;).  The initial bindings for these
+are implementation-defined textual ports.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The file is opened for input or output
+as if by  open-input-file or  open-output-file, 
+and the new port is made to be the value returned by
+ current-input-port or  current-output-port
+(as used by <tt>(read)</tt>, <tt>(write )</tt>, and so forth).
+The  is then called with no arguments.  When the  returns,
+the port is closed and the previous default is restored.
+It is an error if  does not accept zero arguments.
+Both procedures return the values yielded by .
+If an escape procedure
+is used to escape from the continuation of these procedures, they
+behave exactly as if the current input or output port had been bound
+dynamically with  parameterize.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Takes a  for an existing file and returns a textual
+input port or binary input port that is capable of delivering data from the
+file.  If the file does not exist or cannot be opened, an error that satisfies  file-error? is signaled.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Takes a  naming an output file to be created and returns a
+textual output port or binary output port that is capable of writing
+data to a new file by that name.
+
+If a file with the given name already exists,
+the effect is unspecified.
+If the file cannot be opened,
+an error that satisfies  file-error? is signaled.
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Closes the resource associated with , rendering the 
+incapable of delivering or accepting data.  
+It is an error
+to apply the last two procedures to a port which is not an input
+or output port, respectively.
+Scheme implementations may provide ports which are simultaneously
+input and output ports, such as sockets; the  close-input-port
+and  close-output-port procedures can then be used to close the
+input and output sides of the port independently.
+
+<div class="p"><!----></div>
+These routines have no effect if the port has already been closed.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Takes a string and returns a textual input port that delivers
+characters from the string.
+If the string is modified, the effect is unspecified.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a textual output port that will accumulate characters for
+retrieval by  get-output-string.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a string consisting of the
+characters that have been output to the port so far in the order they
+were output.
+If the result string is modified, the effect is unspecified.
+
+<div class="p"><!----></div>
+(parameterize
+    ((current-output-port
+      (open-output-string)))
+    (display "piece")
+    (display " by piece ")
+    (display "by piece.")
+    (newline)
+    (get-output-string (current-output-port)))
+ "piece by piece by piece.n"
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Takes a bytevector and returns a binary input port that delivers
+bytes from the bytevector.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a binary output port that will accumulate bytes for
+retrieval by  get-output-bytevector.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+  Returns a bytevector consisting
+of the bytes that have been output to the port so far in the
+order they were output.
+
+
+<div class="p"><!----></div>
+If  is omitted from any input procedure, it defaults to the
+value returned by  (current-input-port).
+It is an error to attempt an input operation on a closed port.
+
+<div class="p"><!----></div>
+ <table border="0"><tr><td> </td></tr></table><!--hboxt-->  
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  read procedure converts external representations of Scheme objects into the
+objects themselves.  That is, it is a parser for the non-terminal
+ (see sections&nbsp; and
+).  It returns the next
+object parsable from the given textual input , updating
+ to point to
+the first character past the end of the external representation of the object.
+
+<div class="p"><!----></div>
+Implementations may support extended syntax to represent record types or
+other types that do not have datum representations.
+
+<div class="p"><!----></div>
+ If an end of file is encountered in the input before any
+characters are found that can begin an object, then an end-of-file
+object is returned.  The port remains open, and further attempts
+to read will also return an end-of-file object.  If an end of file is
+encountered after the beginning of an object's external representation,
+but the external representation is incomplete and therefore not parsable,
+an error that satisfies  read-error? is signaled.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns the next character available from the textual input ,
+updating
+the  to point to the following character.  If no more characters
+are available, an end-of-file object is returned.  
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns the next character available from the textual input ,
+but <em>without</em> updating
+the  to point to the following character.  If no more characters
+are available, an end-of-file object is returned.  
+
+<div class="p"><!----></div>
+The value returned by a call to  peek-char is the same as the
+value that would have been returned by a call to  read-char with the
+same .  The only difference is that the very next call to
+ read-char or  peek-char on that  will return the
+value returned by the preceding call to  peek-char.  In particular, a call
+to  peek-char on an interactive port will hang waiting for input
+whenever a call to  read-char would have hung.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns the next line of text available from the textual input
+, updating the  to point to the following character.
+If an end of line is read, a string containing all of the text up to
+(but not including) the end of line is returned, and the port is updated
+to point just past the end of line. If an end of file is encountered
+before any end of line is read, but some characters have been
+read, a string containing those characters is returned. If an end of
+file is encountered before any characters are read, an end-of-file
+object is returned.  For the purpose of this procedure, an end of line
+consists of either a linefeed character, a carriage return character, or a
+sequence of a carriage return character followed by a linefeed character.
+Implementations may also recognize other end of line characters or sequences.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns  if  is an end-of-file object, otherwise returns
+.  The precise set of end-of-file objects will vary among
+implementations, but in any case no end-of-file object will ever be an object
+that can be read in using  read.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns an end-of-file object, not necessarily unique.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns  if a character is ready on the textual input  and
+returns  otherwise.  If  char-ready returns  then
+the next  read-char operation on the given  is guaranteed
+not to hang.  If the  is at end of file then  char-ready?&nbsp;returns .  
+
+<div class="p"><!----></div>
+The  char-ready? procedure exists to make it possible for a program to
+accept characters from interactive ports without getting stuck waiting for
+input.  Any input editors associated with such ports must ensure that
+characters whose existence has been asserted by  char-ready?&nbsp;cannot
+be removed from the input.  If  char-ready?&nbsp;were to return  at end of
+file, a port at end of file would be indistinguishable from an interactive
+port that has no ready characters.
+
+
+
+<div class="p"><!----></div>
+
+
+
+
+<div class="p"><!----></div>
+Reads the next  characters, or as many as are available before the end of file,
+from the textual
+input  into a newly allocated string in left-to-right order
+and returns the string.
+If no characters are available before the end of file,
+an end-of-file object is returned.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns the next byte available from the binary input ,
+updating the  to point to the following byte.  
+If no more bytes are
+available, an end-of-file object is returned.  
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns the next byte available from the binary input ,
+but <em>without</em> updating the  to point to the following
+byte.  If no more bytes are available, an end-of-file object is returned.  
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Returns  if a byte is ready on the binary input 
+and returns  otherwise.  If  u8-ready? returns
+ then the next  read-u8 operation on the given
+ is guaranteed not to hang.  If the  is at end of
+file then  u8-ready?&nbsp;returns .  
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Reads the next  bytes, or as many as are available before the end of file,
+from the binary
+input  into a newly allocated bytevector in left-to-right order
+and returns the bytevector.
+If no bytes are available before the end of file,
+an end-of-file object is returned.
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+Reads the next end &#8722; start bytes, or as many as are available
+before the end of file,
+from the binary
+input  into  in left-to-right order
+beginning at the  position.  If  is not supplied,
+reads until the end of  has been reached.  If
+ is not supplied, reads beginning at position 0.
+Returns the number of bytes read.
+If no bytes are available, an end-of-file object is returned.
+
+<div class="p"><!----></div>
+If  is omitted from any output procedure, it defaults to the
+value returned by  (current-output-port).
+It is an error to attempt an output operation on a closed port.
+
+<div class="p"><!----></div>
+ <table border="0"><tr><td></td></tr></table><!--hboxt-->
+
+
+<div class="p"><!----></div>
+Writes a representation of  to the given textual output
+.  Strings
+that appear in the written representation are enclosed in quotation marks, and
+within those strings backslash and quotation mark characters are
+escaped by backslashes.  Symbols that contain non-ASCII characters
+are escaped with vertical lines.
+Character objects are written using the  # notation.
+
+<div class="p"><!----></div>
+If  contains cycles which would cause an infinite loop using
+the normal written representation, then at least the objects that form
+part of the cycle must be represented using datum labels as described
+in section&nbsp;.  Datum labels must not be used if there
+are no cycles.
+
+<div class="p"><!----></div>
+Implementations may support extended syntax to represent record types or
+other types that do not have datum representations.
+
+<div class="p"><!----></div>
+The  write procedure returns an unspecified value.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  write-shared procedure is the same as  write, except that
+shared structure must be represented using datum labels for all pairs
+and vectors that appear more than once in the output.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+The  write-simple procedure is the same as  write, except that shared structure is
+never represented using datum labels.  This can cause  write-simple not to
+terminate if  contains circular structure.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Writes a representation of  to the given textual output .
+Strings that appear in the written representation are output as if by
+ write-string instead of by  write.
+Symbols are not escaped.  Character
+objects appear in the representation as if written by  write-char
+instead of by  write.
+
+<div class="p"><!----></div>
+The  display representation of other objects is unspecified.
+However,  display must not loop forever on 
+self-referencing pairs, vectors, or records.  Thus if the
+normal  write representation is used, datum labels are needed
+to represent cycles as in  write.
+
+<div class="p"><!----></div>
+Implementations may support extended syntax to represent record types or
+other types that do not have datum representations.
+
+<div class="p"><!----></div>
+The  display procedure returns an unspecified value.
+
+<div class="p"><!----></div>
+The  write procedure is intended
+for producing machine-readable output and  display for producing
+human-readable output.  
+
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Writes an end of line to textual output .  Exactly how this
+is done differs
+from one operating system to another.  Returns an unspecified value.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Writes the character  (not an external representation of the
+character) to the given textual output  and returns an unspecified
+value.  
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+Writes the characters of 
+from  to 
+in left-to-right order to the
+textual output .
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Writes the  to
+the given binary output  and returns an unspecified value.
+
+<div class="p"><!----></div>
+
+
+
+
+
+<div class="p"><!----></div>
+Writes the bytes of 
+from  to 
+in left-to-right order to the
+binary output .
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Flushes any buffered output from the buffer of output-port to the
+underlying file or device and returns an unspecified value.
+
+<div class="p"><!----></div>
+Questions of system interface generally fall outside of the domain of this
+report.  However, the following operations are important enough to
+deserve description here.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+An implementation-dependent operation is used to transform
+ into the name of an existing file
+containing Scheme source code.  The  load procedure reads
+expressions and definitions from the file and evaluates them
+sequentially in the environment specified by .
+If  is omitted,  (interaction-environment)
+is assumed.
+
+<div class="p"><!----></div>
+It is unspecified whether the results of the expressions
+are printed.  The  load procedure does not affect the values
+returned by  current-input-port and  current-output-port.
+It returns an unspecified value.
+
+<div class="p"><!----></div>
+For portability,  load must operate on source files.
+Its operation on other kinds of files necessarily varies among
+implementations.
+
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  file-exists? procedure returns
+ if the named file exists at the time the procedure is called,
+and  otherwise.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+The  delete-file procedure deletes the
+named file if it exists and can be deleted, and returns an unspecified
+value.  If the file does not exist or cannot be deleted, an error
+that satisfies  file-error? is signaled.
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the command line passed to the process as a list of
+strings.  The first string corresponds to the command name, and is
+implementation-dependent.  It is an error to mutate any of these strings.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Runs all outstanding dynamic-wind  procedures, terminates the
+running program, and communicates an exit value to the operating system.
+If no argument is supplied, or if  is , the 
+exit procedure should communicate to the operating system that the
+program exited normally.  If  is , the  exit
+procedure should communicate to the operating system that the program
+exited abnormally.  Otherwise,  exit should translate  into
+an appropriate exit value for the operating system, if possible.
+
+<div class="p"><!----></div>
+The  exit procedure
+must not signal an exception or return to its continuation.
+
+<div class="p"><!----></div>
+Because of the requirement to run handlers, this procedure is not just the
+operating system's exit procedure.
+
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+Terminates the program without running any
+outstanding dynamic-wind  procedures
+and communicates an exit value to the operating system
+in the same manner as  exit.
+
+<div class="p"><!----></div>
+The  emergency-exit procedure corresponds to the  _exit procedure
+in Windows and Posix.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Many operating systems provide each running process with an
+ consisting of .
+(This environment is not to be confused with the Scheme environments that
+can be passed to  eval: see section&nbsp;.)
+Both the name and value of an environment variable are strings.
+The procedure  get-environment-variable returns the value 
+of the environment variable ,
+or  if the named
+environment variable is not found.  It may
+use locale information to encode the name and decode the value
+of the environment variable.  It is an error if <br />
+ get-environment-variable can't decode the value.
+It is also an error to mutate the resulting string.
+
+<div class="p"><!----></div>
+(get-environment-variable "PATH")  "/usr/local/bin:/usr/bin:/bin"
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the names and values of all the environment variables as an
+alist, where the car of each entry is the name of an environment
+variable and the cdr is its value, both as strings.  The order of the list is unspecified.
+It is an error to mutate any of these strings or the alist itself.
+
+<div class="p"><!----></div>
+(get-environment-variables)  ((&#220;SER" . "root") ("HOME" . "/"))
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns an inexact number representing the current time on the International Atomic
+Time (TAI) scale.  The value 0.0 represents midnight
+on January 1, 1970 TAI (equivalent to ten seconds before midnight Universal Time)
+and the value 1.0 represents one TAI
+second later.  Neither high accuracy nor high precision are required; in particular,
+returning Coordinated Universal Time plus a suitable constant might be
+the best an implementation can do.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns the number of  as an exact integer that have elapsed since an arbitrary,
+implementation-defined epoch. A jiffy is an implementation-defined
+fraction of a second which is defined by the return value of the
+ jiffies-per-second procedure. The starting epoch is guaranteed to be
+constant during a run of the program, but may vary between runs.
+
+<div class="p"><!----></div>
+Jiffies are allowed to be implementation-dependent so that
+ current-jiffy can execute with minimum overhead. It
+should be very likely that a compactly represented integer will suffice
+as the returned value.  Any particular jiffy size will be inappropriate
+for some implementations: a microsecond is too long for a very fast
+machine, while a much smaller unit would force many implementations to
+return integers which have to be allocated for most calls, rendering 
+ current-jiffy less useful for accurate timing measurements.
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns an exact integer representing the number of jiffies per SI
+second. This value is an implementation-specified constant.
+
+<div class="p"><!----></div>
+(define (time-length)
+  (let ((list (make-list 100000))
+        (start (current-jiffy)))
+    (length list)
+    (/ (- (current-jiffy) start)
+       (jiffies-per-second))))
+
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+Returns a list of the feature identifiers which  cond-expand
+treats as true.  It is an error to modify this list.  Here is an
+example of what  features might return:
+
+<div class="p"><!----></div>
+(features) 
+  (r7rs ratios exact-complex full-unicode
+   gnu-linux little-endian 
+   fantastic-scheme
+   fantastic-scheme-1.0
+   space-ship-control-system)
+
+
+<div class="p"><!----></div>
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 4.01.<br />On 14 Nov 2013, 17:47.</small>
+</html>
