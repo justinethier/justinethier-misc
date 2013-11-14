@@ -1,3 +1,20 @@
+# JAE notes
+#
+# Will need to use other tex conversion software to generate individual pages, IE
+#  tth procs.tex
+#
+# Can add the text to the skeleton, using CSS classes to indicate code blocks and text.
+# Will want to experiment with one section (Booleans?) to get everything down. Final CSS
+# does not need to be written, but the tags to add need to be defined so each section only
+# needs to be visited once for the majority of the work.
+# 
+# Resources:
+# http://www.w3.org/TR/CSS2/sample.html
+# http://stackoverflow.com/questions/219219/how-to-change-a-span-to-look-like-a-pre-with-css
+#
+#
+# Will want to remove sections that are not applicable (chapter 7?), and add new ones for 
+# husk libraries, etc
 
 .PHONY: all clean cleaner checkindex
 
