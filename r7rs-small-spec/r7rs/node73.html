@@ -223,59 +223,214 @@ TODO: husk does not make this distiction
   </div>
 </p>
 
+<p>
+<div id="set-cdr!" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(set-cdr! </span>
+    <span class="code-var">pair obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">special form</span>
+  </div>
+  <div class="p"><!----></div>
+Stores obj in the cdr field of pair.
+</div>
+</p>
 
-(set-cdr! pair obj ) procedure
-Stores obj in the cdr field of pair .
-(caar pair) procedure
-(cadr pair) procedure
-(cdar pair) procedure
-(cddr pair) procedure
+<p>
+<div id="caar" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(caar </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(cadr </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(cdar </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(cddr </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 These procedures are compositions of car and cdr as follows:
+  <div class="p"><!----></div>
+  <span class="code-block">
 (define (caar x) (car (car x)))
 (define (cadr x) (car (cdr x)))
 (define (cdar x) (cdr (car x)))
 (define (cddr x) (cdr (cdr x)))
-(caaar pair) cxr library procedure
-(caadr pair) cxr library procedure
-...
-...
-(cdddar pair) cxr library procedure
-(cddddr pair) cxr library procedure
+  </span>
+  </div>
+</p>
+
+<p>
+<div id="caaar" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(caaar </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">cxr library procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(caadr </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">cxr library procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">...</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">...</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(cdddar </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">cxr library procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(cddddr </span>
+    <span class="code-var">pair</span>
+    <span class="code">)</span>
+    <span class="obj-type">cxr library procedure</span>
+  </div>
+  <div class="p"><!----></div>
 These twenty-four procedures are further compositions of
 car and cdr on the same principles. For example, caddr
 could be defined by
+  <div class="p"><!----></div>
+  <span class="code-block">
 (define caddr (lambda (x) (car (cdr (cdr x))))).
+</span>
+  <div class="p"><!----></div>
+  <br />
 Arbitrary compositions up to four deep are provided.
-(null? obj ) procedure
+</div>
+</p>
+
+<p>
+<div id="null?" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(null? </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns #t if obj is the empty list, otherwise returns #f.
-(list? obj ) procedure
+  <div class="p"><!----></div>
+</div>
+</p>
+
+<p>
+<div id="list?" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list? </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns #t if obj is a list. Otherwise, it returns #f. By
 definition, all lists have finite length and are terminated by
 the empty list.
+  <div class="p"><!----></div>
+  <span class="code-block">
+(list? obj ) procedure
 (list? '(a b c)) ==> #t
 (list? '()) ==> #t
 (list? '(a . b)) ==> #f
 (let ((x (list 'a)))
 (set-cdr! x x)
 (list? x)) ==> #f
-(make-list k) procedure
-(make-list k fill) procedure
+  </span>
+</div>
+</p>
+<p>
+<div id="make-list" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(make-list </span>
+    <span class="code-var">k</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(make-list </span>
+    <span class="code-var">k fill</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns a newly allocated list of k elements. If a second
-argument is given, then each element is initialized to fill .
-Otherwise the initial contents of each element is unspeci-
-fied.
+argument is given, then each element is initialized to fill.
+Otherwise the initial contents of each element is unspecified.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (make-list 2 3) ==> (3 3)
-(list obj : : : ) procedure
+  </span>
+</div>
+</p>
+
+<p>
+<div id="list" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list </span>
+    <span class="code-var">obj ...</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns a newly allocated list of its arguments.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (list 'a (+ 3 4) 'c) ==> (a 7 c)
 (list) ==> ()
-(length list) procedure
+  </span>
+</div>
+</p>
+<p>
+<div id="length" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(length </span>
+    <span class="code-var">list</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns the length of list .
+  <div class="p"><!----></div>
+  <span class="code-block">
 (length '(a b c)) ==> 3
 (length '(a (b) (c d e))) ==> 3
 (length '()) ==> 0
-(append list : : : ) procedure
+  </span>
+</div>
+</p>
+<p>
+<div id="append" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(append </span>
+    <span class="code-var">list ...</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 The last argument, if there is one, can be of any type.
+<br />
+<br />
+  <div class="p"><!----></div>
 Returns a list consisting of the elements of the first list
 followed by the elements of the other list s. If there are no
 arguments, the empty list is returned. If there is exactly
@@ -283,50 +438,135 @@ one argument, it is returned. Otherwise the resulting list
 is always newly allocated, except that it shares structure
 with the last argument. An improper list results if the last
 argument is not a proper list.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (append '(x) '(y)) ==> (x y)
 (append '(a) '(b c d)) ==> (a b c d)
 (append '(a (b)) '((c))) ==> (a (b) (c))
 (append '(a b) '(c . d)) ==> (a b c . d)
 (append '() 'a) ==> a
-(reverse list) procedure
+  </span>
+</div>
+</p>
+<p>
+<div id="reverse" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(reverse </span>
+    <span class="code-var">list</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns a newly allocated list consisting of the elements of
 list in reverse order.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (reverse '(a b c)) ==> (c b a)
 (reverse '(a (b c) d (e (f))))
 ==> ((e (f)) d (b c) a)
-(list-tail list k) procedure
+  </span>
+</div>
+</p>
+<p>
+<div id="list-tail" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list-tail </span>
+    <span class="code-var">list k</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 It is an error if list has fewer than k elements.
+  <br />
+  <br />
+  <div class="p"><!----></div>
 Returns the sublist of list obtained by omitting the first k
-elements. The list-tail procedure could be defined by
-(define list-tail
-(lambda (x k)
-(if (zero? k)
-x
-(list-tail (cdr x) (- k 1)))))
-(list-ref list k) procedure
-The list argument can be circular, but it is an error if list has
-fewer than k elements.
+elements.
+  </div>
+</p>
+
+<p>
+<div id="list-ref" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list-ref </span>
+    <span class="code-var">list k</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
+It is an error if list has fewer than k elements.
+<br />
+<br />
+  <div class="p"><!----></div>
 Returns the kth element of list . (This is the same as the
 car of (list-tail list k).)
-6. Standard procedures 43
+  <div class="p"><!----></div>
+  <span class="code-block">
 (list-ref '(a b c d) 2) ==> c
 (list-ref '(a b c d)
 (exact (round 1.8)))
 ==> c
-(list-set! list k obj ) procedure
-It is an error if k is not a valid index of list .
+  </span>
+</div>
+</p>
+
+<p>
+<div id="list-set!" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list-set! </span>
+    <span class="code-var">list k obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">special form</span>
+  </div>
+  <div class="p"><!----></div>
+It is an error if k is not a valid index of list.
+<br />
+<br />
+  <div class="p"><!----></div>
 The list-set! procedure stores obj in element k of
-list .
+list.
+  <div class="p"><!----></div>
+  <span class="code-block">
+
+TODO: husk does not have immutable lists
+
 (let ((ls (list 'one 'two 'five!)))
 (list-set! ls 2 'three)
 ls)
 ==> (one two three)
 (list-set! '(0 1 2) 1 "oops")
 ==> error ; constant list
-(memq obj list) procedure
-(memv obj list) procedure
-(member obj list) procedure
-(member obj list compare) procedure
+  </span>
+</div>
+</p>
+
+<P>
+<div id="memq" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(memq </span>
+    <span class="code-var">obj list</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(memv </span>
+    <span class="code-var">obj list</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(member </span>
+    <span class="code-var">obj list</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(member </span>
+    <span class="code-var">obj list compare</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 These procedures return the first sublist of list whose car
 is obj , where the sublists of list are the non-empty lists
 returned by (list-tail list k) for k less than the length
@@ -334,6 +574,8 @@ of list . If obj does not occur in list , then #f (not the empty
 list) is returned. The memq procedure uses eq? to compare
 obj with the elements of list , while memv uses eqv? and
 member uses compare, if given, and equal? otherwise.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (memq 'a '(a b c)) ==> (a b c)
 (memq 'b '(a b c)) ==> (b c)
 (memq 'a '(b c d)) ==> #f
@@ -345,17 +587,48 @@ member uses compare, if given, and equal? otherwise.
 string-ci=?) ==> ("b" "c")
 (memq 101 '(100 101 102)) ==> unspecified
 (memv 101 '(100 101 102)) ==> (101 102)
-(assq obj alist) procedure
-(assv obj alist) procedure
-(assoc obj alist) procedure
-(assoc obj alist compare) procedure
+  </span>
+</div>
+</p>
+
+<P>
+<div id="assq" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(assq </span>
+    <span class="code-var">obj alist</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(assv </span>
+    <span class="code-var">obj alist</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(assoc </span>
+    <span class="code-var">obj alist</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="obj-header">
+    <span class="code">(assoc </span>
+    <span class="code-var">obj alist compare</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 It is an error if alist (for \association list") is not a list of pairs.
+  <br />
+  <div class="p"><!----></div>
 These procedures find the first pair in alist whose car field
 is obj , and returns that pair. If no pair in alist has obj
 as its car, then #f (not the empty list) is returned. The
 assq procedure uses eq? to compare obj with the car fields
 of the pairs in alist , while assv uses eqv? and assoc uses
 compare if given and equal? otherwise.
+  <div class="p"><!----></div>
+  <span class="code-block">
 (define e '((a 1) (b 2) (c 3)))
 (assq 'a e) ==> (a 1)
 (assq 'b e) ==> (b 2)
@@ -370,11 +643,24 @@ compare if given and equal? otherwise.
 ==> unspecified
 (assv 5 '((2 3) (5 7) (11 13)))
 ==> (5 7)
+  </span>
+  <div class="p"><!----></div>
+  <br />
 Rationale: Although they are often used as predicates, memq,
 memv, member, assq, assv, and assoc do not have question
 marks in their names because they return potentially useful
 values rather than just #t or #f.
-(list-copy obj ) procedure
+</div>
+</p>
+<P>
+<div id="list-copy" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(list-copy </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
 Returns a newly allocated copy of the given obj if it is a
 list. Only the pairs themselves are copied; the cars of the
 result are the same (in the sense of eqv?) as the cars of list .
@@ -382,11 +668,19 @@ If obj is an improper list, so is the result, and the final cdrs
 are the same in the sense of eqv?. An obj which is not a
 list is returned unchanged. It is an error if obj is a circular
 list.
+  <div class="p"><!----></div>
+  <span class="code-block">
+
+TODO: again, more issues with immutable lists
+
 (define a '(1 8 2 8)) ; a may be immutable
 (define b (list-copy a))
 (set-car! b 3) ; b is mutable
 b ==> (3 8 2 8)
 a ==> (1 8 2 8)
+  </span>
+</div>
+</p>
 
 {% include nav.html %}
 <ADDRESS>
