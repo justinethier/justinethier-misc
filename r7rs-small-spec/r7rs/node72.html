@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <!--Converted with LaTeX2HTML 2008 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml">
 <HEAD>
 <TITLE>Booleans</TITLE>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
 <META NAME="description" CONTENT="Booleans">
 <META NAME="keywords" CONTENT="r7rs">
 <META NAME="resource-type" CONTENT="document">
@@ -104,13 +106,9 @@ in programs.
 </span>
 
 <div class="p"><!----></div>
-<div class="obj-box">
+<div id="not" class="obj-box">
   <div class="obj-header">
     <span class="code">(not </span><span class="code-var">obj</span><span class="code">)</span>
-    <span class="obj-type">procedure</span>
-  </div>
-  <div class="obj-header">
-    <span class="code">(DEBUG </span><span class="code-var">obj</span><span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
 
@@ -130,26 +128,36 @@ in programs.
 </div>
 
 <div class="p"><!----></div>
-
+<div id="boolean?" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(boolean? </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">procedure</span>
+  </div>
+  <div class="p"><!----></div>
+  The  boolean? predicate returns <span class="code">#t</span> if <span class="code-var">obj</span> is either <span class="code">#t</span> or <span class="code">#f</span>
+   and returns <span class="code">#f</span> otherwise.
+  
+  <div class="p"><!----></div>
+  <span class="code-block">
+  (boolean? #f)          ==> #t
+  (boolean? 0)           ==> #f 
+  (boolean? '())         ==> #f 
+  </span>
+</div>
 
 <div class="p"><!----></div>
-The  boolean? predicate returns <span class="code">#t</span> if <span class="code-var">obj</span> is either <span class="code">#t</span> or <span class="code">#f</span>
- and returns <span class="code">#f</span> otherwise.
-
-<div class="p"><!----></div>
-<span class="code-block">
-(boolean? #f)          ==> #t
-(boolean? 0)           ==> #f 
-(boolean? '())         ==> #f 
-</span>
-
-<div class="p"><!----></div>
-
-
-<div class="p"><!----></div>
-Returns <span class="code">#t</span> if all the arguments are booleans and all 
-are <span class="code">#t</span> or all are <span class="code">#f</span>.
-
+<div id="boolean=?" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(boolean=?</span>
+    <span class="code-var">boolean1 boolean2 boolean3 ...</span>
+    <span class="code">)</span>
+  </div>
+  <div class="p"><!----></div>
+  Returns <span class="code">#t</span> if all the arguments are booleans and all 
+  are <span class="code">#t</span> or all are <span class="code">#f</span>.
+</div>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
