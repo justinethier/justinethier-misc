@@ -212,6 +212,9 @@ is an error to take the cdr of the empty list.
 Stores obj in the car field of pair.
   <div class="p"><!----></div>
   <span class="code-block">
+
+TODO: husk does not make this distiction
+
 (define (f) (list 'not-a-constant-list))
 (define (g) '(constant-list))
 (set-car! (f) 3) ==> unspecified
