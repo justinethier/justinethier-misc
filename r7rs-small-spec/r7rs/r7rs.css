@@ -1,7 +1,8 @@
-/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi 
 .MATH    { font-family: "Century Schoolbook", serif; }
 .MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
 .BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+*/
 
 /* implement both fixed-size and relative sizes */
 SMALL.XTINY		{ font-size : xx-small }
@@ -35,3 +36,30 @@ SPAN.arabic		{   }
 SPAN.textbf		{ font-weight: bold  }
 #par71132		{   }
 #par71153		{   }
+
+
+/* JAE styles */
+SPAN.code {
+    white-space: pre;
+    font-family: monospace;
+}
+SPAN.code-var {
+    font-style: italic;
+}
+SPAN.code-block {
+    white-space: pre;
+    font-family: monospace;
+}
+DIV.obj-box {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+DIV.obj-header {
+    width: 50%;
+}
+SPAN.obj-type {
+    white-space: pre;
+    font-family: monospace;
+    float: right;
+}
