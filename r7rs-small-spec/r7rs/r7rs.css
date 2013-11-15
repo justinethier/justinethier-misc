@@ -57,6 +57,7 @@ DIV.obj-box {
     margin: 5px;
 }
 DIV.obj-header {
+    font-weight: bold;
 }
 SPAN.obj-type {
     white-space: pre;
