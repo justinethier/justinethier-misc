@@ -21,7 +21,437 @@ nav_index_lbl: Index
 {{ page.title }}
 </H1>
 
+The reader is referred to section 1.3.3 for a summary of
+the naming conventions used to specify restrictions on the
+types of arguments to numerical routines. The examples
+used in this section assume that any numerical constant
+written using an exact notation is indeed represented as
+an exact number. Some examples also assume that certain
+numerical constants written using an inexact notation
+can be represented without loss of accuracy; the inexact
+constants were chosen so that this is likely to be true in
+implementations that use IEEE binary doubles to represent
+inexact numbers.
+(number? obj ) procedure
+(complex? obj ) procedure
+(real? obj ) procedure
+(rational? obj ) procedure
+(integer? obj ) procedure
+These numerical type predicates can be applied to any kind
+of argument, including non-numbers. They return #t if the
+object is of the named type, and otherwise they return #f.
+In general, if a type predicate is true of a number then
+all higher type predicates are also true of that number.
+Consequently, if a type predicate is false of a number, then
+all lower type predicates are also false of that number.
+If z is a complex number, then (real? z) is true if and
+only if (zero? (imag-part z)) is true. If x is an inexact
+real number, then (integer? x) is true if and only if (=
+x (round x)).
+The numbers +inf.0, -inf.0, and +nan.0 are real but not
+rational.
+(complex? 3+4i) =) #t
+(complex? 3) =) #t
+(real? 3) =) #t
+(real? -2.5+0i) =) #t
+(real? -2.5+0.0i) =) #f
+(real? #e1e10) =) #t
+(real? +inf.0) =) #t
+(real? +nan.0) =) #t
+(rational? -inf.0) =) #f
+(rational? 3.5) =) #t
+(rational? 6/10) =) #t
+(rational? 6/3) =) #t
+(integer? 3+0i) =) #t
+(integer? 3.0) =) #t
+(integer? 8/4) =) #t
+Note: The behavior of these type predicates on inexact num-
+bers is unreliable, since any inaccuracy might aect the result.
+Note: In many implementations the complex? procedure will
+be the same as number?, but unusual implementations may rep-
+resent some irrational numbers exactly or may extend the num-
+ber system to support some kind of non-complex numbers.
+(exact? z) procedure
+(inexact? z) procedure
+These numerical predicates provide tests for the exactness
+of a quantity. For any Scheme number, precisely one of
+these predicates is true.
+(exact? 3.0) =) #f
+(exact? #e3.0) =) #t
+(inexact? 3.) =) #t
+(exact-integer? z) procedure
+Returns #t if z is both exact and an integer; otherwise
+returns #f.
+(exact-integer? 32) =) #t
+(exact-integer? 32.0) =) #f
+(exact-integer? 32/5) =) #f
+(finite? z) inexact library procedure
+The finite? procedure returns #t on all real numbers except
++inf.0, -inf.0, and +nan.0, and on complex numbers
+if their real and imaginary parts are both nite. Otherwise
+it returns #f.
+(finite? 3) =) #t
+(finite? +inf.0) =) #f
+(finite? 3.0+inf.0i) =) #f
+(infinite? z) inexact library procedure
+The infinite? procedure returns #t on the real numbers
++inf.0 and -inf.0, and on complex numbers if their real
+or imaginary parts or both are innite. Otherwise it returns
+#f.
+(infinite? 3) =) #f
+(infinite? +inf.0) =) #t
+(infinite? +nan.0) =) #f
+(infinite? 3.0+inf.0i) =) #t
+36 Revised7 Scheme
+(nan? z) inexact library procedure
+The nan? procedure returns #t on +nan.0, and on complex
+numbers if their real or imaginary parts or both are +nan.0.
+Otherwise it returns #f.
+(nan? +nan.0) =) #t
+(nan? 32) =) #f
+(nan? +nan.0+5.0i) =) #t
+(nan? 1+2i) =) #f
+(= z1 z2 z3 : : : ) procedure
+(< x1 x2 x3 : : : ) procedure
+(> x1 x2 x3 : : : ) procedure
+(<= x1 x2 x3 : : : ) procedure
+(>= x1 x2 x3 : : : ) procedure
+These procedures return #t if their arguments are (respectively):
+equal, monotonically increasing, monotonically decreasing,
+monotonically non-decreasing, or monotonically
+non-increasing, and #f otherwise. If any of the arguments
+are +nan.0, all the predicates return #f. They do not distinguish
+between inexact zero and inexact negative zero.
+These predicates are required to be transitive.
+Note: The implementation approach of converting all argu-
+ments to inexact numbers if any argument is inexact is not
+transitive. For example, let big be (expt 2 1000), and assume
+that big is exact and that inexact numbers are represented by
+64-bit IEEE binary 
+oating point numbers. Then (= (- big
+1) (inexact big)) and (= (inexact big) (+ big 1)) would
+both be true with this approach, because of the limitations of
+IEEE representations of large integers, whereas (= (- big 1)
+(+ big 1)) is false. Converting inexact values to exact num-
+bers that are the same (in the sense of =) to them will avoid this
+problem, though special care must be taken with innities.
+Note: While it is not an error to compare inexact numbers
+using these predicates, the results are unreliable because a small
+inaccuracy can aect the result; this is especially true of = and
+zero?. When in doubt, consult a numerical analyst.
+(zero? z) procedure
+(positive? x) procedure
+(negative? x) procedure
+(odd? n) procedure
+(even? n) procedure
+These numerical predicates test a number for a particular
+property, returning #t or #f. See note above.
+(max x1 x2 : : : ) procedure
+(min x1 x2 : : : ) procedure
+These procedures return the maximum or minimum of their
+arguments.
+(max 3 4) =) 4 ; exact
+(max 3.9 4) =) 4.0 ; inexact
+Note: If any argument is inexact, then the result will also be
+inexact (unless the procedure can prove that the inaccuracy is
+not large enough to aect the result, which is possible only in
+unusual implementations). If min or max is used to compare
+numbers of mixed exactness, and the numerical value of the
+result cannot be represented as an inexact number without loss
+of accuracy, then the procedure may report a violation of an
+implementation restriction.
+(+ z1 : : : ) procedure
+(* z1 : : : ) procedure
+These procedures return the sum or product of their arguments.
+(+ 3 4) =) 7
+(+ 3) =) 3
+(+) =) 0
+(* 4) =) 4
+(*) =) 1
+(- z) procedure
+(- z1 z2 : : : ) procedure
+(/ z) procedure
+(/ z1 z2 : : : ) procedure
+With two or more arguments, these procedures return the
+dierence or quotient of their arguments, associating to the
+left. With one argument, however, they return the additive
+or multiplicative inverse of their argument.
+It is an error if any argument of / other than the rst is
+an exact zero. If the rst argument is an exact zero, an
+implementation may return an exact zero unless one of the
+other arguments is a NaN.
+(- 3 4) =) -1
+(- 3 4 5) =) -6
+(- 3) =) -3
+(/ 3 4 5) =) 3/20
+(/ 3) =) 1/3
+(abs x) procedure
+The abs procedure returns the absolute value of its argument.
+(abs -7) =) 7
+(floor/ n1 n2) procedure
+(floor-quotient n1 n2) procedure
+(floor-remainder n1 n2) procedure
+(truncate/ n1 n2) procedure
+(truncate-quotient n1 n2) procedure
+(truncate-remainder n1 n2) procedure
+These procedures implement number-theoretic (integer) division.
+It is an error if n2 is zero. The procedures ending
+in / return two integers; the other procedures return an
+6. Standard procedures 37
+integer. All the procedures compute a quotient nq and remainder
+nr such that n1 = n2nq + nr. For each of the
+division operators, there are three procedures dened as
+follows:
+(hoperatori/ n1 n2) =) nq nr
+(hoperatori-quotient n1 n2) =) nq
+(hoperatori-remainder n1 n2) =) nr
+The remainder nr is determined by the choice of integer
+nq: nr = n1 􀀀 n2nq. Each set of operators uses a dierent
+choice of nq:
+floor nq = bn1=n2c
+truncate nq = truncate(n1=n2)
+For any of the operators, and for integers n1 and n2 with
+n2 not equal to 0,
+(= n1 (+ (* n2 (hoperatori-quotient n1 n2))
+(hoperatori-remainder n1 n2)))
+=) #t
+provided all numbers involved in that computation are exact.
+Examples:
+(floor/ 5 2) =) 2 1
+(floor/ -5 2) =) -3 1
+(floor/ 5 -2) =) -3 -1
+(floor/ -5 -2) =) 2 -1
+(truncate/ 5 2) =) 2 1
+(truncate/ -5 2) =) -2 -1
+(truncate/ 5 -2) =) -2 1
+(truncate/ -5 -2) =) 2 -1
+(truncate/ -5.0 -2) =) 2.0 -1.0
+(quotient n1 n2) procedure
+(remainder n1 n2) procedure
+(modulo n1 n2) procedure
+The quotient and remainder procedures are equivalent
+to truncate-quotient and truncate-remainder, respectively,
+and modulo is equivalent to floor-remainder.
+Note: These procedures are provided for backward compati-
+bility with earlier versions of this report.
+(gcd n1 : : : ) procedure
+(lcm n1 : : : ) procedure
+These procedures return the greatest common divisor or
+least common multiple of their arguments. The result is
+always non-negative.
+(gcd 32 -36) =) 4
+(gcd) =) 0
+(lcm 32 -36) =) 288
+(lcm 32.0 -36) =) 288.0 ; inexact
+(lcm) =) 1
+(numerator q) procedure
+(denominator q) procedure
+These procedures return the numerator or denominator of
+their argument; the result is computed as if the argument
+was represented as a fraction in lowest terms. The denominator
+is always positive. The denominator of 0 is dened
+to be 1.
+(numerator (/ 6 4)) =) 3
+(denominator (/ 6 4)) =) 2
+(denominator
+(inexact (/ 6 4))) =) 2.0
+(floor x) procedure
+(ceiling x) procedure
+(truncate x) procedure
+(round x) procedure
+These procedures return integers. The floor procedure
+returns the largest integer not larger than x. The ceiling
+procedure returns the smallest integer not smaller than x,
+truncate returns the integer closest to x whose absolute
+value is not larger than the absolute value of x, and round
+returns the closest integer to x, rounding to even when x
+is halfway between two integers.
+Rationale: The round procedure rounds to even for consistency
+with the default rounding mode specied by the IEEE 754 IEEE
 
+oating-point standard.
+Note: If the argument to one of these procedures is inexact,
+then the result will also be inexact. If an exact value is needed,
+the result can be passed to the exact procedure. If the argu-
+ment is innite or a NaN, then it is returned.
+(floor -4.3) =) -5.0
+(ceiling -4.3) =) -4.0
+(truncate -4.3) =) -4.0
+(round -4.3) =) -4.0
+(floor 3.5) =) 3.0
+(ceiling 3.5) =) 4.0
+(truncate 3.5) =) 3.0
+(round 3.5) =) 4.0 ; inexact
+(round 7/2) =) 4 ; exact
+(round 7) =) 7
+(rationalize x y) procedure
+The rationalize procedure returns the simplest rational
+number diering from x by no more than y. A rational
+number r1 is simpler than another rational number r2 if
+r1 = p1=q1 and r2 = p2=q2 (in lowest terms) and jp1j  jp2j
+and jq1j  jq2j. Thus 3=5 is simpler than 4=7. Although not
+all rationals are comparable in this ordering (consider 2=7
+and 3=5), any interval contains a rational number that is
+38 Revised7 Scheme
+simpler than every other rational number in that interval
+(the simpler 2=5 lies between 2=7 and 3=5). Note that
+0 = 0=1 is the simplest rational of all.
+(rationalize
+(exact .3) 1/10) =) 1/3 ; exact
+(rationalize .3 1/10) =) #i1/3 ; inexact
+(exp z) inexact library procedure
+(log z) inexact library procedure
+(log z1 z2) inexact library procedure
+(sin z) inexact library procedure
+(cos z) inexact library procedure
+(tan z) inexact library procedure
+(asin z) inexact library procedure
+(acos z) inexact library procedure
+(atan z) inexact library procedure
+(atan y x) inexact library procedure
+These procedures compute the usual transcendental functions.
+The log procedure computes the natural logarithm
+of z (not the base ten logarithm) if a single argument is
+given, or the base-z2 logarithm of z1 if two arguments are
+given. The asin, acos, and atan procedures compute arcsine
+(sin􀀀1), arc-cosine (cos􀀀1), and arctangent (tan􀀀1),
+respectively. The two-argument variant of atan computes
+(angle (make-rectangular x y)) (see below), even in
+implementations that don't support complex numbers.
+In general, the mathematical functions log, arcsine, arccosine,
+and arctangent are multiply dened. The value of
+log z is dened to be the one whose imaginary part lies
+in the range from 􀀀 (inclusive if -0.0 is distinguished,
+exclusive otherwise) to  (inclusive). The value of log 0 is
+mathematically undened. With log dened this way, the
+values of sin􀀀1 z, cos􀀀1 z, and tan􀀀1 z are according to the
+following formul:
+sin􀀀1 z = 􀀀i log(iz +
+p
+1 􀀀 z2)
+cos􀀀1 z = =2 􀀀 sin􀀀1 z
+tan􀀀1 z = (log(1 + iz) 􀀀 log(1 􀀀 iz))=(2i)
+However, (log 0.0) returns -inf.0 (and (log -0.0) returns
+-inf.0+i) if the implementation supports innities
+(and -0.0).
+The range of (atan y x) is as in the following table. The
+asterisk (*) indicates that the entry applies to implementations
+that distinguish minus zero.
+y condition x condition range of result r
+y = 0:0 x > 0:0 0:0
+ y = +0:0 x > 0:0 +0:0
+ y = 􀀀0:0 x > 0:0 􀀀0:0
+y > 0:0 x > 0:0 0:0 < r < 
+2
+y > 0:0 x = 0:0 
+2
+y > 0:0 x < 0:0 
+2 < r < 
+y = 0:0 x < 0 
+ y = +0:0 x < 0:0 
+ y = 􀀀0:0 x < 0:0 􀀀
+y < 0:0 x < 0:0 􀀀 < r < 􀀀
+2
+y < 0:0 x = 0:0 􀀀
+2
+y < 0:0 x > 0:0 􀀀
+2 < r < 0:0
+y = 0:0 x = 0:0 undened
+ y = +0:0 x = +0:0 +0:0
+ y = 􀀀0:0 x = +0:0 􀀀0:0
+ y = +0:0 x = 􀀀0:0 
+ y = 􀀀0:0 x = 􀀀0:0 􀀀
+ y = +0:0 x = 0 
+2
+ y = 􀀀0:0 x = 0 􀀀
+2
+The above specication follows [34], which in turn
+cites [26]; refer to these sources for more detailed discussion
+of branch cuts, boundary conditions, and implementation
+of these functions. When it is possible, these procedures
+produce a real result from a real argument.
+(square z) procedure
+Returns the square of z. This is equivalent to (* z z).
+(square 42) =) 1764
+(square 2.0) =) 4.0
+(sqrt z) inexact library procedure
+Returns the principal square root of z. The result will
+have either a positive real part, or a zero real part and a
+non-negative imaginary part.
+(sqrt 9) =) 3
+(sqrt -1) =) +i
+(exact-integer-sqrt k) procedure
+Returns two non-negative exact integers s and r where k =
+s2 + r and k < (s + 1)2.
+(exact-integer-sqrt 4) =) 2 0
+(exact-integer-sqrt 5) =) 2 1
+(expt z1 z2) procedure
+Returns z1 raised to the power z2. For nonzero z1, this is
+z1
+z2 = ez2 log z1
+6. Standard procedures 39
+The value of 0z is 1 if (zero? z), 0 if (real-part z) is
+positive, and an error otherwise. Similarly for 0:0z, with
+inexact results.
+(make-rectangular x1 x2) complex library procedure
+(make-polar x3 x4) complex library procedure
+(real-part z) complex library procedure
+(imag-part z) complex library procedure
+(magnitude z) complex library procedure
+(angle z) complex library procedure
+Let x1, x2, x3, and x4 be real numbers and z be a complex
+number such that
+z = x1 + x2i = x3  eix4
+Then all of
+(make-rectangular x1 x2) =) z
+(make-polar x3 x4) =) z
+(real-part z) =) x1
+(imag-part z) =) x2
+(magnitude z) =) jx3j
+(angle z) =) xangle
+are true, where 􀀀  xangle   with xangle = x4 + 2n
+for some integer n.
+The make-polar procedure may return an inexact complex
+number even if its arguments are exact. The real-part
+and imag-part procedures may return exact real numbers
+when applied to an inexact complex number if the corresponding
+argument passed to make-rectangular was exact.
+Rationale: The magnitude procedure is the same as abs for a
+real argument, but abs is in the base library, whereas magnitude
+is in the optional complex library.
+(inexact z) procedure
+(exact z) procedure
+The procedure inexact returns an inexact representation
+of z. The value returned is the inexact number that is numerically
+closest to the argument. For inexact arguments,
+the result is the same as the argument. For exact complex
+numbers, the result is a complex number whose real and
+imaginary parts are the result of applying inexact to the
+real and imaginary parts of the argument, respectively. If
+an exact argument has no reasonably close inexact equivalent
+(in the sense of =), then a violation of an implementation
+restriction may be reported.
+The procedure exact returns an exact representation of
+z. The value returned is the exact number that is numerically
+closest to the argument. For exact arguments,
+the result is the same as the argument. For inexact nonintegral
+real arguments, the implementation may return a
+rational approximation, or may report an implementation
+violation. For inexact complex arguments, the result is a
+complex number whose real and imaginary parts are the
+result of applying exact to the real and imaginary parts
+of the argument, respectively. If an inexact argument has
+no reasonably close exact equivalent, (in the sense of =),
+then a violation of an implementation restriction may be
+reported.
+These procedures implement the natural one-to-one correspondence
+between exact and inexact integers throughout
+an implementation-dependent range. See section 6.2.3.
+Note: These procedures were known in R5RS as
+exact->inexact and inexact->exact, respectively, but they
+have always accepted arguments of any exactness. The new
+names are clearer and shorter, as well as being compatible with
+R6RS.
 
 
 
