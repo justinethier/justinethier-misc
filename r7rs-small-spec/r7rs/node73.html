@@ -93,15 +93,15 @@ object can be a list one moment and not the next:
   <span class="code-block">
 (define x (list 'a 'b 'c))
 (define y x)
-y ==> (a b c)
-(list? y) ==> #t
-(set-cdr! x 4) ==> unspecified
-x ==> (a . 4)
-(eqv? x y) ==> #t
-y ==> (a . 4)
-(list? y) ==> #f
-(set-cdr! x x) ==> unspecified
-(list? x) ==> #f
+y ==&gt; (a b c)
+(list? y) ==&gt; #t
+(set-cdr! x 4) ==&gt; unspecified
+x ==&gt; (a . 4)
+(eqv? x y) ==&gt; #t
+y ==&gt; (a . 4)
+(list? y) ==&gt; #f
+(set-cdr! x x) ==&gt; unspecified
+(list? x) ==&gt; #f
 </span>
 
 </p>
@@ -131,10 +131,10 @@ The pair? predicate returns #t if obj is a pair, and otherwise
 returns #f.
   <div class="p"><!----></div>
   <span class="code-block">
-(pair? '(a . b)) ==> #t
-(pair? '(a b c)) ==> #t
-(pair? '()) ==> #f
-(pair? '#(a b)) ==> #f
+(pair? '(a . b)) ==&gt; #t
+(pair? '(a b c)) ==&gt; #t
+(pair? '()) ==&gt; #f
+(pair? '#(a b)) ==&gt; #f
   </span>
   </div>
 </p>
@@ -153,11 +153,11 @@ cdr is obj2. The pair is guaranteed to be
 different(sense of eqv?) from every existing object.
   <div class="p"><!----></div>
   <span class="code-block">
-(cons 'a '()) ==> (a)
-(cons '(a) '(b c d)) ==> ((a) b c d)
-(cons "a" '(b c)) ==> ("a" b c)
-(cons 'a 3) ==> (a . 3)
-(cons '(a b) 'c) ==> ((a b) . c)
+(cons 'a '()) ==&gt; (a)
+(cons '(a) '(b c d)) ==&gt; ((a) b c d)
+(cons "a" '(b c)) ==&gt; ("a" b c)
+(cons 'a 3) ==&gt; (a . 3)
+(cons '(a b) 'c) ==&gt; ((a b) . c)
   </span>
   </div>
 </p>
@@ -174,10 +174,10 @@ Returns the contents of the car field of pair . Note that it
 is an error to take the car of the empty list.
   <div class="p"><!----></div>
   <span class="code-block">
-(car '(a b c)) ==> a
-(car '((a) b c d)) ==> (a)
-(car '(1 . 2)) ==> 1
-(car '()) ==> error
+(car '(a b c)) ==&gt; a
+(car '((a) b c d)) ==&gt; (a)
+(car '(1 . 2)) ==&gt; 1
+(car '()) ==&gt; error
   </span>
   </div>
 </p>
@@ -194,9 +194,9 @@ Returns the contents of the cdr field of pair . Note that it
 is an error to take the cdr of the empty list.
   <div class="p"><!----></div>
   <span class="code-block">
-(cdr '((a) b c d)) ==> (b c d)
-(cdr '(1 . 2)) ==> 2
-(cdr '()) ==> error
+(cdr '((a) b c d)) ==&gt; (b c d)
+(cdr '(1 . 2)) ==&gt; 2
+(cdr '()) ==&gt; error
   </span>
   </div>
 </p>
@@ -217,8 +217,8 @@ TODO: husk does not make this distiction
 
 (define (f) (list 'not-a-constant-list))
 (define (g) '(constant-list))
-(set-car! (f) 3) ==> unspecified
-(set-car! (g) 3) ==> error
+(set-car! (f) 3) ==&gt; unspecified
+(set-car! (g) 3) ==&gt; error
   </span>
   </div>
 </p>
@@ -349,12 +349,12 @@ the empty list.
   <div class="p"><!----></div>
   <span class="code-block">
 (list? obj ) procedure
-(list? '(a b c)) ==> #t
-(list? '()) ==> #t
-(list? '(a . b)) ==> #f
+(list? '(a b c)) ==&gt; #t
+(list? '()) ==&gt; #t
+(list? '(a . b)) ==&gt; #f
 (let ((x (list 'a)))
 (set-cdr! x x)
-(list? x)) ==> #f
+(list? x)) ==&gt; #f
   </span>
 </div>
 </p>
@@ -378,7 +378,7 @@ argument is given, then each element is initialized to fill.
 Otherwise the initial contents of each element is unspecified.
   <div class="p"><!----></div>
   <span class="code-block">
-(make-list 2 3) ==> (3 3)
+(make-list 2 3) ==&gt; (3 3)
   </span>
 </div>
 </p>
@@ -395,8 +395,8 @@ Otherwise the initial contents of each element is unspecified.
 Returns a newly allocated list of its arguments.
   <div class="p"><!----></div>
   <span class="code-block">
-(list 'a (+ 3 4) 'c) ==> (a 7 c)
-(list) ==> ()
+(list 'a (+ 3 4) 'c) ==&gt; (a 7 c)
+(list) ==&gt; ()
   </span>
 </div>
 </p>
@@ -412,9 +412,9 @@ Returns a newly allocated list of its arguments.
 Returns the length of list .
   <div class="p"><!----></div>
   <span class="code-block">
-(length '(a b c)) ==> 3
-(length '(a (b) (c d e))) ==> 3
-(length '()) ==> 0
+(length '(a b c)) ==&gt; 3
+(length '(a (b) (c d e))) ==&gt; 3
+(length '()) ==&gt; 0
   </span>
 </div>
 </p>
@@ -440,11 +440,11 @@ with the last argument. An improper list results if the last
 argument is not a proper list.
   <div class="p"><!----></div>
   <span class="code-block">
-(append '(x) '(y)) ==> (x y)
-(append '(a) '(b c d)) ==> (a b c d)
-(append '(a (b)) '((c))) ==> (a (b) (c))
-(append '(a b) '(c . d)) ==> (a b c . d)
-(append '() 'a) ==> a
+(append '(x) '(y)) ==&gt; (x y)
+(append '(a) '(b c d)) ==&gt; (a b c d)
+(append '(a (b)) '((c))) ==&gt; (a (b) (c))
+(append '(a b) '(c . d)) ==&gt; (a b c . d)
+(append '() 'a) ==&gt; a
   </span>
 </div>
 </p>
@@ -461,9 +461,9 @@ Returns a newly allocated list consisting of the elements of
 list in reverse order.
   <div class="p"><!----></div>
   <span class="code-block">
-(reverse '(a b c)) ==> (c b a)
+(reverse '(a b c)) ==&gt; (c b a)
 (reverse '(a (b c) d (e (f))))
-==> ((e (f)) d (b c) a)
+==&gt; ((e (f)) d (b c) a)
   </span>
 </div>
 </p>
@@ -502,10 +502,10 @@ Returns the kth element of list . (This is the same as the
 car of (list-tail list k).)
   <div class="p"><!----></div>
   <span class="code-block">
-(list-ref '(a b c d) 2) ==> c
+(list-ref '(a b c d) 2) ==&gt; c
 (list-ref '(a b c d)
 (exact (round 1.8)))
-==> c
+==&gt; c
   </span>
 </div>
 </p>
@@ -533,9 +533,9 @@ TODO: husk does not have immutable lists
 (let ((ls (list 'one 'two 'five!)))
 (list-set! ls 2 'three)
 ls)
-==> (one two three)
+==&gt; (one two three)
 (list-set! '(0 1 2) 1 "oops")
-==> error ; constant list
+==&gt; error ; constant list
   </span>
 </div>
 </p>
@@ -576,17 +576,17 @@ obj with the elements of list , while memv uses eqv? and
 member uses compare, if given, and equal? otherwise.
   <div class="p"><!----></div>
   <span class="code-block">
-(memq 'a '(a b c)) ==> (a b c)
-(memq 'b '(a b c)) ==> (b c)
-(memq 'a '(b c d)) ==> #f
-(memq (list 'a) '(b (a) c)) ==> #f
+(memq 'a '(a b c)) ==&gt; (a b c)
+(memq 'b '(a b c)) ==&gt; (b c)
+(memq 'a '(b c d)) ==&gt; #f
+(memq (list 'a) '(b (a) c)) ==&gt; #f
 (member (list 'a)
-'(b (a) c)) ==> ((a) c)
+'(b (a) c)) ==&gt; ((a) c)
 (member "B"
 '("a" "b" "c")
-string-ci=?) ==> ("b" "c")
-(memq 101 '(100 101 102)) ==> unspecified
-(memv 101 '(100 101 102)) ==> (101 102)
+string-ci=?) ==&gt; ("b" "c")
+(memq 101 '(100 101 102)) ==&gt; unspecified
+(memv 101 '(100 101 102)) ==&gt; (101 102)
   </span>
 </div>
 </p>
@@ -630,19 +630,19 @@ compare if given and equal? otherwise.
   <div class="p"><!----></div>
   <span class="code-block">
 (define e '((a 1) (b 2) (c 3)))
-(assq 'a e) ==> (a 1)
-(assq 'b e) ==> (b 2)
-(assq 'd e) ==> #f
+(assq 'a e) ==&gt; (a 1)
+(assq 'b e) ==&gt; (b 2)
+(assq 'd e) ==&gt; #f
 (assq (list 'a) '(((a)) ((b)) ((c))))
-==> #f
+==&gt; #f
 (assoc (list 'a) '(((a)) ((b)) ((c))))
-==> ((a))
-(assoc 2.0 '((1 1) (2 4) (3 9)) ==>
-==> (2 4)
+==&gt; ((a))
+(assoc 2.0 '((1 1) (2 4) (3 9)) ==&gt;
+==&gt; (2 4)
 (assq 5 '((2 3) (5 7) (11 13)))
-==> unspecified
+==&gt; unspecified
 (assv 5 '((2 3) (5 7) (11 13)))
-==> (5 7)
+==&gt; (5 7)
   </span>
   <div class="p"><!----></div>
   <br />
@@ -676,8 +676,8 @@ TODO: again, more issues with immutable lists
 (define a '(1 8 2 8)) ; a may be immutable
 (define b (list-copy a))
 (set-car! b 3) ; b is mutable
-b ==> (3 8 2 8)
-a ==> (1 8 2 8)
+b ==&gt; (3 8 2 8)
+a ==&gt; (1 8 2 8)
   </span>
 </div>
 </p>

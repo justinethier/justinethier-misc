@@ -48,12 +48,12 @@ sense of eqv?).
 Returns #t if obj is a symbol, otherwise returns #f.
   <div class="p"><!----></div>
   <span class="code-block">
-(symbol? 'foo) ==> #t
-(symbol? (car '(a b))) ==> #t
-(symbol? "bar") ==> #f
-(symbol? 'nil) ==> #t
-(symbol? '()) ==> #f
-(symbol? #f) ==> #f
+(symbol? 'foo) ==&gt; #t
+(symbol? (car '(a b))) ==&gt; #t
+(symbol? "bar") ==&gt; #f
+(symbol? 'nil) ==&gt; #t
+(symbol? '()) ==&gt; #f
+(symbol? #f) ==&gt; #f
   </span>
 </div>
 </p>
@@ -75,7 +75,7 @@ the same names in the sense of string=?.
 <p>
 <div id="symbol->string" class="obj-box">
   <div class="obj-header">
-    <span class="code">(symbol->string </span>
+    <span class="code">(symbol-&gt;string </span>
     <span class="code-var">symbol</span>
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
@@ -90,12 +90,12 @@ need to review
 </p>
   <div class="p"><!----></div>
   <span class="code-block">
-(symbol->string 'flying-fish)
-==> "flying-fish"
-(symbol->string 'Martin) ==> "Martin"
-(symbol->string
-(string->symbol "Malvina"))
-==> "Malvina"
+(symbol-&gt;string 'flying-fish)
+==&gt; "flying-fish"
+(symbol-&gt;string 'Martin) ==&gt; "Martin"
+(symbol-&gt;string
+(string-&gt;symbol "Malvina"))
+==&gt; "Malvina"
   </span>
 </div>
 </p>
@@ -103,7 +103,7 @@ need to review
 <p>
 <div id="string->symbol" class="obj-box">
   <div class="obj-header">
-    <span class="code">(string->symbol </span>
+    <span class="code">(string-&gt;symbol </span>
     <span class="code-var">string</span>
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
@@ -115,18 +115,18 @@ that would require escaping when written, but does
 not interpret escapes in its input.
   <div class="p"><!----></div>
   <span class="code-block">
-(string->symbol "mISSISSIppi")
-==> mISSISSIppi
-(eqv? 'bitBlt (string->symbol "bitBlt"))
-==> #t
+(string-&gt;symbol "mISSISSIppi")
+==&gt; mISSISSIppi
+(eqv? 'bitBlt (string-&gt;symbol "bitBlt"))
+==&gt; #t
 (eqv? 'LollyPop
-(string->symbol
-(symbol->string 'LollyPop)))
-==> #t
+(string-&gt;symbol
+(symbol-&gt;string 'LollyPop)))
+==&gt; #t
 (string=? "K. Harper, M.D."
-(symbol->string
-(string->symbol "K. Harper, M.D.")))
-==> #t
+(symbol-&gt;string
+(string-&gt;symbol "K. Harper, M.D.")))
+==&gt; #t
   </span>
 </div>
 </p>
