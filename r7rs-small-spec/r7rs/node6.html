@@ -1,74 +1,55 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>Overview of Scheme</TITLE>
-<META NAME="description" CONTENT="Overview of Scheme">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node15.html">
-<LINK REL="previous" HREF="node3.html">
-<LINK REL="up" HREF="r7rs.html">
-<LINK REL="next" HREF="node7.html">
-</HEAD>
+---
+title: Overview of Scheme
+nav_next: node7.html
+nav_next_lbl: Semantics
+nav_up: index.html
+nav_up_lbl: Title
+nav_prev: node5.html
+nav_prev_lbl: Acknowledgments
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html297"
-  HREF="node7.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html291"
-  HREF="r7rs.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html285"
-  HREF="node5.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html293"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html295"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html298"
-  HREF="node7.html">Semantics</A>
-<B> Up:</B> <A NAME="tex2html292"
-  HREF="r7rs.html">r7rs</A>
-<B> Previous:</B> <A NAME="tex2html286"
-  HREF="node5.html">Acknowledgments</A>
- &nbsp; <B>  <A NAME="tex2html294"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html296"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H1><A NAME="SECTION00400000000000000000">
-Overview of Scheme</A>
+<H1>
+{{ page.title }}
 </H1>
+<p>
+Programming languages should be designed not by piling feature on top of
+feature, but by removing the weaknesses and restrictions that make additional
+features appear necessary.  Scheme demonstrates that a very small number
+of rules for forming expressions, with no restrictions on how they are
+composed, suffice to form a practical and efficient programming language
+that is flexible enough to support most of the major programming
+paradigms in use today.
+</p>
 <P>
-<BR><HR>
-<!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+Scheme
+was one of the first programming languages to incorporate first-class
+procedures as in the lambda calculus, thereby proving the usefulness of
+static scope rules and block structure in a dynamically typed language.
+Scheme was the first major dialect of Lisp to distinguish procedures
+from lambda expressions and symbols, to use a single lexical
+environment for all variables, and to evaluate the operator position
+of a procedure call in the same way as an operand position.  By relying
+entirely on procedure calls to express iteration, Scheme emphasized the
+fact that tail-recursive procedure calls are essentially GOTOs that
+pass arguments, thus allowing a programming style that is both coherent
+and efficient.  Scheme was the first widely used programming language to
+embrace first-class escape procedures, from which all previously known
+sequential control structures can be synthesized.  A subsequent
+version of Scheme introduced the concept of exact and inexact numbers,
+an extension of Common Lisp's generic arithmetic.
+More recently, Scheme became the first programming language to support
+hygienic macros, which permit the syntax of a block-structured language
+to be extended in a consistent and reliable manner.
+</P>
 
 <UL CLASS="ChildLinks">
 <LI><A NAME="tex2html299"
@@ -91,6 +72,9 @@ Overview of Scheme</A>
 </UL></UL>
 <!--End of Table of Child-Links-->
 <BR><HR>
+
+{% include nav.html %}
+
 <ADDRESS>
 Justin
 2013-11-14
