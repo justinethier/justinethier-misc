@@ -1,25 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>r7rs</TITLE>
-<META NAME="description" CONTENT="r7rs">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node1.html">
-</HEAD>
+---
+title: husk scheme
+---
+{% include head.html %}
 
 <BODY >
 
@@ -27,19 +9,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="tex2html13"
   HREF="node1.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
+ SRC="icons/next.png"></A> 
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up_g.png"> 
+ SRC="icons/up_g.png"> 
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev_g.png"> 
+ SRC="icons/prev_g.png"> 
 <A NAME="tex2html9"
   HREF="node3.html">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
+ SRC="icons/contents.png"></A> 
 <A NAME="tex2html11"
   HREF="node106.html">
 <IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
+ SRC="icons/index.png"></A> 
 <BR>
 <B> Next:</B> <A NAME="tex2html14"
   HREF="node1.html">Summary</A>
@@ -58,68 +40,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 
 <P>
-topnewpage[
 <DIV ALIGN="CENTER">
-<BIG CLASS="HUGE"><B>	Revised<BIG CLASS="XHUGE"><!-- MATH
- $^{\mathbf{7}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="12" HEIGHT="30" ALIGN="BOTTOM" BORDER="0"
- SRC="img4.png"
- ALT="$ ^{\mathbf{7}}$"></SPAN></BIG> Report on the Algorithmic Language 
-<BR>
-Scheme</B></BIG>
+<BIG CLASS="HUGE"><B>
+<img src="images/husk-scheme.png"
+     alt="husk scheme" />
+</B></BIG>
 </DIV>
 <P>
-<DIV ALIGN="CENTER"></DIV><P><!-- MATH
- \begin{displaymath}
-\begin{tabular}{l@{\extracolsep{.5in}}l@{\extracolsep{.5in}}l}
-\multicolumn{3}{c}{A{\scriptsize\scshape LEX} S{\scriptsize\scshape HINN},
-J{\scriptsize\scshape OHN} C{\scriptsize\scshape OWAN}, {\scriptsize\scshape AND}
-A{\scriptsize\scshape RTHUR} A. G{\scriptsize\scshape LECKLER} (\textit{Editors})} \\
-\\
-S{\scriptsize\scshape TEVEN} G{\scriptsize\scshape ANZ} &
-A{\scriptsize\scshape LEXEY} R{\scriptsize\scshape ADUL} &
-O{\scriptsize\scshape LIN} S{\scriptsize\scshape HIVERS} \\
-\par
-A{\scriptsize\scshape ARON} W. H{\scriptsize\scshape SU} &
-J{\scriptsize\scshape EFFREY} T. R{\scriptsize\scshape EAD} &
-A{\scriptsize\scshape LARIC} S{\scriptsize\scshape NELL}-P{\scriptsize\scshape YM} \\
-\par
-B{\scriptsize\scshape RADLEY} L{\scriptsize\scshape UCIER} &
-D{\scriptsize\scshape AVID} R{\scriptsize\scshape USH} &
-G{\scriptsize\scshape ERALD} J. S{\scriptsize\scshape USSMAN} \\
-\par
-E{\scriptsize\scshape MMANUEL} M{\scriptsize\scshape EDERNACH} &
-B{\scriptsize\scshape ENJAMIN} L. R{\scriptsize\scshape USSEL} &
-\\
-\\
-\multicolumn{3}{c}{R{\scriptsize\scshape ICHARD} K{\scriptsize\scshape ELSEY},
-W{\scriptsize\scshape ILLIAM} C{\scriptsize\scshape LINGER},
-{\scriptsize\scshape AND} J{\scriptsize\scshape ONATHAN} R{\scriptsize\scshape EES}} \\
-\multicolumn{3}{c}{\textit{(Editors, Revised$^{\mathit{5}}$ Report on the Algorithmic Language Scheme)}} \\
-\\
-\multicolumn{3}{c}{M{\scriptsize\scshape ICHAEL} S{\scriptsize\scshape PERBER},
-R. K{\scriptsize\scshape ENT} D{\scriptsize\scshape YBVIG}, M{\scriptsize\scshape ATTHEW} F{\scriptsize\scshape LATT},
-{\scriptsize\scshape AND} A{\scriptsize\scshape NTON} {\scriptsize\scshape VAN} S{\scriptsize\scshape TRAATEN}} \\
-\multicolumn{3}{c}{\textit{(Editors, Revised$^{\mathit{6}}$ Report on the Algorithmic Language Scheme)}} \\
-\end{tabular}
-\end{displaymath}
- -->
-</P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay">
-<IMG
- WIDTH="12" HEIGHT="18" ALIGN="MIDDLE" BORDER="0"
- SRC="img5.png"
- ALT="$\displaystyle \begin{tabular}{l@{\extracolsep{.5in}}l@{\extracolsep{.5in}}l}
-\m...
-...d$^{\mathit{6}}$ Report on the Algorithmic Language Scheme)}} \\
-\end{tabular}$">
-</DIV><P></P>
 <DIV ALIGN="CENTER">
-<I>Dedicated to the memory of John McCarthy and Daniel Weinreb</I>
-<BIG CLASS="LARGE"><B>November 14, 2013</B></BIG>             
-</DIV>]
+<I>An implementation of the Scheme programming language for the Haskell Platform</I>
+<!--
+    <BIG CLASS="LARGE"><B>November 14, 2013</B></BIG>
+-->
+</DIV>
 
 <P>
 
@@ -399,7 +332,7 @@ R. K{\scriptsize\scshape ENT} D{\scriptsize\scshape YBVIG}, M{\scriptsize\scshap
   HREF="node107.html">About this document ...</A>
 </UL>
 <!--End of Table of Child-Links-->
-<BR><HR>
+
 <ADDRESS>
 Justin
 2013-11-14
