@@ -1,155 +1,74 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>External representations</TITLE>
-<META NAME="description" CONTENT="External representations">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node24.html">
-<LINK REL="previous" HREF="node22.html">
-<LINK REL="up" HREF="node20.html">
-<LINK REL="next" HREF="node24.html">
-</HEAD>
+---
+title: Contents
+nav_next: node24.html
+nav_next_lbl: Storage model
+nav_up: node20.html
+nav_up_lbl: Basic concepts
+nav_prev: node22.html
+nav_prev_lbl: Disjointness of types
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html551"
-  HREF="node24.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html545"
-  HREF="node20.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html539"
-  HREF="node22.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html547"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html549"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html552"
-  HREF="node24.html">Storage model</A>
-<B> Up:</B> <A NAME="tex2html546"
-  HREF="node20.html">Basic concepts</A>
-<B> Previous:</B> <A NAME="tex2html540"
-  HREF="node22.html">Disjointness of types</A>
- &nbsp; <B>  <A NAME="tex2html548"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html550"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H1><A NAME="SECTION00630000000000000000"></A>
-<A NAME="externalreps"></A>
-<BR>
-External representations
-</H1><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<H1>
+{{ page.title }}
+</H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>An important concept in Scheme (and Lisp) is that of the <EM>external
+An important concept in Scheme (and Lisp) is that of the <EM>external
 representation</EM> of an object as a sequence of characters.  For example,
 an external representation of the integer 28 is the sequence of
-characters ``<TT>28</TT>'', and an external representation of a list consisting
-of the integers 8 and 13 is the sequence of characters ``<TT>(8 13)</TT>''.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+characters "<code>28</code>", and an external representation of a list consisting
+of the integers 8 and 13 is the sequence of characters "<code>(8 13)</code>".
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>The external representation of an object is not necessarily unique.  The
-integer 28 also has representations ``<TT>#e28.000</TT>'' and ``<TT>#x1c</TT>'', and the
-list in the previous paragraph also has the representations ``<TT>( 08 13
-)</TT>'' and ``<TT>(8 . (13 . ()))</TT>'' (see section&nbsp;<A HREF="node73.html#listsection">6.4</A>).
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+The external representation of an object is not necessarily unique.  The
+integer 28 also has representations "<code>#e28.000</code>" and "<code>#x1c</code>", and the
+list in the previous paragraph also has the representations "<code>( 08 13
+)</code>" and "<code>(8 . (13 . ()))</code>" (see section&nbsp;<A HREF="node73.html#listsection">6.4</A>).
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Many objects have standard external representations, but some, such as
+Many objects have standard external representations, but some, such as
 procedures, do not have standard representations (although particular
 implementations may define representations for them).
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>An external representation can be written in a program to obtain the
-corresponding object (see `=13`<TT>&#18;quote</TT>, section&nbsp;<A HREF="node29.html#quote">4.1.2</A>).
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+An external representation can be written in a program to obtain the
+corresponding object (see <code>quote</code>, section&nbsp;<A HREF="node29.html#quote">4.1.2</A>).
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>External representations can also be used for input and output.  The
-procedure `=13`<TT>&#18;read</TT> (section&nbsp;<A HREF="node84.html#read">6.13.2</A>) parses external
-representations, and the procedure `=13`<TT>&#18;write</TT> (section&nbsp;<A HREF="node85.html#write">6.13.3</A>)
+External representations can also be used for input and output.  The
+procedure <code>read</code> (section&nbsp;<A HREF="node84.html#read">6.13.2</A>) parses external
+representations, and the procedure <code>write</code> (section&nbsp;<A HREF="node85.html#write">6.13.3</A>)
 generates them.  Together, they provide an elegant and powerful
 input/output facility.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Note that the sequence of characters ``<TT>(+ 2 6)</TT>'' is <EM>not</EM> an
+Note that the sequence of characters "<code>(+ 2 6)</code>" is <EM>not</EM> an
 external representation of the integer 8, even though it <EM>is</EM> an
 expression evaluating to the integer 8; rather, it is an external
 representation of a three-element list, the elements of which are the symbol
-<TT>+</TT> and the integers 2 and 6.  Scheme's syntax has the property that
+<code>+</code> and the integers 2 and 6.  Scheme's syntax has the property that
 any sequence of characters that is an expression is also the external
 representation of some object.  This can lead to confusion, since it is not always
 obvious out of context whether a given sequence of characters is
 intended to denote data or program, but it is also a source of power,
 since it facilitates writing programs such as interpreters and
 compilers that treat programs as data (or vice versa).
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</p>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>The syntax of external representations of various kinds of objects
+The syntax of external representations of various kinds of objects
 accompanies the description of the primitives for manipulating the
 objects in the appropriate sections of chapter&nbsp;<A HREF="node62.html#initialenv">6</A>.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<DIV CLASS="navigation"><HR>
-<!--Navigation Panel-->
-<A NAME="tex2html551"
-  HREF="node24.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html545"
-  HREF="node20.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html539"
-  HREF="node22.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html547"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html549"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html552"
-  HREF="node24.html">Storage model</A>
-<B> Up:</B> <A NAME="tex2html546"
-  HREF="node20.html">Basic concepts</A>
-<B> Previous:</B> <A NAME="tex2html540"
-  HREF="node22.html">Disjointness of types</A>
- &nbsp; <B>  <A NAME="tex2html548"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html550"
-  HREF="node106.html">Index</A></B> </DIV>
-<!--End of Navigation Panel-->
+</p>
+
+{% include nav.html %}
 <ADDRESS>
 Justin
 2013-11-14

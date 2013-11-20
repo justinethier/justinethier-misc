@@ -1,93 +1,54 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>Storage model</TITLE>
-<META NAME="description" CONTENT="Storage model">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node25.html">
-<LINK REL="previous" HREF="node23.html">
-<LINK REL="up" HREF="node20.html">
-<LINK REL="next" HREF="node25.html">
-</HEAD>
+---
+title: Storage model
+nav_next: node25.html
+nav_next_lbl: Proper tail recursion
+nav_up: node20.html
+nav_up_lbl: Basic concepts
+nav_prev: node23.html
+nav_prev_lbl: External representations
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html565"
-  HREF="node25.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html559"
-  HREF="node20.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html553"
-  HREF="node23.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html561"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html563"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html566"
-  HREF="node25.html">Proper tail recursion</A>
-<B> Up:</B> <A NAME="tex2html560"
-  HREF="node20.html">Basic concepts</A>
-<B> Previous:</B> <A NAME="tex2html554"
-  HREF="node23.html">External representations</A>
- &nbsp; <B>  <A NAME="tex2html562"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html564"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H1><A NAME="SECTION00640000000000000000"></A>
-<A NAME="storagemodel"></A>
-<BR>
-Storage model
-</H1><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<H1>
+{{ page.title }}
+</H1>
+
+
+<label style="color: red">
+JAE TODO: this section is not good enough, and needs a major
+overhaul for husk
+</label>
+
+
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Variables and objects such as pairs, strings, vectors, and bytevectors implicitly
-denote locationsindexfile"location" "rm" main  or sequences of locations.  A string, for
+Variables and objects such as pairs, strings, vectors, and bytevectors implicitly
+denote locations or sequences of locations.  A string, for
 example, denotes as many locations as there are characters in the string. 
 A new value can be
-stored into one of these locations using the <TT>string-set!</TT> procedure, but
+stored into one of these locations using the <code>string-set!</code> procedure, but
 the string continues to denote the same locations as before.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>An object fetched from a location, by a variable reference or by
-a procedure such as `=13`<TT>&#18;car</TT>, `=13`<TT>&#18;vector-ref</TT>, or `=13`<TT>&#18;string-ref</TT>, is
-equivalent in the sense of indexfile"eqv?" "tt" aux <TT>eqv?</TT>
+An object fetched from a location, by a variable reference or by
+a procedure such as <code>car</code>, <code>vector-ref</code>, or <code>string-ref</code>, is
+equivalent in the sense of <code>eqv?</code>
 (section&nbsp;<A HREF="node63.html#equivalencesection">6.1</A>)
 to the object last stored in the location before the fetch.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Every location is marked to show whether it is in use.
+Every location is marked to show whether it is in use.
 No variable or object ever refers to a location that is not in use.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Whenever this report speaks of storage being newly allocated for a variable
+Whenever this report speaks of storage being newly allocated for a variable
 or object, what is meant is that an appropriate number of locations are
 chosen from the set of locations that are not in use, and the chosen
 locations are marked to indicate that they are now in use before the variable
@@ -97,68 +58,33 @@ it is understood that the empty list cannot be newly allocated, because
 it is a unique object.  It is also understood that empty strings, empty
 vectors, and empty bytevectors, which contain no locations, may or may
 not be newly allocated.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Every object that denotes locations is 
-either mutableindexfile"mutable" "rm" aux  or
-immutableindexfile"immutable" "rm" aux .  Literal constants, the strings
-returned by indexfile"symbol-&gt;string" "tt" aux <TT>symbol-&gt;string</TT>,
-and possibly the environment returned by `=13`<TT>&#18;scheme-report-environment</TT>
+Every object that denotes locations is 
+either mutable or
+immutable.  Literal constants, the strings
+returned by <code>symbol-&gt;string</code>,
+and possibly the environment returned by <code>scheme-report-environment</code>
 are immutable objects.  All objects
 created by the other procedures listed in this report are mutable.
 It is an
 error to attempt to store a new value into a location that is denoted by an
 immutable object.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>These locations are to be understood as conceptual, not physical.
+These locations are to be understood as conceptual, not physical.
 Hence, they do not necessarily correspond to memory addresses,
 and even if they do, the memory address might not be constant.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL"><EM>Rationale:</EM> In many systems it is desirable for constantsindexfile"constant" "rm" aux  (i.e. the values of
+In many systems it is desirable for constants (i.e. the values of
 literal expressions) to reside in read-only memory.
 Making it an error to alter constants permits this implementation strategy,
 while not requiring other systems to distinguish between
-mutable and immutable objects.</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<DIV CLASS="navigation"><HR>
-<!--Navigation Panel-->
-<A NAME="tex2html565"
-  HREF="node25.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html559"
-  HREF="node20.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html553"
-  HREF="node23.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html561"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html563"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html566"
-  HREF="node25.html">Proper tail recursion</A>
-<B> Up:</B> <A NAME="tex2html560"
-  HREF="node20.html">Basic concepts</A>
-<B> Previous:</B> <A NAME="tex2html554"
-  HREF="node23.html">External representations</A>
- &nbsp; <B>  <A NAME="tex2html562"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html564"
-  HREF="node106.html">Index</A></B> </DIV>
-<!--End of Navigation Panel-->
+mutable and immutable objects.
+</P>
+
+{% include nav.html %}
 <ADDRESS>
 Justin
 2013-11-14
