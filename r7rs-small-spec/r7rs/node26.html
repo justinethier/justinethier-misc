@@ -1,92 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>Expressions</TITLE>
-<META NAME="description" CONTENT="Expressions">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node49.html">
-<LINK REL="previous" HREF="node20.html">
-<LINK REL="up" HREF="r7rs.html">
-<LINK REL="next" HREF="node27.html">
-</HEAD>
+---
+title: Expressions
+nav_next: node27.html
+nav_next_lbl: Primitive expression types
+nav_up: index.html
+nav_up_lbl: Title
+nav_prev: node25.html
+nav_prev_lbl: Proper tail recursion
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html591"
-  HREF="node27.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html585"
-  HREF="r7rs.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html579"
-  HREF="node25.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html587"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html589"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html592"
-  HREF="node27.html">Primitive expression types</A>
-<B> Up:</B> <A NAME="tex2html586"
-  HREF="r7rs.html">r7rs</A>
-<B> Previous:</B> <A NAME="tex2html580"
-  HREF="node25.html">Proper tail recursion</A>
- &nbsp; <B>  <A NAME="tex2html588"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html590"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H1><A NAME="SECTION00700000000000000000"></A>
-<A NAME="expressionchapter"></A>
-<BR>
-Expressions
-</H1><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<H1>
+{{ page.title }}
+</H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>Expression types are categorized as <EM>primitive</EM> or <EM>derived</EM>.
+Expression types are categorized as <EM>primitive</EM> or <EM>derived</EM>.
 Primitive expression types include variables and procedure calls.
 Derived expression types are not semantically primitive, but can instead
 be defined as macros.
-Suitable syntax definitions of some of the derived expressions are
-given in section&nbsp;<A HREF="node96.html#derivedsection">7.3</A>.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</P>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>The procedures `=13`<TT>&#18;force</TT>, `=13`<TT>&#18;promise?</TT>, `=13`<TT>&#18;make-promise</TT>, and `=13`<TT>&#18;make-parameter</TT>
+The procedures <TT>force</TT>, <TT>promise?</TT>, <TT>make-promise</TT>, and <TT>make-parameter</TT>
 are also described in this chapter because they are intimately associated
-with the `=13`<TT>&#18;delay</TT>, `=13`<TT>&#18;delay-force</TT>, and `=13`<TT>&#18;parameterize</TT> expression types.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<BR><HR>
-<!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+with the <TT>delay</TT>, <TT>delay-force</TT>, and <TT>parameterize</TT> expression types.
+</p>
+
+<p>
 
 <UL CLASS="ChildLinks">
 <LI><A NAME="tex2html593"
@@ -141,8 +87,9 @@ with the `=13`<TT>&#18;delay</TT>, `=13`<TT>&#18;delay-force</TT>, and `=13`<TT>
 <LI><A NAME="tex2html614"
   HREF="node48.html">Signaling errors in macro transformers</A>
 </UL></UL>
-<!--End of Table of Child-Links-->
-<BR><HR>
+</p>
+
+{%include nav.html %}
 <ADDRESS>
 Justin
 2013-11-14
