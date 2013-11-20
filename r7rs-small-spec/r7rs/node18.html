@@ -1,211 +1,125 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>Other notations</TITLE>
-<META NAME="description" CONTENT="Other notations">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node19.html">
-<LINK REL="previous" HREF="node17.html">
-<LINK REL="up" HREF="node15.html">
-<LINK REL="next" HREF="node19.html">
-</HEAD>
+---
+title: Other notations
+nav_next: node20.html
+nav_next_lbl: Basic concepts
+nav_up: node15.html
+nav_up_lbl: Lexical conventions
+nav_prev: node17.html
+nav_prev_lbl: Whitespace and comments
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html478"
-  HREF="node19.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html472"
-  HREF="node15.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html466"
-  HREF="node17.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html474"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html476"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html479"
-  HREF="node19.html">Datum labels</A>
-<B> Up:</B> <A NAME="tex2html473"
-  HREF="node15.html">Lexical conventions</A>
-<B> Previous:</B> <A NAME="tex2html467"
-  HREF="node17.html">Whitespace and comments</A>
- &nbsp; <B>  <A NAME="tex2html475"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html477"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H1><A NAME="SECTION00530000000000000000">
-Other notations</A>
-</H1><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<H1>
+{{ page.title }}
+</H1>
+
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>For a description of the notations used for numbers, see
+For a description of the notations used for numbers, see
 section&nbsp;<A HREF="node64.html#numbersection">6.2</A>.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+</p>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><DL>
-<DD>
-<P>
-</DD>
-<DT><STRONG><TT>. + -</TT></STRONG></DT>
-<DD>These are used in numbers, and can also occur anywhere in an identifier.
+<code>. + -</code>
+These are used in numbers, and can also occur anywhere in an identifier.
 A delimited plus or minus sign by itself
 is also an identifier.
 A delimited period (not occurring within a number or identifier) is used
 in the notation for pairs (section&nbsp;<A HREF="node73.html#listsection">6.4</A>), and to indicate a
 rest-parameter in a  formal parameter list (section&nbsp;<A HREF="node31.html#lambda">4.1.4</A>).
 Note that a sequence of two or more periods <EM>is</EM> an identifier.
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>( )</TT></STRONG></DT>
-<DD>Parentheses are used for grouping and to notate lists
+<code>( )</code>
+Parentheses are used for grouping and to notate lists
 (section&nbsp;<A HREF="node73.html#listsection">6.4</A>).
 
-<P>
-</DD>
-<DT><STRONG><TT>'</TT></STRONG></DT>
-<DD>The apostrophe (single quote) character is used to indicate literal data (section&nbsp;<A HREF="node29.html#quote">4.1.2</A>).
+</P>
+<p>
+<code>'</code>
+The apostrophe (single quote) character is used to indicate literal data (section&nbsp;<A HREF="node29.html#quote">4.1.2</A>).
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>&#18;</TT></STRONG></DT>
-<DD>The grave accent (backquote) character is used to indicate partly constant
+<code>&#18;</code>
+The grave accent (backquote) character is used to indicate partly constant
 data (section&nbsp;<A HREF="node43.html#quasiquote">4.2.8</A>).
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>, ,@</TT></STRONG></DT>
-<DD>The character comma and the sequence comma at-sign are used in conjunction
+<code>, ,@</code>
+The character comma and the sequence comma at-sign are used in conjunction
 with quasiquotation (section&nbsp;<A HREF="node43.html#quasiquote">4.2.8</A>).
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>"</TT></STRONG></DT>
-<DD>The quotation mark character is used to delimit strings (section&nbsp;<A HREF="node76.html#stringsection">6.7</A>).
+<code>"</code>
+The quotation mark character is used to delimit strings (section&nbsp;<A HREF="node76.html#stringsection">6.7</A>).
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>&#92;</TT></STRONG></DT>
-<DD>Backslash is used in the syntax for character constants
+<code>&#92;</code>
+Backslash is used in the syntax for character constants
 (section&nbsp;<A HREF="node75.html#charactersection">6.6</A>) and as an escape character within string
-constants (section&nbsp;<A HREF="node76.html#stringsection">6.7</A>) and identifiers
-(section&nbsp;<A HREF="node89.html#extendedalphas">7.1.1</A>).
+constants (section&nbsp;<A HREF="node76.html#stringsection">6.7</A>) and identifiers.
+</p>
 
 <P>
-0<TT><code>[</code> <code>]</code> <code>{</code> <code>}</code></TT>
-</DD>
-<DT><STRONG>0</STRONG></DT>
-<DD>Left and right square and curly brackets (braces)
+<code>[</code> <code>]</code> <code>{</code> <code>}</code>
+Left and right square and curly brackets (braces)
 are reserved for possible future extensions to the language.
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>#</TT></STRONG></DT>
-<DD>The number sign is used for a variety of purposes depending on
+<code>#</code>
+The number sign is used for a variety of purposes depending on
 the character that immediately follows it:
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>#t</TT> <TT>#f</TT></STRONG></DT>
-<DD>These are the boolean constants (section&nbsp;<A HREF="node72.html#booleansection">6.3</A>),
-along with the alternatives <TT>#true</TT> and <TT>#false</TT>.
+<code>#t</code> <code>#f</code>
+These are the boolean constants (section&nbsp;<A HREF="node72.html#booleansection">6.3</A>),
+along with the alternatives <code>#true</code> and <code>#false</code>.
 
+</p>
 <P>
 </DD>
-<DT><STRONG><TT>#&#92;</TT></STRONG></DT>
-<DD>This introduces a character constant (section&nbsp;<A HREF="node75.html#charactersection">6.6</A>).
+<code>#&#92;</code>
+This introduces a character constant (section&nbsp;<A HREF="node75.html#charactersection">6.6</A>).
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>#(</TT></STRONG></DT>
-<DD>This introduces a vector constant (section&nbsp;<A HREF="node77.html#vectorsection">6.8</A>).  Vector constants
-are terminated by&nbsp;<TT>)</TT>&nbsp;.
+<code>#(</code>
+This introduces a vector constant (section&nbsp;<A HREF="node77.html#vectorsection">6.8</A>).  Vector constants
+are terminated by&nbsp;<code>)</code>&nbsp;.
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>#u8(</TT></STRONG></DT>
-<DD>This introduces a bytevector constant (section&nbsp;<A HREF="node78.html#bytevectorsection">6.9</A>).  Bytevector constants
-are terminated by&nbsp;<TT>)</TT>&nbsp;.
+<code>#u8(</code>
+This introduces a bytevector constant (section&nbsp;<A HREF="node78.html#bytevectorsection">6.9</A>).  Bytevector constants
+are terminated by&nbsp;<code>)</code>&nbsp;.
+</p>
 
 <P>
-</DD>
-<DT><STRONG><TT>#e #i #b #o #d #x</TT></STRONG></DT>
-<DD>These are used in the notation for numbers (section&nbsp;<A HREF="node69.html#numbernotations">6.2.5</A>).
+<code>#e #i #b #o #d #x</code>
+These are used in the notation for numbers (section&nbsp;<A HREF="node69.html#numbernotations">6.2.5</A>).
+</p>
 
+<!--
 <P>
-</DD>
 <DT><STRONG><TT>#n= #n#</TT></STRONG></DT>
 <DD>These are used for labeling and referencing other literal data (section&nbsp;<A HREF="node19.html#labelsection">2.4</A>).
+</p>
+-->
 
-<P>
-</DD>
-</DL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<DIV CLASS="navigation"><HR>
-<!--Navigation Panel-->
-<A NAME="tex2html478"
-  HREF="node19.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html472"
-  HREF="node15.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html466"
-  HREF="node17.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html474"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html476"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html479"
-  HREF="node19.html">Datum labels</A>
-<B> Up:</B> <A NAME="tex2html473"
-  HREF="node15.html">Lexical conventions</A>
-<B> Previous:</B> <A NAME="tex2html467"
-  HREF="node17.html">Whitespace and comments</A>
- &nbsp; <B>  <A NAME="tex2html475"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html477"
-  HREF="node106.html">Index</A></B> </DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 <ADDRESS>
 Justin
 2013-11-14
