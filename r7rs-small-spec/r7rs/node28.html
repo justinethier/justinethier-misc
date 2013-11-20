@@ -1,113 +1,50 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<!--Converted with LaTeX2HTML 2008 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
-<HEAD>
-<TITLE>Variable references</TITLE>
-<META NAME="description" CONTENT="Variable references">
-<META NAME="keywords" CONTENT="r7rs">
-<META NAME="resource-type" CONTENT="document">
-<META NAME="distribution" CONTENT="global">
-
-<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
-
-<LINK REL="STYLESHEET" HREF="r7rs.css">
-
-<LINK REL="next" HREF="node29.html">
-<LINK REL="previous" HREF="node27.html">
-<LINK REL="up" HREF="node27.html">
-<LINK REL="next" HREF="node29.html">
-</HEAD>
+---
+title: Variable references
+nav_next: node29.html
+nav_next_lbl: Literal expressions
+nav_up: node27.html
+nav_up_lbl: Primitive expression types
+nav_prev: node27.html
+nav_prev_lbl: Primitive expression types
+nav_contents: node3.html
+nav_contents_lbl: Contents
+nav_index: node106.html
+nav_index_lbl: Index
+---
+{% include head.html %}
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
-<A NAME="tex2html648"
-  HREF="node29.html">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html642"
-  HREF="node27.html">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html636"
-  HREF="node27.html">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="/usr/share/latex2html/icons/prev.png"></A> 
-<A NAME="tex2html644"
-  HREF="node3.html">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
- SRC="/usr/share/latex2html/icons/contents.png"></A> 
-<A NAME="tex2html646"
-  HREF="node106.html">
-<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
- SRC="/usr/share/latex2html/icons/index.png"></A> 
-<BR>
-<B> Next:</B> <A NAME="tex2html649"
-  HREF="node29.html">Literal expressions</A>
-<B> Up:</B> <A NAME="tex2html643"
-  HREF="node27.html">Primitive expression types</A>
-<B> Previous:</B> <A NAME="tex2html637"
-  HREF="node27.html">Primitive expression types</A>
- &nbsp; <B>  <A NAME="tex2html645"
-  HREF="node3.html">Contents</A></B> 
- &nbsp; <B>  <A NAME="tex2html647"
-  HREF="node106.html">Index</A></B> 
-<BR>
-<BR></DIV>
-<!--End of Navigation Panel-->
+{% include nav.html %}
 
-<H2><A NAME="SECTION00711000000000000000">
-Variable references</A>
-</H2><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+<H1>
+{{ page.title }}
+</H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
-  <BR>
-<BR>
-<BR>
-<BR>`=13`<TT>&#18;=0.5emvariable</TT> </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="SMALL">syntax</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
-<BR></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>An expression consisting of a variableindexfile"variable" "rm" aux 
+<p>
+<div id="variable" class="obj-box">
+  <div class="obj-header">
+    <span class="code">{variable} </span>
+    <span class="code-var"></span>
+    <span class="code"></span>
+    <span class="obj-type">syntax</span>
+  </div>
+  <div class="p"><!----></div>
+An expression consisting of a variable
 (section&nbsp;<A HREF="node21.html#variablesection">3.1</A>) is a variable reference.  The value of
 the variable reference is the value stored in the location to which the
 variable is bound.  It is an error to reference an
-unboundindexfile"unbound" "rm" aux  variable.
-</TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
+unbound variable.
+  <div class="p"><!----></div>
+  <span class="code-block">
+(define x 28)
+x    ==&gt; 28
+  </span>
+</div>
+</p>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL">`=13`<TT>&#18;
-<BR>
-  </TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL><PRE><TT>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(define x 28)x   28
-</TT></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT>
-<BR></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT><SMALL CLASS="SMALL"><TT></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></TT></SMALL></SMALL>
-<BR><HR>
+
+{% include nav.html %}
 <ADDRESS>
 Justin
 2013-11-14
