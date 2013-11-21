@@ -170,266 +170,35 @@ More formally, an input expression E matches a pattern P if and only if:
  that match P1 though Pn respectively, and whose nth tail
  matches Pn+1; or
 </LI>
-<LI><SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> is of the form
-      <code>(<SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img28.png"
- ALT="$ \dots$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img33.png"
- ALT="$ P_e$"></SPAN> </code><SPAN CLASS="MATH"><IMG
- WIDTH="88" HEIGHT="16" ALIGN="MIDDLE" BORDER="0"
- SRC="img1.png"
- ALT="$ \langle$"></SPAN>ellipsis<SPAN CLASS="MATH"><IMG
- WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img2.png"
- ALT="$ \rangle$"></SPAN><code> <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="19" ALIGN="BOcodeOM" BORDER="0"
- SRC="img21.png"
- ALT="$ \ldots\,$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>)</code>
-      where <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img25.png"
- ALT="$ E$"></SPAN> is
-      a proper list of <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img24.png"
- ALT="$ n$"></SPAN> elements, the first <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img35.png"
- ALT="$ k$"></SPAN> of which match
-      <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN>, respectively,
-      whose next <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="15" ALIGN="MIDDLE" BORDER="0"
- SRC="img36.png"
- ALT="$ m-k$"></SPAN> elements each match <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img33.png"
- ALT="$ P_e$"></SPAN>,
-      whose remaining <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img37.png"
- ALT="$ n-m$"></SPAN> elements match <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>; or
-
-<P>
+<LI>
+P is of the form (P1 ... Pk Pe {ellipsis} Pm+1 ... Pn)
+where E is a proper list of n elements, the first
+k of which match P1 through Pk, respectively, whose
+next m..k elements each match Pe, whose remaining
+n .. m elements match Pm+1 through Pn; or
 </LI>
-<LI><SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> is of the form
-      <code>(<SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img28.png"
- ALT="$ \dots$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img38.png"
- ALT="$ P_{e}$"></SPAN> </code><SPAN CLASS="MATH"><IMG
- WIDTH="88" HEIGHT="16" ALIGN="MIDDLE" BORDER="0"
- SRC="img1.png"
- ALT="$ \langle$"></SPAN>ellipsis<SPAN CLASS="MATH"><IMG
- WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img2.png"
- ALT="$ \rangle$"></SPAN><code> <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="19" ALIGN="BOcodeOM" BORDER="0"
- SRC="img21.png"
- ALT="$ \ldots\,$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN> . <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img39.png"
- ALT="$ P_x$"></SPAN>)</code>
-      where <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img25.png"
- ALT="$ E$"></SPAN> is
-      a list or improper list of <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img24.png"
- ALT="$ n$"></SPAN> elements, the first <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img35.png"
- ALT="$ k$"></SPAN> of which match
-      <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN>,
-      whose next <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="15" ALIGN="MIDDLE" BORDER="0"
- SRC="img36.png"
- ALT="$ m-k$"></SPAN> elements each match <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img33.png"
- ALT="$ P_e$"></SPAN>,
-      whose remaining <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img37.png"
- ALT="$ n-m$"></SPAN> elements match <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>,
-      and whose <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img24.png"
- ALT="$ n$"></SPAN>th and final cdr matches <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img39.png"
- ALT="$ P_x$"></SPAN>; or
-
-<P>
+<LI>
+P is of the form (P1 ... Pk Pe hellipsisi Pm+1 ...
+Pn . Px) where E is a list or improper list of n elements,
+the first k of which match P1 through Pk,
+whose next m .. k elements each match Pe, whose remaining
+n..m elements match Pm+1 through Pn, and
+whose nth and final cdr matches Px; or
 </LI>
-<LI><SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> is a vector of the form <code>#(<SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img28.png"
- ALT="$ \dots$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>)</code>
-      and <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img25.png"
- ALT="$ E$"></SPAN> is a vector
-      of <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img24.png"
- ALT="$ n$"></SPAN> elements that match <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>; or
-
-<P>
+<LI>
+P is a vector of the form #(P1 ... Pn) and E is a
+vector of n elements that match P1 through Pn; or
 </LI>
-<LI><SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> is of the form
-      <code>#(<SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img28.png"
- ALT="$ \dots$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img38.png"
- ALT="$ P_{e}$"></SPAN> </code><SPAN CLASS="MATH"><IMG
- WIDTH="88" HEIGHT="16" ALIGN="MIDDLE" BORDER="0"
- SRC="img1.png"
- ALT="$ \langle$"></SPAN>ellipsis<SPAN CLASS="MATH"><IMG
- WIDTH="11" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="img2.png"
- ALT="$ \rangle$"></SPAN><code> <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> <SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="19" ALIGN="BOcodeOM" BORDER="0"
- SRC="img21.png"
- ALT="$ \ldots\,$"></SPAN><SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>)</code>
-      where <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img25.png"
- ALT="$ E$"></SPAN> is a vector of <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img24.png"
- ALT="$ n$"></SPAN>
-      elements the first <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="30" ALIGN="BOcodeOM" BORDER="0"
- SRC="img35.png"
- ALT="$ k$"></SPAN> of which match <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="MIDDLE" BORDER="0"
- SRC="img27.png"
- ALT="$ P_1$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img32.png"
- ALT="$ P_k$"></SPAN>,
-      whose next <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="15" ALIGN="MIDDLE" BORDER="0"
- SRC="img36.png"
- ALT="$ m-k$"></SPAN> elements each match <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img33.png"
- ALT="$ P_e$"></SPAN>,
-      and whose remaining <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img37.png"
- ALT="$ n-m$"></SPAN> elements match <SPAN CLASS="MATH"><IMG
- WIDTH="21" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$ P_{m+1}$"></SPAN> through <SPAN CLASS="MATH"><IMG
- WIDTH="26" HEIGHT="13" ALIGN="MIDDLE" BORDER="0"
- SRC="img29.png"
- ALT="$ P_n$"></SPAN>; or
-
-<P>
+<LI>
+P is of the form #(P1 ... Pk Pe hellipsisi Pm+1
+... Pn) where E is a vector of n elements the first
+k of which match P1 through Pk, whose next m .. k
+elements each match Pe, and whose remaining n .. m
+elements match Pm+1 through Pn; or
 </LI>
-<LI><SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> is a constant and <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img25.png"
- ALT="$ E$"></SPAN> is equal to <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="14" ALIGN="BOcodeOM" BORDER="0"
- SRC="img26.png"
- ALT="$ P$"></SPAN> in the sense of
-      the <code>equal?</code> procedure.
+<LI>
+ P is a constant and E is equal to P
+ in the sense of the <code>equal?</code> procedure.
 </LI>
 </UL>
 </p>
