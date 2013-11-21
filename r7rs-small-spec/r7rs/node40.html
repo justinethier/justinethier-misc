@@ -20,6 +20,8 @@ nav_index_lbl: Index
 <H1>
 {{ page.title }}
 </H1>
+<!-- JAE TODO: promises have not been implemented yet  -->
+
 <P>
 <div id="delay" class="obj-box">
   <div class="obj-header">
@@ -85,235 +87,57 @@ requested its value.
 If <I>promise</I> is not a promise, it may be returned unchanged.
 <p>
 <span class="code-block">
-(force (delay (+ 1 2))) =) 3
+(force (delay (+ 1 2)))         ==&gt; 3
 (let ((p (delay (+ 1 2))))
-(list (force p) (force p)))
-=) (3 3)
+  (list (force p) (force p)))
+                                ==&gt; (3 3)
 
 (define integers
-(letrec ((next
-(lambda (n)
-(delay (cons n (next (+ n 1)))))))
-(next 0)))
+  (letrec ((next
+            (lambda (n)
+              (delay (cons n (next (+ n 1)))))))
+    (next 0)))
 (define head
-(lambda (stream) (car (force stream))))
+  (lambda (stream) (car (force stream))))
 (define tail
-(lambda (stream) (cdr (force stream))))
+  (lambda (stream) (cdr (force stream))))
 (head (tail (tail integers)))
-=) 2
+                                ==&gt; 2
 </span>
 </p>
-<P>
-
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL"><code>
-<BR>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><PRE><code>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(force (delay (+ 1 2)))   3(let ((p (delay (+ 1 2))))  (list (force p) (force p)))                                (3 3)
-<P>
-(define integers  (letrec ((next            (lambda (n)              (delay (cons n (next (+ n 1)))))))    (next 0)))(define head  (lambda (stream) (car (force stream))))(define tail  (lambda (stream) (cdr (force stream))))
-<P>
-(head (tail (tail integers)))                                2
-</code></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>The following example is a mechanical transformation of a lazy
-stream-filtering algorithm into Scheme.  Each call to a constructor is
-wrapped in <code>delay</code>, and each argument passed to a deconstructor is
-wrapped in <code>force</code>.  The use of <code>(delay-force ...)</code> instead of <code>(delay (force ...))</code> around the body of the procedure ensures that an
-ever-growing sequence of pending promises does not 
-exhaust available storage,
-because <code>force</code> will in effect force such sequences iteratively.
-</code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL"><code>
-<BR>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><PRE><code>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(define (stream-filter p? s)  (delay-force   (if (null? (force s))        (delay '())       (let ((h (car (force s)))             (t (cdr (force s))))         (if (p? h)             (delay (cons h (stream-filter p? t)))             (stream-filter p? t))))))
-<P>
-(head (tail (tail (stream-filter odd? integers))))                               5
-</code></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>The following examples are not intended to illustrate good programming
-style, as <code>delay</code>, <code>force</code>, and <code>delay-force</code> are mainly intended
-for programs written in the functional style.
-However, they do illustrate the property that only one value is
-computed for a promise, no matter how many times it is forced.
-</code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL"><code>
-<BR>
-  </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><PRE><code>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(define count 0)(define p  (delay (begin (set! count (+ count 1))                (if (&gt; count x)                    count                    (force p)))))(define x 5)p                     <I>a promise</I>(force p)             6p                     <I>a promise, still</I>(begin (set! x 10)       (force p))     6
-</code></PRE><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>Various extensions to this semantics of <code>delay</code>, <code>force</code> and
-<code>delay-force</code> are supported in some implementations:
-</code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL></code></SMALL></code></SMALL>
-<UL>
-<LI>Calling <code>force</code> on an object that is not a promise may simply
-return the object.
+</div>
+</p>
 
 <P>
-</LI>
-<LI>It may be the case that there is no means by which a promise can be
-operationally distinguished from its forced value.  That is, expressions
-like the following may evaluate to either <code>#t</code> or to <code>#f</code>,
-depending on the implementation:
-
-<P>
-
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL"><code>
-<BR>
-  </code></SMALL><PRE><code>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(eqv? (delay 1) 1)          (pair? (delay (cons 1 2)))  
-</code></PRE>
-<P>
-<SMALL CLASS="SMALL"><code>
-</LI>
-<LI>Implementations may implement "implicit forcing," where
-the value of a promise is forced by procedures
-that operate only on arguments of a certain type, like <code>cdr</code>
-and <code>*</code>.  However, procedures that operate uniformly on their
-arguments, like <code>list</code>, must not force them.
-</code></SMALL>
-<P>
-<SMALL CLASS="SMALL"><code>
-  <!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  
-<BR><!-- MATH
- $\Longrightarrow$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="15" ALIGN="BOcodeOM" BORDER="0"
- SRC="img15.png"
- ALT="$ \Longrightarrow$"></SPAN>
-  </code></SMALL><SMALL CLASS="SMALL"><code>
-  <EM>unspecified</EM>
-  <EM>error</EM>
-  makeother^<SMALL CLASS="SMALL"><code>
-<BR>
-  </code></SMALL></code></SMALL><PRE><code>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  gobblecr(+ (delay (* 3 7)) 13)  (car  (list (delay (* 3 7)) 13))    <I>a promise</I></code></PRE><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-</LI>
-</UL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-<BR></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <BR>
-<BR>
-<BR>
-<BR><code>=0.5em(<A NAME="promise_"></A>indexfile"promise?" "tt" main promise?<I><I>obj</I></I>)</code> </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><SMALL CLASS="SMALL">lazy library procedure</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-<BR></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>The <code>promise?</code> procedure returns 
+<div id="promise?" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(promise? </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">lazy library procedure</span>
+  </div>
+The <code>promise?</code> procedure returns 
 <code>#t</code> if its argument is a promise, and <code>#f</code> otherwise.  Note
 that promises are not necessarily disjoint from other Scheme types such
 as procedures.
-</code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
+</div>
+</P>
+
 <P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-<BR></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-  <BR>
-<BR>
-<BR>
-<BR><code>=0.5em(<A NAME="make-promise"></A>indexfile"make-promise" "tt" main make-promise<I><I>obj</I></I>)</code> </code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL><SMALL CLASS="SMALL">lazy library procedure</SMALL><SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-<BR></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>The <code>make-promise</code> procedure returns a promise which, when forced, will return
+<div id="make-promise" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(make-promise </span>
+    <span class="code-var">obj</span>
+    <span class="code">)</span>
+    <span class="obj-type">lazy library procedure</span>
+  </div>
+The <code>make-promise</code> procedure returns a promise which, when forced, will return
 <I>obj</I>.  It is similar to <code>delay</code>, but does not delay
 its argument: it is a procedure rather than syntax.
 If <I>obj</I> is already a promise, it is returned.
-</code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code>
-<BR></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code><SMALL CLASS="SMALL"><code></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></code></SMALL></SMALL>
-<DIV CLASS="navigation"><HR>
+</div>
+</P>
+
 
 {% include nav.html %}
 {% include footer.html %}
