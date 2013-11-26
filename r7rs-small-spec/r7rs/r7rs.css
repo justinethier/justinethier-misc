@@ -29,7 +29,9 @@ TD.eqno			{ }	/* equation-number cells */
 
 
 /* document-specific styles come next */
-DIV.navigation		{   }
+.navigation		{  
+    background-color: #FCFCF9;  
+}
 DIV.center		{   }
 DIV.centerline		{   }
 SPAN.arabic		{   }

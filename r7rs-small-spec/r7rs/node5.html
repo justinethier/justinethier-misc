@@ -4,8 +4,8 @@ nav_next: node6.html
 nav_next_lbl: Overview of Scheme
 nav_up: node3.html
 nav_up_lbl: Contents
-nav_prev: node3.html
-nav_prev_lbl: Contents
+nav_prev: index.html
+nav_prev_lbl: Summary
 nav_contents: node3.html
 nav_contents_lbl: Contents
 nav_index: node106.html
@@ -15,7 +15,7 @@ nav_index_lbl: Index
 
 <BODY >
 
-{% include nav.html %}
+{% include nav-top.html %}
 
 <H1>
 {{ page.title }}
@@ -73,7 +73,7 @@ as well as the following SRFIs:  0, 1, 4, 6, 9, 11, 13, 16, 30, 34, 39, 43, 46, 
 all of which are available at <a href=http://srfi.schemers.org">http://srfi.schemers.org</a>.
 </p>
 
-{% include nav.html %}
+{% include nav-bottom.html %}
 {% include footer.html %}
 </BODY>
 </HTML>
