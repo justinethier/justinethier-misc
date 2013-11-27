@@ -1,7 +1,7 @@
 ---
 title: Signaling errors in macro transformers
-nav_next: node49.html
-nav_next_lbl: Program structure
+nav_next: macro-debugging.html
+nav_next_lbl: Macro debugging
 nav_up: 45.html
 nav_up_lbl: Macros
 nav_prev: node47.html
@@ -38,7 +38,7 @@ arbitrary expressions providing additional information.
 Applications cannot count on being able to catch syntax errors with
 exception handlers or guards.
 <P>
-<span class="code-block">
+<div class="code-block">
 (define-syntax simple-let
   (syntax-rules ()
     ((_ (head ... ((x . y) val) . tail)
@@ -49,7 +49,7 @@ exception handlers or guards.
     ((_ ((name val) ...) body1 body2 ...)
      ((lambda (name ...) body1 body2 ...)
        val ...))))
-</span>
+</div>
 </p>
 </div>
 </p>
