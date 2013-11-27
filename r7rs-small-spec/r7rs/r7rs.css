@@ -51,7 +51,15 @@ SPAN.code-var {
 SPAN.code-block {
     white-space: pre;
     font-family: monospace;
-/*    background-color: #FCFCF9; */
+}
+
+DIV.code-block {
+    white-space: pre;
+    font-family: monospace;
+    background-color: #FCFCF9;
+    padding: 2px;
+    margin: 10px;
+    border: 1px solid #E0E0E0;
 }
 DIV.obj-box {
     border: 1px solid #808080;
