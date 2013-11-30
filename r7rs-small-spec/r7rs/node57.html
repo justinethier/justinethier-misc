@@ -43,25 +43,25 @@ mutators are defined for each record type.
 name and pred are identifiers.
 The constructor is of the form
 <P>
-<span class="code-block">
+<div class="code-block">
 ({constructor name} {field name} ...)
-</span>
+</div>
 </p>
 <p>
 and each field is either of the form
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 ({field name} {accessor name})
-</span>
+</div>
 </p>
 <p>
 or of the form
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 ({field name} {accessor name} {modifier name})
-</span>
+</div>
 </p>
 <p>
 It is an error for the same identifier to occur more than once as a
@@ -121,13 +121,13 @@ means to identify the record type for use by further language extensions.
 For instance, the following record-type definition
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (define-record-type <pare>
   (kons x y)
   pare?
   (x kar set-kar!)
   (y kdr))
-</span>
+</div>
 </p>
 <P>
 defines <code>kons</code> to be a constructor, <code>kar</code> and <code>kdr</code>
@@ -135,7 +135,7 @@ to be accessors, <code>set-kar!</code> to be a modifier, and <code>pare?</code>
 to be a predicate for instances of <code>&lt;pare&gt;</code>.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (pare? (kons 1 2))      ==&gt; #t
 (pare? (cons 1 2))      ==&gt; #f
 (kar (kons 1 2))        ==&gt; 1
@@ -143,7 +143,7 @@ to be a predicate for instances of <code>&lt;pare&gt;</code>.
 (let ((k (kons 1 2)))
   (set-kar! k 3)
   (kar k))              ==&gt; 3
-</span>
+</div>
 </p>
 </div>
 </p>

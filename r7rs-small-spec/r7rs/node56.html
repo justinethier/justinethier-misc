@@ -24,9 +24,9 @@ nav_index_lbl: Index
 Syntax definitions have this form:
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (define-syntax keyword transformer spec)
-</span>
+</div>
 </P>
 <P>
 Keyword is an identifier, and
@@ -46,7 +46,7 @@ In particular, a use that precedes an inner definition will not apply an outer
 definition.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((x 1) (y 2))
   (define-syntax swap!
     (syntax-rules ()
@@ -56,7 +56,7 @@ definition.
           (set! b tmp)))))
   (swap! x y)
   (list x y))       ==&gt; (2 1)
-</span>
+</div>
 </p>
 <P>
 Macros can expand into definitions in any context that permits
@@ -72,7 +72,7 @@ errors:
 </P>
 
 <!-- JAE TODO: husk accepts these, should this be removed or the syntax revisited? -->
-<span class="code-block">
+<div class="code-block">
 (define define 3)
 
 (begin (define begin list))
@@ -87,7 +87,7 @@ errors:
     (foo (plus x y) (+ x y))
     (define foo x)
     (plus foo x)))
-</span>
+</div>
 </p>
 
 {% include nav-bottom.html %}

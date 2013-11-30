@@ -48,9 +48,9 @@ different identifiers to the returned values.
 <EM>Syntax: </EM>
 Bindings has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({variable1} {init1}) ...)
-</span>
+</div>
 </p>
 <P>
 where each init is an expression, and body is a
@@ -69,7 +69,7 @@ are returned.  Each binding of a variable has body as its
 region.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((x 2) (y 3))
   (* x y))          ==&gt; 6
 
@@ -77,7 +77,7 @@ region.
   (let ((x 7)
         (z (+ x y)))
   (* z x)))         ==&gt; 35
-</span>
+</div>
 </p>
 <P>
 See also "named <code>let</code>," section <A HREF="node39.html#namedlet">4.2.4</A>.
@@ -95,9 +95,9 @@ See also "named <code>let</code>," section <A HREF="node39.html#namedlet">4.2.4<
 <EM>Syntax: </EM>
 Bindings has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({variable1} {init1}) ...)
-</span>
+</div>
 </p>
 <P>
 and body is a sequence of
@@ -114,12 +114,12 @@ in an environment in which the first binding is visible, and so on.
 The variables need not be distinct.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((x 2) (y 3))
   (let* ((x 7)
          (z (+ x y)))
     (* z x)))           ==&gt; 70
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -135,9 +135,9 @@ The variables need not be distinct.
 <EM>Syntax: </EM>
 Bindings has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({variable1} {init1}) ...)
-</span>
+</div>
 </p>
 <P>
  and body is a sequence of
@@ -157,7 +157,7 @@ entire <code>letrec</code> expression as its region, making it possible to
 define mutually recursive procedures.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (letrec ((even?
            (lambda (n)
              (if (zero? n)
@@ -170,7 +170,7 @@ define mutually recursive procedures.
                  (even? (- n 1))))))
   (even? 88))
                 ==&gt; #t
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -186,9 +186,9 @@ define mutually recursive procedures.
 <EM>Syntax: </EM>
 Bindings has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({variable1} {init1}) ...)
-</span>
+</div>
 </p>
 <P>
  and body is a sequence of
@@ -217,7 +217,7 @@ Another restriction is that it is an error to invoke the continuation
 of an init more than once.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (letrec* ((p
            (lambda (x)
              (+ 1 (q (- x 1)))))
@@ -230,7 +230,7 @@ of an init more than once.
           (y x))
   y)
             ==&gt; 5
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -246,9 +246,9 @@ of an init more than once.
 <EM>Syntax: </EM>
 {mv binding spec} has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({formals1} {init1}) ...)
-</span>
+</div>
 </p>
 <p>
 where each init is an expression, and body is
@@ -274,10 +274,10 @@ It is an error if the formals do not match the number of
 values returned by the corresponding init.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let-values (((root rem) (exact-integer-sqrt 32)))
   (* root rem)) ==&gt; 35
-</span>
+</div>
 </P>
 </div>
 </p>
@@ -293,9 +293,9 @@ values returned by the corresponding init.
 <EM>Syntax: </EM>
 {mv binding spec} has the form
 <p>
-<span class="code-block">
+<div class="code-block">
 (({formals} {init}) ...)
-</span>
+</div>
 </p>
 <P>
 and body is a sequence of zero or more
@@ -313,12 +313,12 @@ set of bindings is visible and initialized, and so on.
 </P>
 <P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((a 'a) (b 'b) (x 'x) (y 'y))
   (let*-values (((a b) (values x y))
                 ((x y) (values a b)))
     (list a b x y)))        ==&gt; (x y x y)
-</span>
+</div>
 </p>
 </div>
 </p>

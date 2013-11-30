@@ -24,17 +24,17 @@ nav_index_lbl: Index
 At the outermost level of a program, a definition
 </P>
 <p>
-<span class="code-block">
+<div class="code-block">
 (define {variable} {expression})
-</span>
+</div>
 </p>
 <P>
 has essentially the same effect as the assignment expression
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (set! {variable} {expression})
-</span>
+</div>
 </p>
 <P>
 if variable is bound to a non-syntax value.  However, if
@@ -46,13 +46,13 @@ whereas it would be an error to perform a <code>set!</code> on an
  variable.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (define add3
   (lambda (x) (+ x 3)))
 (add3 3)            ==&gt; 6
 (define first car)
 (first '(1 2))      ==&gt; 1
-</span>
+</div>
 </p>
 
 

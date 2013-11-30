@@ -138,7 +138,7 @@ obj1 and obj2 are procedures that would behave differently
 </li>
 </ul>
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (eqv? 'a 'a) ==&gt; #t
 (eqv? 'a 'b) ==&gt; #f
 (eqv? 2 2) ==&gt; #t
@@ -152,7 +152,7 @@ obj1 and obj2 are procedures that would behave differently
 (let ((p (lambda (x) x)))
 (eqv? p p)) ==&gt; #t
 (eqv? #f 'nil) ==&gt; #f
-</span>
+</div>
   <div class="p"><!----></div>
   <br />
 The following examples illustrate cases in which the above
@@ -160,7 +160,7 @@ rules do not fully specify the behavior of eqv?. All that
 can be said about such cases is that the value returned by
 eqv? must be a boolean.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (eqv? "" "") ==&gt; unspecified
 (eqv? '#() '#()) ==&gt; unspecified
 (eqv? (lambda (x) x)
@@ -169,7 +169,7 @@ eqv? must be a boolean.
 (lambda (y) y)) ==&gt; unspecified
 (eqv? 1.0e0 1.0f0) ==&gt; unspecified
 (eqv? +nan.0 +nan.0) ==&gt; unspecified
-</span>
+</div>
   <div class="p"><!----></div>
   <br />
 Note that (eqv? 0.0 -0.0) will return #f if negative zero
@@ -202,7 +202,7 @@ return either true or false. On empty strings, empty vectors,
 and empty bytevectors, eq? may also behave differently 
 from eqv?.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (eq? 'a 'a) ==&gt; #t
 (eq? '(a) '(a)) ==&gt; unspecified
 (eq? (list 'a) (list 'a)) ==&gt; #f
@@ -211,7 +211,7 @@ from eqv?.
 (eq? '() '()) ==&gt; #t
 (eq? 2 2) ==&gt; unspecified
 (eq? #\A #\A)
-</span></div></p>
+</div></div></p>
 
 <p>
 <div id="equal?" class="obj-box">
@@ -246,7 +246,7 @@ may return either
 or
 #f.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (equal? 'a 'a)
 =
 )
@@ -283,7 +283,7 @@ or
 =
 )
 unspecified
-</span>
+</div>
   <div class="p"><!----></div> 
   <br />
 Note:

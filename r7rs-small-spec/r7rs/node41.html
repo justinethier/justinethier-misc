@@ -107,7 +107,7 @@ computation without the need to pass the value to every
 procedure in the call chain explicitly.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (define radix
   (make-parameter
    10
@@ -127,7 +127,7 @@ procedure in the call chain explicitly.
 
 (parameterize ((radix 0))
   (f 12))     ==&gt; error
-</span>
+</div>
 </p>
 </div>
 </p>

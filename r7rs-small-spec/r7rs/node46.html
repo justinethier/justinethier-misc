@@ -39,9 +39,9 @@ see section&nbsp;<A HREF="node56.html#define-syntax">5.4</A>.
 <EM>Syntax: </EM>
 Bindings has the form
 <P>
-<span class="code-block">
+<div class="code-block">
 (({keyword} {transformer spec}) ...)
-</span>
+</div>
 </p>
 <p>
 Each keyword is an identifier,
@@ -60,7 +60,7 @@ the keywords, bound to the specified transformers.
 Each binding of a keyword has body as its region.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let-syntax ((given-that (syntax-rules ()
                 ((given-that test stmt1 stmt2 ...)
                  (if test
@@ -74,7 +74,7 @@ Each binding of a keyword has body as its region.
   (let-syntax ((m (syntax-rules () ((m) x))))
     (let ((x 'inner))
       (m)))) ==&gt; outer
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -102,7 +102,7 @@ transcribe expressions into uses of the macros
 introduced by the <code>letrec-syntax</code> expression.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (letrec-syntax
     ((my-or (syntax-rules ()
               ((my-or) #f)
@@ -121,7 +121,7 @@ introduced by the <code>letrec-syntax</code> expression.
            (let temp)
            (if y)
            y)))     ==&gt; 7
-</span>
+</div>
 </p>
 </div>
 </p>

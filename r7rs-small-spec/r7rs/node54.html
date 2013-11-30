@@ -34,12 +34,12 @@ body.  That is, variable is bound rather than assigned,
 and the region of the binding is the entire body.  For example,
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((x 5))
   (define foo (lambda (y) (bar x y)))
   (define bar (lambda (a b) (+ (* a b) a)))
   (foo (+ x 3)))        ==&gt; 45
-</span>
+</div>
 </p>
 <P>
 An expanded body containing internal definitions
@@ -49,12 +49,12 @@ example, the <code>let</code> expression in the above example is equivalent
 to
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((x 5))
   (letrec* ((foo (lambda (y) (bar x y)))
             (bar (lambda (a b) (+ (* a b) a))))
     (foo (+ x 3))))
-</span>
+</div>
 </p>
 <P>
 Just as for the equivalent <code>letrec*</code> expression, it is an error if it is not

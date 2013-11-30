@@ -78,7 +78,7 @@ to use either an explicit <code>unquote</code> or to put whitespace after the co
 to avoid colliding with the comma at-sign sequence.
 </p>
 <P>
-<span class="code-block">
+<div class="code-block">
 `(list ,(+ 1 2) 4) ==&gt; (list 3 4)
 (let ((name 'a)) `(list ,name ',name))
 ==&gt; (list a (quote a))
@@ -91,7 +91,7 @@ to avoid colliding with the comma at-sign sequence.
 (let ((foo '(foo bar)) (@baz 'baz))
   `(list ,@foo , @baz))
 ==&gt; (list foo bar baz)
-</span>
+</div>
 </p>
 <P>
 Quasiquote expressions can be nested.  Substitutions are made only for
@@ -101,14 +101,14 @@ each successive quasiquotation, and decreases by one inside each
 unquotation.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 `(a `(b ,(+ 1 2) ,(foo ,(+ 1 3) d) e) f)
 ==&gt; (a `(b ,(+ 1 2) ,(foo 4 d) e) f)
 (let ((name1 'x)
       (name2 'y))
   `(a `(b ,,name1 ,',name2 d) e))
 ==&gt; (a `(b ,x ,'y d) e)
-</span>
+</div>
 </p>
 <P>
 A quasiquote expression may return either newly allocated, mutable objects or
@@ -117,29 +117,29 @@ during the evaluation of the expression. Portions that do not need to
 be rebuilt are always literal. Thus,
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((a 3)) `((1 2) ,a ,4 ,'five 6))
-</span>
+</div>
 </p>
 <P>
 may be treated as equivalent to either of the following expressions:
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 `((1 2) 3 4 five 6)
 
 (let ((a 3))
   (cons '(1 2)
     (cons a (cons 4 (cons 'five '(6))))))
-</span>
+</div>
 </p>
 <P>
 However, it is not equivalent to this expression:
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((a 3)) (list (list 1 2) a 4 'five 6))
-</span>
+</div>
 </p>
 <P>
 The two notations
@@ -151,12 +151,12 @@ The two notations
 The indexfile"write" "tt" aux <code>write</code> procedure may output either format.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (quasiquote (list (unquote (+ 1 2)) 4))
     ==&gt; (list 3 4)
 '(quasiquote (list (unquote (+ 1 2)) 4))
     ==&gt; (quasiquote (list (unquote (+ 1 2)) 4))
-</span>
+</div>
 </p>
 <P>
 It is an error if any of the identifiers <code>quasiquote</code>, <code>unquote</code>,

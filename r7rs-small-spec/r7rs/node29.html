@@ -47,30 +47,30 @@ can be any external representation of a Scheme object (see
 section&nbsp;<A HREF="node23.html#externalreps">3.3</A>).  This notation is used to include literal
 constants in Scheme code.
 <br />
-<span class="code-block">
+<div class="code-block">
 (quote a) =) a
 (quote #(a b c)) =) #(a b c)
 (quote (+ 1 2)) =) (+ 1 2)
-</span>
+</div>
 <br />
 <code>(quote datum)</code> can be abbreviated as
 <code>'</code>datum.  The two notations are equivalent in all
 respects.
 <br />
-<span class="code-block">
+<div class="code-block">
 'a          ==&gt; a
 '#(a b c)   ==&gt; #(a b c)
 '()         ==&gt; ()
 '(+ 1 2)    ==&gt; (+ 1 2)
 '(quote a)  ==&gt; (quote a)
 ''a         ==&gt; (quote a)
-</span>
+</div>
 <br />
 Numerical constants, string constants, character constants, vector
 constants, bytevector constants, and boolean constants evaluate to
 themselves; they need not be quoted.
 <br />
-<span class="code-block">
+<div class="code-block">
 '145932         ==&gt; 145932
 145932          ==&gt; 145932
 '"abc"          ==&gt; "abc"
@@ -81,7 +81,7 @@ themselves; they need not be quoted.
 #u8(64 65)      ==&gt; #u8(64 65)
 '#t             ==&gt; #t
 #t              ==&gt; #t
-</span>
+</div>
 <br />
 As noted in section&nbsp;<A HREF="node24.html#storagemodel">3.4</A>, it is an error to attempt to alter a constant
 (i.e.&nbsp;the value of a literal expression) using a mutation procedure like

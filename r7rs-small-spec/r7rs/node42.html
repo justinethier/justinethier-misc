@@ -61,7 +61,7 @@ See section&nbsp;<A HREF="node80.html#exceptionsection">6.11</A> for a more comp
 exceptions.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (guard (condition
         ((assq 'a condition) =&gt; cdr)
         ((assq 'b condition)))
@@ -73,7 +73,7 @@ exceptions.
         ((assq 'b condition)))
   (raise (list (cons 'b 23))))
             ==&gt; (b . 23)
-</span>
+</div>
 </p>
 </div>
 </p>

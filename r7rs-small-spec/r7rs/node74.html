@@ -47,14 +47,14 @@ sense of eqv?).
   <div class="p"><!----></div>
 Returns #t if obj is a symbol, otherwise returns #f.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (symbol? 'foo) ==&gt; #t
 (symbol? (car '(a b))) ==&gt; #t
 (symbol? "bar") ==&gt; #f
 (symbol? 'nil) ==&gt; #t
 (symbol? '()) ==&gt; #f
 (symbol? #f) ==&gt; #f
-  </span>
+  </div>
 </div>
 </p>
 
@@ -89,14 +89,14 @@ TODO: above definition is definitely wrong in husk.
 need to review
 </p>
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (symbol-&gt;string 'flying-fish)
 ==&gt; "flying-fish"
 (symbol-&gt;string 'Martin) ==&gt; "Martin"
 (symbol-&gt;string
 (string-&gt;symbol "Malvina"))
 ==&gt; "Malvina"
-  </span>
+  </div>
 </div>
 </p>
 
@@ -114,7 +114,7 @@ can create symbols with names containing special characters
 that would require escaping when written, but does
 not interpret escapes in its input.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (string-&gt;symbol "mISSISSIppi")
 ==&gt; mISSISSIppi
 (eqv? 'bitBlt (string-&gt;symbol "bitBlt"))
@@ -127,7 +127,7 @@ not interpret escapes in its input.
 (symbol-&gt;string
 (string-&gt;symbol "K. Harper, M.D.")))
 ==&gt; #t
-  </span>
+  </div>
 </div>
 </p>
 

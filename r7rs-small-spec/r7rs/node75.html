@@ -37,7 +37,7 @@ Characters are written using the notation <span class="code">#\{character}</span
 </p>
 <p>
 The following character names are supported:
-<span class="code-block">
+<div class="code-block">
 #\alarm ; U+0007
 #\backspace ; U+0008
 #\delete ; U+007F
@@ -47,16 +47,16 @@ The following character names are supported:
 #\return ; the return character, U+000D
 #\space ; the preferred way to write a space
 #\tab ; the tab character, U+0009
-</span>
+</div>
 </p>
 <P>
 Here are some additional examples:
-<span class="code-block">
+<div class="code-block">
 #\a ; lower case letter
 #\A ; upper case letter
 #\( ; left parenthesis
 #\ ; the space character
-</span>
+</div>
 </p>
 <p>
 Case is significant in #\hcharacteri, and in #\hcharacter
@@ -232,12 +232,12 @@ This procedure returns the numeric value (0 to 9) of its
 argument if it is a numeric digit (that is, if char-numeric?
 returns #t), or #f on any other character.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (digit-value #\3) ==&gt; 3
 (digit-value #\x0664) ==&gt; 4
 (digit-value #\x0AE6) ==&gt; 0
 (digit-value #\x0EA6) ==&gt; #f
-</span></div></p>
+</div></div></p>
 
 <p>
 <div id="char->integer" class="obj-box">

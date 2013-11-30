@@ -55,9 +55,9 @@ It is also an error if
 syntax rule is not of the form
 </p>
 <P>
-<span class="code-block">
+<div class="code-block">
 ({pattern} {template})
-</span>
+</div>
 </p>
 <P>
 The pattern in a syntax rule is a list pattern
@@ -68,7 +68,7 @@ A pattern is either an identifier, a constant, or one of the
 following
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 ({pattern} ...)
 ({pattern} {pattern} ... . {pattern})
 ({pattern} ... {pattern} {ellipsis} {pattern} ...)
@@ -76,18 +76,18 @@ following
     . {pattern})
 #({pattern} ...)
 #({pattern} ... {pattern} {ellipsis} {pattern} ...)
-</span>
+</div>
 </p>
 <P>
 and a template is either an identifier, a constant, or one of the following
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 ({element} ...)
 ({element} {element} ... . {template})
 ({ellipsis} {template})
 #({element} ...)
-</span>
+</div>
 </p>
 <P>
 where an element is a template optionally
@@ -242,7 +242,7 @@ This allows syntactic abstractions to expand into code containing
 ellipses.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (define-syntax be-like-begin
   (syntax-rules ()
     ((be-like-begin name)
@@ -252,7 +252,7 @@ ellipses.
             (begin expr (... ...))))))))
 (be-like-begin sequence)
 (sequence 1 2 3 4)      ==&gt; 4
-</span>
+</div>
 </p>
 <P>
 As an example, if indexfile"let" "tt" aux <code>let</code> and indexfile"cond" "tt" aux <code>cond</code> are defined as in
@@ -260,10 +260,10 @@ section&nbsp;<A HREF="node96.html#derivedsection">7.3</A> then they are hygienic
 the following is not an error.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((=&gt; #f))
   (cond (#t =&gt; 'ok)))    ==&gt; ok
-</span>
+</div>
 </p>
 The macro transformer for <code>cond</code> recognizes <code>=&gt;</code>
 as a local variable, and hence an expression, and not as the
@@ -271,20 +271,20 @@ base identifier <code>=&gt;</code>, which the macro transformer treats
 as a syntactic keyword.  Thus the example expands into
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (let ((=&gt; #f))
   (if #t (begin =&gt; 'ok)))
-</span>
+</div>
 </p>
 <P>
 instead of
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 (let ((=&gt; #f))
   (let ((temp #t))
     (if temp ('ok temp))))
-</span>
+</div>
 </p>
 <p>
 which would result in an invalid procedure call.

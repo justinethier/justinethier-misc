@@ -41,24 +41,24 @@ nav_index_lbl: Index
 Clauses take one of two forms, either
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 ({test} {expression1} ...)
-</span>
+</div>
 </p>
 <p>
 where test is any expression, or
 </p>
 <p>
-<span class="code-block">
-({test} => {expression})
-</span>
+<div class="code-block">
+({test} =&gt; {expression})
+</div>
 </p>
 <p>
 The last clause can be an "else clause," which has the form
 </p>
 <P>
-<span class="code-block">
-</span>
+<div class="code-block">
+</div>
 (else {expression1} {expression2} ...)
 </p>
 <p>
@@ -90,15 +90,15 @@ the last one are returned.
 </P>
 <P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (cond ((&gt; 3 2) 'greater)
       ((&lt; 3 2) 'less))       ==&gt; greater
 (cond ((&gt; 3 3) 'greater)
       ((&lt; 3 3) 'less)
       (else 'equal))            ==&gt; equal
-(cond ((assv 'b '((a 1) (b 2))) => cadr)
+(cond ((assv 'b '((a 1) (b 2))) =&gt; cadr)
       (else #f))                ==&gt; 2
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -116,9 +116,9 @@ Key can be any expression.  Each clause has
 the form
 
 <p>
-<span class="code-block">
+<div class="code-block">
 (({datum1} ...) {expression1} {expression2} ...)
-</span>
+</div>
 </p>
 <p>
 where each datum is an external representation of some object.
@@ -126,25 +126,25 @@ It is an error if any of the datums are the same anywhere in the expression.
 Alternatively, a clause can be of the form
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 (({datum1} ...) =&gt; {expression})
-</span>
+</div>
 </P>
 <p>
 The last clause can be an "else clause," which has one of the forms
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 (else {expression1} {expression2} ...)
-</span>
+</div>
 </P>
 <p>
 or
 </p>
 <p>
-<span class="code-block">
+<div class="code-block">
 (else =&gt; {expression})
-</span>
+</div>
 </P>
 <p>
 <EM>Semantics: </EM>
@@ -172,7 +172,7 @@ called on the value of the key and the values returned by this
 procedure are returned by the <code>case</code> expression.
 </p>
 <P>
-<span class="code-block">
+<div class="code-block">
 (case (* 2 3)
   ((2 3 5 7) 'prime)
   ((1 4 6 8 9) 'composite))     ==&gt; composite
@@ -183,7 +183,7 @@ procedure are returned by the <code>case</code> expression.
   ((a e i o u) 'vowel)
   ((w y) 'semivowel)
   (else =&gt; (lambda (x) x)))  ==&gt; c
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -203,12 +203,12 @@ expressions are not evaluated.  If all the expressions evaluate to
 true values, the values of the last expression are returned.  If there
 are no expressions, then <code>#t</code> is returned.
 <P>
-<span class="code-block">
+<div class="code-block">
 (and (= 2 2) (&gt; 2 1)) ==&gt; #t
 (and (= 2 2) (&lt; 2 1)) ==&gt; #f
 (and 1 2 'c '(f g))   ==&gt; (f g)
 (and)                 ==&gt; #t
-</span>
+</div>
 </P>
 </div>
 </p>
@@ -228,13 +228,13 @@ section&nbsp;<A HREF="node72.html#booleansection">6.3</A>) is returned.  Any rem
 are not evaluated.  If all expressions evaluate to <code>#f</code>
 or if there are no expressions, then <code>#f</code> is returned.
 <P>
-<span class="code-block">
+<div class="code-block">
 (or (= 2 2) (&gt; 2 1))    =) #t
 (or (= 2 2) (&lt; 2 1))    =) #t
 (or #f #f #f)           =) #f
 (or (memq 'b '(a b c))
     (/ 3 0))            =) (b c)
-</span>
+</div>
 </P>
 </div>
 </p>
@@ -257,11 +257,11 @@ the expressions are evaluated in order.  The result of the <code>when</code>
 expression is unspecified.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (when (= 1 1.0)
   (display "1")
   (display "2"))    ==&gt; unspecified and prints 12
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -284,11 +284,11 @@ the expressions are evaluated in order.  The result of the <code>unless</code>
 expression is unspecified.
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (unless (= 1 1.0)
   (display "1")
   (display "2"))    ==&gt; unspecified and prints nothing
-</span>
+</div>
 </p>
 </div>
 </p>
@@ -308,17 +308,17 @@ expand different expressions depending on the
 implementation.  A
 ce-clause takes the following form:
 <P>
-<span class="code-block">
+<div class="code-block">
 ({feature requirement} {expression} ...)
-</span>
+</div>
 </p>
 <P>
 The last clause can be an "else clause," which has the form
 </P>
 <P>
-<span class="code-block">
+<div class="code-block">
 (else {expression})
-</span>
+</div>
 </P>
 <P>
 A feature requirement takes one of the following forms:

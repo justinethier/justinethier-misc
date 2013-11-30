@@ -41,9 +41,9 @@ Vectors are written using the notation #(obj ...). For
 example, a vector of length 3 containing the number zero
 in element 0, the list (2 2 2 2) in element 1, and the
 string "Anna" in element 2 can be written as follows:
-<span class="code-block">
+<div class="code-block">
 #(0 (2 2 2 2) "Anna")
-</span>
+</div>
 </p>
 <p>
 Vector constants are self-evaluating, so they do not need
@@ -95,9 +95,9 @@ fied.
 Returns a newly allocated vector whose elements contain
 the given arguments. It is analogous to list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (vector 'a 'b 'c) ==&gt; #(a b c)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -127,7 +127,7 @@ The vector-ref procedure returns the contents of element
 k of vector.
 
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (vector-ref '#(1 1 2 3 5 8 13 21)
 5)
 ==&gt; 8
@@ -135,7 +135,7 @@ k of vector.
 (exact
 (round (* 2 (acos -1)))))
 ==&gt; 13
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -153,7 +153,7 @@ It is an error if k is not a valid index of vector.
 The vector-set! procedure stores obj in element k of
 vector.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 TODO: husk does not support immutable vectors
 (let ((vec (vector 0 '(2 2 2 2) "Anna")))
 (vector-set! vec 1 '("Sue" "Sue"))
@@ -161,7 +161,7 @@ vec)
 ==&gt; #(0 ("Sue" "Sue") "Anna")
 (vector-set! '#(0 1 2) 1 "doe")
 ==&gt; error ; constant vector
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -200,14 +200,14 @@ list .
   <br />
 In both procedures, order is preserved.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (vector-&gt;list '#(dah dah didah))
 ==&gt; (dah dah didah)
 (vector-&gt;list '#(dah dah didah) 1 2)
 ==&gt; (dah)
 (list-&gt;vector '(dididit dah))
 ==&gt; #(dididit dah)
-</span>
+</div>
 </div>
 </p>
 
@@ -263,11 +263,11 @@ of the string string between start and end.
   <br />
 In both procedures, order is preserved.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (string-&gt;vector "ABC") ==&gt; #(#\A #\B #\C)
 (vector-&gt;string
 #(#\1 #\2 #\3) ==&gt; "123"
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -296,7 +296,7 @@ vector between start and end. The elements of the new
 vector are the same (in the sense of eqv?) as the elements
 of the old.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 
   TODO: husk does not have immutable vectors
 
@@ -306,7 +306,7 @@ of the old.
 b ==&gt; #(3 8 2 8)
 (define c (vector-copy b 1 3))
 c ==&gt; #(8 2)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -343,12 +343,12 @@ copied into a temporary vector and then into the destination.
 This can be achieved without allocating storage by
 making sure to copy in the correct direction in such circumstances.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define a (vector 1 2 3 4 5))
 (define b (vector 10 20 30 40 50))
 (vector-copy! b 1 a 0 2)
 b ==&gt; #(10 1 2 40 50)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -363,10 +363,10 @@ b ==&gt; #(10 1 2 40 50)
 Returns a newly allocated vector whose elements are the
 concatenation of the elements of the given vectors.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (vector-append #(a b c) #(d e f))
 ==&gt; #(a b c d e f)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -393,12 +393,12 @@ concatenation of the elements of the given vectors.
 The vector-fill! procedure stores fill in the elements of
 vector between start and end.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define a (vector 1 2 3 4 5))
 (vector-fill! a 'smash 2 4)
 a
 ==&gt; #(1 2 smash smash 5)
-</span>
+</div>
 </div>
 </p>
 

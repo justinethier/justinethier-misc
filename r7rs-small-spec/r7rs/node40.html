@@ -86,7 +86,7 @@ values and exception handler of the call to <code>force</code> which first
 requested its value.
 If <I>promise</I> is not a promise, it may be returned unchanged.
 <p>
-<span class="code-block">
+<div class="code-block">
 (force (delay (+ 1 2)))         ==&gt; 3
 (let ((p (delay (+ 1 2))))
   (list (force p) (force p)))
@@ -103,7 +103,7 @@ If <I>promise</I> is not a promise, it may be returned unchanged.
   (lambda (stream) (cdr (force stream))))
 (head (tail (tail integers)))
                                 ==&gt; 2
-</span>
+</div>
 </p>
 </div>
 </p>

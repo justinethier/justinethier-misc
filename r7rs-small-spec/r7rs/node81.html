@@ -130,7 +130,7 @@ fied environment and its values are returned. If it is a defi-
 nition, the specified identifier(s) are defined in the specified
 environment, provided the environment is not immutable.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (eval '(* 7 3) (environment '(scheme base)))
 ==&gt; 21
 (let ((f (eval '(lambda (f x) (f x x))
@@ -140,7 +140,7 @@ environment, provided the environment is not immutable.
 (eval '(define foo 32)
 (environment '(scheme base)))
 ==&gt; error is signaled
-</span>
+</div>
 </div>
 </p>
 

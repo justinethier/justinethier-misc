@@ -90,7 +90,7 @@ in the cdr field. When the set-cdr! procedure is used, an
 object can be a list one moment and not the next:
 </p>
 <p>
-  <span class="code-block">
+  <div class="code-block">
 (define x (list 'a 'b 'c))
 (define y x)
 y ==&gt; (a b c)
@@ -102,7 +102,7 @@ y ==&gt; (a . 4)
 (list? y) ==&gt; #f
 (set-cdr! x x) ==&gt; unspecified
 (list? x) ==&gt; #f
-</span>
+</div>
 
 </p>
 <p>
@@ -130,12 +130,12 @@ this permits the read procedure to parse Scheme programs. See section 3.3.
 The pair? predicate returns #t if obj is a pair, and otherwise
 returns #f.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (pair? '(a . b)) ==&gt; #t
 (pair? '(a b c)) ==&gt; #t
 (pair? '()) ==&gt; #f
 (pair? '#(a b)) ==&gt; #f
-  </span>
+  </div>
   </div>
 </p>
 
@@ -152,13 +152,13 @@ Returns a newly allocated pair whose car is obj1 and whose
 cdr is obj2. The pair is guaranteed to be 
 different(sense of eqv?) from every existing object.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (cons 'a '()) ==&gt; (a)
 (cons '(a) '(b c d)) ==&gt; ((a) b c d)
 (cons "a" '(b c)) ==&gt; ("a" b c)
 (cons 'a 3) ==&gt; (a . 3)
 (cons '(a b) 'c) ==&gt; ((a b) . c)
-  </span>
+  </div>
   </div>
 </p>
 <p>
@@ -173,12 +173,12 @@ different(sense of eqv?) from every existing object.
 Returns the contents of the car field of pair . Note that it
 is an error to take the car of the empty list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (car '(a b c)) ==&gt; a
 (car '((a) b c d)) ==&gt; (a)
 (car '(1 . 2)) ==&gt; 1
 (car '()) ==&gt; error
-  </span>
+  </div>
   </div>
 </p>
 <p>
@@ -193,11 +193,11 @@ is an error to take the car of the empty list.
 Returns the contents of the cdr field of pair . Note that it
 is an error to take the cdr of the empty list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (cdr '((a) b c d)) ==&gt; (b c d)
 (cdr '(1 . 2)) ==&gt; 2
 (cdr '()) ==&gt; error
-  </span>
+  </div>
   </div>
 </p>
 <p>
@@ -211,7 +211,7 @@ is an error to take the cdr of the empty list.
   <div class="p"><!----></div>
 Stores obj in the car field of pair.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 
 TODO: husk does not make this distiction
 
@@ -219,7 +219,7 @@ TODO: husk does not make this distiction
 (define (g) '(constant-list))
 (set-car! (f) 3) ==&gt; unspecified
 (set-car! (g) 3) ==&gt; error
-  </span>
+  </div>
   </div>
 </p>
 
@@ -265,12 +265,12 @@ Stores obj in the cdr field of pair.
   <div class="p"><!----></div>
 These procedures are compositions of car and cdr as follows:
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define (caar x) (car (car x)))
 (define (cadr x) (car (cdr x)))
 (define (cdar x) (cdr (car x)))
 (define (cddr x) (cdr (cdr x)))
-  </span>
+  </div>
   </div>
 </p>
 
@@ -311,9 +311,9 @@ These twenty-four procedures are further compositions of
 car and cdr on the same principles. For example, caddr
 could be defined by
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define caddr (lambda (x) (car (cdr (cdr x))))).
-</span>
+</div>
   <div class="p"><!----></div>
   <br />
 Arbitrary compositions up to four deep are provided.
@@ -347,7 +347,7 @@ Returns #t if obj is a list. Otherwise, it returns #f. By
 definition, all lists have finite length and are terminated by
 the empty list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (list? obj ) procedure
 (list? '(a b c)) ==&gt; #t
 (list? '()) ==&gt; #t
@@ -355,7 +355,7 @@ the empty list.
 (let ((x (list 'a)))
 (set-cdr! x x)
 (list? x)) ==&gt; #f
-  </span>
+  </div>
 </div>
 </p>
 <p>
@@ -377,9 +377,9 @@ Returns a newly allocated list of k elements. If a second
 argument is given, then each element is initialized to fill.
 Otherwise the initial contents of each element is unspecified.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (make-list 2 3) ==&gt; (3 3)
-  </span>
+  </div>
 </div>
 </p>
 
@@ -394,10 +394,10 @@ Otherwise the initial contents of each element is unspecified.
   <div class="p"><!----></div>
 Returns a newly allocated list of its arguments.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (list 'a (+ 3 4) 'c) ==&gt; (a 7 c)
 (list) ==&gt; ()
-  </span>
+  </div>
 </div>
 </p>
 <p>
@@ -411,11 +411,11 @@ Returns a newly allocated list of its arguments.
   <div class="p"><!----></div>
 Returns the length of list .
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (length '(a b c)) ==&gt; 3
 (length '(a (b) (c d e))) ==&gt; 3
 (length '()) ==&gt; 0
-  </span>
+  </div>
 </div>
 </p>
 <p>
@@ -439,13 +439,13 @@ is always newly allocated, except that it shares structure
 with the last argument. An improper list results if the last
 argument is not a proper list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (append '(x) '(y)) ==&gt; (x y)
 (append '(a) '(b c d)) ==&gt; (a b c d)
 (append '(a (b)) '((c))) ==&gt; (a (b) (c))
 (append '(a b) '(c . d)) ==&gt; (a b c . d)
 (append '() 'a) ==&gt; a
-  </span>
+  </div>
 </div>
 </p>
 <p>
@@ -460,11 +460,11 @@ argument is not a proper list.
 Returns a newly allocated list consisting of the elements of
 list in reverse order.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (reverse '(a b c)) ==&gt; (c b a)
 (reverse '(a (b c) d (e (f))))
 ==&gt; ((e (f)) d (b c) a)
-  </span>
+  </div>
 </div>
 </p>
 <p>
@@ -501,12 +501,12 @@ It is an error if list has fewer than k elements.
 Returns the kth element of list . (This is the same as the
 car of (list-tail list k).)
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (list-ref '(a b c d) 2) ==&gt; c
 (list-ref '(a b c d)
 (exact (round 1.8)))
 ==&gt; c
-  </span>
+  </div>
 </div>
 </p>
 
@@ -526,7 +526,7 @@ It is an error if k is not a valid index of list.
 The list-set! procedure stores obj in element k of
 list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 
 TODO: husk does not have immutable lists
 
@@ -536,7 +536,7 @@ ls)
 ==&gt; (one two three)
 (list-set! '(0 1 2) 1 "oops")
 ==&gt; error ; constant list
-  </span>
+  </div>
 </div>
 </p>
 
@@ -575,7 +575,7 @@ list) is returned. The memq procedure uses eq? to compare
 obj with the elements of list , while memv uses eqv? and
 member uses compare, if given, and equal? otherwise.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (memq 'a '(a b c)) ==&gt; (a b c)
 (memq 'b '(a b c)) ==&gt; (b c)
 (memq 'a '(b c d)) ==&gt; #f
@@ -587,7 +587,7 @@ member uses compare, if given, and equal? otherwise.
 string-ci=?) ==&gt; ("b" "c")
 (memq 101 '(100 101 102)) ==&gt; unspecified
 (memv 101 '(100 101 102)) ==&gt; (101 102)
-  </span>
+  </div>
 </div>
 </p>
 
@@ -628,7 +628,7 @@ assq procedure uses eq? to compare obj with the car fields
 of the pairs in alist , while assv uses eqv? and assoc uses
 compare if given and equal? otherwise.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define e '((a 1) (b 2) (c 3)))
 (assq 'a e) ==&gt; (a 1)
 (assq 'b e) ==&gt; (b 2)
@@ -643,7 +643,7 @@ compare if given and equal? otherwise.
 ==&gt; unspecified
 (assv 5 '((2 3) (5 7) (11 13)))
 ==&gt; (5 7)
-  </span>
+  </div>
   <div class="p"><!----></div>
   <br />
 Rationale: Although they are often used as predicates, memq,
@@ -669,7 +669,7 @@ are the same in the sense of eqv?. An obj which is not a
 list is returned unchanged. It is an error if obj is a circular
 list.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 
 TODO: again, more issues with immutable lists
 
@@ -678,7 +678,7 @@ TODO: again, more issues with immutable lists
 (set-car! b 3) ; b is mutable
 b ==&gt; (3 8 2 8)
 a ==&gt; (1 8 2 8)
-  </span>
+  </div>
 </div>
 </p>
 

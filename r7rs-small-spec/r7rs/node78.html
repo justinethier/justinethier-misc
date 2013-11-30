@@ -40,9 +40,9 @@ Bytevectors are written using the notation #u8(byte : : : ).
 For example, a bytevector of length 3 containing the byte
 0 in element 0, the byte 10 in element 1, and the byte 5 in
 element 2 can be written as follows:
-<span class="code-block">
+<div class="code-block">
 #u8(0 10 5)
-</span>
+</div>
 </p>
 <p>
 Bytevector constants are self-evaluating, so they do not
@@ -79,9 +79,9 @@ bytevector of length k. If byte is given, then all elements
 of the bytevector are initialized to byte, otherwise the contents
 of each element are unspecified.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (make-bytevector 2 12) ==&gt; #u8(12 12)
-</span></div></p>
+</div></div></p>
 <p>
 <div id="bytevector" class="obj-box">
   <div class="obj-header">
@@ -93,10 +93,10 @@ of each element are unspecified.
   <div class="p"><!----></div>
 Returns a newly allocated bytevector containing its arguments.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (bytevector 1 3 5 1 3 5) ==&gt; #u8(1 3 5 1 3 5)
 (bytevector) ==&gt; #u8()
-</span></div></p>
+</div></div></p>
 <p>
 <div id="bytevector-length" class="obj-box">
   <div class="obj-header">
@@ -122,11 +122,11 @@ It is an error if k is not a valid index of bytevector.
   <br />
 Returns the kth byte of bytevector.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (bytevector-u8-ref '#u8(1 1 2 3 5 8 13 21)
 5)
 ==&gt; 8
-</span></div></p>
+</div></div></p>
 <p>
 <div id="bytevector-u8-set!" class="obj-box">
   <div class="obj-header">
@@ -141,12 +141,12 @@ It is an error if k is not a valid index of bytevector.
   <br />
 Stores byte as the kth byte of bytevector.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (let ((bv (bytevector 1 2 3 4)))
 (bytevector-u8-set! bv 1 3)
 bv)
 ==&gt; #u8(1 3 3 4)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -173,10 +173,10 @@ bv)
 Returns a newly allocated bytevector containing the bytes
 in bytevector between start and end.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define a #u8(1 2 3 4 5))
 (bytevector-copy a 2 4)) ==&gt; #u8(3 4)
-</span></div></p>
+</div></div></p>
 <p>
 <div id="bytevector-copy!" class="obj-box">
   <div class="obj-header">
@@ -212,12 +212,12 @@ This can be achieved without allocating storage
 by making sure to copy in the correct direction in such
 circumstances.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (define a (bytevector 1 2 3 4 5))
 (define b (bytevector 10 20 30 40 50))
 (bytevector-copy! b 1 a 0 2)
 b ==&gt; #u8(10 1 2 40 50)
-</span>
+</div>
   <div class="p"><!----></div>
   <br />
 Note: This procedure appears in R6RS, but places the source
@@ -237,10 +237,10 @@ Scheme.
 Returns a newly allocated bytevector whose elements are
 the concatenation of the elements in the given bytevectors.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (bytevector-append #u8(0 1 2) #u8(3 4 5))
 ==&gt; #u8(0 1 2 3 4 5)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -294,9 +294,9 @@ string; the string-&gt;utf8 procedure encodes the
 characters of a string between start and end and returns
 the corresponding bytevector.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (utf8-&gt;string #u8(#x41)) ==&gt; "A"
-</span>
+</div>
 </div>
 </p>
 

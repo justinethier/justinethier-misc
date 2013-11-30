@@ -39,7 +39,7 @@ described here.
   <div class="p"><!----></div>
 Returns #t if obj is a procedure, otherwise returns #f.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (procedure? car) ==&gt; #t
 (procedure? 'car) ==&gt; #f
 (procedure? (lambda (x) (* x x)))
@@ -48,7 +48,7 @@ Returns #t if obj is a procedure, otherwise returns #f.
 ==&gt; #f
 (call-with-current-continuation procedure?)
 ==&gt; #t
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -62,7 +62,7 @@ Returns #t if obj is a procedure, otherwise returns #f.
   <div class="p"><!----></div>
 The apply procedure calls proc with the elements of the list
   <div class="p"><!----></div> 
-  <span class="code-block">
+  <div class="code-block">
 (append (list arg1 ... ) args) as the actual arguments.
 (apply + (list 3 4)) ==&gt; 7
 (define compose
@@ -70,7 +70,7 @@ The apply procedure calls proc with the elements of the list
 (lambda args
 (f (apply g args)))))
 ((compose sqrt *) 12 75) ==&gt; 30
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -96,7 +96,7 @@ the elements of the lists is unspecified. If multiple returns
 occur from map, the values returned by earlier returns are
 not mutated.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (map cadr '((a b) (d e) (g h)))
 ==&gt; (b e h)
 (map (lambda (n) (expt n n))
@@ -108,7 +108,7 @@ not mutated.
 (set! count (+ count 1))
 count)
 '(a b))) ==&gt; (1 2) or (2 1)
-</span></div></p>
+</div></div></p>
 <p>
 <div id="string-map" class="obj-box">
   <div class="obj-header">
@@ -130,7 +130,7 @@ when the shortest string runs out. The dynamic order in
 which proc is applied to the elements of the strings is unspecified. If multiple returns occur from string-map, the
 values returned by earlier returns are not mutated.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (string-map char-foldcase "AbdEgH")
 ==&gt; "abdegh"
 (string-map
@@ -145,7 +145,7 @@ c))
 "studlycaps xxx"
 "ululululul")
 ==&gt; "StUdLyCaPs"
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -170,7 +170,7 @@ in which proc is applied to the elements of the vectors is
 unspecified. If multiple returns occur from vector-map,
 the values returned by earlier returns are not mutated.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (vector-map cadr '#((a b) (d e) (g h)))
 ==&gt; #(b e h)
 (vector-map (lambda (n) (expt n n))
@@ -184,7 +184,7 @@ the values returned by earlier returns are not mutated.
 (set! count (+ count 1))
 count)
 '#(a b))) ==&gt; #(1 2) or #(2 1)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -244,13 +244,13 @@ strings have the same length, string-for-each terminates
 when the shortest string runs out. It is an error for proc
 to mutate any of the strings.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (let ((v '()))
 (string-for-each
 (lambda (c) (set! v (cons (char-&gt;integer c) v)))
 "abcde")
 v) ==&gt; (101 100 99 98 97)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -277,13 +277,13 @@ have the same length, vector-for-each terminates
 when the shortest vector runs out. It is an error for proc
 to mutate any of the vectors.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (let ((v (make-list 5)))
 (vector-for-each
 (lambda (i) (list-set! v i (* i i)))
 '#(0 1 2 3 4))
 v) ==&gt; (0 1 4 9 16)
-</span>
+</div>
 </div>
 </p>
 <p>
@@ -347,7 +347,7 @@ all real uses were as simple as these examples, there
 would be no need for a procedure with the power of
 call-with-current-continuation.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (call-with-current-continuation
 (lambda (exit)
 (for-each (lambda (x)
@@ -368,7 +368,7 @@ call-with-current-continuation.
 (r obj))))))
 (list-length '(1 2 3 4)) ==&gt; 4
 (list-length '(a b . c)) ==&gt; #f
-</span>
+</div>
 <div class="p"><!----></div>
 <br />
 Rationale:
@@ -426,12 +426,12 @@ consumer procedure with those values as arguments. The
 continuation for the call to consumer is the continuation
 of the call to call-with-values.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (call-with-values (lambda () (values 4 5))
 (lambda (a b) b))
 ==&gt; 5
 (call-with-values * -) ==&gt; -1
-</span></div></p>
+</div></div></p>
 <p>
 <div id="dynamic-wind" class="obj-box">
   <div class="obj-header">
@@ -497,7 +497,7 @@ the after is called first.
 The ect of using a captured continuation to enter or exit
 the dynamic extent of a call to before or after is unspecified.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (let ((path '())
 (c #f))
 (let ((add (lambda (s)
@@ -515,7 +515,7 @@ the dynamic extent of a call to before or after is unspecified.
 (reverse path))))
 ==&gt; (connect talk1 disconnect
 connect talk2 disconnect)
-</span>
+</div>
 </div>
 </p>
 

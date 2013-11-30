@@ -42,14 +42,14 @@ It is an error if radix is not one of 2, 8, 10, or 16.
 The procedure number-&gt;string takes a number and a
 radix and returns as a string an external representation
 of the given number in the given radix such that
-<span class="code-block">
+<div class="code-block">
 (let ((number number)
 (radix radix))
 (eqv? number
 (string-&gt;number (number-&gt;string number
 radix)
 radix)))
-</span>
+</div>
 <div class="p"><!----></div>
 is true. It is an error if no possible result makes this expression
 true. If omitted, radix defaults to 10.
@@ -107,11 +107,11 @@ cannot represent, then string-&gt;number returns #f.
   <br />
 An error is never signaled due to the content of string.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (string-&gt;number "100") ==&gt; 100
 (string-&gt;number "100" 16) ==&gt; 256
 (string-&gt;number "1e2") ==&gt; 100.0
-</span>
+</div>
 <br />
 Note: The domain of string-&gt;number may be restricted by im-
 plementations in the following ways. If all numbers supported

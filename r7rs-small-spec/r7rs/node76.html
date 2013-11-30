@@ -27,7 +27,7 @@ sequences of characters enclosed within quotation marks
 characters other than themselves. Escape sequences
 always start with a backslash (\):
 
-<span class="code-block">
+<div class="code-block">
 \a : alarm, U+0007
 {\b : backspace, U+0008
 46 Revised7 Scheme
@@ -41,7 +41,7 @@ l\| : vertical line, U+007C
 {intraline whitespace}* : nothing
 <\x{hex scalar valuer}; : specified character (note the
 terminating semi-colon).
-</span>
+</div>
 </p>
 <p>
 The result is unspecified if any other character in a string
@@ -58,13 +58,13 @@ character into the string.
 </p>
 <p>
 Examples:
-<span class="code-block">
+<div class="code-block">
 "The word \"recursion\" has many meanings."
 "Another example:\ntwo lines of text"
 "Here's text \
      containing just one line"
 "\x03B1; is named GREEK SMALL LETTER ALPHA."
-</span>
+</div>
 </p>
 
 <p>
@@ -164,7 +164,7 @@ It is an error if k is not a valid index of string.
 The string-set! procedure stores char in element k of
 string. There is no requirement for this procedure to execute
 in constant time.
-<span class="code-block">
+<div class="code-block">
 
 TODO: husk does not have immutable strings
 
@@ -175,7 +175,7 @@ TODO: husk does not have immutable strings
 (string-set! (symbol-&gt;string 'immutable)
 0
 #\?) ==&gt; error
-</span></div></p>
+</div></div></p>
 <p>
 <div id="string=?" class="obj-box">
   <div class="obj-header">
@@ -391,12 +391,12 @@ to string to, starting at at. The order in which characters
 are copied is unspecified, except that if the source and destination
 overlap, copying takes place as if the source is first
 copied into a temporary string and then into the destination.
-<span class="code-block">
+<div class="code-block">
 (define a "12345")
 (define b (string-copy "abcde"))
 (string-copy! b 1 a 0 2)
 b ==&gt; "a12de"
-</span>
+</div>
 </div>
 </p>
 <p>

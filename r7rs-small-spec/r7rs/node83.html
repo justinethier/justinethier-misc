@@ -315,7 +315,7 @@ Returns a string consisting of the characters that have been
 output to the port so far in the order they were output. If
 the result string is modified, the ect is unspecified.
   <div class="p"><!----></div>
-  <span class="code-block">
+  <div class="code-block">
 (parameterize
 ((current-output-port
 (open-output-string)))
@@ -325,7 +325,7 @@ the result string is modified, the ect is unspecified.
 (newline)
 (get-output-string (current-output-port)))
 ==&gt; "piece by piece by piece.\n"
-</span>
+</div>
 </div></p>
 <p>
 <div id="open-input-bytevector" class="obj-box">
