@@ -59,10 +59,10 @@ Here are some additional examples:
 </div>
 </p>
 <p>
-Case is significant in #\hcharacteri, and in #\hcharacter
-namei, but not in #\xhhex scalar valuei. If hcharacteri
-in #\hcharacteri is alphabetic, then any character immediately
-following hcharacteri cannot be one that can appear
+Case is significant in #{character}, and in #{character
+name}, but not in #\xhhex scalar value}. If {character}
+in #{character} is alphabetic, then any character immediately
+following {character} cannot be one that can appear
 in an identifier. This rule resolves the ambiguous case
 where, for example, the sequence of characters \#\space"
 could be taken to be either a representation of the space
@@ -282,12 +282,14 @@ returns that character.
     <span class="code">)</span>
     <span class="obj-type">char library procedure</span>
   </div>
+  <!--
   <div class="obj-header">
     <span class="code">(char-foldcase </span>
     <span class="code-var">char</span>
     <span class="code">)</span>
     <span class="obj-type">char library procedure</span>
   </div>
+  -->
   <div class="p"><!----></div>
 The char-upcase procedure, given an argument that is
 the lowercase part of a Unicode casing pair, returns the
@@ -306,6 +308,7 @@ that language-sensitive casing pairs are not used. If the
 argument is not the uppercase member of such a pair, it is
 returned.
   <div class="p"><!----></div>
+  <!--
   <br />
   <p style="color: red">TODO: husk does not support this!</p>
 The char-foldcase procedure applies the Unicode simple
@@ -316,10 +319,11 @@ a lowercase letter or the same as the argument if the
 lowercase letter does not exist or is not supported by the
 implementation. See UAX #29 [11] (part of the Unicode
 Standard) for details.
-  <div class="p"><!----></div>
+  <div class="p"><!-- -- ></div>
   <br />
 Note that many Unicode lowercase characters do not have
 uppercase equivalents.
+-->
 </div>
 </p>
 
