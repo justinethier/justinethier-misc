@@ -165,16 +165,8 @@ The string-set! procedure stores char in element k of
 string. There is no requirement for this procedure to execute
 in constant time.
 <div class="code-block">
-
-TODO: husk does not have immutable strings
-
 (define (f) (make-string 3 #\*))
-(define (g) "***")
 (string-set! (f) 0 #\?) ==&gt; unspecified
-(string-set! (g) 0 #\?) ==&gt; error
-(string-set! (symbol-&gt;string 'immutable)
-0
-#\?) ==&gt; error
 </div></div></p>
 <p>
 <div id="string=?" class="obj-box">
