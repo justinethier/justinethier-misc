@@ -451,21 +451,6 @@ follows:
 ({operator}-remainder n1 n2) ==&gt; nr
 </div>
   <div class="p"><!----></div>
-The remainder nr is determined by the choice of integer
-
-<label style="color: red">JAE TODO: finish this part later</label>
-  <div class="p"><!----></div>
-  <br />
-For any of the operators, and for integers n1 and n2 with
-n2 not equal to 0,
-  <div class="p"><!----></div>
- <div class="code-block">
-(= n1 (+ (* n2 ({operator}-quotient n1 n2))
-({operator}-remainder n1 n2)))
-==&gt; #t
-</div>
-  <div class="p"><!----></div>
-provided all numbers involved in that computation are exact.
 Examples:
   <div class="p"><!----></div>
   <div class="code-block">
