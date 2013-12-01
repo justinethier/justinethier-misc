@@ -4,8 +4,8 @@ nav_next: node70.html
 nav_next_lbl: Numerical operations
 nav_up: node64.html
 nav_up_lbl: Numbers
-nav_prev: node68.html
-nav_prev_lbl: Implementation extensions
+nav_prev: node66.html
+nav_prev_lbl: Exactness
 nav_contents: node3.html
 nav_contents_lbl: Contents
 nav_index: node106.html
@@ -27,9 +27,8 @@ are #b (binary), #o (octal), #d (decimal), and #x (hexadecimal).
 With no radix prefix, a number is assumed to be
 expressed in decimal.
 </p>
+<!--
 <p>
-JAE TODO: husk does not do this?????
-
 A numerical constant can be specified to be either exact or
 inexact by a prefix. The prefixes are #e for exact, and #i
 for inexact. An exactness prefix can appear before or after
@@ -37,6 +36,7 @@ any radix prefix that is used. If the written representation
 of a number has no exactness prefix, the constant is inexact
 if it contains a decimal point or an exponent. Otherwise,
 it is exact.
+</p>
 <p>
 In systems with inexact numbers of varying precisions it
 can be useful to specify the precision of a constant. For
@@ -71,6 +71,11 @@ tation r@ where r is the magnitude and is the phase
 (angle) in radians. These are related by the equation
 a + bi = r cos + (r sin i. All of a, b, r , and are real
 numbers.
+</p>
+-->
+<p>
+Complex numbers may be specified using the syntax a+bi, where
+a is the real part and b is the imaginary part.
 </p>
 
 {% include nav-bottom.html %}
