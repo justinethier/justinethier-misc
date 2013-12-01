@@ -21,42 +21,36 @@ nav_index_lbl: Index
 {{ page.title }}
 </H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE">This section gives an overview of Scheme's semantics.  A
+This section gives an overview of Scheme's semantics.  A
 detailed informal semantics is the subject of
-chapters&nbsp;<A HREF="node20.html#basicchapter">3</A> through&nbsp;<A HREF="node62.html#builtinchapter">6</A>.  For reference
-purposes, section&nbsp;<A HREF="#formalsemanticssection">7.2</A> provides a formal
-semantics of Scheme.
-</SMALL>
+chapters&nbsp;<A HREF="node20.html#basicchapter">3</A> through&nbsp;<A HREF="node62.html#builtinchapter">6</A>. 
 <P>
 <SMALL CLASS="FOOTNOTESIZE"> Scheme is a statically scoped programming
 language.  Each use of a variable is associated with a lexically
 apparent binding of that variable.
 </SMALL>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"> Scheme is a dynamically typed language.  Types
-are associated with values (also called objectsindexfile"object" "rm" main ) rather than
+Scheme is a dynamically typed language.  Types
+are associated with values (also called objects) rather than
 with variables.  
 Statically typed languages, by contrast, associate types with
 variables and expressions as well as with values.
-</SMALL>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"> All objects created in the course of a Scheme computation, including
+All objects created in the course of a Scheme computation, including
 procedures and continuations, have unlimited extent.
 No Scheme object is ever destroyed.  The reason that
 implementations of Scheme do not (usually!) run out of storage is that
 they are permitted to reclaim the storage occupied by an object if
 they can prove that the object cannot possibly matter to any future
 computation.  
-</SMALL>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"> Implementations of Scheme are required to be properly tail-recursive.
+Implementations of Scheme are required to be properly tail-recursive.
 This allows the execution of an iterative computation in constant space,
 even if the iterative computation is described by a syntactically
 recursive procedure.  Thus with a properly tail-recursive implementation,
 iteration can be expressed using the ordinary procedure-call
 mechanics, so that special iteration constructs are useful only as
 syntactic sugar.  See section&nbsp;<A HREF="node25.html#proper_tail_recursion">3.5</A>.
-</SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE"> Scheme procedures are objects in their own right.  Procedures can be
 created dynamically, stored in data structures, returned as results of
