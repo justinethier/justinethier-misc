@@ -212,13 +212,8 @@ is an error to take the cdr of the empty list.
 Stores obj in the car field of pair.
   <div class="p"><!----></div>
   <div class="code-block">
-
-TODO: husk does not make this distiction
-
 (define (f) (list 'not-a-constant-list))
-(define (g) '(constant-list))
 (set-car! (f) 3) ==&gt; unspecified
-(set-car! (g) 3) ==&gt; error
   </div>
   </div>
 </p>
@@ -527,15 +522,10 @@ The list-set! procedure stores obj in element k of
 list.
   <div class="p"><!----></div>
   <div class="code-block">
-
-TODO: husk does not have immutable lists
-
 (let ((ls (list 'one 'two 'five!)))
 (list-set! ls 2 'three)
 ls)
 ==&gt; (one two three)
-(list-set! '(0 1 2) 1 "oops")
-==&gt; error ; constant list
   </div>
 </div>
 </p>
@@ -670,12 +660,9 @@ list is returned unchanged. It is an error if obj is a circular
 list.
   <div class="p"><!----></div>
   <div class="code-block">
-
-TODO: again, more issues with immutable lists
-
-(define a '(1 8 2 8)) ; a may be immutable
+(define a '(1 8 2 8))
 (define b (list-copy a))
-(set-car! b 3) ; b is mutable
+(set-car! b 3)
 b ==&gt; (3 8 2 8)
 a ==&gt; (1 8 2 8)
   </div>
