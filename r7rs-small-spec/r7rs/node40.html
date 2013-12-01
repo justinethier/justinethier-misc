@@ -31,10 +31,10 @@ nav_index_lbl: Index
     <span class="obj-type">lazy library syntax</span>
   </div>
 <EM>Semantics: </EM>
-The <code>delay</code> construct is used together with the procedure indexfile"force" "tt" aux <code>force</code> to
-implement indexfile"lazy evaluation" "rm" main <EM>lazy evaluation</EM> or indexfile"call by need" "rm" main <EM>call by need</EM>.
+The <code>delay</code> construct is used together with the procedure <code>force</code> to
+implement <EM>lazy evaluation</EM> or <EM>call by need</EM>.
 <code>(delay&nbsp;expression)</code> returns an object called a
-indexfile"promise" "rm" main <EM>promise</EM> which at some point in the future can be asked (by
+<EM>promise</EM> which at some point in the future can be asked (by
 the <code>force</code> procedure) to evaluate
 expression, and deliver the resulting value.
 
