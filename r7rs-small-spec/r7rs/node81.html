@@ -20,11 +20,10 @@ nav_index_lbl: Index
 <H1>
 {{ page.title }}
 </H1>
-<p style="color: red">
-JAE TODO: need to review this entire section for accurancy
-</p>
 <p>
 <p>
+
+<!-- JAE TODO: not currently supported
 <div id="environment" class="obj-box">
   <div class="obj-header">
     <span class="code">(environment </span>
@@ -32,7 +31,7 @@ JAE TODO: need to review this entire section for accurancy
     <span class="code">)</span>
     <span class="obj-type">eval library procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"> </div>
 This procedure returns a specifier for the environment that
 results by starting with an empty environment and then
 importing each list , considered as an import set, into it.
@@ -48,9 +47,8 @@ are immutable, as is the environment itself.
     <span class="code">)</span>
     <span class="obj-type">r5rs library procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"> </div>
 
-JAE TODO: not currenty supported by husk
 <br />
 <br />
 
@@ -59,20 +57,21 @@ scheme-report-environment returns a specifier for an environment
 that contains only the bindings defined in the
 R5RS library. Implementations must support this value of
 version.
-  <div class="p"><!----></div>
+  <div class="p"> </div>
   <br />
 Implementations may also support other values of version,
 in which case they return a specifier for an environment
 containing bindings corresponding to the specified version
 of the report. If version is neither 5 nor another value
 supported by the implementation, an error is signaled.
-  <div class="p"><!----></div>
+  <div class="p"> </div>
   <br />
 The effect of defining or assigning (through the use of eval)
 an identifier bound in a scheme-report-environment (for
 example car) is unspecified. Thus both the environment
 and the bindings it contains may be immutable.
 </div></p>
+-->
 <p>
 <div id="null-environment" class="obj-box">
   <div class="obj-header">
