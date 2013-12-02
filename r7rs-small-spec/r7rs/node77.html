@@ -154,13 +154,10 @@ The vector-set! procedure stores obj in element k of
 vector.
   <div class="p"><!----></div>
   <div class="code-block">
-TODO: husk does not support immutable vectors
 (let ((vec (vector 0 '(2 2 2 2) "Anna")))
 (vector-set! vec 1 '("Sue" "Sue"))
 vec)
 ==&gt; #(0 ("Sue" "Sue") "Anna")
-(vector-set! '#(0 1 2) 1 "doe")
-==&gt; error ; constant vector
 </div>
 </div>
 </p>
@@ -297,12 +294,9 @@ vector are the same (in the sense of eqv?) as the elements
 of the old.
   <div class="p"><!----></div>
   <div class="code-block">
-
-  TODO: husk does not have immutable vectors
-
-(define a #(1 8 2 8)) ; a may be immutable
+(define a #(1 8 2 8))
 (define b (vector-copy a))
-(vector-set! b 0 3) ; b is mutable
+(vector-set! b 0 3)
 b ==&gt; #(3 8 2 8)
 (define c (vector-copy b 1 3))
 c ==&gt; #(8 2)
