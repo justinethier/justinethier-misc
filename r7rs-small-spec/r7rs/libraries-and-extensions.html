@@ -22,7 +22,11 @@ nav_index_lbl: Index
 </H1>
 
 <p>
-The following standard <a href="http://srfi.schemers.org/">SRFI</a> libraries are supported:
+Husk supports most of the R<sup>5</sup>RS and R<sup>7</sup>RS standard libraries.
+</p>
+
+<p>
+In addition, the following <a href="http://srfi.schemers.org/">SRFI</a> libraries are supported:
 <ul>
     <li>
         <a href="http://srfi.schemers.org/srfi-1/srfi-1.html">SRFI 1</a>: List Library - A comprehensive set of list-processing procedures. 
@@ -34,6 +38,14 @@ The following standard <a href="http://srfi.schemers.org/">SRFI</a> libraries ar
     <li><a href="http://srfi.schemers.org/srfi-23/srfi-23.html">SRFI 23</a>: Error reporting mechanism.</li>
     <li><a href="http://srfi.schemers.org/srfi-55/srfi-55.html">SRFI 55</a>: <strong>require-extension</strong> - An extremely simple facility for making an extension or library available to a Scheme toplevel environment.</li>
     <li><a href="http://srfi.schemers.org/srfi-69/srfi-69.html">SRFI 69</a>: Basic hash tables.</li>
+</ul>
+</p>
+
+<p>
+Finally, Husk also includes custom libraries:
+<ul>
+<li><strong>(husk pretty-print)</strong> formats Lisp code so that it may be printed in a clean and readable form.</li>
+<li><strong>(husk random)</strong> provides basic support for random number generation.</li>
 </ul>
 </p>
 
