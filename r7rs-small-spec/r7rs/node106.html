@@ -10,6 +10,10 @@ nav_contents: node3.html
 nav_contents_lbl: Contents
 nav_index: node106.html
 nav_index_lbl: Index
+links:
+ - "x": "1"
+ - "a": "1"
+ - "file-exists?": "node86.html#file-exists?"
 ---
 {% include head.html %}
 
@@ -21,6 +25,11 @@ nav_index_lbl: Index
 {{ page.title }}
 </H1>
 
+{% for link_hash in page.links %}
+  {% for link in link_hash %}
+    {{ link[0] }} - {{ link[1] }}
+  {% endfor %}
+{% endfor %}
 <p>
 <div class="item"><a href="node86.html#load                          ">load</a></div>
 <div class="item"><a href="node86.html#file-exists?                  ">file-exists?</a></div>
