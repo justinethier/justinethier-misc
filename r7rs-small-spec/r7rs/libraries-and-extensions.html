@@ -35,7 +35,12 @@ The following <a href="http://srfi.schemers.org/">SRFI</a> libraries are support
     <li>
         <a href="http://srfi.schemers.org/srfi-1/srfi-1.html">SRFI 1</a>: List Library - A comprehensive set of list-processing procedures. 
         This library is not included by default, it must be loaded using 
-        <strong>(require-extension (srfi 1))</strong>.
+        <strong>(import (srfi 1))</strong>.
+    </li>
+    <li>
+        <a href="http://srfi.schemers.org/srfi-2/srfi-2.html">SRFI 2</a>: <strong>and-let*</strong> - An <code>and</code> with local bindings, a guarded <code>let*</code> special form.
+        This library is not included by default, it must be loaded using 
+        <strong>(import (srfi 2))</strong>.
     </li>
     <li><a href="http://srfi.schemers.org/srfi-8/srfi-8.html">SRFI 8</a>: <strong>receive</strong> - Binding to multiple values.</li>
     <li><a href="http://srfi.schemers.org/srfi-22/srfi-22.html">SRFI 22</a>: Running Scheme Scripts on Unix. See the example programs <strong>cat.scm</strong> and <strong>sum.scm</strong> in the source tree for demonstrations of how to write a husk script.</li>
