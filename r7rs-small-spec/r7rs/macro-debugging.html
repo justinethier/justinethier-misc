@@ -22,8 +22,17 @@ nav_index_lbl: Index
 </H1>
 
 <p>
-A custom special form <code>expand</code> can be used to see the result of a macro expansion, for debugging purposes.
+<div id="expand" class="obj-box">
+  <div class="obj-header">
+    <span class="code">(expand </span>
+    <span class="code-var">{expression}</span>
+    <span class="code">)</span>
+    <span class="obj-type">special form</span>
+  </div>
+A custom special form <code>expand</code> can be used to see the result of a macro expansion of a given expression, for debugging purposes.
+<p>
 For example, we can see that the <code>let*</code> expression:
+</p>
 
 <div class="code-block">
 (expand
@@ -47,6 +56,8 @@ is transformed into:
                  
 <p>
 Note that any variables in the expanded code are renamed by husk's macro hygiene algorithm.
+</p>
+</div>
 </p>
 
 {% include nav-bottom.html %}
