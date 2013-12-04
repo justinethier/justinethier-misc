@@ -47,6 +47,8 @@ SPAN.code {
     font-family: monospace;
 }
 SPAN.code-var {
+    white-space: pre;
+    font-family: monospace;
     font-style: italic;
 }
 SPAN.code-block {
