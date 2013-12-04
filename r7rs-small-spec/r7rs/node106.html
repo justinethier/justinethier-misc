@@ -148,6 +148,7 @@ links:
  - "exp                           ": "node70.html#exp                           "
  - "expand                        ": "macro-debugging.html#expand               "
  - "expt                          ": "node70.html#expt                          "
+links2:
  - "features                      ": "node86.html#features                      "
  - "file-exists?                  ": "node86.html#file-exists?                  "
  - "finite?                       ": "node70.html#finite?                       "
@@ -197,7 +198,6 @@ links:
  - "list?                         ": "node73.html#list?                         "
  - "load                          ": "node86.html#load                          "
  - "log                           ": "node70.html#exp                           "
-links2:
  - "magnitude                     ": "node70.html#make-rectangular              "
  - "make-bytevector               ": "node78.html#make-bytevector               "
  - "make-list                     ": "node73.html#make-list                     "
@@ -261,7 +261,8 @@ links2:
  - "remainder                     ": "node70.html#quotient                      "
  - "reverse                       ": "node73.html#reverse                       "
  - "round                         ": "node70.html#floor                         "
- - "scheme-report-environment     ": "node81.html#scheme-report-environment     "
+links3:
+# - "scheme-report-environment     ": "node81.html#scheme-report-environment     "
  - "set!                          ": "node33.html#set!                          "
  - "set-car!                      ": "node73.html#set-car!                      "
  - "set-cdr!                      ": "node73.html#set-cdr!                      "
@@ -357,9 +358,17 @@ links2:
     {% endfor %}
   {% endfor %}
   </td>
-  <td> &nbsp; &nbsp; </td>
+  <td> &nbsp; &nbsp; &nbsp; &nbsp; </td>
   <td style="vertical-align: top;">
   {% for link_hash in page.links2 %}
+    {% for link in link_hash %}
+      <div class="item"><a href="{{ link[1] }}">{{ link[0] }}</a></div>
+    {% endfor %}
+  {% endfor %}
+  </td>
+  <td> &nbsp; &nbsp; &nbsp; &nbsp; </td>
+  <td style="vertical-align: top;">
+  {% for link_hash in page.links3 %}
     {% for link in link_hash %}
       <div class="item"><a href="{{ link[1] }}">{{ link[0] }}</a></div>
     {% endfor %}
