@@ -27,6 +27,9 @@ H5		{  }
 DIV.displaymath		{ }	/* math displays */
 TD.eqno			{ }	/* equation-number cells */
 
+.highlight {
+    background-color: #FCFCF9;  
+}
 
 /* document-specific styles come next */
 .navigation		{  
