@@ -107,11 +107,11 @@ y ==&gt; (a . 4)
 </p>
 <p>
 Within literal expressions and representations of objects
-read by the read procedure, the forms 'hdatumi,
-datumi, ,hdatumi, and ,@hdatumi denote two-element
+read by the read procedure, the forms '{datum},
+`{datum}, ,{datum}, and ,@{datum} denote two-element
 lists whose first elements are the symbols quote,
 quasiquote, unquote, and unquote-splicing, respectively.
-The second element in each case is hdatumi. This
+The second element in each case is {datum}. This
 convention is supported so that arbitrary Scheme programs
 can be represented as lists. That is, according to Scheme's
 grammar, every expression is also a datum. Among other things,
