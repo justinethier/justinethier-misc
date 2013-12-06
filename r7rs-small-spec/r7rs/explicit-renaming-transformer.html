@@ -21,7 +21,7 @@ nav_index_lbl: Index
 {{ page.title }}
 </H1>
 <p>
-Explicit renaming macros provide an alternative macro transformer spec that allows a macro to execute the full Scheme language. These macros also do not support hygiene unless identifiers are explicitly renamed using the <code>rename</code> function parameter.
+Explicit renaming (ER) macros provide an alternative macro transformer spec that allows a macro to execute the full Scheme language. Note that, unlike <code>syntax-rules</code>, <code>er-macro-transformer</code> is a low-level macro system that does not support hygiene unless identifiers are explicitly renamed using the <code>rename</code> function parameter.
 </p>
 <P>
 The explicit renaming transformer has the following form:
