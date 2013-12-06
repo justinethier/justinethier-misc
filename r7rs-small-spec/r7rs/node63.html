@@ -248,41 +248,19 @@ or
   <div class="p"><!----></div>
   <div class="code-block">
 (equal? 'a 'a)
-=
-)
-#t
+    ==&gt; #t
 (equal? '(a) '(a))
-=
-)
-#t
+    ==&gt; #t
 (equal? '(a (b) c)
 '(a (b) c))
-=
-)
-#t
+    ==&gt; #t
 (equal? "abc" "abc")
-=
-)
-#t
+    ==&gt; #t
 (equal? 2 2)
-=
-)
-#t
+    ==&gt; #t
 (equal? (make-vector 5 'a)
 (make-vector 5 'a))
-=
-)
-#t
-(equal? '#1=(a b . #1#)
-'#2=(a b a b . #2#))
-=
-)
-#t
-(equal? (lambda (x) x)
-(lambda (y) y))
-=
-)
-unspecified
+    ==&gt; #t
 </div>
   <div class="p"><!----></div> 
   <br />
