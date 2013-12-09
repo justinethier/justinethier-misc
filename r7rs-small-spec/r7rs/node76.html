@@ -50,7 +50,7 @@ occurs after a backslash.
 <p>
 Except for a line ending, any character outside of an escape
 sequence stands for itself in the string literal. A line ending
-which is preceded by \hintraline whitespacei expands
+which is preceded by \{intraline whitespace} expands
 to nothing (along with any trailing intraline whitespace),
 and can be used to indent strings for improved legibility.
 Any other line ending has the same effect as inserting a \n
@@ -75,7 +75,7 @@ of a string are the exact non-negative integers less than
 the length of the string. The first character of a string has
 index 0, the second has index 1, and so on.
 difference between upper and lower case characters. 
-The versions that ignore case end with \-ci" (for \case
+The versions that ignore case end with "-ci" (for "case
 insensitive").
 </p>
 
@@ -258,9 +258,9 @@ string&lt;=? if and only if they do not satisfy string&gt;? and
 string&gt;=? if and only if they do not satisfy string&lt;?.
   <div class="p"><!----></div>
   <br />
-The \-ci" procedures behave as if they applied
+The "-ci" procedures behave as if they applied
 string-foldcase to their arguments before invoking the
-corresponding procedures without \-ci".
+corresponding procedures without "-ci".
 </div></p>
 
 <p>
