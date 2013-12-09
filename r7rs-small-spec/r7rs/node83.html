@@ -47,6 +47,8 @@ Ports can be used to access files, devices, and similar things
 on the host system on which the Scheme program is running.
 </p>
 <p>
+
+<!--
 <p style="color: red">
 JAE TODO:
 
@@ -65,6 +67,8 @@ close the port on any escape from the current continuation,
 then it would be impossible to write portable code using both
 call-with-current-continuation and call-with-port.
 </p>
+-->
+
 <p>
 <div id="call-with-input-file" class="obj-box">
   <div class="obj-header">
@@ -165,10 +169,12 @@ input or output, respectively, and #f otherwise.
 Returns the current default input port, output port, or
 error port (an output port), respectively.
 
+<!--
 <label style="color: red">JAE TODO: These procedures
 are parameter objects, which can be overridden with
 parameterize (see section 4.2.6). The initial bindings for
 these are implementation-defined textual ports.</label>
+-->
 
 </div></p>
 <p>
@@ -237,8 +243,7 @@ opened, an error that satisfies file-error? is signaled.
 Takes a string naming an output file to be created and returns
 a textual output port or binary output port that is
 capable of writing data to a new file by that name. If a
-file with the given name already exists, the ect is unspeci
-fied. If the file cannot be opened, an error that satisfies
+file with the given name already exists, the effect is unspecified. If the file cannot be opened, an error that satisfies
 file-error? is signaled.
 </div></p>
 <p>
@@ -272,7 +277,7 @@ and close-output-port procedures can then be used to
 close the input and output sides of the port independently.
   <div class="p"><!----></div>
   <br />
-These routines have no ect if the port has already been
+These routines have no effect if the port has already been
 closed.
 </div></p>
 <p>
@@ -313,7 +318,7 @@ It is an error if port was not created with open-output-string.
   <br />
 Returns a string consisting of the characters that have been
 output to the port so far in the order they were output. If
-the result string is modified, the ect is unspecified.
+the result string is modified, the effect is unspecified.
   <div class="p"><!----></div>
   <div class="code-block">
 (parameterize
