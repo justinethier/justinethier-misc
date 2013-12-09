@@ -25,7 +25,7 @@ This section describes various primitive procedures which
 control the flow of program execution in special ways. Procedures
 in this section that invoke procedure arguments always
 do so in the same dynamic environment as the call of
-the original procedure. The procedure? predicate is also
+the original procedure. The <code>procedure?</code> predicate is also
 described here.
 </p>
 <p>
@@ -306,7 +306,7 @@ It is an error if proc does not accept one argument.
   <div class="p"><!----></div>
 The procedure call-with-current-continuation (or its
 equivalent abbreviation call/cc) packages the current
-continuation (see the rationale below) as an \escape procedure"
+continuation (see the rationale below) as an "escape procedure"
 and passes it as an argument to proc. The escape
 procedure is a Scheme procedure that, if it is later called,
 will abandon whatever continuation is in ect at that later
