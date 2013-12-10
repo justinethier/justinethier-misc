@@ -284,6 +284,8 @@ close the input and output sides of the port independently.
 These routines have no effect if the port has already been
 closed.
 </div></p>
+
+<!--
 <p>
 <div id="open-input-string" class="obj-box">
   <div class="obj-header">
@@ -292,7 +294,7 @@ closed.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Takes a string and returns a textual input port that delivers
 characters from the string. If the string is modified, the
 effect is unspecified.
@@ -304,7 +306,7 @@ effect is unspecified.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Returns a textual output port that will accumulate characters
 for retrieval by get-output-string.
 </div></p>
@@ -316,14 +318,14 @@ for retrieval by get-output-string.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 It is an error if port was not created with open-output-string.
-  <div class="p"><!----></div>
+  <div class="p"></div>
   <br />
 Returns a string consisting of the characters that have been
 output to the port so far in the order they were output. If
 the result string is modified, the effect is unspecified.
-  <div class="p"><!----></div>
+  <div class="p"></div>
   <div class="code-block">
 (parameterize
 ((current-output-port
@@ -344,7 +346,7 @@ the result string is modified, the effect is unspecified.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Takes a bytevector and returns a binary input port that
 delivers bytes from the bytevector.
 </div></p>
@@ -354,7 +356,7 @@ delivers bytes from the bytevector.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Returns a binary output port that will accumulate bytes
 for retrieval by get-output-bytevector.
 </div></p>
@@ -365,13 +367,14 @@ for retrieval by get-output-bytevector.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 It is an error if port was not created with open-output-bytevector.
-  <div class="p"><!----></div>
+  <div class="p"></div>
   <br />
 Returns a bytevector consisting of the bytes that have been
 output to the port so far in the order they were output.
 </div></p>
+-->
 
 {% include nav-bottom.html %}
 {% include footer.html %}
