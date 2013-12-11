@@ -187,6 +187,8 @@ from the input. If char-ready? were to return #f at end of
 file, a port at end of file would be indistinguishable from an
 interactive port that has no ready characters.
 </div></p>
+
+<!-- JAE TODO:
 <p>
 <div id="read-string" class="obj-box">
   <div class="obj-header">
@@ -201,7 +203,7 @@ interactive port that has no ready characters.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Reads the next k characters, or as many as are available
 before the end of file, from the textual input port into a
 newly allocated string in left-to-right order and returns the
@@ -221,7 +223,7 @@ an end-of-file object is returned.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Returns the next byte available from the binary input port,
 updating the port to point to the following byte. If no more
 bytes are available, an end-of-file object is returned.
@@ -239,7 +241,7 @@ bytes are available, an end-of-file object is returned.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Returns the next byte available from the binary input port,
 but without updating the port to point to the following
 byte. If no more bytes are available, an end-of-file object
@@ -258,7 +260,7 @@ is returned.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Returns #t if a byte is ready on the binary input port and
 returns #f otherwise. If u8-ready? returns #t then the
 next read-u8 operation on the given port is guaranteed
@@ -279,7 +281,7 @@ returns #t.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Reads the next k bytes, or as many as are available before
 the end of file, from the binary input port into a newly
 allocated bytevector in left-to-right order and returns the
@@ -312,7 +314,7 @@ an end-of-file object is returned.
     <span class="code">)</span>
     <span class="obj-type">procedure</span>
   </div>
-  <div class="p"><!----></div>
+  <div class="p"></div>
 Reads the next <i>end - start</i> bytes, or as many as are available
 before the end of file, from the binary input port
 into bytevector in left-to-right order beginning at the start
@@ -321,6 +323,7 @@ bytevector has been reached. If start is not supplied, reads
 beginning at position 0. Returns the number of bytes read.
 If no bytes are available, an end-of-file object is returned.
 </div></p>
+-->
 
 {% include nav-bottom.html %}
 {% include footer.html %}
