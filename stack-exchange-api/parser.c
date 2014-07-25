@@ -2,6 +2,8 @@
 #include <json/json.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 #include "util.h"
 
 #define MAX_UPDATE_SIZE 10
@@ -148,7 +150,6 @@ struct seQuestion **parse_se(json_object *jobj, int *result_size) {
 
     if (type == json_type_array) {
       int len = json_object_array_length(items);
-      printf("Found %d questions\n", len);
       for (int i = 0; i < len; i++) {
         json_object *jval = json_object_array_get_idx(items, i);
         if (json_object_get_type(jval) == json_type_object) {
@@ -189,27 +190,62 @@ struct seQuestion **se_load(char *string, int *numQs) {
   return newQs;
 }
 
+int se_has_update(struct seQuestion **old, int numOld, 
+                  struct seQuestion *new) {
+  for (int i = 0; i < numOld; i++) {
+    if (new->id == old[i]->id) {
+      return new->last_activity_date > old[i]->last_activity_date;
+    }
+  }
+
+  // New question since last set
+  return 1;
+}
+
+void se_check_for_updates(struct seQuestion **old, int numOld, 
+                          struct seQuestion **new, int numNew) {
+  int updated = 0;
+  for (int i = 0; i < numNew; i++) {
+    if (se_has_update(old, numOld, new[i])) {
+      se_print_question(new[i]);
+      updated++;
+    }
+  }
+
+  if (updated){
+    time_t now = time(NULL);
+    struct tm * p = localtime(&now);
+    char s[1000];
+    strftime(s, 1000, "%A, %B %d %Y at %H:%M:%S", p);
+    printf("%d update(s) detected on %s\n", updated, s);
+  }
+}
+
 int main() {
   int numOldQs = 0;
   int numNewQs = 0;
-  struct seQuestion **oldQs = NULL;
-  struct seQuestion **newQs = 
-    se_load(getFileContents("results.json", NULL), &numNewQs);
+// Test code:
+  struct seQuestion **oldQs = 
+    se_load(getFileContents("results.json", NULL), &numOldQs);
+//  struct seQuestion **newQs = 
+//    se_load(getFileContents("results2.json", NULL), &numNewQs);
+//  se_check_for_updates(oldQs, numOldQs, newQs, numNewQs);
 
-  if (oldQs == NULL) {
-//    oldQs = newQs;
-  } else {
+//  struct seQuestion **oldQs = NULL;
+  struct seQuestion **newQs = NULL;
+  while(1) {
+    newQs = // TODO: retrieve from SE API
+        se_load(getFileContents("results2.json", NULL), &numNewQs);
+    if (oldQs != NULL) {
+      se_check_for_updates(oldQs, numOldQs, newQs, numNewQs);
+    }
+    se_free_questions(oldQs, numOldQs);
+    oldQs = newQs;
+    numOldQs = numNewQs;
+
+    sleep(3); // N minutes
+    //sleep(60 * 5); // N minutes
   }
-
-  for (int i = 0; i < numNewQs; i++) {
-    se_print_question(newQs[i]);
-  }
-
-//TODO: get 10 questions, and
-// - if none are here, store them
-// - if some are here, compare each against old batch
-//   - if q was not in old batch, print it
-//   - if q was in old batch but last activity is updated, print it
 
   se_free_questions(oldQs, numOldQs);
   se_free_questions(newQs, numNewQs);
