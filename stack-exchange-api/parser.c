@@ -47,6 +47,14 @@ void se_free_question(struct seQuestion *q){
   }
 }
 
+void se_free_questions(struct seQuestion **qs, int numQs) {
+  if (qs) {
+    for (int i = 0; i < numQs; i++) {
+      se_free_question(qs[i]);
+    }
+    free(qs);
+  }
+}
 
 /*printing the value corresponding to boolean, double, integer and strings*/
 void print_json_value(json_object *jobj){
@@ -173,16 +181,27 @@ struct seQuestion **parse_se(json_object *jobj, int *result_size) {
   return results;
 }
 
-int main() {
-  int i;
-  char * string = getFileContents("results.json", NULL); //"{\"sitename\" : \"joys of programming\", \"categories\" : [ \"c\" , [\"c++\" , \"c\" ], \"java\", \"PHP\" ], \"author-details\": { \"admin\": false, \"name\" : \"Joys of Programming\", \"Number of Posts\" : 10 } }";
-  //printf("JSON string: %sn", string);
+struct seQuestion **se_load(char *string, int *numQs) {
   json_object * jobj = json_tokener_parse(string);     
-  //json_parse(jobj);
-  int numQs = 0;
-  struct seQuestion **newQs = parse_se(jobj, &numQs);
+  struct seQuestion **newQs = parse_se(jobj, numQs);
+  json_object_put(jobj);
+  free(string);
+  return newQs;
+}
 
-  for (i = 0; i < numQs; i++) {
+int main() {
+  int numOldQs = 0;
+  int numNewQs = 0;
+  struct seQuestion **oldQs = NULL;
+  struct seQuestion **newQs = 
+    se_load(getFileContents("results.json", NULL), &numNewQs);
+
+  if (oldQs == NULL) {
+//    oldQs = newQs;
+  } else {
+  }
+
+  for (int i = 0; i < numNewQs; i++) {
     se_print_question(newQs[i]);
   }
 
@@ -192,11 +211,7 @@ int main() {
 //   - if q was not in old batch, print it
 //   - if q was in old batch but last activity is updated, print it
 
-  for (i = 0; i < numQs; i++) {
-    se_free_question(newQs[i]);
-  }
-  free(newQs);
-  json_object_put(jobj);
-  free(string);
+  se_free_questions(oldQs, numOldQs);
+  se_free_questions(newQs, numNewQs);
   return 0;
 }
