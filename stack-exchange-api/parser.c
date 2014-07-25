@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "util.h"
 
+#define MAX_UPDATE_SIZE 10
+
 struct seQuestion {
   int id;
   int score;
@@ -38,7 +40,11 @@ struct seQuestion *se_new_question(int id, int score, int answers,
 }
 
 void se_free_question(struct seQuestion *q){
-  // TODO
+  if (q) {
+    if (q->title) free(q->title);
+    if (q->link) free(q->link);
+    free(q);
+  }
 }
 
 
@@ -120,9 +126,12 @@ void json_parse(json_object * jobj) {
   }
 } 
 
-TODO: store questions and return them
+//TODO: store questions and return them
 
-void parse_top(json_object *jobj) {
+struct seQuestion **parse_se(json_object *jobj, int *result_size) {
+  struct seQuestion **results = 
+    (struct seQuestion **)calloc(sizeof(struct seQuestion *), MAX_UPDATE_SIZE);
+  int result_idx = 0;
   enum json_type type = json_object_get_type(jobj);
 
   if (type == json_type_object) {
@@ -151,7 +160,8 @@ void parse_top(json_object *jobj) {
             , json_object_get_string(jtitle)
             , json_object_get_string(jlink)
           ); 
-          se_print_question(q);
+          //se_print_question(q);
+          results[result_idx++] = q;
         }
       }
     } else {
@@ -159,21 +169,34 @@ void parse_top(json_object *jobj) {
     }
   }
 
+  *result_size = result_idx;
+  return results;
 }
 
 int main() {
+  int i;
   char * string = getFileContents("results.json", NULL); //"{\"sitename\" : \"joys of programming\", \"categories\" : [ \"c\" , [\"c++\" , \"c\" ], \"java\", \"PHP\" ], \"author-details\": { \"admin\": false, \"name\" : \"Joys of Programming\", \"Number of Posts\" : 10 } }";
   //printf("JSON string: %sn", string);
   json_object * jobj = json_tokener_parse(string);     
   //json_parse(jobj);
-  parse_top(jobj);
+  int numQs = 0;
+  struct seQuestion **newQs = parse_se(jobj, &numQs);
 
-TODO: get 10 questions, and
- - if none are here, store them
- - if some are here, compare each against old batch
-   - if q was not in old batch, print it
-   - if q was in old batch but last activity is updated, print it
+  for (i = 0; i < numQs; i++) {
+    se_print_question(newQs[i]);
+  }
 
+//TODO: get 10 questions, and
+// - if none are here, store them
+// - if some are here, compare each against old batch
+//   - if q was not in old batch, print it
+//   - if q was in old batch but last activity is updated, print it
+
+  for (i = 0; i < numQs; i++) {
+    se_free_question(newQs[i]);
+  }
+  free(newQs);
   json_object_put(jobj);
   free(string);
+  return 0;
 }
