@@ -221,6 +221,10 @@ void se_check_for_updates(struct seQuestion **old, int numOld,
   }
 }
 
+// TODO: include command line arguments.
+// could specify API string, poll rate (in minutes, no less than 1) from cli
+// if none are specified, maybe read from a .rc file?
+// otherwise either give up or use default (not sure default search makes any sense, though. probably better to print link to the SE API query page)
 int main() {
   int numOldQs = 0;
   int numNewQs = 0;
