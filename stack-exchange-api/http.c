@@ -3,12 +3,7 @@
 #include <string.h>
  
 #include <curl/curl.h>
- 
-struct MemoryStruct {
-  char *memory;
-  size_t size;
-};
- 
+#include "http.h"
  
 static size_t
 WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -30,7 +25,7 @@ WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
   return realsize;
 }
  
-struct MemoryStruct *getUrl(const char *url) { 
+struct MemoryStruct *http_get(const char *url) { 
   CURL *curl_handle;
   CURLcode res;
  
@@ -94,7 +89,7 @@ struct MemoryStruct *getUrl(const char *url) {
 int main(void)
 {
   char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
-  struct MemoryStruct *raw = getUrl(url);
+  struct MemoryStruct *raw = http_get(url);
   printf("%s\n", raw->memory);
 
   if (raw->memory) free(raw->memory);
