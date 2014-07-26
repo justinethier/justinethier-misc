@@ -86,12 +86,13 @@ struct MemoryStruct *http_get(const char *url) {
  
   return chunk;
 }
-int main(void)
-{
-  char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
-  struct MemoryStruct *raw = http_get(url);
-  printf("%s\n", raw->memory);
 
-  if (raw->memory) free(raw->memory);
-  free(raw);
-}
+// int main(void)
+// {
+//   char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
+//   struct MemoryStruct *raw = http_get(url);
+//   printf("%s\n", raw->memory);
+// 
+//   if (raw->memory) free(raw->memory);
+//   free(raw);
+// }

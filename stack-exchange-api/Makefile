@@ -6,8 +6,8 @@ CFLAGS = $(CSTD) -g
 #  on Ubuntu: sudo apt-get install libjson0 libjson0-dev
 # And libcurl
 #  install on Ubuntu: sudo apt-get install libcurl4-openssl-dev
-parser: parser.c
-	$(CC) $(CFLAGS) parser.c util.c -ljson -o parser
+parser: parser.c http.c
+	$(CC) $(CFLAGS) parser.c http.c util.c -lcurl -ljson -o parser
 
 # curl example file
 http: http.c

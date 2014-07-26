@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include "http.h"
 #include "util.h"
 
 #define MAX_UPDATE_SIZE 10
@@ -227,6 +228,7 @@ void se_check_for_updates(struct seQuestion **old, int numOld,
 // if none are specified, maybe read from a .rc file?
 // otherwise either give up or use default (not sure default search makes any sense, though. probably better to print link to the SE API query page)
 int main() {
+  char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
   int numOldQs = 0;
   int numNewQs = 0;
 // Test code:
