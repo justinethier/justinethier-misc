@@ -47,6 +47,9 @@ struct MemoryStruct *getUrl(const char *url) {
  
   /* specify URL to get */ 
   curl_easy_setopt(curl_handle, CURLOPT_URL, url); //"http://www.example.com/");
+
+  /* API data is compressed */
+  curl_easy_setopt(curl_handle, CURLOPT_ACCEPT_ENCODING, "gzip");
  
   /* send all data to this function  */ 
   curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
