@@ -1,4 +1,5 @@
 // JSON parser from http://linuxprograms.wordpress.com/2010/08/19/json_parser_json-c/
+#include <curl/curl.h>
 #include <json/json.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,7 +62,7 @@ void se_free_questions(struct seQuestion **qs, int numQs) {
 /*printing the value corresponding to boolean, double, integer and strings*/
 void print_json_value(json_object *jobj){
   enum json_type type;
-  printf("type: ",type);
+  printf("type: %d\n", type);
   type = json_object_get_type(jobj); /*Getting the type of the json object*/
   switch (type) {
     case json_type_boolean: printf("json_type_booleann");
@@ -114,7 +115,7 @@ void json_parse_array( json_object *jobj, char *key) {
 void json_parse(json_object * jobj) {
   enum json_type type;
   json_object_object_foreach(jobj, key, val) { /*Passing through every array element*/
-    printf("type: ",type);
+    printf("type: %d\n", type);
     type = json_object_get_type(val);
     switch (type) {
       case json_type_boolean: 
