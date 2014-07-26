@@ -9,6 +9,10 @@ CFLAGS = $(CSTD) -g
 parser: parser.c
 	$(CC) $(CFLAGS) parser.c util.c -ljson -o parser
 
+# curl example file
+curl: curl.c
+	$(CC) $(CFLAGS) curl.c -lcurl -o curl
+
 .PHONY: clean
 clean:
-	rm -rf a.out parser *.o
+	rm -rf a.out curl parser *.o
