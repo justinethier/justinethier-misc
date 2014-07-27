@@ -6,59 +6,10 @@
 #include <time.h>
 #include <unistd.h>
 #include "http.h"
+#include "se-api.h"
 #include "util.h"
 
 #define MAX_UPDATE_SIZE 10
-
-struct seQuestion {
-  int id;
-  int score;
-  int answers;
-  int views;
-  int last_activity_date;
-  char *title;
-  char *link;
-};
-
-void se_print_question(struct seQuestion *q) {
- printf("%2d %2d %4d - %s\n%s\n\n", 
-     q->score
-   , q->answers
-   , q->views
-   , q->title
-   , q->link); 
-}
-
-struct seQuestion *se_new_question(int id, int score, int answers,
-  int views, int last_activity_date, const char *title, const char *link) {
-  struct seQuestion *q = 
-    (struct seQuestion *)calloc(sizeof(struct seQuestion), 1);
-  q->id =                 id;
-  q->score =              score;
-  q->answers =            answers;
-  q->views =              views;
-  q->last_activity_date = last_activity_date;
-  q->title = _strdup(title);
-  q->link = _strdup(link);
-  return q;
-}
-
-void se_free_question(struct seQuestion *q){
-  if (q) {
-    if (q->title) free(q->title);
-    if (q->link) free(q->link);
-    free(q);
-  }
-}
-
-void se_free_questions(struct seQuestion **qs, int numQs) {
-  if (qs) {
-    for (int i = 0; i < numQs; i++) {
-      se_free_question(qs[i]);
-    }
-    free(qs);
-  }
-}
 
 /*printing the value corresponding to boolean, double, integer and strings*/
 void print_json_value(json_object *jobj){
@@ -138,8 +89,6 @@ void json_parse(json_object * jobj) {
   }
 } 
 
-//TODO: store questions and return them
-
 struct seQuestion **parse_se(json_object *jobj, int *result_size) {
   struct seQuestion **results = 
     (struct seQuestion **)calloc(sizeof(struct seQuestion *), MAX_UPDATE_SIZE);
@@ -192,42 +141,12 @@ struct seQuestion **se_load(char *string, int *numQs) {
   return newQs;
 }
 
-int se_has_update(struct seQuestion **old, int numOld, 
-                  struct seQuestion *new) {
-  for (int i = 0; i < numOld; i++) {
-    if (new->id == old[i]->id) {
-      return new->last_activity_date > old[i]->last_activity_date;
-    }
-  }
-
-  // New question since last set
-  return 1;
-}
-
-void se_check_for_updates(struct seQuestion **old, int numOld, 
-                          struct seQuestion **new, int numNew) {
-  int updated = 0;
-  for (int i = 0; i < numNew; i++) {
-    if (se_has_update(old, numOld, new[i])) {
-      se_print_question(new[i]);
-      updated++;
-    }
-  }
-
-  if (updated){
-    time_t now = time(NULL);
-    struct tm * p = localtime(&now);
-    char s[1000];
-    strftime(s, 1000, "%A, %B %d %Y at %H:%M:%S", p);
-    printf("%d update(s) detected on %s\n", updated, s);
-  }
-}
-
 // TODO: include command line arguments.
 // could specify API string, poll rate (in minutes, no less than 1) from cli
 // if none are specified, maybe read from a .rc file?
 // otherwise either give up or use default (not sure default search makes any sense, though. probably better to print link to the SE API query page)
 int main() {
+  int poll_rate_mins = 15;
   char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
   int numOldQs = 0;
   int numNewQs = 0;
@@ -251,7 +170,7 @@ int main() {
     oldQs = newQs;
     numOldQs = numNewQs;
 
-    sleep(60 * 15); // N minutes
+    sleep(60 * poll_rate_mins);
   }
 
   se_free_questions(oldQs, numOldQs);
