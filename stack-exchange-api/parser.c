@@ -231,18 +231,19 @@ int main() {
   char url[] = "http://api.stackexchange.com/2.2/questions?page=1&pagesize=10&order=desc&min=10&sort=activity&tagged=a-song-of-ice-and-fire&site=scifi";
   int numOldQs = 0;
   int numNewQs = 0;
+
 // Test code:
-  struct seQuestion **oldQs = 
-    se_load(getFileContents("results.json", NULL), &numOldQs);
+//  struct seQuestion **oldQs = 
+//    se_load(getFileContents("results.json", NULL), &numOldQs);
 //  struct seQuestion **newQs = 
 //    se_load(getFileContents("results2.json", NULL), &numNewQs);
 //  se_check_for_updates(oldQs, numOldQs, newQs, numNewQs);
 
-//  struct seQuestion **oldQs = NULL;
+  struct seQuestion **oldQs = NULL;
   struct seQuestion **newQs = NULL;
   while(1) {
-    newQs = // TODO: retrieve from SE API
-        se_load(getFileContents("results2.json", NULL), &numNewQs);
+    struct MemoryStruct *apiData = http_get(url);
+    newQs = se_load(apiData->memory, &numNewQs);
     if (oldQs != NULL) {
       se_check_for_updates(oldQs, numOldQs, newQs, numNewQs);
     }
@@ -250,8 +251,7 @@ int main() {
     oldQs = newQs;
     numOldQs = numNewQs;
 
-    sleep(3); // N minutes
-    //sleep(60 * 5); // N minutes
+    sleep(60 * 15); // N minutes
   }
 
   se_free_questions(oldQs, numOldQs);

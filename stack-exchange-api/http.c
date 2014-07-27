@@ -72,7 +72,7 @@ struct MemoryStruct *http_get(const char *url) {
      * Do something nice with it!
      */ 
  
-    printf("%lu bytes retrieved\n", (long)chunk->size);
+    //printf("%lu bytes retrieved\n", (long)chunk->size);
   }
  
   /* cleanup curl stuff */ 
