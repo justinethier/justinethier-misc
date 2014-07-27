@@ -2,16 +2,16 @@ CC = gcc
 CSTD = -std=c99
 CFLAGS = $(CSTD) -g
 
+COBJ = stack-exchange-poll http se-api util
+CFILES = $(addsuffix .c, $(COBJ))
+#COBJS = $(addsuffix .o, $(COBJ))
+
 # Requires json-c library
 #  on Ubuntu: sudo apt-get install libjson0 libjson0-dev
 # And libcurl
 #  install on Ubuntu: sudo apt-get install libcurl4-openssl-dev
-stack-exchange-poll: stack-exchange-poll.c http.c se-api.c
-	$(CC) $(CFLAGS) stack-exchange-poll.c http.c se-api.c util.c -lcurl -ljson -o stack-exchange-poll
-
-# curl example file
-http: http.c
-	$(CC) $(CFLAGS) http.c -lcurl -o http
+stack-exchange-poll: $(CFILES)
+	$(CC) $(CFLAGS) $(CFILES) -lcurl -ljson -o stack-exchange-poll
 
 .PHONY: clean
 clean:
