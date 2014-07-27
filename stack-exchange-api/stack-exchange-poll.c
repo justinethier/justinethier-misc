@@ -89,9 +89,9 @@
 //   }
 // } 
 
-struct seQuestion **parse_se(json_object *jobj, int *result_size) {
-  struct seQuestion **results = 
-    (struct seQuestion **)calloc(sizeof(struct seQuestion *), MAX_UPDATE_SIZE);
+struct SeQuestion **parse_se(json_object *jobj, int *result_size) {
+  struct SeQuestion **results = 
+    (struct SeQuestion **)calloc(sizeof(struct SeQuestion *), MAX_UPDATE_SIZE);
   int result_idx = 0;
   enum json_type type = json_object_get_type(jobj);
 
@@ -111,7 +111,7 @@ struct seQuestion **parse_se(json_object *jobj, int *result_size) {
           json_object *jscore = json_object_object_get(jval, "score");
           json_object *jnum_ans = json_object_object_get(jval, "answer_count");
           json_object *jnum_views = json_object_object_get(jval, "view_count");
-          struct seQuestion *q = se_new_question(
+          struct SeQuestion *q = se_new_question(
               json_object_get_int(jqid)
             , json_object_get_int(jscore)
             , json_object_get_int(jnum_ans)
@@ -133,9 +133,9 @@ struct seQuestion **parse_se(json_object *jobj, int *result_size) {
   return results;
 }
 
-struct seQuestion **se_load(char *string, int *numQs) {
+struct SeQuestion **se_load(char *string, int *numQs) {
   json_object * jobj = json_tokener_parse(string);     
-  struct seQuestion **newQs = parse_se(jobj, numQs);
+  struct SeQuestion **newQs = parse_se(jobj, numQs);
   json_object_put(jobj);
   free(string);
   return newQs;
@@ -152,14 +152,14 @@ int main() {
   int numNewQs = 0;
 
 // Test code:
-//  struct seQuestion **oldQs = 
+//  struct SeQuestion **oldQs = 
 //    se_load(getFileContents("results.json", NULL), &numOldQs);
-//  struct seQuestion **newQs = 
+//  struct SeQuestion **newQs = 
 //    se_load(getFileContents("results2.json", NULL), &numNewQs);
 //  se_check_for_updates(oldQs, numOldQs, newQs, numNewQs);
 
-  struct seQuestion **oldQs = NULL;
-  struct seQuestion **newQs = NULL;
+  struct SeQuestion **oldQs = NULL;
+  struct SeQuestion **newQs = NULL;
   while(1) {
     struct MemoryStruct *apiData = http_get(url);
     newQs = se_load(apiData->memory, &numNewQs);

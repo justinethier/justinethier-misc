@@ -1,3 +1,4 @@
+// This code is based on memory-only curl example from http://curl.haxx.se/libcurl/c/example.html
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -6,7 +6,7 @@
 #include "se-api.h"
 #include "util.h"
 
-void se_print_question(struct seQuestion *q) {
+void se_print_question(struct SeQuestion *q) {
  printf("%2d %2d %4d - %s\n%s\n\n", 
      q->score
    , q->answers
@@ -15,10 +15,10 @@ void se_print_question(struct seQuestion *q) {
    , q->link); 
 }
 
-struct seQuestion *se_new_question(int id, int score, int answers,
+struct SeQuestion *se_new_question(int id, int score, int answers,
   int views, int last_activity_date, const char *title, const char *link) {
-  struct seQuestion *q = 
-    (struct seQuestion *)calloc(sizeof(struct seQuestion), 1);
+  struct SeQuestion *q = 
+    (struct SeQuestion *)calloc(sizeof(struct SeQuestion), 1);
   q->id =                 id;
   q->score =              score;
   q->answers =            answers;
@@ -29,7 +29,7 @@ struct seQuestion *se_new_question(int id, int score, int answers,
   return q;
 }
 
-void se_free_question(struct seQuestion *q){
+void se_free_question(struct SeQuestion *q){
   if (q) {
     if (q->title) free(q->title);
     if (q->link) free(q->link);
@@ -37,7 +37,7 @@ void se_free_question(struct seQuestion *q){
   }
 }
 
-void se_free_questions(struct seQuestion **qs, int numQs) {
+void se_free_questions(struct SeQuestion **qs, int numQs) {
   if (qs) {
     for (int i = 0; i < numQs; i++) {
       se_free_question(qs[i]);
@@ -46,8 +46,8 @@ void se_free_questions(struct seQuestion **qs, int numQs) {
   }
 }
 
-int se_has_update(struct seQuestion **old, int numOld, 
-                  struct seQuestion *new) {
+int se_has_update(struct SeQuestion **old, int numOld, 
+                  struct SeQuestion *new) {
   for (int i = 0; i < numOld; i++) {
     if (new->id == old[i]->id) {
       return new->last_activity_date > old[i]->last_activity_date;
@@ -58,8 +58,8 @@ int se_has_update(struct seQuestion **old, int numOld,
   return 1;
 }
 
-void se_check_for_updates(struct seQuestion **old, int numOld, 
-                          struct seQuestion **new, int numNew) {
+void se_check_for_updates(struct SeQuestion **old, int numOld, 
+                          struct SeQuestion **new, int numNew) {
   int updated = 0;
   for (int i = 0; i < numNew; i++) {
     if (se_has_update(old, numOld, new[i])) {
