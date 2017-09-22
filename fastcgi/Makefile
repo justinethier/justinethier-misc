@@ -1,6 +1,6 @@
 example: example.c
 	gcc example.c -lfcgi -o example
 
-.PHONY clean
+.PHONY: clean
 clean:
 	rm -f example *.o
