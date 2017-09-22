@@ -1,0 +1,8 @@
+See: 
+http://chriswu.me/blog/writing-hello-world-in-fcgi-with-c-plus-plus/
+https://www.linode.com/docs/web-servers/nginx/nginx-and-perlfastcgi-on-arch-linux
+
+
+Install:
+
+pacman -S nginx fcgi fcgiwrap spawn-fcgi
