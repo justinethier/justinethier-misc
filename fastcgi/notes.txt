@@ -6,3 +6,9 @@ https://www.linode.com/docs/web-servers/nginx/nginx-and-perlfastcgi-on-arch-linu
 Install:
 
 pacman -S nginx fcgi fcgiwrap spawn-fcgi
+
+# run nginx using the provided configuration
+sudo nginx -c <absolute path to nginx.conf>
+
+# spawn the fcgi app on port 8000 with no fork
+spawn-fcgi -p 8000 -n example
