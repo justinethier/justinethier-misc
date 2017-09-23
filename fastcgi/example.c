@@ -30,6 +30,7 @@ int main(void)
   // http://chriswu.me/code/hello_world_fcgi/main_v2.cpp
   // and: http://chriswu.me/blog/getting-request-uri-and-content-in-c-plus-plus-fcgi/
   
+  FCGX_Finish_r(&request);
 
  }
 

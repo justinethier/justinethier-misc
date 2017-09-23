@@ -12,3 +12,12 @@ sudo nginx -c <absolute path to nginx.conf>
 
 # spawn the fcgi app on port 8000 with no fork
 spawn-fcgi -p 8000 -n example
+
+
+For next steps forward:
+
+- port to cyclone
+- threaded example: https://stackoverflow.com/questions/5829869/multi-threaded-fastcgi-app
+- following up on that, possible to configure FCGI_MAX_CONNS, other constants?
+- create cyclone libraries: FCGI, HTTP
+
