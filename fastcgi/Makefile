@@ -1,3 +1,8 @@
+all: example threaded
+
+threaded: threaded.c
+	gcc threaded.c -lpthread -lfcgi -o threaded
+
 example: example.c
 	gcc example.c -lfcgi -o example
 
