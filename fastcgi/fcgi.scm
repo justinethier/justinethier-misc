@@ -38,6 +38,13 @@
     FCGX_Finish_r(req);
     return_closcall1(data, k, boolean_t);")
 
+;; TODO - see: https://www.w3.org/Protocols/rfc2616/rfc2616.html
+(define (http:make-header content-type status-code)
+  (string-append
+    "Content-type: " content-type
+    "\r\nStatus: 200 OK"
+    "\r\n\r\n"))
+
 (fcgx-init);
 (define (fcgi-loop)
   (let loop ((req (make-request)))
