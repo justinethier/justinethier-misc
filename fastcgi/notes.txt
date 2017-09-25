@@ -16,8 +16,21 @@ spawn-fcgi -p 8000 -n example
 
 For next steps forward:
 
-- port to cyclone
+- fast CGI docs.
+  this may be a good start: https://htmlpreview.github.io/?https://raw.githubusercontent.com/FastCGI-Archives/fcgi2/master/doc/fastcgi-prog-guide/ch2c.htm
+
+also, for source code:
+https://htmlpreview.github.io/?https://github.com/FastCGI-Archives/fcgi2/blob/master/doc/overview.html
+
 - threaded example: https://stackoverflow.com/questions/5829869/multi-threaded-fastcgi-app
+ the full example is here:
+ https://github.com/LuaDist/fcgi/blob/master/examples/threaded.c
+
 - following up on that, possible to configure FCGI_MAX_CONNS, other constants?
+
+TODO:
+- clean up the existing C example, extend as needed (pthreads??)
+  NO, instead get the threaded.c example up and running
+- port to cyclone
 - create cyclone libraries: FCGI, HTTP
 
