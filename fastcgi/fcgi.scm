@@ -54,7 +54,10 @@
 
 (define (status-ok) (status-code->text 200))
 (define (status-code->text code)
-  (assoc code *status-codes*))
+  (let ((lookup (assoc code *status-codes*)))
+    (if lookup 
+        (cdr lookup)
+        (error "Status text not found for code" code))))
 
 (define *status-codes*
   ;; Informational 1xx
@@ -107,11 +110,11 @@
 (define (http:make-header content-type status-code)
   (string-append
     "Content-type: " content-type
-    "\r\nStatus: 200 OK"
+    "\r\nStatus: " (status-code->text status-code)
     "\r\n\r\n"))
 ;;;; END HTTP library
 
 (fcgi:loop 
   (lambda (req)
-    (print-request req
-      "Content-type: text/html\r\nStatus: 200 OK\r\n\r\nHello, world")))
+    (print-request req (http:make-header "text/html" 200))
+    (print-request req "Hello, world")))
