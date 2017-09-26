@@ -9,6 +9,11 @@
   (begin
 ;; TODO - see: https://www.w3.org/Protocols/rfc2616/rfc2616.html
 
+;; TODO: deconstruct GET params:
+;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
+
+;; TODO: deconstruct POST params: see example in notes.txt
+
 (define (status-ok) (status-code->text 200))
 (define (status-code->text code)
   (let ((lookup (assoc code *status-codes*)))
