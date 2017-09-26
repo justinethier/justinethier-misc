@@ -14,7 +14,7 @@ example: example.c
 
 .PHONY: clean run run-server
 clean:
-	rm -f example *.o fcgi.c
+	rm -f example fcgi threaded *.meta *.so *.o fcgi.c http.c
 
 run:
 	spawn-fcgi -p 8000 -n fcgi
