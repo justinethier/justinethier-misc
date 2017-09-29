@@ -19,7 +19,7 @@
 
 (define (fcgx:get-string req len)
   (let ((result (make-string (+ len 1) #\null)))
-    (_fcgx:get-param req len result)
+    (_fcgx:get-string req len result)
     result))
 
 (define-c _fcgx:get-string
@@ -93,8 +93,10 @@
     (print-request req (http:make-header "text/html" 200))
     (print-request req "Hello, world:")
     (print-request req (fcgx:get-param req "REQUEST_URI" ""))
-    (let ((len (fcgx:get-param req "CONTENT_LENGTH" 0)))
+    (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
+           (len (string->number len-str))
+           (len-num (if len len 0)))
       (print-request req "<p>")
-      (print-request req (fcgx:get-string req len))
+      (print-request req (fcgx:get-string req len-num))
       (print-request req "<p>")
       )))
