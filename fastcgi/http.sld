@@ -1,16 +1,42 @@
 (define-library (http)
-  (import (scheme base))
+  (import 
+    (scheme base)
+    (scheme cyclone util))
   (export
     status-ok
     status-code->text
     *status-codes*
     http:make-header
+
+    url->query-string
+    url->get-params
   )
   (begin
 ;; TODO - see: https://www.w3.org/Protocols/rfc2616/rfc2616.html
 
+;;; FUTURE (http url) library
 ;; TODO: deconstruct GET params:
 ;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
+
+;; https://en.wikipedia.org/wiki/Query_string
+
+(define (url->query-string url)
+  (let ((lis (string-split url #\?)))
+    (cond
+      ((null? lis) "")
+      (else (cadr lis)))))
+
+;; url->get-params :: string -> [alist]
+(define (url->get-params url)
+  (let* ((qs (url->query-string url))
+         (field-values (string-split qs #\&)))
+    (map
+      (lambda (field-value)
+        (let ((fv (string-split field-value #\=)))
+          (cons (car fv) (cadr fv))))
+      field-values)))
+
+;; END (http url)
 
 ;; TODO: deconstruct POST params: see example in notes.txt
 
