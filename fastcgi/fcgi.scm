@@ -11,11 +11,28 @@
   " FCGX_Init();
     return_closcall1(data, k, boolean_t);")
 
-TODO: fcgx:get-string (wrapper of FCGX_GetStr)
-may want to have a higher-order function that allocates the string
-and a lower one that does the actual reading
-see https://fossies.org/dox/FCGI-0.78/fcgiapp_8c_source.html
-and http://chriswu.me/code/hello_world_fcgi/main_v2.cpp (reading remainder of stdin)
+;; TODO: fcgx:get-string (wrapper of FCGX_GetStr)
+;; may want to have a higher-order function that allocates the string
+;; and a lower one that does the actual reading
+;; see https://fossies.org/dox/FCGI-0.78/fcgiapp_8c_source.html
+;; and http://chriswu.me/code/hello_world_fcgi/main_v2.cpp (reading remainder of stdin)
+
+(define (fcgx:get-string req len)
+  (let ((result (make-string (+ len 1) #\null)))
+    (_fcgx:get-param req len result)
+    result))
+
+(define-c _fcgx:get-string
+  "(void *data, int argc, closure _, object k, object req, object num, object buf)"
+  " Cyc_check_str(data, buf);
+    Cyc_check_fixnum(data, num);
+    FCGX_Request *request = opaque_ptr(req);
+    char *s = string_str(buf);
+    int n = obj_obj2int(num);
+    int n_read = FCGX_GetStr(s, n, request->in);
+    s[n_read] = '\\0';
+    string_len(buf) = n_read;
+    return_closcall1(data, k, obj_int2obj(n_read)); ")
 
 (define (fcgx:get-param req param default-value)
   (let ((rv (_fcgx:get-param req param)))
@@ -76,4 +93,8 @@ and http://chriswu.me/code/hello_world_fcgi/main_v2.cpp (reading remainder of st
     (print-request req (http:make-header "text/html" 200))
     (print-request req "Hello, world:")
     (print-request req (fcgx:get-param req "REQUEST_URI" ""))
-    ))
+    (let ((len (fcgx:get-param req "CONTENT_LENGTH" 0)))
+      (print-request req "<p>")
+      (print-request req (fcgx:get-string req len))
+      (print-request req "<p>")
+      )))
