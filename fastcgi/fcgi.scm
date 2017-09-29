@@ -11,15 +11,27 @@
   " FCGX_Init();
     return_closcall1(data, k, boolean_t);")
 
-(define-c fcgx:get-param
+TODO: fcgx:get-string (wrapper of FCGX_GetStr)
+may want to have a higher-order function that allocates the string
+and a lower one that does the actual reading
+see https://fossies.org/dox/FCGI-0.78/fcgiapp_8c_source.html
+and http://chriswu.me/code/hello_world_fcgi/main_v2.cpp (reading remainder of stdin)
+
+(define (fcgx:get-param req param default-value)
+  (let ((rv (_fcgx:get-param req param)))
+    (if rv rv default-value)))
+
+(define-c _fcgx:get-param
   "(void *data, int argc, closure _, object k, object req, object param)"
   " Cyc_check_str(data, param);
     FCGX_Request *request = opaque_ptr(req);
     const char *p = FCGX_GetParam(string_str(param), request->envp);
-    {
+    if (p) {
       make_string(str, p);
       return_closcall1(data, k, &str);
-    }")
+    } else {
+      return_closcall1(data, k, boolean_f);
+    } ")
 
 (define-c make-request
   "(void *data, int argc, closure _, object k)"
@@ -63,5 +75,5 @@
   (lambda (req)
     (print-request req (http:make-header "text/html" 200))
     (print-request req "Hello, world:")
-    (print-request req (fcgx:get-param req "REQUEST_URI"))
+    (print-request req (fcgx:get-param req "REQUEST_URI" ""))
     ))
