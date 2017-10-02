@@ -1,7 +1,16 @@
-See: 
+Documentation / useful links:
 http://chriswu.me/blog/writing-hello-world-in-fcgi-with-c-plus-plus/
 https://www.linode.com/docs/web-servers/nginx/nginx-and-perlfastcgi-on-arch-linux
 
+- fast CGI docs.
+  this may be a good start: https://htmlpreview.github.io/?https://raw.githubusercontent.com/FastCGI-Archives/fcgi2/master/doc/fastcgi-prog-guide/ch2c.htm
+
+also, for source code:
+https://htmlpreview.github.io/?https://github.com/FastCGI-Archives/fcgi2/blob/master/doc/overview.html
+
+- threaded example: https://stackoverflow.com/questions/5829869/multi-threaded-fastcgi-app
+ the full example is here:
+ https://github.com/LuaDist/fcgi/blob/master/examples/threaded.c
 
 Install:
 
@@ -14,23 +23,10 @@ sudo nginx -c <absolute path to nginx.conf>
 spawn-fcgi -p 8000 -n example
 
 
-For next steps forward:
-
-- fast CGI docs.
-  this may be a good start: https://htmlpreview.github.io/?https://raw.githubusercontent.com/FastCGI-Archives/fcgi2/master/doc/fastcgi-prog-guide/ch2c.htm
-
-also, for source code:
-https://htmlpreview.github.io/?https://github.com/FastCGI-Archives/fcgi2/blob/master/doc/overview.html
-
-- threaded example: https://stackoverflow.com/questions/5829869/multi-threaded-fastcgi-app
- the full example is here:
- https://github.com/LuaDist/fcgi/blob/master/examples/threaded.c
-
-- following up on that, possible to configure FCGI_MAX_CONNS, other constants?
-
-TODO:
-- clean up the existing C example, extend as needed (pthreads??)
-  NO, instead get the threaded.c example up and running
-- port to cyclone
-- create cyclone libraries: FCGI, HTTP
+For next steps forward, TODO:
+- create app/models, controllers, views?
+- try to think/experiment with how these would work to contain a web app.
+  also if it makes sense to organize things this way
+- want to move all libraries underneath a 'lib' dir
+- rework makefile (make executable name, included libs, cyclone installed location all variables, what else??)
 
