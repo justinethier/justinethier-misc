@@ -7,6 +7,7 @@ CYCLONE_DIR = /usr/local/share/cyclone
 CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/common.o \
   $(CYCLONE_DIR)/scheme/base.o \
+  $(CYCLONE_DIR)/scheme/write.o \
   $(CYCLONE_DIR)/srfi/18.o \
   $(CYCLONE_DIR)/scheme/cyclone/util.o \
   $(CYCLONE_DIR)/scheme/char.o
