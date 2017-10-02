@@ -4,6 +4,9 @@
         (lib http)
         (lib fcgi))
 
+;; TODO: how to get list of libraries in a sub-directory??
+;; TODO: how to then import those libraries, either at compile time (ideal) or runtime??
+
 (fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
 (fcgx:loop 
