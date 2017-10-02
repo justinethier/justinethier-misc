@@ -1,6 +1,6 @@
 (import (scheme base)
         (srfi 18)
-        (http))
+        (lib http))
 
 ;; FUTURE FCGI library
 (include-c-header "fcgi_config.h")

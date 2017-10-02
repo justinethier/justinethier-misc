@@ -1,4 +1,4 @@
-(define-library (http)
+(define-library (lib http)
   (import 
     (scheme base)
     (scheme cyclone util))
