@@ -1,4 +1,4 @@
-APP = fcgi
+APP = main
 APP_LIBS = lib/http.sld lib/fcgi.sld
 APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
 APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
@@ -16,10 +16,10 @@ all: $(APP) $(APP_LIBS_COBJECTS)
 $(APP_LIBS_COBJECTS) : %.o: %.sld
 	cyclone $<
 
-$(APP): fcgi.scm $(APP_LIBS_COBJECTS)
-	cyclone -d fcgi.scm
-	cc fcgi.c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o fcgi.o
-	cc fcgi.o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
+$(APP): $(APP).scm $(APP_LIBS_COBJECTS)
+	cyclone -d $(APP).scm
+	cc $(APP).c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o $(APP).o
+	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
 
 #threaded: threaded.c
 #	gcc threaded.c -lpthread -lfcgi -o threaded
@@ -29,7 +29,7 @@ $(APP): fcgi.scm $(APP_LIBS_COBJECTS)
 
 .PHONY: clean run run-server
 clean:
-	rm -f example $(APP) threaded *.meta *.so *.o fcgi.c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
+	rm -f example $(APP) threaded *.meta *.so *.o $(APP).c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 
 run:
 	spawn-fcgi -p 8000 -n $(APP)
