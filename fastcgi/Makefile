@@ -1,5 +1,5 @@
 APP = fcgi
-APP_LIBS = lib/http.sld
+APP_LIBS = lib/http.sld lib/fcgi.sld
 APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
 APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 
@@ -16,8 +16,7 @@ all: $(APP) $(APP_LIBS_COBJECTS)
 $(APP_LIBS_COBJECTS) : %.o: %.sld
 	cyclone $<
 
-$(APP): fcgi.scm
-	cyclone lib/http.sld
+$(APP): fcgi.scm $(APP_LIBS_COBJECTS)
 	cyclone -d fcgi.scm
 	cc fcgi.c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o fcgi.o
 	cc fcgi.o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)

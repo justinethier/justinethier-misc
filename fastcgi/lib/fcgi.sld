@@ -12,7 +12,7 @@
     fcgx:accept-request
     fcgx:print-request
     fcgx:finish-request
-    fcgx:loop callback-body
+    fcgx:loop
   )
   (begin
     (define-c fcgx:init
