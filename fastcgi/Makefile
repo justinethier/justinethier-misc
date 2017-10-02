@@ -29,7 +29,7 @@ $(APP): fcgi.scm $(APP_LIBS_COBJECTS)
 
 .PHONY: clean run run-server
 clean:
-	rm -f example $(APP) threaded *.meta *.so *.o fcgi.c $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
+	rm -f example $(APP) threaded *.meta *.so *.o fcgi.c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 
 run:
 	spawn-fcgi -p 8000 -n $(APP)
