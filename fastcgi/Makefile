@@ -1,23 +1,39 @@
-all: fcgi
+APP = fcgi
+APP_LIBS = lib/http.sld
+APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
+APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 
-fcgi: fcgi.scm lib/http.sld
+CYCLONE_DIR = /usr/local/share/cyclone
+CYCLONE_LIBS_COBJECTS = \
+  $(CYCLONE_DIR)/scheme/cyclone/common.o \
+  $(CYCLONE_DIR)/scheme/base.o \
+  $(CYCLONE_DIR)/srfi/18.o \
+  $(CYCLONE_DIR)/scheme/cyclone/util.o \
+  $(CYCLONE_DIR)/scheme/char.o
+
+all: $(APP) $(APP_LIBS_COBJECTS)
+
+$(APP_LIBS_COBJECTS) : %.o: %.sld
+	cyclone $<
+
+$(APP): fcgi.scm
 	cyclone lib/http.sld
 	cyclone -d fcgi.scm
 	cc fcgi.c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o fcgi.o
-	cc fcgi.o  /usr/local/share/cyclone/scheme/cyclone/common.o  /usr/local/share/cyclone/scheme/base.o  /usr/local/share/cyclone/srfi/18.o /usr/local/share/cyclone/scheme/cyclone/util.o /usr/local/share/cyclone/scheme/char.o lib/http.o -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o fcgi
+	cc fcgi.o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
 
-threaded: threaded.c
-	gcc threaded.c -lpthread -lfcgi -o threaded
-
-example: example.c
-	gcc example.c -lfcgi -o example
+#threaded: threaded.c
+#	gcc threaded.c -lpthread -lfcgi -o threaded
+#
+#example: example.c
+#	gcc example.c -lfcgi -o example
 
 .PHONY: clean run run-server
 clean:
-	rm -f example fcgi threaded *.meta *.so *.o fcgi.c lib/http.c
+	rm -f example $(APP) threaded *.meta *.so *.o fcgi.c $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 
 run:
-	spawn-fcgi -p 8000 -n fcgi
+	spawn-fcgi -p 8000 -n $(APP)
 
 run-server:
 	sudo nginx -c `pwd`/nginx.conf
