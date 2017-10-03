@@ -4,6 +4,7 @@
     (scheme cyclone util))
   (include-c-header "dirent.h")
   (export
+    find-files
     opendir
     closedir
     readdir
@@ -12,6 +13,19 @@
   ;; See: 
   ;; https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c
   ;; http://pubs.opengroup.org/onlinepubs/7908799/xsh/dirent.h.html
+
+TODO: try to find files by extension
+    (define (find-files dir ext)
+      (let ((d (opendir dir)))
+        (cond
+          (d
+           (let loop ((fname (readdir d))
+                      (acc '()))
+             (if fname
+                 (loop (readdir d) (cons fname acc))
+                 acc))
+           (closedir d))
+          (else '()))))
 
     (define-c opendir
       "(void *data, int argc, closure _, object k, object str)"
