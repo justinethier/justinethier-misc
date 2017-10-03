@@ -27,6 +27,5 @@ For next steps forward, TODO:
 - create app/models, controllers, views?
 - try to think/experiment with how these would work to contain a web app.
   also if it makes sense to organize things this way
-- want to move all libraries underneath a 'lib' dir
-- rework makefile (make executable name, included libs, cyclone installed location all variables, what else??)
+- make scheme code multithreaded (see threaded.c example)
 
