@@ -1,15 +1,36 @@
 (import (scheme base)
         (scheme write)
+        (scheme eval)
+        (scheme read)
+        (scheme file)
+        (scheme cyclone libraries)
         (srfi 18)
+        (lib dirent)
         (lib http)
         (lib fcgi))
 
 ;; TODO: how to get list of libraries in a sub-directory??
 ;; TODO: how to then import those libraries, either at compile time (ideal) or runtime??
+(let ((ctrl-files (find-files "app/controllers" ".sld"))
+      (ctrl-funcs '()))
+  (for-each
+    (lambda (fname)
+      (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+        (let* ((lib (read fp))
+               (lib-name (lib:name lib))
+               (lib-exports (lib:exports lib)))
+          (display `(Loading ,lib-name))
+          (eval `(import ,lib-name))
+          (set! ctrl-funcs (append ctrl-funcs lib-exports))
+          ))))
+    ctrl-files)
+  (display `(Controller functions ,ctrl-funcs))
+  (display (eval '(get:test)))
+)
 
 (fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
-(fcgx:loop 
+#;(fcgx:loop 
   (lambda (req)
     (parameterize ((current-output-port (open-output-string)))
       (display (http:make-header "text/html" 200))

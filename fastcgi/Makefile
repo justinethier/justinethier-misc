@@ -1,5 +1,5 @@
 APP = main
-APP_LIBS = lib/http.sld lib/fcgi.sld
+APP_LIBS = lib/http.sld lib/fcgi.sld lib/dirent.sld
 APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
 APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 
@@ -8,8 +8,13 @@ CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/common.o \
   $(CYCLONE_DIR)/scheme/base.o \
   $(CYCLONE_DIR)/scheme/write.o \
+  $(CYCLONE_DIR)/scheme/read.o \
+  $(CYCLONE_DIR)/scheme/eval.o \
+  $(CYCLONE_DIR)/scheme/file.o \
+  $(CYCLONE_DIR)/scheme/process-context.o \
   $(CYCLONE_DIR)/srfi/18.o \
   $(CYCLONE_DIR)/scheme/cyclone/util.o \
+  $(CYCLONE_DIR)/scheme/cyclone/libraries.o \
   $(CYCLONE_DIR)/scheme/char.o
 
 all: $(APP) $(APP_LIBS_COBJECTS)
