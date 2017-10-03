@@ -15,7 +15,7 @@
 
     (define-c opendir
       "(void *data, int argc, closure _, object k, object str)"
-      " Cyc_check_str(str);
+      " Cyc_check_str(data, str);
         DIR *result = opendir( string_str(str) );
         if (result) {
           make_c_opaque(opq, result);
