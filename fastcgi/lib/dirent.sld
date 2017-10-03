@@ -14,17 +14,27 @@
   ;; https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c
   ;; http://pubs.opengroup.org/onlinepubs/7908799/xsh/dirent.h.html
 
-TODO: try to find files by extension
+;TODO: try to find files by extension
+    (define (has-ext? str ext)
+      (let ((len (string-length str)))
+        (equal? ext (substring str (- len (string-length ext)) len))))
+
     (define (find-files dir ext)
       (let ((d (opendir dir)))
         (cond
           (d
-           (let loop ((fname (readdir d))
-                      (acc '()))
-             (if fname
-                 (loop (readdir d) (cons fname acc))
-                 acc))
-           (closedir d))
+           (let ((result (let loop ((fname (readdir d))
+                                    (acc '()))
+                           (cond
+                            (fname
+                              (loop 
+                                (readdir d) 
+                                (if (has-ext? fname ext)
+                                    (cons fname acc)
+                                    acc)))
+                            (else acc)))))
+             (closedir d)
+             result))
           (else '()))))
 
     (define-c opendir
