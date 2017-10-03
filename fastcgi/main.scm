@@ -22,7 +22,7 @@
                (lib-exports (lib:exports lib)))
           (display `(Loading ,lib-name))
           (eval `(import ,lib-name))
-          (set! ctrl-funcs (append ctrl-funcs (cons ctrl-name lib-exports)))
+          (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
           ))))
     ctrl-files)
   (display `(Controller functions ,ctrl-funcs))
