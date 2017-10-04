@@ -4,14 +4,16 @@
     (scheme cyclone util)
     ;(srfi 1)
   )
+  (include-c-header "http_parser.h")
+  (include-c-header "http_parser.c")
   (export
     status-ok
     status-code->text
     *status-codes*
     http:make-header
 
-TODO: consider supplementing or even replacing this library with a more fully-functional one such as:
-https://github.com/nodejs/http-parser
+;TODO: consider supplementing or even replacing this library with a more fully-functional one such as:
+;https://github.com/nodejs/http-parser
 
     ;; TODO: create a separate library (lib url)
     ;; TODO: eventually want a generic URL parsing function, maybe to a record type
@@ -19,7 +21,7 @@ https://github.com/nodejs/http-parser
 
     ;; TODO: url->protocol
     ;; TODO: url->hostname
-    url->path
+    ;;url->path
     url->query-string
     url->get-params
   )
