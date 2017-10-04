@@ -1,25 +1,38 @@
 (define-library (lib http)
   (import 
     (scheme base)
-    (scheme cyclone util))
+    (scheme cyclone util)
+    ;(srfi 1)
+  )
   (export
     status-ok
     status-code->text
     *status-codes*
     http:make-header
 
+TODO: consider supplementing or even replacing this library with a more fully-functional one such as:
+https://github.com/nodejs/http-parser
+
+    ;; TODO: create a separate library (lib url)
+    ;; TODO: eventually want a generic URL parsing function, maybe to a record type
+    ;; TODO: for parsing a URL, see: http://www.ietf.org/rfc/rfc3986.txt
+
+    ;; TODO: url->protocol
+    ;; TODO: url->hostname
+    url->path
     url->query-string
     url->get-params
   )
   (begin
 ;; TODO - see: https://www.w3.org/Protocols/rfc2616/rfc2616.html
 
-;;; FUTURE (http url) library
-;; TODO: deconstruct GET params:
+;;(define (url->path url)
+;;  (let ((lis (string-split url #\/)))
+;;    (
+
 ;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
-
 ;; https://en.wikipedia.org/wiki/Query_string
-
+;;
 (define (url->query-string url)
   (let ((lis (string-split url #\?)))
     (cond

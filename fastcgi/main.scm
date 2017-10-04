@@ -9,28 +9,37 @@
         (lib http)
         (lib fcgi))
 
-;; TODO: how to get list of libraries in a sub-directory??
-;; TODO: how to then import those libraries, either at compile time (ideal) or runtime??
-(let ((ctrl-files (find-files "app/controllers" ".sld"))
-      (ctrl-funcs '()))
-  (for-each
-    (lambda (fname)
-      (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
-        (let* ((lib (read fp))
-               (lib-name (lib:name lib))
-               (ctrl-name (car (reverse lib-name)))
-               (lib-exports (lib:exports lib)))
-          (display `(Loading ,lib-name))
-          (eval `(import ,lib-name))
-          (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
-          ))))
-    ctrl-files)
-  (display `(Controller functions ,ctrl-funcs))
-  (newline)
-  (display (eval '(get:test)))
-)
+(define (load-controllers)
+  (let ((ctrl-files (find-files "app/controllers" ".sld"))
+        (ctrls '())
+        (ctrl-funcs '()))
+    (for-each
+      (lambda (fname)
+        (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+          (let* ((lib (read fp))
+                 (lib-name (lib:name lib))
+                 (ctrl-name (car (reverse lib-name)))
+                 (lib-exports (lib:exports lib)))
+            (display `(Loading ,lib-name))
+            (newline)
+            (eval `(import ,lib-name))
+            (set! ctrls (cons ctrl-name ctrls))
+            (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+            ))))
+      ctrl-files)
+    (display `(Controllers: ,ctrls))
+    (newline)
+    (display `(Controller functions: ,ctrl-funcs))
+    (newline)
+    (display (eval '(get:test)))
+    ctrl-funcs))
 
-(fcgx:init)
+(define (route-to-controller url ctrl-lis) ;; TODO: request type
+
+(let ((ctrl-lis (load-controllers)))
+  (write (route-to-controller "http://localhost/test.cgi" ctrl-lis)))
+
+#;(fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
 #;(fcgx:loop 
   (lambda (req)
