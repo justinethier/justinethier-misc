@@ -4,6 +4,7 @@
         (scheme read)
         (scheme file)
         (scheme cyclone libraries)
+        (scheme cyclone util)
         (srfi 18)
         (lib dirent)
         (lib http)
@@ -32,9 +33,22 @@
     (display `(Controller functions: ,ctrl-funcs))
     (newline)
     (display (eval '(get:test)))
+    (newline)
     ctrl-funcs))
 
 (define (route-to-controller url ctrl-lis) ;; TODO: request type
+  (let* ((url-p (url-parse url))
+         (path (url/p->path url url-p))
+         (path-parts (string-split (string-append path "/") #\/))
+         (path-ctrl (string->symbol (car path-parts)))
+         (ctrl (assoc path-ctrl ctrl-lis))
+        )
+
+    (list path-ctrl ctrl ctrl-lis) ;; TODO
+
+    ;; TODO: go from "test.cgi" to appropriate controller
+    ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
+))
 
 (let ((ctrl-lis (load-controllers)))
   (write (route-to-controller "http://localhost/test.cgi" ctrl-lis)))
