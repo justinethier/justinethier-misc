@@ -12,25 +12,52 @@
     *status-codes*
     http:make-header
 
-;TODO: consider supplementing or even replacing this library with a more fully-functional one such as:
-;https://github.com/nodejs/http-parser
-
-    ;; TODO: create a separate library (lib url)
-    ;; TODO: eventually want a generic URL parsing function, maybe to a record type
-    ;; TODO: for parsing a URL, see: http://www.ietf.org/rfc/rfc3986.txt
-
-    ;; TODO: url->protocol
-    ;; TODO: url->hostname
-    ;;url->path
+    url-parse
+    urlp->port
+    urlp->path
     url->query-string
     url->get-params
   )
   (begin
-;; TODO - see: https://www.w3.org/Protocols/rfc2616/rfc2616.html
 
-;;(define (url->path url)
-;;  (let ((lis (string-split url #\/)))
-;;    (
+(define-c url-parse
+  "(void *data, int argc, closure _, object k, object url)"
+  " Cyc_check_str(data, url);
+    struct http_parser_url u;
+    int connect, result;
+
+    connect = strcmp(\"connect\", string_str(url)) == 0 ? 1 : 0;
+
+    http_parser_url_init(&u);
+    result = http_parser_parse_url(string_str(url), string_len(url), connect, &u);
+    if (result != 0) {
+      return_closcall1(data, k, boolean_f); // Parse error
+    } else {
+      make_c_opaque(opq, &u);
+      return_closcall1(data, k, &opq);
+    }
+    ")
+
+(define-c urlp->port
+  "(void *data, int argc, closure _, object k, object opq)"
+  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
+    struct http_parser_url *u = opaque_ptr(opq);
+    return_closcall1(data, k, obj_int2obj(u->port));
+  ")
+
+(define-c urlp->path
+  "(void *data, int argc, closure _, object k, object url, object opq)"
+  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
+    Cyc_check_str(data, url);
+    struct http_parser_url *u = opaque_ptr(opq);
+    if ((u->field_set & (1 << UF_PATH)) == 0){
+      make_string(str, \"\");
+      return_closcall1(data, k, &str);
+    } else {
+      make_string_with_len(str, (string_str(url) + u->field_data[UF_PATH].off), u->field_data[UF_PATH].len);
+      return_closcall1(data, k, &str);
+    }
+  ")
 
 ;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
 ;; https://en.wikipedia.org/wiki/Query_string
