@@ -13,8 +13,13 @@
     http:make-header
 
     url-parse
+    urlp->schema
+    urlp->host
     urlp->port
     urlp->path
+    urlp->query
+    urlp->fragment
+    urlp->userinfo
     url->query-string
     url->get-params
   )
@@ -38,26 +43,56 @@
     }
     ")
 
-(define-c urlp->port
-  "(void *data, int argc, closure _, object k, object opq)"
-  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
-    struct http_parser_url *u = opaque_ptr(opq);
-    return_closcall1(data, k, obj_int2obj(u->port));
-  ")
+;;(define-c urlp->port
+;;  "(void *data, int argc, closure _, object k, object opq)"
+;;  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
+;;    struct http_parser_url *u = opaque_ptr(opq);
+;;    return_closcall1(data, k, obj_int2obj(u->port));
+;;  ")
 
-(define-c urlp->path
-  "(void *data, int argc, closure _, object k, object url, object opq)"
-  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
-    Cyc_check_str(data, url);
-    struct http_parser_url *u = opaque_ptr(opq);
-    if ((u->field_set & (1 << UF_PATH)) == 0){
-      make_string(str, \"\");
-      return_closcall1(data, k, &str);
-    } else {
-      make_string_with_len(str, (string_str(url) + u->field_data[UF_PATH].off), u->field_data[UF_PATH].len);
-      return_closcall1(data, k, &str);
-    }
-  ")
+(define-syntax get-urlp-field
+  (er-macro-transformer
+    (lambda (expr rename compare)
+      (let* ((fnc (cadr expr))
+             (args
+              "(void *data, int argc, closure _, object k, object url, object opq)")
+             (field (caddr expr))
+             (body
+              (string-append
+                " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
+                  Cyc_check_str(data, url);
+                  struct http_parser_url *u = opaque_ptr(opq);
+                  if ((u->field_set & (1 << " field ")) == 0){
+                    make_string(str, \"\");
+                    return_closcall1(data, k, &str);
+                  } else {
+                    make_string_with_len(str, (string_str(url) + u->field_data[" field "].off), u->field_data[" field "].len);
+                    return_closcall1(data, k, &str);
+                  }"
+              )))
+        `(define-c ,fnc ,args ,body)))))
+
+(get-urlp-field urlp->schema "UF_SCHEMA   ")
+(get-urlp-field urlp->host "UF_HOST     ")
+(get-urlp-field urlp->port "UF_PORT     ")
+(get-urlp-field urlp->path "UF_PATH     ")
+(get-urlp-field urlp->query "UF_QUERY    ")
+(get-urlp-field urlp->fragment "UF_FRAGMENT ")
+(get-urlp-field urlp->userinfo "UF_USERINFO ")
+
+;;(define-c urlp->path
+;;  "(void *data, int argc, closure _, object k, object url, object opq)"
+;;  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
+;;    Cyc_check_str(data, url);
+;;    struct http_parser_url *u = opaque_ptr(opq);
+;;    if ((u->field_set & (1 << UF_PATH)) == 0){
+;;      make_string(str, \"\");
+;;      return_closcall1(data, k, &str);
+;;    } else {
+;;      make_string_with_len(str, (string_str(url) + u->field_data[UF_PATH].off), u->field_data[UF_PATH].len);
+;;      return_closcall1(data, k, &str);
+;;    }
+;;  ")
 
 ;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
 ;; https://en.wikipedia.org/wiki/Query_string
