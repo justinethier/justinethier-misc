@@ -13,13 +13,15 @@
     http:make-header
 
     url-parse
-    urlp->schema
-    urlp->host
-    urlp->port
-    urlp->path
-    urlp->query
-    urlp->fragment
-    urlp->userinfo
+    url/p->schema
+    url/p->host
+    url/p->port
+    url/p->path
+    url/p->query
+    url/p->fragment
+    url/p->userinfo
+
+    ;; Still here, but probably obsolete
     url->query-string
     url->get-params
   )
@@ -72,27 +74,13 @@
               )))
         `(define-c ,fnc ,args ,body)))))
 
-(get-urlp-field urlp->schema "UF_SCHEMA   ")
-(get-urlp-field urlp->host "UF_HOST     ")
-(get-urlp-field urlp->port "UF_PORT     ")
-(get-urlp-field urlp->path "UF_PATH     ")
-(get-urlp-field urlp->query "UF_QUERY    ")
-(get-urlp-field urlp->fragment "UF_FRAGMENT ")
-(get-urlp-field urlp->userinfo "UF_USERINFO ")
-
-;;(define-c urlp->path
-;;  "(void *data, int argc, closure _, object k, object url, object opq)"
-;;  " Cyc_check_type(data, Cyc_is_opaque, c_opaque_tag, opq);
-;;    Cyc_check_str(data, url);
-;;    struct http_parser_url *u = opaque_ptr(opq);
-;;    if ((u->field_set & (1 << UF_PATH)) == 0){
-;;      make_string(str, \"\");
-;;      return_closcall1(data, k, &str);
-;;    } else {
-;;      make_string_with_len(str, (string_str(url) + u->field_data[UF_PATH].off), u->field_data[UF_PATH].len);
-;;      return_closcall1(data, k, &str);
-;;    }
-;;  ")
+(get-urlp-field url/p->schema "UF_SCHEMA   ")
+(get-urlp-field url/p->host "UF_HOST     ")
+(get-urlp-field url/p->port "UF_PORT     ")
+(get-urlp-field url/p->path "UF_PATH     ")
+(get-urlp-field url/p->query "UF_QUERY    ")
+(get-urlp-field url/p->fragment "UF_FRAGMENT ")
+(get-urlp-field url/p->userinfo "UF_USERINFO ")
 
 ;; EG: http://10.0.0.4/test//someUrl.cgi?one=1&two=2
 ;; https://en.wikipedia.org/wiki/Query_string
