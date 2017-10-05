@@ -40,11 +40,19 @@
   (let* ((url-p (url-parse url))
          (path (url/p->path url url-p))
          (path-parts (string-split (string-append path "/") #\/))
-         (path-ctrl (string->symbol (car path-parts)))
-         (ctrl (assoc path-ctrl ctrl-lis))
+         (ctrl-part (car path-parts))
         )
 
-    (list path-ctrl ctrl ctrl-lis) ;; TODO
+    ctrl-part
+    #;(cond
+      ((> 4 (string-length ctrl-part))
+       (let ((ctrl-part-sym (string->symbol (substring ctrl-part (- (string-length ctrl-part) 4)  (string-length ctrl-part)))))
+        ctrl-part-sym)))
+;         TODO: remove .cgi
+;         (ctrl (assoc ctrl-part ctrl-lis))
+;        )
+;
+;    (list ctrl-part ctrl ctrl-lis) ;; TODO
 
     ;; TODO: go from "test.cgi" to appropriate controller
     ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
@@ -55,6 +63,7 @@
 
 #;(fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
+;; TODO: make sure to include error handling via with-handler 
 #;(fcgx:loop 
   (lambda (req)
     (parameterize ((current-output-port (open-output-string)))
