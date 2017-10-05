@@ -42,16 +42,15 @@
          (path-parts (string-split (string-append path "/") #\/))
          (ctrl-part (car path-parts))
         )
-
-    ctrl-part
-    #;(cond
-      ((> 4 (string-length ctrl-part))
-       (let ((ctrl-part-sym (string->symbol (substring ctrl-part (- (string-length ctrl-part) 4)  (string-length ctrl-part)))))
-        ctrl-part-sym)))
-;         TODO: remove .cgi
-;         (ctrl (assoc ctrl-part ctrl-lis))
+    (list path path-parts ctrl-part)
+;    (cond
+;      ((> (string-length ctrl-part) 4)
+;       ;; TODO: allow subdirectories with something like (app controllers path1 path2 ctrl-name) ???
+;       (let* ((ctrl-part-sym (string->symbol (substring ctrl-part 0 (- (string-length ctrl-part) 4))))
+;              (ctrl (assoc ctrl-part-sym ctrl-lis)))
+;        
 ;        )
-;
+
 ;    (list ctrl-part ctrl ctrl-lis) ;; TODO
 
     ;; TODO: go from "test.cgi" to appropriate controller
@@ -59,7 +58,8 @@
 ))
 
 (let ((ctrl-lis (load-controllers)))
-  (write (route-to-controller "http://localhost/test.cgi" ctrl-lis)))
+  (write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)))
+  ;(write (route-to-controller "http://localhost/demo.cgi" ctrl-lis)))
 
 #;(fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
