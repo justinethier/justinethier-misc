@@ -10,6 +10,8 @@
         (lib http)
         (lib fcgi))
 
+;; TODO: instead, can we dynamically import these as a program? that way we can prefix them.
+;;       I guess could then just eval the functions directly?
 (define (load-controllers)
   (let ((ctrl-files (find-files "app/controllers" ".sld"))
         (ctrls '())
@@ -36,13 +38,25 @@
     (newline)
     ctrl-funcs))
 
+(define (path-parts->action parts)
+  (string->symbol (cadr parts))) ;; TODO: if none, then index
+
 (define (route-to-controller url ctrl-lis) ;; TODO: request type
   (let* ((url-p (url-parse url))
          (path (url/p->path url url-p))
          (path-parts (string-split (string-append path "/") #\/))
          (ctrl-part (car path-parts))
+         (ctrl (assoc (string->symbol ctrl-part) ctrl-lis))
         )
-    (list path path-parts ctrl-part)
+    (cond
+      ((and ctrl
+            (member (path-parts->action path-parts) (cdr ctrl)))
+       ;(display (eval '
+       (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
+      )
+      (else
+        '404)) ;; TODO: redirect somehow
+    ;(list path path-parts ctrl-part)
 ;    (cond
 ;      ((> (string-length ctrl-part) 4)
 ;       ;; TODO: allow subdirectories with something like (app controllers path1 path2 ctrl-name) ???
@@ -58,7 +72,8 @@
 ))
 
 (let ((ctrl-lis (load-controllers)))
-  (write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)))
+  (write (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis)))
+  ;(write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)))
   ;(write (route-to-controller "http://localhost/demo.cgi" ctrl-lis)))
 
 #;(fcgx:init)
