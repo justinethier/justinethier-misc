@@ -10,6 +10,14 @@
         (lib http)
         (lib fcgi))
 
+;;;;
+;;;; TODO: hacky code as we are trying to figure out the best way(s) to 
+;;;; load controllers, deconstruct routes, and apply controller functions
+;;;; for the given URL routes. Once the underlying problems are solved
+;;;; this section should be cleaned up and proper error handling
+;;;; should be added
+;;;;
+
 ;(import (prefix (app controllers demo) demo:))
 ;(import (prefix (app controllers demo2) demo2:))
 (define-syntax dyn-import
@@ -87,7 +95,16 @@
             (member (path-parts->action path-parts) (cdr ctrl)))
        ;(display (eval '
        (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
-      )
+       (let ((fnc (string->symbol
+                    (string-append ctrl-part ":" (cadr path-parts)))))
+        (display (list "running: " fnc))
+        (newline)
+      ;; TODO: doesn't work because renamed identifier is only available at compile time
+      ;; and not in the global environment.
+      ;; needs to be fixed in cyclone itself
+        (display (eval `(,fnc))) ;; TODO: "id" args if present
+        (newline)
+      ))
       (else
         '404)) ;; TODO: redirect somehow
     ;(list path path-parts ctrl-part)
