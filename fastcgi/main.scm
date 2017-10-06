@@ -10,6 +10,40 @@
         (lib http)
         (lib fcgi))
 
+;(import (prefix (app controllers demo) demo:))
+;(import (prefix (app controllers demo2) demo2:))
+(define-syntax dyn-import
+  (er-macro-transformer
+    (lambda (expr rename compare)
+      (define (load-controllers ctrl-files)
+        (let ((ctrls '())
+              (ctrl-funcs '()))
+          (map
+            (lambda (fname)
+              (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+                (let* ((lib (read fp))
+                       (lib-name (lib:name lib))
+                       (ctrl-name (car (reverse lib-name)))
+                       (lib-exports (lib:exports lib)))
+                  ;(display `(Loading ,lib-name))
+                  ;(newline)
+                  ;(eval `(import ,lib-name))
+                  (set! ctrls (cons ctrl-name ctrls))
+                  (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+                  `(prefix ,lib-name 
+                           ,(string->symbol 
+                              (string-append (symbol->string ctrl-name) ":")))
+                  ))))
+            ctrl-files)
+          ))
+      (eval `(import (lib dirent)))
+      (cons 'import 
+            (load-controllers
+              (eval '(find-files "app/controllers/" ".sld"))))
+      ;`(import (app controllers demo))
+      )))
+(dyn-import)
+
 ;; TODO: instead, can we dynamically import these as a program? that way we can prefix them.
 ;;       I guess could then just eval the functions directly?
 (define (load-controllers)
@@ -25,7 +59,7 @@
                  (lib-exports (lib:exports lib)))
             (display `(Loading ,lib-name))
             (newline)
-            (eval `(import ,lib-name))
+            ;(eval `(import ,lib-name))
             (set! ctrls (cons ctrl-name ctrls))
             (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
             ))))
@@ -80,7 +114,7 @@
   (newline)
 )
 
-#;(fcgx:init)
+(fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
 ;; TODO: make sure to include error handling via with-handler 
 #;(fcgx:loop 
