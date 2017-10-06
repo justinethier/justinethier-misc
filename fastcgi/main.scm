@@ -72,9 +72,13 @@
 ))
 
 (let ((ctrl-lis (load-controllers)))
-  (write (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis)))
-  ;(write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)))
-  ;(write (route-to-controller "http://localhost/demo.cgi" ctrl-lis)))
+  (write (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis))
+  (newline)
+  (write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis))
+  (newline)
+  (write (route-to-controller "http://localhost/demo.cgi" ctrl-lis))
+  (newline)
+)
 
 #;(fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
