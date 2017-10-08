@@ -52,6 +52,42 @@
       )))
 (dyn-import)
 
+(define-syntax gen-ctrl-table
+  (er-macro-transformer
+    (lambda (expr rename compare)
+      (define (import->string import)
+        (foldr (lambda (id s)
+                 (string-append "_" (mangle id) s))
+               ""
+               (lib:list->import-set import)))
+      (define (load-controllers ctrl-files)
+        (let ((ctrls '())
+              (ctrl-funcs '()))
+          (map
+            (lambda (fname)
+              (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+                (let* ((lib (read fp))
+                       (lib-name (lib:name lib))
+                       (ctrl-name (car (reverse lib-name)))
+                       (lib-exports (lib:exports lib)))
+                  (set! ctrls (cons ctrl-name ctrls))
+                  (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+                  (map
+                    (lambda (export)
+                      (string-append
+                        (mangle-global export)
+                        (import->string lib-name)))
+                    lib-exports)
+                  ))))
+            ctrl-files)
+          ))
+      (eval `(import (lib dirent)))
+      (cons 'quote
+            (load-controllers
+              (eval '(find-files "app/controllers/" ".sld"))))
+      )))
+(gen-ctrl-table)
+
 ;; TODO: instead, can we dynamically import these as a program? that way we can prefix them.
 ;;       I guess could then just eval the functions directly?
 (define (load-controllers)
