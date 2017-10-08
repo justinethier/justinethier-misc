@@ -74,9 +74,16 @@
                   (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
                   (map
                     (lambda (export)
-                      (string-append
-                        (mangle-global export)
-                        (import->string lib-name)))
+                      ;; TODO: create a table of:
+                      ;; - index by lib, list of:
+                      ;;   - (symbol . identifier)
+                      ;;     EG: ('test . test)
+                      (string->symbol (string-append (symbol->string ctrl-name) ":" (symbol->string export)))
+                      ;; this works too, but working with C makes this much harder
+                      ;(string-append
+                      ;  (mangle-global export)
+                      ;  (import->string lib-name))
+                    )
                     lib-exports)
                   ))))
             ctrl-files)
