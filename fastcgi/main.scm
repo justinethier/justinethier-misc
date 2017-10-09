@@ -19,8 +19,7 @@
 ;;;; should be added
 ;;;;
 
-;(import (prefix (app controllers demo) demo:))
-;(import (prefix (app controllers demo2) demo2:))
+;; Dynamically create an (import) statement for all the controllers
 (define-syntax dyn-import
   (er-macro-transformer
     (lambda (expr rename compare)
@@ -53,6 +52,7 @@
       )))
 (dyn-import)
 
+;; Generate a lookup table for all controller action functions
 (define-syntax gen-ctrl-table
   (er-macro-transformer
     (lambda (expr rename compare)
@@ -142,16 +142,16 @@
 (define (view-404)
   (display "404"))
 
-(define (route-to-controller url ctrl-lis) ;; TODO: request type
+(define (route-to-controller url) ;; TODO: request type
   (let* ((url-p (url-parse url))
          (path (url/p->path url url-p))
          (path-parts (string-split (string-append path "/") #\/))
          (ctrl-part (car path-parts))
-         (ctrl (assoc (string->symbol ctrl-part) ctrl-lis))
+         ;;(ctrl (assoc (string->symbol ctrl-part)))
         )
-    (cond
-      ((and ctrl
-            (member (path-parts->action path-parts) (cdr ctrl)))
+;    (cond
+;      ((and ctrl
+;            (member (path-parts->action path-parts) (cdr ctrl)))
        ;(display (eval '
        (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
        (let ((fnc (string->symbol
@@ -171,8 +171,8 @@
             (view-404)))
         (newline)
       ))
-      (else
-        (view-404))) ;; TODO: redirect somehow
+;      (else
+;        (view-404))) ;; TODO: redirect somehow
     ;(list path path-parts ctrl-part)
 ;    (cond
 ;      ((> (string-length ctrl-part) 4)
@@ -186,18 +186,18 @@
 
     ;; TODO: go from "test.cgi" to appropriate controller
     ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
-))
-
-(let ((ctrl-lis (load-controllers)))
-  (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test" ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)
-  (newline)
-  (route-to-controller "http://localhost/demo.cgi" ctrl-lis)
-  (newline)
 )
+
+;(let ((ctrl-lis (load-controllers)))
+  (route-to-controller "http://10.0.0.4/demo/test" #;ctrl-lis)
+  (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test" #;ctrl-lis)
+  (newline)
+  (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis)
+  (newline)
+  (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis)
+  (newline)
+;)
 
 (fcgx:init)
 ;; TODO: make this multithreaded based on the threaded.c example
