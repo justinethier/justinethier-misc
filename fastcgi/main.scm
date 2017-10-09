@@ -5,6 +5,7 @@
         (scheme file)
         (scheme cyclone libraries)
         (scheme cyclone util)
+        (srfi 2)
         (srfi 18)
         (lib dirent)
         (lib http)
@@ -72,28 +73,40 @@
                        (lib-exports (lib:exports lib)))
                   (set! ctrls (cons ctrl-name ctrls))
                   (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
-                  (map
-                    (lambda (export)
-                      ;; TODO: create a table of:
-                      ;; - index by lib, list of:
-                      ;;   - (symbol . identifier)
-                      ;;     EG: ('test . test)
-                      (string->symbol (string-append (symbol->string ctrl-name) ":" (symbol->string export)))
-                      ;; this works too, but working with C makes this much harder
-                      ;(string-append
-                      ;  (mangle-global export)
-                      ;  (import->string lib-name))
-                    )
-                    lib-exports)
+                  (cons 'list
+                    (cons
+                     `(quote ,ctrl-name)
+                     (map
+                      (lambda (export)
+                        ;; TODO: create a table of:
+                        ;; - index by lib, list of:
+                        ;;   - (symbol . identifier)
+                        ;;     EG: ('test . test)
+                        (let ((sym (string->symbol (string-append (symbol->string ctrl-name) ":" (symbol->string export)))))
+                          `(cons (quote ,sym) ,sym))
+                        ;; this works too, but working with C makes this much harder
+                        ;(string-append
+                        ;  (mangle-global export)
+                        ;  (import->string lib-name))
+                      )
+                      lib-exports)))
                   ))))
             ctrl-files)
           ))
       (eval `(import (lib dirent)))
-      (cons 'quote
-            (load-controllers
-              (eval '(find-files "app/controllers/" ".sld"))))
+      (list 'define '*ctrl-action-table*
+        (cons 'list
+              (load-controllers
+                (eval '(find-files "app/controllers/" ".sld")))))
       )))
 (gen-ctrl-table)
+
+;; ctrl/action->function :: symbol -> symbol -> Maybe function boolean
+;; Lookup function for given controller / action pair
+(define (ctrl/action->function ctrl action)
+  (and-let* ((ctrl-alis (assoc ctrl *ctrl-action-table*))
+             (action-alis (assoc action (cdr ctrl-alis))))
+    (cdr action-alis)))
 
 ;; TODO: instead, can we dynamically import these as a program? that way we can prefix them.
 ;;       I guess could then just eval the functions directly?
@@ -126,6 +139,9 @@
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
 
+(define (view-404)
+  (display "404"))
+
 (define (route-to-controller url ctrl-lis) ;; TODO: request type
   (let* ((url-p (url-parse url))
          (path (url/p->path url url-p))
@@ -145,11 +161,18 @@
       ;; TODO: doesn't work because renamed identifier is only available at compile time
       ;; and not in the global environment.
       ;; needs to be fixed in cyclone itself
-        (display (eval `(,fnc))) ;; TODO: "id" args if present
+        ;(display (eval `(,fnc))) ;; TODO: "id" args if present
+        (let ((fnc (ctrl/action->function 
+                     (string->symbol ctrl-part)
+                     (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
+          (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
+          (if fnc
+            (fnc) ;; TODO: id args
+            (view-404)))
         (newline)
       ))
       (else
-        '404)) ;; TODO: redirect somehow
+        (view-404))) ;; TODO: redirect somehow
     ;(list path path-parts ctrl-part)
 ;    (cond
 ;      ((> (string-length ctrl-part) 4)
@@ -166,11 +189,13 @@
 ))
 
 (let ((ctrl-lis (load-controllers)))
-  (write (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis))
+  (route-to-controller "http://10.0.0.4/demo/test" ctrl-lis)
   (newline)
-  (write (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis))
+  (route-to-controller "http://10.0.0.4/demo/get:test" ctrl-lis)
   (newline)
-  (write (route-to-controller "http://localhost/demo.cgi" ctrl-lis))
+  (route-to-controller "http://10.0.0.4/controller/action/id" ctrl-lis)
+  (newline)
+  (route-to-controller "http://localhost/demo.cgi" ctrl-lis)
   (newline)
 )
 

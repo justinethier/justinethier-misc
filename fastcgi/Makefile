@@ -15,6 +15,7 @@ CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/eval.o \
   $(CYCLONE_DIR)/scheme/file.o \
   $(CYCLONE_DIR)/scheme/process-context.o \
+  $(CYCLONE_DIR)/srfi/2.o \
   $(CYCLONE_DIR)/srfi/18.o \
   $(CYCLONE_DIR)/scheme/cyclone/util.o \
   $(CYCLONE_DIR)/scheme/cyclone/libraries.o \
