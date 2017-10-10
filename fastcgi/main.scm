@@ -16,24 +16,22 @@
   (er-macro-transformer
     (lambda (expr rename compare)
       (define (load-controllers ctrl-files)
-        ;(let ((ctrls '())
-        ;      (ctrl-funcs '()))
-          (map
-            (lambda (fname)
-              (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
-                (let* ((lib (read fp))
-                       (lib-name (lib:name lib))
-                       (ctrl-name (car (reverse lib-name)))
-                       (lib-exports (lib:exports lib)))
-                  ;(display `(Loading ,lib-name))
-                  ;(newline)
-                  ;(set! ctrls (cons ctrl-name ctrls))
-                  ;(set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
-                  `(prefix ,lib-name 
-                           ,(string->symbol 
-                              (string-append (symbol->string ctrl-name) ":")))
-                  ))))
-            ctrl-files))
+        (map
+          (lambda (fname)
+            (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+              (let* ((lib (read fp))
+                     (lib-name (lib:name lib))
+                     (ctrl-name (car (reverse lib-name)))
+                     (lib-exports (lib:exports lib)))
+                ;(display `(Loading ,lib-name))
+                ;(newline)
+                ;(set! ctrls (cons ctrl-name ctrls))
+                ;(set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+                `(prefix ,lib-name 
+                         ,(string->symbol 
+                            (string-append (symbol->string ctrl-name) ":")))
+                ))))
+          ctrl-files))
       (eval `(import (lib dirent)))
       (cons 'import 
             (load-controllers
@@ -50,36 +48,25 @@
                ""
                (lib:list->import-set import)))
       (define (load-controllers ctrl-files)
-        ;(let ((ctrls '())
-        ;      (ctrl-funcs '()))
-          (map
-            (lambda (fname)
-              (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
-                (let* ((lib (read fp))
-                       (lib-name (lib:name lib))
-                       (ctrl-name (car (reverse lib-name)))
-                       (lib-exports (lib:exports lib)))
-                  ;(set! ctrls (cons ctrl-name ctrls))
-                  ;(set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
-                  (cons 'list
-                    (cons
-                     `(quote ,ctrl-name)
-                     (map
-                      (lambda (export)
-                        ;; TODO: create a table of:
-                        ;; - index by lib, list of:
-                        ;;   - (symbol . identifier)
-                        ;;     EG: ('test . test)
-                        (let ((sym (string->symbol (string-append (symbol->string ctrl-name) ":" (symbol->string export)))))
-                          `(cons (quote ,sym) ,sym))
-                        ;; this works too, but working with C makes this much harder
-                        ;(string-append
-                        ;  (mangle-global export)
-                        ;  (import->string lib-name))
-                      )
-                      lib-exports)))
-                  ))))
-            ctrl-files))
+        (map
+          (lambda (fname)
+            (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
+              (let* ((lib (read fp))
+                     (lib-name (lib:name lib))
+                     (ctrl-name (car (reverse lib-name)))
+                     (lib-exports (lib:exports lib)))
+                (cons 'list
+                  (cons
+                   `(quote ,ctrl-name)
+                   (map
+                    (lambda (export)
+                      (let ((sym (string->symbol 
+                                   (string-append 
+                                     (symbol->string ctrl-name) ":" (symbol->string export)))))
+                        `(cons (quote ,sym) ,sym)))
+                    lib-exports)))
+                ))))
+          ctrl-files))
       (eval `(import (lib dirent)))
       (list 'define '*ctrl-action-table*
         (cons 'list
@@ -97,8 +84,9 @@
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
 
-(define (view-404)
-  (display "404"))
+(define (send-404-response)
+  (display (http:make-header "text/html" 404))
+  (display "Not found."))
 
 (define (route-to-controller url) ;; TODO: request type
   (let* ((url-p (url-parse url))
@@ -126,7 +114,7 @@
           (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
           (if fnc
             (fnc) ;; TODO: id args
-            (view-404)))
+            (send-404-response)))
         (newline)
       ))
 ;      (else
