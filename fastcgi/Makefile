@@ -1,4 +1,5 @@
-APP = main
+include Makefile.config
+
 APP_LIBS = lib/http.sld lib/fcgi.sld lib/dirent.sld
 APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
 APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
@@ -6,7 +7,6 @@ APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 CONTROLLERS=$(wildcard app/controllers/*.sld)
 CONTROLLER_OBJS=$(CONTROLLERS:.sld=.o)
 
-CYCLONE_DIR = /usr/local/share/cyclone
 CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/common.o \
   $(CYCLONE_DIR)/scheme/base.o \
@@ -24,13 +24,13 @@ CYCLONE_LIBS_COBJECTS = \
 all: $(APP) $(APP_LIBS_COBJECTS)
 
 $(CONTROLLER_OBJS) : %.o: %.sld
-	cyclone $<
+	$(CYCLONE) $<
 
 $(APP_LIBS_COBJECTS) : %.o: %.sld
-	cyclone $<
+	$(CYCLONE) $<
 
 $(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS)
-	cyclone -d $(APP).scm
+	$(CYCLONE) -d $(APP).scm
 	cc $(APP).c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o $(APP).o
 	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
 
