@@ -88,20 +88,28 @@
   (display (http:make-header "text/html" 404))
   (display "Not found."))
 
+;; TODO: parse out id arguments and pass them along, if available
 ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
 (define (route-to-controller url) ;; TODO: request type
   (with-handler
     (lambda (err)
-      (display (string-append "Error calling route-to-controller" url ":")
+      (display (string-append "Error calling route-to-controller for " url ":"))
       (newline)
       (display err)
-      (newline)))
+      (newline))
     (let* ((url-p (url-parse url))
            (path (url/p->path url url-p))
            (path-parts (string-split (string-append path "/") #\/))
            (ctrl-part (car path-parts))
+           (id-parts (if (> (length path-parts) 2)
+                         (cddr path-parts)
+                         '()))
           )
-      (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
+      (display 
+        (list `(controller ,ctrl-part) 
+              `(action ,(path-parts->action path-parts))
+              `(args ,@id-parts)
+              ))
       (let ((fnc (string->symbol
                    (string-append ctrl-part ":" (cadr path-parts)))))
        (display (list "running: " fnc))
@@ -116,18 +124,18 @@
        (newline)))))
 
 ;; TESTING
-  (route-to-controller "http://10.0.0.4/demo/test" #;ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test" #;ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/demo2/test" #;ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis)
-  (newline)
-  (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis)
-  (newline)
-  (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis)
-  (newline)
+  ;; No controller, do we provide a default one?
+  (route-to-controller "http://10.0.0.4/" #;ctrl-lis) (newline)
+  ;; No action, should have a means of default
+  (route-to-controller "http://10.0.0.4/demo" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo/" #;ctrl-lis) (newline)
+  ;; ID arguments, should provide them. also should error if mismatched (too many/few for controller's action
+  (route-to-controller "http://10.0.0.4/demo/test/1/2/3" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo2/test" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis) (newline)
+  (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis) (newline)
 ;; END
 
 (fcgx:init)
