@@ -15,7 +15,7 @@
       (display "test"))
     (define (get:status)
       (display (status-ok)))
-    (define (get:test)
+    (define (get:test arg1)
       (display "demo : test"))
     (define (get:test2 arg1 arg2)
       (display "demo : test")

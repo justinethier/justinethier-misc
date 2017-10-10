@@ -1,3 +1,4 @@
+;; TODO: Swirl MVC Framework ??
 (import (scheme base)
         (scheme write)
         (scheme eval)
@@ -93,13 +94,16 @@
 (define (route-to-controller url) ;; TODO: request type
   (with-handler
     (lambda (err)
+      ;; TODO: generate an error (502??) response
       (display (string-append "Error calling route-to-controller for " url ":"))
       (newline)
       (display err)
       (newline))
     (let* ((url-p (url-parse url))
            (path (url/p->path url url-p))
-           (path-parts (string-split (string-append path "/") #\/))
+           (path-parts (filter 
+                         (lambda (str) (> (string-length str) 0))
+                         (string-split (string-append path "/") #\/)))
            (ctrl-part (car path-parts))
            (id-parts (if (> (length path-parts) 2)
                          (cddr path-parts)
@@ -108,7 +112,8 @@
       (display 
         (list `(controller ,ctrl-part) 
               `(action ,(path-parts->action path-parts))
-              `(args ,@id-parts)
+              `(args ,id-parts)
+              `(len args ,(length id-parts))
               ))
       (let ((fnc (string->symbol
                    (string-append ctrl-part ":" (cadr path-parts)))))
@@ -119,9 +124,13 @@
                     (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
          (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
          (if fnc
-           (fnc) ;; TODO: id args
+           ;(fnc) ;; TODO: id args
+           (apply fnc id-parts) ;; TODO: generate a 200-ok status
            (send-404-response)))
        (newline)))))
+
+;; TODO: command-line interface to allow testing (maybe -t?) or just run as an
+;;       FCGI service (default behavior)
 
 ;; TESTING
   ;; No controller, do we provide a default one?
@@ -131,7 +140,8 @@
   (route-to-controller "http://10.0.0.4/demo/" #;ctrl-lis) (newline)
   ;; ID arguments, should provide them. also should error if mismatched (too many/few for controller's action
   (route-to-controller "http://10.0.0.4/demo/test/1/2/3" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test2/arg1/arg2" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test/arg1/" #;ctrl-lis) (newline)
   (route-to-controller "http://10.0.0.4/demo2/test" #;ctrl-lis) (newline)
   (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis) (newline)
   (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis) (newline)
@@ -144,6 +154,9 @@
 ;; TODO: make sure to include error handling via with-handler 
 #;(fcgx:loop 
   (lambda (req)
+    ;; TODO: need to fix dynamic-wind to guarantee after section is called, otherwise
+    ;; what happens if error is called by a controller? may be able to get around it
+    ;; by having a with-handler though to catch any exceptions
     (parameterize ((current-output-port (open-output-string)))
       (display (http:make-header "text/html" 200))
       (display "Hello, world:")
