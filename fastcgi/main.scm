@@ -11,21 +11,13 @@
         (lib http)
         (lib fcgi))
 
-;;;;
-;;;; TODO: hacky code as we are trying to figure out the best way(s) to 
-;;;; load controllers, deconstruct routes, and apply controller functions
-;;;; for the given URL routes. Once the underlying problems are solved
-;;;; this section should be cleaned up and proper error handling
-;;;; should be added
-;;;;
-
 ;; Dynamically create an (import) statement for all the controllers
 (define-syntax dyn-import
   (er-macro-transformer
     (lambda (expr rename compare)
       (define (load-controllers ctrl-files)
-        (let ((ctrls '())
-              (ctrl-funcs '()))
+        ;(let ((ctrls '())
+        ;      (ctrl-funcs '()))
           (map
             (lambda (fname)
               (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
@@ -35,21 +27,17 @@
                        (lib-exports (lib:exports lib)))
                   ;(display `(Loading ,lib-name))
                   ;(newline)
-                  ;(eval `(import ,lib-name))
-                  (set! ctrls (cons ctrl-name ctrls))
-                  (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+                  ;(set! ctrls (cons ctrl-name ctrls))
+                  ;(set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
                   `(prefix ,lib-name 
                            ,(string->symbol 
                               (string-append (symbol->string ctrl-name) ":")))
                   ))))
-            ctrl-files)
-          ))
+            ctrl-files))
       (eval `(import (lib dirent)))
       (cons 'import 
             (load-controllers
-              (eval '(find-files "app/controllers/" ".sld"))))
-      ;`(import (app controllers demo))
-      )))
+              (eval '(find-files "app/controllers/" ".sld")))))))
 (dyn-import)
 
 ;; Generate a lookup table for all controller action functions
@@ -62,8 +50,8 @@
                ""
                (lib:list->import-set import)))
       (define (load-controllers ctrl-files)
-        (let ((ctrls '())
-              (ctrl-funcs '()))
+        ;(let ((ctrls '())
+        ;      (ctrl-funcs '()))
           (map
             (lambda (fname)
               (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
@@ -71,8 +59,8 @@
                        (lib-name (lib:name lib))
                        (ctrl-name (car (reverse lib-name)))
                        (lib-exports (lib:exports lib)))
-                  (set! ctrls (cons ctrl-name ctrls))
-                  (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
+                  ;(set! ctrls (cons ctrl-name ctrls))
+                  ;(set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
                   (cons 'list
                     (cons
                      `(quote ,ctrl-name)
@@ -91,14 +79,12 @@
                       )
                       lib-exports)))
                   ))))
-            ctrl-files)
-          ))
+            ctrl-files))
       (eval `(import (lib dirent)))
       (list 'define '*ctrl-action-table*
         (cons 'list
               (load-controllers
-                (eval '(find-files "app/controllers/" ".sld")))))
-      )))
+                (eval '(find-files "app/controllers/" ".sld"))))))))
 (gen-ctrl-table)
 
 ;; ctrl/action->function :: symbol -> symbol -> Maybe function boolean
@@ -107,34 +93,6 @@
   (and-let* ((ctrl-alis (assoc ctrl *ctrl-action-table*))
              (action-alis (assoc action (cdr ctrl-alis))))
     (cdr action-alis)))
-
-;; TODO: instead, can we dynamically import these as a program? that way we can prefix them.
-;;       I guess could then just eval the functions directly?
-(define (load-controllers)
-  (let ((ctrl-files (find-files "app/controllers" ".sld"))
-        (ctrls '())
-        (ctrl-funcs '()))
-    (for-each
-      (lambda (fname)
-        (call-with-input-file (string-append "app/controllers/" fname) (lambda (fp)
-          (let* ((lib (read fp))
-                 (lib-name (lib:name lib))
-                 (ctrl-name (car (reverse lib-name)))
-                 (lib-exports (lib:exports lib)))
-            (display `(Loading ,lib-name))
-            (newline)
-            ;(eval `(import ,lib-name))
-            (set! ctrls (cons ctrl-name ctrls))
-            (set! ctrl-funcs (cons (cons ctrl-name lib-exports) ctrl-funcs))
-            ))))
-      ctrl-files)
-    (display `(Controllers: ,ctrls))
-    (newline)
-    (display `(Controller functions: ,ctrl-funcs))
-    (newline)
-    (display (eval '(get:test)))
-    (newline)
-    ctrl-funcs))
 
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
@@ -188,18 +146,23 @@
     ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
 )
 
-;(let ((ctrl-lis (load-controllers)))
+;; TESTING
   (route-to-controller "http://10.0.0.4/demo/test" #;ctrl-lis)
   (newline)
   (route-to-controller "http://10.0.0.4/demo/get:test" #;ctrl-lis)
+  (newline)
+  (route-to-controller "http://10.0.0.4/demo2/test" #;ctrl-lis)
+  (newline)
+  (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis)
   (newline)
   (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis)
   (newline)
   (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis)
   (newline)
-;)
+;; END
 
 (fcgx:init)
+;; TODO: initiate minor GC to ensure no thread-local data
 ;; TODO: make this multithreaded based on the threaded.c example
 ;; TODO: make sure to include error handling via with-handler 
 #;(fcgx:loop 
@@ -211,7 +174,7 @@
       (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
              (len (string->number len-str))
              (len-num (if len len 0)))
-        (display "<p>")
+        (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
         (display (fcgx:get-string req len-num))
         (display "<p>"))
       (fcgx:print-request req (get-output-string (current-output-port))))))
