@@ -88,51 +88,32 @@
   (display (http:make-header "text/html" 404))
   (display "Not found."))
 
+;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
 (define (route-to-controller url) ;; TODO: request type
-  (let* ((url-p (url-parse url))
-         (path (url/p->path url url-p))
-         (path-parts (string-split (string-append path "/") #\/))
-         (ctrl-part (car path-parts))
-         ;;(ctrl (assoc (string->symbol ctrl-part)))
-        )
-;    (cond
-;      ((and ctrl
-;            (member (path-parts->action path-parts) (cdr ctrl)))
-       ;(display (eval '
-       (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
-       (let ((fnc (string->symbol
-                    (string-append ctrl-part ":" (cadr path-parts)))))
-        (display (list "running: " fnc))
-        (newline)
-      ;; TODO: doesn't work because renamed identifier is only available at compile time
-      ;; and not in the global environment.
-      ;; needs to be fixed in cyclone itself
-        ;(display (eval `(,fnc))) ;; TODO: "id" args if present
-        (let ((fnc (ctrl/action->function 
-                     (string->symbol ctrl-part)
-                     (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
-          (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
-          (if fnc
-            (fnc) ;; TODO: id args
-            (send-404-response)))
-        (newline)
-      ))
-;      (else
-;        (view-404))) ;; TODO: redirect somehow
-    ;(list path path-parts ctrl-part)
-;    (cond
-;      ((> (string-length ctrl-part) 4)
-;       ;; TODO: allow subdirectories with something like (app controllers path1 path2 ctrl-name) ???
-;       (let* ((ctrl-part-sym (string->symbol (substring ctrl-part 0 (- (string-length ctrl-part) 4))))
-;              (ctrl (assoc ctrl-part-sym ctrl-lis)))
-;        
-;        )
-
-;    (list ctrl-part ctrl ctrl-lis) ;; TODO
-
-    ;; TODO: go from "test.cgi" to appropriate controller
-    ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
-)
+  (with-handler
+    (lambda (err)
+      (display (string-append "Error calling route-to-controller" url ":")
+      (newline)
+      (display err)
+      (newline)))
+    (let* ((url-p (url-parse url))
+           (path (url/p->path url url-p))
+           (path-parts (string-split (string-append path "/") #\/))
+           (ctrl-part (car path-parts))
+          )
+      (list `(controller ,ctrl-part) `(action ,(path-parts->action path-parts)))
+      (let ((fnc (string->symbol
+                   (string-append ctrl-part ":" (cadr path-parts)))))
+       (display (list "running: " fnc))
+       (newline)
+       (let ((fnc (ctrl/action->function 
+                    (string->symbol ctrl-part)
+                    (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
+         (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
+         (if fnc
+           (fnc) ;; TODO: id args
+           (send-404-response)))
+       (newline)))))
 
 ;; TESTING
   (route-to-controller "http://10.0.0.4/demo/test" #;ctrl-lis)
