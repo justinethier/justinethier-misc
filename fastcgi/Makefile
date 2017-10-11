@@ -48,5 +48,7 @@ clean:
 run:
 	spawn-fcgi -p 8000 -n $(APP)
 
+# Serve local content via this method:
+# https://stackoverflow.com/a/25486871/101258
 run-server:
-	sudo nginx -c `pwd`/nginx.conf
+	sudo nginx -c `pwd`/nginx.conf -p "`pwd`"
