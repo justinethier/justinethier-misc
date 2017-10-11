@@ -85,6 +85,20 @@
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
 
+(define (log-error msg . err)
+  (let ((fp (current-error-port)))
+    (display msg fp)
+    (newline fp)
+    (if (not (null? err))
+        (display err fp))
+    (newline fp)))
+
+(define log-notice log-error)
+
+(define (send-error-response msg)
+  (display (http:make-header "text/html" 500))
+  (display msg))
+
 (define (send-404-response)
   (display (http:make-header "text/html" 404))
   (display "Not found."))
@@ -94,11 +108,8 @@
 (define (route-to-controller url) ;; TODO: request type
   (with-handler
     (lambda (err)
-      ;; TODO: generate an error (502??) response
-      (display (string-append "Error calling route-to-controller for " url ":"))
-      (newline)
-      (display err)
-      (newline))
+      (log-error (string-append "Error calling route-to-controller for " url ":") err)
+      (send-error-response "An error occurred"))
     (let* ((url-p (url-parse url))
            (path (url/p->path url url-p))
            (path-parts (filter 
@@ -109,7 +120,7 @@
                          (cddr path-parts)
                          '()))
           )
-      (display 
+      (log-notice 
         (list `(controller ,ctrl-part) 
               `(action ,(path-parts->action path-parts))
               `(args ,id-parts)
@@ -117,17 +128,17 @@
               ))
       (let ((fnc (string->symbol
                    (string-append ctrl-part ":" (cadr path-parts)))))
-       (display (list "running: " fnc))
-       (newline)
+       (log-notice (list "running: " fnc))
        (let ((fnc (ctrl/action->function 
                     (string->symbol ctrl-part)
                     (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
-         (display `(DEBUG ,ctrl-part ,path-parts ,fnc))
-         (if fnc
-           ;(fnc) ;; TODO: id args
-           (apply fnc id-parts) ;; TODO: generate a 200-ok status
-           (send-404-response)))
-       (newline)))))
+         (log-notice `(DEBUG ,ctrl-part ,path-parts ,fnc))
+         (cond
+          (fnc
+           (display (http:make-header "text/html" 200))
+           (apply fnc id-parts))
+          (else
+           (send-404-response))))))))
 
 ;; TODO: command-line interface to allow testing (maybe -t?) or just run as an
 ;;       FCGI service (default behavior)
@@ -158,13 +169,19 @@
     ;; what happens if error is called by a controller? may be able to get around it
     ;; by having a with-handler though to catch any exceptions
     (parameterize ((current-output-port (open-output-string)))
-      (display (http:make-header "text/html" 200))
-      (display "Hello, world:")
-      (display (fcgx:get-param req "REQUEST_URI" ""))
-      (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
-             (len (string->number len-str))
-             (len-num (if len len 0)))
-        (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
-        (display (fcgx:get-string req len-num))
-        (display "<p>"))
-      (fcgx:print-request req (get-output-string (current-output-port))))))
+      (with-handler
+        (lambda (err)
+          (display (string-append "Error in fcgx:loop: "))
+          (newline)
+          (display err)
+          (newline))
+        (display (http:make-header "text/html" 200))
+        (display "Hello, world:")
+        (display (fcgx:get-param req "REQUEST_URI" ""))
+        (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
+               (len (string->number len-str))
+               (len-num (if len len 0)))
+          (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
+          (display (fcgx:get-string req len-num))
+          (display "<p>"))
+        (fcgx:print-request req (get-output-string (current-output-port)))))))
