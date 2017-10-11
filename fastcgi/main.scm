@@ -144,6 +144,7 @@
 ;;       FCGI service (default behavior)
 
 ;; TESTING
+#;(begin
   ;; No controller, do we provide a default one?
   (route-to-controller "http://10.0.0.4/" #;ctrl-lis) (newline)
   ;; No action, should have a means of default
@@ -157,13 +158,13 @@
   (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis) (newline)
   (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis) (newline)
   (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis) (newline)
-;; END
+) ;; END
 
 (fcgx:init)
 ;; TODO: initiate minor GC to ensure no thread-local data
 ;; TODO: make this multithreaded based on the threaded.c example
 ;; TODO: make sure to include error handling via with-handler 
-#;(fcgx:loop 
+(fcgx:loop 
   (lambda (req)
     ;; TODO: need to fix dynamic-wind to guarantee after section is called, otherwise
     ;; what happens if error is called by a controller? may be able to get around it
@@ -171,17 +172,18 @@
     (parameterize ((current-output-port (open-output-string)))
       (with-handler
         (lambda (err)
-          (display (string-append "Error in fcgx:loop: "))
-          (newline)
-          (display err)
-          (newline))
-        (display (http:make-header "text/html" 200))
-        (display "Hello, world:")
-        (display (fcgx:get-param req "REQUEST_URI" ""))
-        (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
-               (len (string->number len-str))
-               (len-num (if len len 0)))
-          (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
-          (display (fcgx:get-string req len-num))
-          (display "<p>"))
+          (log-error (string-append "Error in fcgx:loop: ") err)
+          (send-error-response "Internal error"))
+        (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
+          (route-to-controller uri))
+        ;(display (http:make-header "text/html" 200))
+        ;(display "Hello, world:")
+        ;(display (fcgx:get-param req "REQUEST_URI" ""))
+        ;; TODO: example of getting POST (put, delete??) params, will need later
+        ;(let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
+        ;       (len (string->number len-str))
+        ;       (len-num (if len len 0)))
+        ;  (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
+        ;  (display (fcgx:get-string req len-num))
+        ;  (display "<p>"))
         (fcgx:print-request req (get-output-string (current-output-port)))))))
