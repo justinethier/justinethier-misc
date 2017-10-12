@@ -174,16 +174,16 @@
         (lambda (err)
           (log-error (string-append "Error in fcgx:loop: ") err)
           (send-error-response "Internal error"))
-        (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
-          (route-to-controller uri))
-        ;(display (http:make-header "text/html" 200))
+       ;; (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
+       ;;   (route-to-controller uri))
+        (display (http:make-header "text/html" 200))
         ;(display "Hello, world:")
-        ;(display (fcgx:get-param req "REQUEST_URI" ""))
-        ;; TODO: example of getting POST (put, delete??) params, will need later
-        ;(let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
-        ;       (len (string->number len-str))
-        ;       (len-num (if len len 0)))
-        ;  (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
-        ;  (display (fcgx:get-string req len-num))
-        ;  (display "<p>"))
+        (display (fcgx:get-param req "REQUEST_METHOD" "GET"))
+        ; TODO: example of getting POST (put, delete??) params, will need later
+        (let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
+               (len (string->number len-str))
+               (len-num (if len len 0)))
+          (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
+          (display (fcgx:get-string req len-num))
+          (display "<p>"))
         (fcgx:print-request req (get-output-string (current-output-port)))))))

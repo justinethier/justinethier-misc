@@ -24,7 +24,6 @@ spawn-fcgi -p 8000 -n example
 
 
 For next steps forward, TODO:
-- model integration, create a demo one
 - REST integration, add support for get/post/put/delete methods
 - as part of that, need to be able to receive POST args (and PUT/DELETE, are those the same?)
 - as part of that, also need a way to format returned sexps as json/xml/other.
