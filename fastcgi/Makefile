@@ -7,6 +7,9 @@ APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 CONTROLLERS=$(wildcard app/controllers/*.sld)
 CONTROLLER_OBJS=$(CONTROLLERS:.sld=.o)
 
+MODELS=$(wildcard app/models/*.sld)
+MODEL_OBJS=$(MODELS:.sld=.o)
+
 CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/common.o \
   $(CYCLONE_DIR)/scheme/base.o \
@@ -26,13 +29,16 @@ all: $(APP) $(APP_LIBS_COBJECTS)
 $(CONTROLLER_OBJS) : %.o: %.sld
 	$(CYCLONE) $<
 
+$(MODEL_OBJS) : %.o: %.sld
+	$(CYCLONE) $<
+
 $(APP_LIBS_COBJECTS) : %.o: %.sld
 	$(CYCLONE) $<
 
-$(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS)
+$(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS)
 	$(CYCLONE) -d $(APP).scm
 	cc $(APP).c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o $(APP).o
-	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
+	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
 
 #threaded: threaded.c
 #	gcc threaded.c -lpthread -lfcgi -o threaded

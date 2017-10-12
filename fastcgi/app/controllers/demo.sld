@@ -3,6 +3,7 @@
     (scheme base)
     (scheme write)
     (lib http)
+    (prefix (app models demo) demo-model:)
   )
   (export
     test
@@ -16,7 +17,7 @@
     (define (get:status)
       (display (status-ok)))
     (define (get:test arg1)
-      (display "demo : test"))
+      (display (demo-model:get-data)))
     (define (get:test2 arg1 arg2)
       (display "demo : test")
       (display ": ")
