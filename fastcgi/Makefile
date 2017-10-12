@@ -40,15 +40,18 @@ $(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS)
 #example: example.c
 #	gcc example.c -lfcgi -o example
 
-.PHONY: clean run run-server
+.PHONY: clean run run-server copy-html
 clean:
 #	rm -f example $(APP) threaded *.meta *.so *.o $(APP).c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 	git clean -fdx
 
+copy-html:
+	sudo cp -r html $(WEB_DIR)/$(APP_WEB_SUBDIR)
+
 run:
 	spawn-fcgi -p 8000 -n $(APP)
 
-# Serve local content via this method:
+# FUTURE? Serve local content via this method:
 # https://stackoverflow.com/a/25486871/101258
 run-server:
-	sudo nginx -c `pwd`/nginx.conf -p "`pwd`"
+	sudo nginx -c `pwd`/nginx.conf
