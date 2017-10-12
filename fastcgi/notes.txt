@@ -24,8 +24,13 @@ spawn-fcgi -p 8000 -n example
 
 
 For next steps forward, TODO:
-- create app/models, controllers, views?
-- try to think/experiment with how these would work to contain a web app.
-  also if it makes sense to organize things this way
+- model integration, create a demo one
+- REST integration, add support for get/post/put/delete methods
+- as part of that, need to be able to receive POST args (and PUT/DELETE, are those the same?)
+- as part of that, also need a way to format returned sexps as json/xml/other.
+  basically will want to call a function that accepts an expression and does all of the
+  writing to stdout for the object
+- clean up main, relocating code to libraries as needed (or maybe this is good enough?)
 - make scheme code multithreaded (see threaded.c example)
-
+- once that all works, start thinking about views
+- project name: cyclone web?
