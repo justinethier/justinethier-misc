@@ -24,8 +24,6 @@ spawn-fcgi -p 8000 -n example
 
 
 For next steps forward, TODO:
-- ideally need a thread-safe container for the request objects, and a way for threads to call into it. maybe a list of opaque objects, but then how does a thread index into that? want this to prevent having every controller function take a request argument
-
 - REST integration, add support for get/post/put/delete methods
 - as part of that, need to be able to receive POST args (and PUT/DELETE, are those the same?)
 - as part of that, also need a way to format returned sexps as json/xml/other.
@@ -34,4 +32,4 @@ For next steps forward, TODO:
 - clean up main, relocating code to libraries as needed (or maybe this is good enough?)
 - make scheme code multithreaded (see threaded.c example)
 - once that all works, start thinking about views
-- project name: cyclone web?
+- project name: cyclone web? gamma mvc framework?
