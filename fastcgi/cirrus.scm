@@ -176,27 +176,29 @@
           (lambda (err)
             (log-error (string-append "Error in fcgx:loop: ") err)
             (send-error-response "Internal error"))
-         ;; (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
-         ;;   (route-to-controller uri))
-          (display (http:make-header "text/html" 200))
-;          ;(display "Hello, world:")
-;          (display `(DEBUG1 ,(Cyc-opaque? req) ,req))
-;          (display `(DEBUG2 ,(Cyc-opaque? (thread-specific (current-thread))) ,(thread-specific (current-thread))))
-
-;;TODO: create a new (lib fcgi ???) to make it easier to get params, etc
-;;write such that the API expects to be user-facing
-
-          (display (req:method)) ;(fcgx:get-param req "REQUEST_METHOD" "GET"))
-          (display (req:body))
-          (display (req:content-type))
-          ; TODO: example of getting POST (put, delete??) params, will need later
-          ;(let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
-          ;       (len (string->number len-str))
-          ;       (len-num (if len len 0)))
-          ;  (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
-          ;  (display (fcgx:get-string req len-num))
-          ;  (display "<p>"))
+          (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
+            (route-to-controller uri))
           (fcgx:print-request req (get-output-string (current-output-port))))))))
+
+;          (display (http:make-header "text/html" 200))
+;;          ;(display "Hello, world:")
+;;          (display `(DEBUG1 ,(Cyc-opaque? req) ,req))
+;;          (display `(DEBUG2 ,(Cyc-opaque? (thread-specific (current-thread))) ,(thread-specific (current-thread))))
+;
+;;;TODO: create a new (lib fcgi ???) to make it easier to get params, etc
+;;;write such that the API expects to be user-facing
+;
+;          (display (req:method)) ;(fcgx:get-param req "REQUEST_METHOD" "GET"))
+;          (display (req:body))
+;          (display (req:content-type))
+;          ; TODO: example of getting POST (put, delete??) params, will need later
+;          ;(let* ((len-str (fcgx:get-param req "CONTENT_LENGTH" "0"))
+;          ;       (len (string->number len-str))
+;          ;       (len-num (if len len 0)))
+;          ;  (display "<p>") ;; TODO: function like "(htm:p)" to make this easier???
+;          ;  (display (fcgx:get-string req len-num))
+;          ;  (display "<p>"))
+;          (fcgx:print-request req (get-output-string (current-output-port))))))))
 
 ;; TODO: make number of thread configurable?
 (let loop ((i 20))

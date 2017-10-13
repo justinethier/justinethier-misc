@@ -21,9 +21,9 @@
     url/p->fragment
     url/p->userinfo
 
-    ;; Still here, but probably obsolete
     url->query-string
     url->get-params
+    query-string->field-values
   )
   (begin
 
@@ -93,8 +93,11 @@
 
 ;; url->get-params :: string -> [alist]
 (define (url->get-params url)
-  (let* ((qs (url->query-string url))
-         (field-values (string-split qs #\&)))
+  (let* ((qs (url->query-string url)))
+    (query-string->field-values qs)))
+
+(define (query-string->field-values qs)
+  (let ((field-values (string-split qs #\&)))
     (map
       (lambda (field-value)
         (let ((fv (string-split field-value #\=)))
