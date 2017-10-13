@@ -32,4 +32,4 @@ For next steps forward, TODO:
 - clean up main, relocating code to libraries as needed (or maybe this is good enough?)
 - make scheme code multithreaded (see threaded.c example)
 - once that all works, start thinking about views
-- project name: cyclone web? gamma mvc framework?
+- project name: Cirrus MVC Framework
