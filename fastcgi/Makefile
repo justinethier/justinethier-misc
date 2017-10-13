@@ -52,6 +52,7 @@ clean:
 	git clean -fdx
 
 copy-html:
+	sudo rm -rf $(WEB_DIR)/$(APP_WEB_SUBDIR)
 	sudo cp -r html $(WEB_DIR)/$(APP_WEB_SUBDIR)
 
 run:
