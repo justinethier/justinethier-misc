@@ -183,8 +183,8 @@
           (display `(DEBUG1 ,(Cyc-opaque? req) ,req))
           (display `(DEBUG2 ,(Cyc-opaque? (thread-specific (current-thread))) ,(thread-specific (current-thread))))
 
-TODO: create a new (lib fcgi ???) to make it easier to get params, etc
-write such that the API expects to be user-facing
+;;TODO: create a new (lib fcgi ???) to make it easier to get params, etc
+;;write such that the API expects to be user-facing
 
           (display (fcgx:get-param req "REQUEST_METHOD" "GET"))
           ; TODO: example of getting POST (put, delete??) params, will need later
