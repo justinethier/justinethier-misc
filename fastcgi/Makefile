@@ -1,6 +1,12 @@
 include Makefile.config
 
-APP_LIBS = lib/http.sld lib/fcgi.sld lib/dirent.sld
+APP_LIB_DIR = lib
+APP_LIBS = \
+  $(APP_LIB_DIR)/http.sld \
+  $(APP_LIB_DIR)/fcgi.sld \
+  $(APP_LIB_DIR)/dirent.sld \
+  $(APP_LIB_DIR)/request.sld
+
 APP_LIBS_COBJECTS = $(APP_LIBS:.sld=.o)
 APP_LIBS_CFILES = $(APP_LIBS:.sld=.c)
 
