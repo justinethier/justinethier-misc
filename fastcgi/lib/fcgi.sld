@@ -1,7 +1,9 @@
 (define-library (lib fcgi)
   (import 
     (scheme base)
-    (scheme cyclone util))
+    (scheme cyclone util)
+    (srfi 18)
+  )
   (include-c-header "fcgi_config.h")
   (include-c-header "fcgiapp.h")
   (export
@@ -89,9 +91,11 @@
         return_closcall1(data, k, boolean_t);")
     
     (define (fcgx:loop callback-body)
-      (let loop ((req (fcgx:make-request)))
-        (fcgx:accept-request req)
-        (callback-body req)
-        (fcgx:finish-request req)
-        (loop req)))
+      (let ((req (fcgx:make-request)))
+        (thread-specific-set! (current-thread) req) ;; Save for later
+        (let loop ()
+          (fcgx:accept-request req)
+          (callback-body req)
+          (fcgx:finish-request req)
+          (loop))))
   ))
