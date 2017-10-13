@@ -1,4 +1,3 @@
-;; TODO: Swirl MVC Framework ??
 (import (scheme base)
         (scheme write)
         (scheme eval)
