@@ -7,7 +7,6 @@
   (export
     test
     get:status
-    get:test
     get:test2
   )
   (begin
@@ -15,8 +14,6 @@
       (display "demo 2 test"))
     (define (get:status)
       (display (status-ok)))
-    (define (get:test)
-      (display "demo2 : test"))
     (define (get:test2 arg1 arg2)
       (display "demo2 : test")
       (display ": ")

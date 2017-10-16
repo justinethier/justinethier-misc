@@ -6,14 +6,11 @@
     (prefix (app models demo) demo-model:)
   )
   (export
-    test
     get:status
     get:test
     get:test2
   )
   (begin
-    (define (test)
-      (display "test"))
     (define (get:status)
       (display (status-ok)))
     (define (get:test arg1)

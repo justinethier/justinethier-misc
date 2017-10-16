@@ -93,17 +93,25 @@
 ;; Lookup function for given controller / action pair
 (define (ctrl/action->function ctrl action req-method)
   (and-let* (((not (rest-method? action)))
-             (action-str
-              (if (> (string-length req-method) 0)
-                  (string-append req-method ":" action)
-                  action))
+             (action-str action)
              (action-sym 
                (string->symbol
                  (string-append ctrl ":" action-str)))
+             (rest-action-str
+              (if (> (string-length req-method) 0)
+                  (string-append req-method ":" action)
+                  action))
+             (rest-action-sym 
+               (string->symbol
+                 (string-append ctrl ":" rest-action-str)))
              (ctrl-sym (string->symbol ctrl))
-             (ctrl-alis (assoc ctrl-sym *ctrl-action-table*))
-             (action-alis (assoc action-sym (cdr ctrl-alis))))
-    (cadr action-alis)))
+             (ctrl-alis (assoc ctrl-sym *ctrl-action-table*)))
+    (let ((action-alis (assoc action-sym (cdr ctrl-alis)))
+          (rest-action-alis (assoc rest-action-sym (cdr ctrl-alis))))
+      (cond
+        (rest-action-alis (cadr rest-action-alis))
+        (action-alis (cadr action-alis))
+        (else #f)))))
 
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
@@ -177,17 +185,16 @@
 
 ;; TESTING
 (begin
-  ;; No controller, do we provide a default one?
-  (route-to-controller "http://10.0.0.4/" "GET") (newline)
-  ;; No action, should have a means of default
-  (route-to-controller "http://10.0.0.4/demo" "GET") (newline)
-  (route-to-controller "http://10.0.0.4/demo/" "GET") (newline)
-  ;; ID arguments, should provide them. also should error if mismatched (too many/few for controller's action
+;  ;; No controller, do we provide a default one?
+;  (route-to-controller "http://10.0.0.4/" "GET") (newline)
+;  ;; No action, should have a means of default
+;  (route-to-controller "http://10.0.0.4/demo" "GET") (newline)
+;  (route-to-controller "http://10.0.0.4/demo/" "GET") (newline)
+;  ;; ID arguments, should provide them. also should error if mismatched (too many/few for controller's action
   (route-to-controller "http://10.0.0.4/demo/test/1/2/3" "GET") (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test2/arg1/arg2" "GET") (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test/arg1/" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo/test2/arg1/arg2" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo/status" "GET") (newline)
   (route-to-controller "http://10.0.0.4/demo2/test" "GET") (newline)
-  (route-to-controller "http://10.0.0.4/demo2/get:test" "GET") (newline)
   (route-to-controller "http://10.0.0.4/controller/action/id" "GET") (newline)
   (route-to-controller "http://localhost/demo.cgi" "GET") (newline)
 ) ;; END
