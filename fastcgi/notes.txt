@@ -30,5 +30,4 @@ For next steps forward, TODO:
   basically will want to call a function that accepts an expression and does all of the
   writing to stdout for the object
 - clean up main, relocating code to libraries as needed (or maybe this is good enough?)
-- make scheme code multithreaded (see threaded.c example)
 - once that all works, start thinking about views

@@ -89,7 +89,7 @@
                 (eval '(find-files "app/controllers/" ".sld"))))))))
 (gen-ctrl-table)
 
-;; ctrl/action->function :: string -> string -> string -> Maybe function boolean
+;; ctrl/action->function :: string -> string -> string -> Maybe pair boolean
 ;; Lookup function for given controller / action pair
 (define (ctrl/action->function ctrl action req-method)
   (and-let* (((not (rest-method? action)))
@@ -109,8 +109,8 @@
     (let ((action-alis (assoc action-sym (cdr ctrl-alis)))
           (rest-action-alis (assoc rest-action-sym (cdr ctrl-alis))))
       (cond
-        (rest-action-alis (cadr rest-action-alis))
-        (action-alis (cadr action-alis))
+        (rest-action-alis (cons 'rest (cadr rest-action-alis)))
+        (action-alis (cons 'html (cadr action-alis)))
         (else #f)))))
 
 (define (path-parts->action parts)
@@ -163,22 +163,27 @@
               `(args ,id-parts)
               `(len args ,(length id-parts))
               ))
-      (let ((fnc (string->symbol
-                   (string-append ctrl-part ":" (cadr path-parts)))))
-       (log-notice (list "running: " fnc))
-       (let ((fnc (ctrl/action->function 
-                    ctrl-part ;(string->symbol ctrl-part)
-                    (cadr path-parts) ;(string->symbol (string-append ctrl-part ":" (cadr path-parts)))
-                    (if (string? req-method)
-                        (string-downcase req-method)
-                        ""))))
-         (log-notice `(DEBUG ,ctrl-part ,path-parts ,req-method ,fnc))
+      ;(let ((fnc (string->symbol
+      ;             (string-append ctrl-part ":" (cadr path-parts)))))
+      ; (log-notice (list "running: " fnc))
+       (let ((type/fnc 
+               (ctrl/action->function 
+                 ctrl-part ;(string->symbol ctrl-part)
+                 (cadr path-parts) ;(string->symbol (string-append ctrl-part ":" (cadr path-parts)))
+                 (if (string? req-method)
+                     (string-downcase req-method)
+                     ""))))
+         (log-notice `(DEBUG ,ctrl-part ,path-parts ,req-method ,type/fnc))
          (cond
-          (fnc
-           (display (http:make-header "text/html" 200))
-           (apply fnc id-parts))
+          (type/fnc
+           (display (http:make-header 
+                      (if (equal? (car type/fnc) 'rest)
+                          "application/json" 
+                          "text/html")
+                      200))
+           (apply (cdr type/fnc) id-parts))
           (else
-           (send-404-response))))))))
+           (send-404-response)))))))
 
 ;; TODO: command-line interface to allow testing (maybe -t?) or just run as an
 ;;       FCGI service (default behavior)
