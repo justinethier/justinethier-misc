@@ -1,4 +1,5 @@
 (import (scheme base)
+        (scheme char)
         (scheme write)
         (scheme eval)
         (scheme read)
@@ -61,10 +62,23 @@
                    `(quote ,ctrl-name)
                    (map
                     (lambda (export)
-                      (let ((sym (string->symbol 
+                      (let* ((export-parts 
+                               (string-split 
+                                 (string-downcase 
+                                   (symbol->string export))
+                                 #\:))
+                             (rest-indicator
+                              (cond
+                                ((<= (length export-parts) 1)
+                                 #f)
+                                ((member (car export-parts) '("get" "post" "put" "delete"))
+                                 (car export-parts))
+                                (else #f)))
+                             (sym (string->symbol 
                                    (string-append 
                                      (symbol->string ctrl-name) ":" (symbol->string export)))))
-                        `(cons (quote ,sym) ,sym)))
+;;TODO: also append REST request type, if a rest function
+                        `(list (quote ,sym) ,sym ,rest-indicator)))
                     lib-exports)))
                 ))))
           ctrl-files))
@@ -75,15 +89,30 @@
                 (eval '(find-files "app/controllers/" ".sld"))))))))
 (gen-ctrl-table)
 
-;; ctrl/action->function :: symbol -> symbol -> Maybe function boolean
+;; ctrl/action->function :: string -> string -> string -> Maybe function boolean
 ;; Lookup function for given controller / action pair
-(define (ctrl/action->function ctrl action)
-  (and-let* ((ctrl-alis (assoc ctrl *ctrl-action-table*))
-             (action-alis (assoc action (cdr ctrl-alis))))
-    (cdr action-alis)))
+(define (ctrl/action->function ctrl action req-method)
+  (and-let* (((not (rest-method? action)))
+             (action-str
+              (if (> (string-length req-method) 0)
+                  (string-append req-method ":" action)
+                  action))
+             (action-sym 
+               (string->symbol
+                 (string-append ctrl ":" action-str)))
+             (ctrl-sym (string->symbol ctrl))
+             (ctrl-alis (assoc ctrl-sym *ctrl-action-table*))
+             (action-alis (assoc action-sym (cdr ctrl-alis))))
+    (cadr action-alis)))
 
 (define (path-parts->action parts)
   (string->symbol (cadr parts))) ;; TODO: if none, then index
+
+(define (rest-method? action)
+  (let ((parts (string-split (string-downcase action) #\:)))
+    (and
+      (> (length parts) 1)
+      (member (car parts) '("get" "post" "put" "delete")))))
 
 (define (log-error msg . err)
   (let ((fp (current-error-port)))
@@ -105,7 +134,7 @@
 
 ;; TODO: parse out id arguments and pass them along, if available
 ;; TODO: get the request type, then should a prefix "get:" "post:" (if available) route to by req type
-(define (route-to-controller url) ;; TODO: request type
+(define (route-to-controller url req-method)
   (with-handler
     (lambda (err)
       (log-error (string-append "Error calling route-to-controller for " url ":") err)
@@ -130,9 +159,12 @@
                    (string-append ctrl-part ":" (cadr path-parts)))))
        (log-notice (list "running: " fnc))
        (let ((fnc (ctrl/action->function 
-                    (string->symbol ctrl-part)
-                    (string->symbol (string-append ctrl-part ":" (cadr path-parts))))))
-         (log-notice `(DEBUG ,ctrl-part ,path-parts ,fnc))
+                    ctrl-part ;(string->symbol ctrl-part)
+                    (cadr path-parts) ;(string->symbol (string-append ctrl-part ":" (cadr path-parts)))
+                    (if (string? req-method)
+                        (string-downcase req-method)
+                        ""))))
+         (log-notice `(DEBUG ,ctrl-part ,path-parts ,req-method ,fnc))
          (cond
           (fnc
            (display (http:make-header "text/html" 200))
@@ -144,21 +176,23 @@
 ;;       FCGI service (default behavior)
 
 ;; TESTING
-#;(begin
+(begin
   ;; No controller, do we provide a default one?
-  (route-to-controller "http://10.0.0.4/" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/" "GET") (newline)
   ;; No action, should have a means of default
-  (route-to-controller "http://10.0.0.4/demo" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo/" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo/" "GET") (newline)
   ;; ID arguments, should provide them. also should error if mismatched (too many/few for controller's action
-  (route-to-controller "http://10.0.0.4/demo/test/1/2/3" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test2/arg1/arg2" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo/get:test/arg1/" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo2/test" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/demo2/get:test" #;ctrl-lis) (newline)
-  (route-to-controller "http://10.0.0.4/controller/action/id" #;ctrl-lis) (newline)
-  (route-to-controller "http://localhost/demo.cgi" #;ctrl-lis) (newline)
+  (route-to-controller "http://10.0.0.4/demo/test/1/2/3" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test2/arg1/arg2" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo/get:test/arg1/" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo2/test" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/demo2/get:test" "GET") (newline)
+  (route-to-controller "http://10.0.0.4/controller/action/id" "GET") (newline)
+  (route-to-controller "http://localhost/demo.cgi" "GET") (newline)
 ) ;; END
+
+(exit 0)
 
 (fcgx:init)
 ;; TODO: initiate minor GC to ensure no thread-local data??
@@ -176,8 +210,9 @@
           (lambda (err)
             (log-error (string-append "Error in fcgx:loop: ") err)
             (send-error-response "Internal error"))
-          (let ((uri (fcgx:get-param req "REQUEST_URI" "")))
-            (route-to-controller uri))
+          (let ((uri (fcgx:get-param req "REQUEST_URI" ""))
+                (req-method (fcgx:get-param req "REQUEST_METHOD" "GET")))
+            (route-to-controller uri req-method))
           (fcgx:print-request req (get-output-string (current-output-port))))))))
 
 ;          (display (http:make-header "text/html" 200))
