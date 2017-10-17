@@ -22,7 +22,16 @@
     ((string? expr) 
      (display "\"")
      (let loop ((lis (string->list expr)))
-       (cond
+       (case
+        (car lis)
+        ((#\") (display "\\\""))
+        ((#\\) (display "\\\\"))
+        ((#\/) (display "\\/"))
+        ((#\backspace) (display "\\b"))
+        ((#\x12) (display "\\f"))
+        ((#\newline) (display "\\n"))
+        ((#\return) (display "\\r"))
+        ((#\tab) (display "\\t"))
         (else
           (display (car lis))))
        (when (not (null? (cdr lis)))
@@ -93,7 +102,8 @@
     (else (error "Unknown expression" expr)))) ;; TODO: or  just a string representation?
 
 ;; Tests:
-(->json "a long string\r\n\\\t\a'\"\" DONE")
+(->json #\newline)
+(->json "a / long string\r\n\\\t\a'\"\" DONE")
 (->json '(a . b))
 (->json '(1 2 3 . 4))
 (->json '(#\A #\B))
