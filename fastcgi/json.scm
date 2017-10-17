@@ -1,11 +1,15 @@
 ;; A temporary test file, move this to a library with a corresponding unit test program
 ;; Compare with spec from json.org
-(import (scheme base) (scheme write))
+(import 
+  (scheme base) 
+  (scheme write)
+  (scheme cyclone util))
 
 (define (json-scalar? expr)
   (or (boolean? expr)
       (null? expr)
       (number? expr)
+      (char? expr)
       (string? expr)
       (symbol? expr)))
 
@@ -14,8 +18,17 @@
     ((eq? expr #t) (display "true"))
     ((eq? expr #f) (display "false"))
     ((eq? expr '()) (display "null"))
-    ((number? expr) (display expr)) ;; TODO: good enough???
-    ((string? expr) (write expr)) ;; TODO: not good enough
+    ((number? expr) (display expr)) ;; Good enough?
+    ((string? expr) 
+     (display "\"")
+     (let loop ((lis (string->list expr)))
+       (cond
+        (else
+          (display (car lis))))
+       (when (not (null? (cdr lis)))
+        (loop (cdr lis))))
+     (display "\""))
+    ((char? expr)   (->json (string expr)))
     ((symbol? expr) (->json (symbol->string expr)))
     ((list? expr)
      (cond
@@ -24,36 +37,66 @@
            (and (pair? e)
                 (json-scalar? (car e))))
          expr)
-       'TODO)
-       ;; TODO: create a list where car is key and cdr is value
-       ;; TODO: ensure car is wrapped into a string
-       ;; TODO: if cdr is a list, make it into an array
+       (display "{")
+       (let loop ((first? #t)
+                  (lis expr))
+        (if (not first?) (display ", "))
+        (let ((cell (car lis)))
+          (cond
+            ((or (char? (car cell))
+                 (string? (car cell))
+                 (symbol? (car cell)))
+             (->json (car cell)))
+            (else
+              (display "\"")
+              (->json (car cell))
+              (display "\"")))
+          (display ":")
+          (->json (cdr cell)))
+        (if (not (null? (cdr lis)))
+            (loop #f (cdr lis))))
+       (display "}"))
       (else
-       'TODO)) ;; Just convert as an array
-    )
+       (display "[")
+       (let loop ((first? #t)
+                  (lis expr))
+        (if (not first?) (display ", "))
+        (->json (car lis))
+        (if (not (null? (cdr lis)))
+            (loop #f (cdr lis))))
+       (display "]"))))
+    ((pair? expr)
+     (->json (pair->list expr)))
     ((vector? expr)
-     (display "[ ")
+     (display "[")
      (let loop ((i 0)
                 (count (vector-length expr)))
       (when (> count i)
+        (if (zero? i)
+            (display "")
+            (display ", "))
         (->json (vector-ref expr i))
-        (display " ")
         (loop (+ i 1) count)))
      (display "]"))
     ((bytevector? expr)
-     (display "[ ")
+     (display "[")
      (let loop ((i 0)
                 (count (bytevector-length expr)))
       (when (> count i)
+        (if (zero? i)
+            (display "")
+            (display ", "))
         (->json (bytevector-u8-ref expr i))
-        (display " ")
         (loop (+ i 1) count)))
      (display "]"))
     ;; TODO: hash table?
-    (else (error "Unknown expression" expr)) ;; TODO: or  just a string representation?
-))
+    (else (error "Unknown expression" expr)))) ;; TODO: or  just a string representation?
 
-
+;; Tests:
+(->json "a long string\r\n\\\t\a'\"\" DONE")
+(->json '(a . b))
+(->json '(1 2 3 . 4))
+(->json '(#\A #\B))
 (->json 1)
 (->json "test")
 (->json #t)
@@ -63,4 +106,4 @@
 (newline)
 (->json '(1 2 3 4)) (newline)
 (->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
-(->json '((a 1) (b 2) (c 3) (d 4))) (newline)
+(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
