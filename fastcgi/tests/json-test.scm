@@ -1,9 +1,25 @@
-;;(import 
-;;  (scheme base)
-;;  (srfi 121)
-;;  (only (srfi 1) unfold)
-;;  (scheme cyclone test))
-;;
+(import 
+  (scheme base)
+  (lib json)
+  (scheme cyclone test))
+
+;; Tests:
+(->json #\newline)
+(->json "a / long string\r\n\\\t\a'\"\" DONE")
+(->json '(a . b))
+(->json '(1 2 3 . 4))
+(->json '(#\A #\B))
+(->json 1)
+(->json "test")
+(->json #t)
+(->json '())
+(->json #(1 2 3 4))
+(->json #u8(1 2 3 444))
+(newline)
+(->json '(1 2 3 4)) (newline)
+(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
+(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
+
 ;;(test-group 
 ;;  "generator constructors"
 ;;  (test '() (generator->list (generator)))
@@ -57,6 +73,6 @@
 ;;  (test '(#\a #\b #\c)
 ;;        (generator-unfold (make-for-each-generator string-for-each
 ;;                                                   "abc") unfold)))
-;;
-;;(test-exit)
-;;
+
+(test-exit)
+
