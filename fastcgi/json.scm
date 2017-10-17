@@ -9,11 +9,30 @@
     ((eq? expr '()) (display "null"))
     ((number? expr) (display expr)) ;; TODO: not good enough??
     ((string? expr) (write expr)) ;; TODO: not good enough
+    ((list? expr)
+     ;; TODO: treat alists differently??
+     'TODO
+    )
     ((vector? expr)
-     (display "[")
-     ;; TODO: display vector contents
+     (display "[ ")
+     (let loop ((i 0)
+                (count (vector-length expr)))
+      (when (> count i)
+        (->json (vector-ref expr i))
+        (display " ")
+        (loop (+ i 1) count)))
      (display "]"))
-    (else (error "Unknown expression" expr))
+    ((bytevector? expr)
+     (display "[ ")
+     (let loop ((i 0)
+                (count (bytevector-length expr)))
+      (when (> count i)
+        (->json (bytevector-u8-ref expr i))
+        (display " ")
+        (loop (+ i 1) count)))
+     (display "]"))
+    ;; TODO: hash table?
+    (else (error "Unknown expression" expr)) ;; TODO: or  just a string representation?
 ))
 
 
@@ -22,3 +41,4 @@
 (->json #t)
 (->json '())
 (->json #(1 2 3 4))
+(->json #u8(1 2 3 444))
