@@ -2,16 +2,34 @@
 ;; Compare with spec from json.org
 (import (scheme base) (scheme write))
 
+(define (json-scalar? expr)
+  (or (boolean? expr)
+      (null? expr)
+      (number? expr)
+      (string? expr)
+      (symbol? expr)))
+
 (define (->json expr)
   (cond
     ((eq? expr #t) (display "true"))
     ((eq? expr #f) (display "false"))
     ((eq? expr '()) (display "null"))
-    ((number? expr) (display expr)) ;; TODO: not good enough??
+    ((number? expr) (display expr)) ;; TODO: good enough???
     ((string? expr) (write expr)) ;; TODO: not good enough
+    ((symbol? expr) (->json (symbol->string expr)))
     ((list? expr)
-     ;; TODO: treat alists differently??
-     'TODO
+     (cond
+      ((every
+         (lambda (e)
+           (and (pair? e)
+                (json-scalar? (car e))))
+         expr)
+       'TODO)
+       ;; TODO: create a list where car is key and cdr is value
+       ;; TODO: ensure car is wrapped into a string
+       ;; TODO: if cdr is a list, make it into an array
+      (else
+       'TODO)) ;; Just convert as an array
     )
     ((vector? expr)
      (display "[ ")
@@ -42,3 +60,7 @@
 (->json '())
 (->json #(1 2 3 4))
 (->json #u8(1 2 3 444))
+(newline)
+(->json '(1 2 3 4)) (newline)
+(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
+(->json '((a 1) (b 2) (c 3) (d 4))) (newline)
