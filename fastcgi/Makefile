@@ -31,6 +31,14 @@ CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/libraries.o \
   $(CYCLONE_DIR)/scheme/char.o
 
+TEST_DIR = tests
+TEST_SRC = \
+ $(TEST_DIR)/json-test.scm
+TESTS = $(basename $(TEST_SRC))
+
+$(TESTS) : %: %.scm
+	$(CYCLONE) $< && ./$@
+
 all: $(APP) $(APP_LIBS_COBJECTS)
 
 $(CONTROLLER_OBJS) : %.o: %.sld
@@ -53,10 +61,12 @@ $(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS)
 #example: example.c
 #	gcc example.c -lfcgi -o example
 
-.PHONY: clean run run-server copy-html
+.PHONY: clean test run run-server copy-html
 clean:
 #	rm -f example $(APP) threaded *.meta *.so *.o $(APP).c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 	git clean -fdx
+
+test: $(APP) $(APP_LIBS_COBJECTS) $(TESTS) $(TEST_OBJS)
 
 copy-html:
 	sudo rm -rf $(WEB_DIR)/$(APP_WEB_SUBDIR)

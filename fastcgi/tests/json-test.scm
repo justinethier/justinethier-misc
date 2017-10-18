@@ -4,24 +4,24 @@
   (scheme cyclone test))
 
 ;; Tests:
-(->json #\newline)
-(->json "a / long string\r\n\\\t\a'\"\" DONE")
-(->json '(a . b))
-(->json '(1 2 3 . 4))
-(->json '(#\A #\B))
-(->json 1)
-(->json "test")
-(->json #t)
-(->json '())
-(->json #(1 2 3 4))
-(->json #u8(1 2 3 444))
-(newline)
-(->json '(1 2 3 4)) (newline)
-(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
-(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
+;(->json "a / long string\r\n\\\t\a'\"\" DONE")
+;(->json #(1 2 3 4))
+;(->json #u8(1 2 3 444))
+;(->json '(1 2 3 4)) (newline)
+;(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
+;(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
 
-;;(test-group 
-;;  "generator constructors"
+(test-group 
+  "constants"
+  (test "[\"a\", \"b\"]" (->json-string '(a . b)))
+  (test "[1, 2, 3, 4]" (->json-string '(1 2 3 . 4)))
+  (test "[\"A\", \"B\"]" (->json-string '(#\A #\B)))
+  (test "1" (->json-string 1))
+  (test "\"test\"" (->json-string "test"))
+  (test "\"\\n\"" (->json-string #\newline))
+  (test "true" (->json-string #t))
+  (test "null" (->json-string '()))
+)
 ;;  (test '() (generator->list (generator)))
 ;;  (test '(1 2 3) (generator->list (generator 1 2 3)))
 ;;  (test '(8 9 10) (generator->list (make-iota-generator 3 8)))
