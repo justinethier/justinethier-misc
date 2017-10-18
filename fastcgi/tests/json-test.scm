@@ -3,76 +3,32 @@
   (lib json)
   (scheme cyclone test))
 
-;; Tests:
-;(->json "a / long string\r\n\\\t\a'\"\" DONE")
-;(->json #(1 2 3 4))
-;(->json #u8(1 2 3 444))
-;(->json '(1 2 3 4)) (newline)
-;(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
-;(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
-
 (test-group 
   "constants"
-  (test "[\"a\", \"b\"]" (->json-string '(a . b)))
-  (test "[1, 2, 3, 4]" (->json-string '(1 2 3 . 4)))
-  (test "[\"A\", \"B\"]" (->json-string '(#\A #\B)))
   (test "1" (->json-string 1))
   (test "\"test\"" (->json-string "test"))
   (test "\"\\n\"" (->json-string #\newline))
   (test "true" (->json-string #t))
   (test "null" (->json-string '()))
+; TODO:
+;(->json "a / long string\r\n\\\t\a'\"\" DONE")
 )
-;;  (test '() (generator->list (generator)))
-;;  (test '(1 2 3) (generator->list (generator 1 2 3)))
-;;  (test '(8 9 10) (generator->list (make-iota-generator 3 8)))
-;;  (test '(8 10 12) (generator->list (make-iota-generator 3 8 2)))
-;;  (test '(3 4 5 6) (generator->list (make-range-generator 3) 4))
-;;  (test '(3 4 5 6 7) (generator->list (make-range-generator 3 8)))
-;;  (test '(3 5 7) (generator->list (make-range-generator 3 8 2)))
-;;  (test '(0 1 2) (generator->list g))
-;;  (test '(1 2 3 4 5) 
-;;        (generator->list (list->generator (list 1 2 3 4 5))))
-;;  (test '(1 2 3 4 5) 
-;;        (generator->list (vector->generator (vector 1 2 3 4 5))))
-;;  (test '(5 4 3 2 1) 
-;;        (generator->list (reverse-vector->generator (vector 1 2 3 4 5))))
-;;  (test '(#\a #\b #\c #\d #\e)
-;;        (generator->list (string->generator "abcde")))
-;;  (test '(10 20 30) 
-;;        (generator->list (bytevector->generator (bytevector 10 20 30))))
-;;  (test '(5 4 3 2 1) 
-;;        (generator->list (make-for-each-generator for-each-digit 12345)))
-;;  (test '(0 2 4 6 8 10)
-;;        (generator->list
-;;          (make-unfold-generator (lambda (s) (> s 5))
-;;                                 (lambda (s) (* s 2))
-;;                                 (lambda (s) (+ s 1))
-;;                                 0))))
-;;
-;;(test-group
-;;  "generator consumers"
-;;  (test '(1 2 3) (generator->list (generator 1 2 3 4 5) 3))
-;;  (test '(5 4 3 2 1) (generator->reverse-list (generator 1 2 3 4 5)))
-;;  (test #(1 2 3 4 5) (generator->vector (generator 1 2 3 4 5))) 
-;;  (test #(1 2 3) (generator->vector (generator 1 2 3 4 5) 3))
-;;  (test "abc" (generator->string (generator #\a #\b #\c)))
-;;  (test 10 (generator-fold + 0 (generator 1 2 3 4)))
-;;  (generator-for-each (lambda v (set! n (apply + v)))
-;;                      (generator 1)
-;;                      (generator 2)
-;;                      (generator 3))
-;;  (test 6 n)
-;;  (test 3 (generator-find (lambda (x) (> x 2)) (make-range-generator 1 5)))
-;;  (test 2 (generator-count odd? (make-range-generator 1 5)))
-;;  (set! g (make-range-generator 2 5))
-;;  (test-assert (generator-any odd? g))
-;;  (test '(4) (generator->list g))
-;;  (set! g (make-range-generator 2 5))
-;;  (test-not (generator-every odd? g))
-;;  (test '(3 4) (generator->list g))
-;;  (test '(#\a #\b #\c)
-;;        (generator-unfold (make-for-each-generator string-for-each
-;;                                                   "abc") unfold)))
+
+(test-group "lists"
+  (test "[\"a\", \"b\"]" (->json-string '(a . b)))
+  (test "[1, 2, 3, 4]" (->json-string '(1 2 3 . 4)))
+  (test "[\"A\", \"B\"]" (->json-string '(#\A #\B)))
+; TODO:
+;(->json '(1 2 3 4)) (newline)
+;(->json '((a . 1) (b . 2) (c . 3) (d . 4))) (newline)
+;(->json '((a 1) (b 2) (c 3) (d 4 5 6))) (newline)
+)
+
+(test-group "vectors"
+; TODO:
+;(->json #(1 2 3 4))
+;(->json #u8(1 2 3 444))
+)
 
 (test-exit)
 
