@@ -1,4 +1,4 @@
-# Cirrus MVC Framework
+# Stormfury MVC Framework
 
 TODO: provide basic project description, installation/build instructions, and usage
 
