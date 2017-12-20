@@ -1,4 +1,4 @@
-# Stormfury MVC Framework
+# <img src="html/stormfury-logo.png">
 
 TODO: provide basic project description, installation/build instructions, and usage
 
