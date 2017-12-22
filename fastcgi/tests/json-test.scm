@@ -25,9 +25,8 @@
 )
 
 (test-group "vectors"
-; TODO:
-;(->json #(1 2 3 4))
-;(->json #u8(1 2 3 444))
+  (test "[1, 2, 3, 4]" (->json-string #(1 2 3 4)))
+  (test "[1, 2, 3, 188]" (->json-string #u8(1 2 3 444)))
 )
 
 (test-exit)
