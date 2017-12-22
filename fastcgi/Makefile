@@ -19,6 +19,7 @@ MODEL_OBJS=$(MODELS:.sld=.o)
 
 CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/common.o \
+  $(CYCLONE_DIR)/scheme/cyclone/primitives.o \
   $(CYCLONE_DIR)/scheme/base.o \
   $(CYCLONE_DIR)/scheme/write.o \
   $(CYCLONE_DIR)/scheme/read.o \
