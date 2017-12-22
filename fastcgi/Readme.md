@@ -11,7 +11,7 @@ TODO / roadmap:
 - then get models working at some level (maybe postgres integration?)
 - then figure out views for a UI (would be sweet to have a demo using Angular or such)
 
-#Installation
+# Installation
 
 ## Arch Linux
 
