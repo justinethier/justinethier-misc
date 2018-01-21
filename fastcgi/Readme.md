@@ -1,4 +1,4 @@
-# <img src="html/stormfury-logo.png">
+# <img src="html/sprinkles-logo.png">
 
 TODO / roadmap: 
 
