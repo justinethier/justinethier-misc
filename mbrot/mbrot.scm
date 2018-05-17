@@ -43,9 +43,9 @@
     (vector-ref (vector-ref matrix 0) 0)))
 
 (define (main)
-  (let* ((count (read))
-         (input1 (read))
-         (output (read))
+  (let* ((count 1000 #;(read))
+         (input1 75 #;(read))
+         (output 5 #;(read))
          (s2 (number->string count))
          (s1 (number->string input1))
          (name "mbrot"))
