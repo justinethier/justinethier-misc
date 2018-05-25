@@ -1,4 +1,4 @@
-DEBUG_FLAGS = -g
+DEBUG_FLAGS = #-g
 
 mbrot: mbrot.c
 	cc mbrot.c -O2 -fPIC -Wall -I/usr/local/include -L/usr/local/lib -Wl,--export-dynamic $(DEBUG_FLAGS) -c -o mbrot.o
