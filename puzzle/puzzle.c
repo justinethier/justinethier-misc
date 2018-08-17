@@ -86158,8 +86158,12 @@ c_73986.elements[2] = k_73398;
 c_73986.elements[3] = ((closureN)self_73699)->elements[3];
 
 //return_closcall1(data,(closure)&c_73958,  &c_73986);; 
+goto lambda_7;
 
-TODO: need to set values in closures (bad idea, but maybe not since vars are local?) or extract into variables
+//TODO: need to set values in closures (bad idea, but maybe not since vars are local?) or extract into variables
+complex_num_type local_731001;
+complex_num_type local_73981; 
+object r_73399;
 
 //static void __lambda_8(void *data, int argc, object self_73700, object r_73399) 
 lambda_8:
@@ -86171,33 +86175,40 @@ object c_73991 = Cyc_num_fast_gt_op(data,((closureN)self_73700)->elements[1], ((
 return_closcall1(data,  ((closureN)self_73700)->elements[2],  c_73991);
 } else { 
   
-complex_num_type local_731001; object c_731002 = Cyc_fast_sum(data,&local_731001,((closureN)self_73700)->elements[1], obj_int2obj(1));
-return_closcall2(data,  car(((closureN)self_73700)->elements[3]),  ((closureN)self_73700)->elements[2], c_731002);}
+ object c_731002 = Cyc_fast_sum(data,&local_731001,((closureN)self_73700)->elements[1], obj_int2obj(1));
+//return_closcall2(data,  car(((closureN)self_73700)->elements[3]),  ((closureN)self_73700)->elements[2], c_731002);}
+ c_73958.elements[3] = c_731002;
+ c_73986.elements[1] = c_731002;
+ goto lambda_7;
 ; 
+}
 }
 
 // TODO: call this one from parent (lambda 9)
 // continuation is just a goto to lambda 8
 //static void __lambda_7(void *data, int argc, object self_73701, object k_73402) 
-lambda_9:
+lambda_7:
 {
-    object self_73700 = &c_73958;
+    object self_73701 = &c_73958;
     object c_73961 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
 if( (boolean_f != c_73961) ){ 
   
 object c_73967 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
-return_closcall1(data,  k_73402,  c_73967);
+  r_73399 = c_73967;
+goto lambda_8; //return_closcall1(data,  k_73402,  c_73967);
 } else { 
   if( (boolean_f != Cyc_vector_ref(data, Cyc_vector_ref(data, __glo__85p_85, ((closureN)self_73701)->elements[1]), ((closureN)self_73701)->elements[3])) ){ 
   
-complex_num_type local_73981; object c_73982 = Cyc_fast_sum(data,&local_73981,((closureN)self_73701)->elements[2], ((closureN)self_73701)->elements[3]);
-return_closcall1(data,  k_73402,  Cyc_vector_ref(data, __glo__85puzzle_85, c_73982));
+object c_73982 = Cyc_fast_sum(data,&local_73981,((closureN)self_73701)->elements[2], ((closureN)self_73701)->elements[3]);
+  r_73399 = Cyc_vector_ref(data, __glo__85puzzle_85, c_73982);
+goto lambda_8; //return_closcall1(data,  k_73402,  Cyc_vector_ref(data, __glo__85puzzle_85, c_73982));
 } else { 
-  return_closcall1(data,  k_73402,  boolean_f);}
+  r_73399 = boolean_f;
+  goto lambda_8; //return_closcall1(data,  k_73402,  boolean_f);}
 }
 ; 
 }
-
+}
 }
 
 // TODO: relocate this and 7 to lambda 9. see 
