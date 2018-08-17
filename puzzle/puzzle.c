@@ -86129,7 +86129,7 @@ return_closcall1(data,(closure)&c_73948,  Cyc_set_cell(data, lp_7313_7317_73253,
 
 static void __lambda_9(void *data, int argc, object self_73699, object k_73398, object k_7318_73254) {
   
-  /*
+  
 closureN_type c_73958;
 c_73958.hdr.mark = gc_color_red;
  c_73958.hdr.grayed = 0;
@@ -86157,11 +86157,14 @@ c_73986.elements[1] = k_7318_73254;
 c_73986.elements[2] = k_73398;
 c_73986.elements[3] = ((closureN)self_73699)->elements[3];
 
-return_closcall1(data,(closure)&c_73958,  &c_73986);; 
-*/
+//return_closcall1(data,(closure)&c_73958,  &c_73986);; 
+
+TODO: need to set values in closures (bad idea, but maybe not since vars are local?) or extract into variables
+
 //static void __lambda_8(void *data, int argc, object self_73700, object r_73399) 
 lambda_8:
 {
+  object self_73700 = &c_73986;
   if( (boolean_f != r_73399) ){ 
   
 object c_73991 = Cyc_num_fast_gt_op(data,((closureN)self_73700)->elements[1], ((closureN)self_73700)->elements[0]);
@@ -86178,6 +86181,7 @@ return_closcall2(data,  car(((closureN)self_73700)->elements[3]),  ((closureN)se
 //static void __lambda_7(void *data, int argc, object self_73701, object k_73402) 
 lambda_9:
 {
+    object self_73700 = &c_73958;
     object c_73961 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
 if( (boolean_f != c_73961) ){ 
   
