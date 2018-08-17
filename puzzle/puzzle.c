@@ -86129,6 +86129,7 @@ return_closcall1(data,(closure)&c_73948,  Cyc_set_cell(data, lp_7313_7317_73253,
 
 static void __lambda_9(void *data, int argc, object self_73699, object k_73398, object k_7318_73254) {
   
+  /*
 closureN_type c_73958;
 c_73958.hdr.mark = gc_color_red;
  c_73958.hdr.grayed = 0;
@@ -86157,8 +86158,45 @@ c_73986.elements[2] = k_73398;
 c_73986.elements[3] = ((closureN)self_73699)->elements[3];
 
 return_closcall1(data,(closure)&c_73958,  &c_73986);; 
+*/
+//static void __lambda_8(void *data, int argc, object self_73700, object r_73399) 
+lambda_8:
+{
+  if( (boolean_f != r_73399) ){ 
+  
+object c_73991 = Cyc_num_fast_gt_op(data,((closureN)self_73700)->elements[1], ((closureN)self_73700)->elements[0]);
+return_closcall1(data,  ((closureN)self_73700)->elements[2],  c_73991);
+} else { 
+  
+complex_num_type local_731001; object c_731002 = Cyc_fast_sum(data,&local_731001,((closureN)self_73700)->elements[1], obj_int2obj(1));
+return_closcall2(data,  car(((closureN)self_73700)->elements[3]),  ((closureN)self_73700)->elements[2], c_731002);}
+; 
 }
 
+// TODO: call this one from parent (lambda 9)
+// continuation is just a goto to lambda 8
+//static void __lambda_7(void *data, int argc, object self_73701, object k_73402) 
+lambda_9:
+{
+    object c_73961 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
+if( (boolean_f != c_73961) ){ 
+  
+object c_73967 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
+return_closcall1(data,  k_73402,  c_73967);
+} else { 
+  if( (boolean_f != Cyc_vector_ref(data, Cyc_vector_ref(data, __glo__85p_85, ((closureN)self_73701)->elements[1]), ((closureN)self_73701)->elements[3])) ){ 
+  
+complex_num_type local_73981; object c_73982 = Cyc_fast_sum(data,&local_73981,((closureN)self_73701)->elements[2], ((closureN)self_73701)->elements[3]);
+return_closcall1(data,  k_73402,  Cyc_vector_ref(data, __glo__85puzzle_85, c_73982));
+} else { 
+  return_closcall1(data,  k_73402,  boolean_f);}
+}
+; 
+}
+
+}
+
+// TODO: relocate this and 7 to lambda 9. see 
 static void __lambda_8(void *data, int argc, object self_73700, object r_73399) {
   if( (boolean_f != r_73399) ){ 
   
@@ -86171,6 +86209,8 @@ return_closcall2(data,  car(((closureN)self_73700)->elements[3]),  ((closureN)se
 ; 
 }
 
+// TODO: call this one from parent (lambda 9)
+// continuation is just a goto to lambda 8
 static void __lambda_7(void *data, int argc, object self_73701, object k_73402) {
     object c_73961 = Cyc_num_fast_gt_op(data,((closureN)self_73701)->elements[3], ((closureN)self_73701)->elements[0]);
 if( (boolean_f != c_73961) ){ 
