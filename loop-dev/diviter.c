@@ -1584,13 +1584,31 @@ return_direct_with_clo1(data,(closure)&c_73352,__lambda_9,  Cyc_set_cell(data, l
 }
 
 static void __lambda_10(void *data, int argc, object self_73251, object k_73154, object l_7317_73101, object a_7318_73102) {
+  while(1) {
   if( (boolean_f != Cyc_is_null(l_7317_73101)) ){ 
   return_closcall1(data,  k_73154,  a_7318_73102);
 } else { 
   
-make_pair(c_73374,Cyc_car(data, l_7317_73101), a_7318_73102);
-return_closcall3(data,  car(((closureN)self_73251)->elements[0]),  k_73154, Cyc_cddr(data, l_7317_73101), &c_73374);}
-; 
+  pair_type * c_73374 = alloca(sizeof(pair_type));
+  c_73374->hdr.mark = gc_color_red; 
+  c_73374->hdr.grayed = 0; 
+  c_73374->tag = pair_tag; 
+  c_73374->pair_car = Cyc_car(data, l_7317_73101);
+  c_73374->pair_cdr = a_7318_73102;
+//make_pair(c_73374,Cyc_car(data, l_7317_73101), a_7318_73102);
+
+  if (stack_overflow(c_73374, (((gc_thread_data *)data)->stack_limit))) {
+    //printf("starting GC\n");
+    object buf[3]; buf[0] = k_73154; buf[1] = l_7317_73101;buf[2] = a_7318_73102;
+    GC(data, self_73251, buf, argc);
+  }
+//return_closcall3(data,  car(((closureN)self_73251)->elements[0]),  k_73154, Cyc_cddr(data, l_7317_73101), c_73374);
+  // same, no need to reassign: k_73154 = k_73154;
+  l_7317_73101 = Cyc_cddr(data, l_7317_73101);
+  a_7318_73102 = c_73374;
+  continue;
+}; 
+  }
 }
 
 static void __lambda_9(void *data, int argc, object self_73252, object r_73152) {
