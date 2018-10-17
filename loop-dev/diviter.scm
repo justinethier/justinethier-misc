@@ -13,9 +13,9 @@
       ((null? l) a)))
 
 (define (main)
-  (let* ((count (read))
-         (input1 (read))
-         (output (read))
+  (let* ((count 1000000)
+         (input1 1000)
+         (output 500)
          (s2 (number->string count))
          (s1 (number->string input1))
          (ll (create-n (hide count input1)))
