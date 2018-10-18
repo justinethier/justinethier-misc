@@ -1697,6 +1697,7 @@ return_direct_with_clo1(data,(closure)&c_73315,__lambda_4,  Cyc_set_cell(data, l
 }
 
 static void __lambda_5(void *data, int argc, object self_73246, object k_73143, object n_738_7395, object a_739_7396) {
+  while(1) {
     object c_73328 = Cyc_num_fast_eq_op(data,n_738_7395, obj_int2obj(0));
 if( (boolean_f != c_73328) ){ 
   return_closcall1(data,  k_73143,  a_739_7396);
@@ -1704,10 +1705,18 @@ if( (boolean_f != c_73328) ){
   
 complex_num_type local_73336; object c_73337 = Cyc_fast_sub(data,&local_73336,n_738_7395, obj_int2obj(1));
 
-make_pair(c_73340,NULL, a_739_7396);
-return_closcall3(data,  car(((closureN)self_73246)->elements[0]),  k_73143, c_73337, &c_73340);}
+alloca_pair(c_73340,NULL, a_739_7396);
+//return_closcall3(data,  car(((closureN)self_73246)->elements[0]),  k_73143, c_73337, c_73340);}
+  if (stack_overflow(c_73340, (((gc_thread_data *)data)->stack_limit))) {
+    //printf("starting GC\n");
+    object buf[3]; 
+    buf[0] = k_73143;
+    buf[1] = c_73337;
+    buf[2] = c_73340;
+    GC(data, self_73246, buf, argc);
+  }
 ; 
-}
+}}}
 
 static void __lambda_4(void *data, int argc, object self_73247, object r_73141) {
   return_closcall3(data,  car(((closureN)self_73247)->elements[2]),  ((closureN)self_73247)->elements[1], ((closureN)self_73247)->elements[3], ((closureN)self_73247)->elements[0]);; 
