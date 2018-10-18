@@ -1715,6 +1715,10 @@ alloca_pair(c_73340,NULL, a_739_7396);
     buf[2] = c_73340;
     GC(data, self_73246, buf, argc);
   }
+  // optimize out: k_73143 = k_73143;
+  n_738_7395 = c_73337;
+  a_739_7396 = c_73340;
+  continue;
 ; 
 }}}
 
