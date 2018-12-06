@@ -24,9 +24,9 @@
                 c))))
 
 (define (main)
-  (let* ((count (read))
-         (input (read))
-         (output (read))
+  (let* ((count 10)
+         (input 30)
+         (output 832040)
          (s2 (number->string count))
          (s1 (number->string input))
          (name "fibc"))
