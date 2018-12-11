@@ -41380,6 +41380,27 @@ object c_73336 = Cyc_substring(data,(closure)&c_73322,__glo_s, obj_int2obj(0), C
 return_closcall1(data,(closure)&c_73322,  c_73336);; 
 }
 
+// TODO: caller typechecks strings, collects lengths, and allocates space at ptr and for str (just one alloca?)
+object My_fast_string_append(data, object ptr, int total_len, int total_cp, object str1, object st2)
+{
+  string_type *s = (string_type *)ptr;
+  char *bufferp = s->str;
+
+  s->hdr.mark = gc_color_red; 
+  s->hdr.grayed = 0;
+  s->tag = string_tag; 
+  s->len = total_len + 1;
+  s->num_cp = total_cp;
+  //s->str = // TODO, this has to be alloca'd too by the caller
+
+  //for (i = 0; i < argc; i++) {
+    memcpy(bufferp, string_str(str1), string_len(str1));
+    bufferp += string_len(str1);
+    memcpy(bufferp, string_str(str2), string_len(str2));
+  //}
+  return ptr;
+}
+
 static void __lambda_7(void *data, int argc, object self_73249, object r_73134) {
   
 closureN_type c_73324;
