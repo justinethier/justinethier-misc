@@ -41381,22 +41381,24 @@ return_closcall1(data,(closure)&c_73322,  c_73336);;
 }
 
 // TODO: caller typechecks strings, collects lengths, and allocates space at ptr and for str (just one alloca?)
-object My_fast_string_append(data, object ptr, int total_len, int total_cp, object str1, object st2)
+object My_fast_string_append(object ptr, int total_len, int total_cp, object str1, object str2)
 {
   string_type *s = (string_type *)ptr;
-  char *bufferp = s->str;
 
   s->hdr.mark = gc_color_red; 
   s->hdr.grayed = 0;
   s->tag = string_tag; 
   s->len = total_len + 1;
   s->num_cp = total_cp;
-  //s->str = // TODO, this has to be alloca'd too by the caller
+  s->str = ((char *)s) + sizeof(string_type);
+  char *bufferp = s->str;
 
   //for (i = 0; i < argc; i++) {
     memcpy(bufferp, string_str(str1), string_len(str1));
     bufferp += string_len(str1);
     memcpy(bufferp, string_str(str2), string_len(str2));
+    bufferp += string_len(str2);
+    *bufferp = '\0';
   //}
   return ptr;
 }
@@ -41413,8 +41415,19 @@ c_73324.num_elements = 1;
 c_73324.elements = (object *)alloca(sizeof(object) * 1);
 c_73324.elements[0] = ((closureN)self_73249)->elements[0];
 
+object str1 = ((closureN)self_73249)->elements[1]; 
+object str2 = r_73134;
+string_type *buf = alloca(sizeof(string_type) + string_len(str1) + string_len(str2) + 1);
+Cyc_check_str(data, str1);
+Cyc_check_str(data, str2);
 
-object c_73332 = Cyc_string_append(data,(closure)&c_73324,2,((closureN)self_73249)->elements[1], r_73134);
+object c_73332 = My_fast_string_append(
+                  buf, 
+                  string_len(str1) + string_len(str2),
+                  string_num_cp(str1) + string_num_cp(str2),
+                  str1, 
+                  str2);
+//object c_73332 = Cyc_string_append(data,(closure)&c_73324,2,((closureN)self_73249)->elements[1], r_73134);
 return_closcall1(data,(closure)&c_73324,  c_73332);; 
 }
 
