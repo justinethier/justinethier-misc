@@ -41390,7 +41390,7 @@ object My_fast_string_append(object ptr, int total_len, int total_cp, object str
   s->tag = string_tag; 
   s->len = total_len + 1;
   s->num_cp = total_cp;
-  s->str = ((char *)s) + sizeof(string_type);
+  //s->str = ((char *)s) + sizeof(string_type);
   char *bufferp = s->str;
 
   //for (i = 0; i < argc; i++) {
@@ -41417,9 +41417,10 @@ c_73324.elements[0] = ((closureN)self_73249)->elements[0];
 
 object str1 = ((closureN)self_73249)->elements[1]; 
 object str2 = r_73134;
-string_type *buf = alloca(sizeof(string_type) + string_len(str1) + string_len(str2) + 1);
 Cyc_check_str(data, str1);
 Cyc_check_str(data, str2);
+string_type *buf = alloca(sizeof(string_type));
+((string_type *)buf)->str = alloca(string_len(str1) + string_len(str2) + 1);
 
 object c_73332 = My_fast_string_append(
                   buf, 
