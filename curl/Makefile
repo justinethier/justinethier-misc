@@ -1,2 +1,6 @@
 ctest:
-	cyclone -CLNK "-lcurl" ctest.scm
+	cyclone ctest.scm
+
+.PHONY: clean
+clean:
+	git clean -fdx

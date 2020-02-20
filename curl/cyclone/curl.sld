@@ -1,6 +1,7 @@
 (define-library (cyclone curl)
   (include-c-header "<curl/curl.h>")
   (export curl-version)
+  (c-linker-options "-lcurl")
   ;(import (scheme base)
   ;        (scheme write)
   ;)
