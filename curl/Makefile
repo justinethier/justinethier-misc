@@ -1,7 +1,7 @@
-all: ctest repl
+all: tests repl
 
-ctest:
-	cyclone ctest.scm
+tests:
+	cyclone tests.scm
 
 repl: repl.scm cyclone/curl.sld
 	cyclone repl.scm
