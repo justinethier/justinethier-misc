@@ -1,3 +1,5 @@
+all: ctest repl
+
 ctest:
 	cyclone ctest.scm
 
