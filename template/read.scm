@@ -38,6 +38,27 @@
 (define (p:add-expr! p expr)
   (p:set-exprs! p (cons expr (p:exprs))))
 
+;; Scan string for an SCM open tag
+;; Return: index of tag or #f if none
+(define (scan-for-scm-tag str)
+  (let loop ((i 0))
+    (cond
+     ((equal? i (string-length str)) #f)
+     ((equal? #\{ (string-ref str i)) i)
+     (else
+       (loop (+ i 1))))))
+
+(define (read-tag fp str idx)
+ (cond
+  ((= idx (string-length str))
+   (set! str (read-string 2 fp)) ;; TODO: what if eof?
+   (set! idx 0))
+  (else
+   (set! idx (+ idx 1))))
+ ;; TODO: read contents of tag {X X}
+ (cons '()
+       (substring str idx (string-length str)))) ;; TODO: return portion of string after the scm tag
+
 ; regular text - accumulate
 ; { - special char next
 (define (read-template p) 
@@ -48,8 +69,16 @@
     (cond
       ((eof-object? str)
        (map (lambda (str)
+              ;`(display ,str))
               (eval `(display ,str)))
             (reverse acc)))
+      ((scan-for-scm-tag str)
+       (let* ((idx (scan-for-scm-tag str))
+              (pre-scm (substring str 0 (if (> idx 0) (- idx 1) 0)))
+              (scm/str (read-tag fp str idx))
+             )
+         (loop fp (cdr scm/str) (cons pre-scm
+                                      (cons (car scm/str) acc)))))
       (else
        (loop fp (read-string 2 fp) (cons str acc))))))
 ; (let ((c (p:getc p)))
