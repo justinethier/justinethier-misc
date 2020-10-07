@@ -69,8 +69,10 @@
     (cond
       ((eof-object? str)
        (map (lambda (str)
-              ;`(display ,str))
-              (eval `(display ,str)))
+              (display str)
+              (newline)
+              ;(eval `(display ,str))
+              )
             (reverse acc)))
       ((scan-for-scm-tag str)
        (let* ((idx (scan-for-scm-tag str))
@@ -88,11 +90,17 @@
 ;      (p:exprs p))
 ;     (else
 
+;(display
   (read-template 
     (make-parser (open-input-file "view-1.html")))
+;)
 
 
 ;; TODO: write out algorithm
 ;ideally we want to read strings and then fly down them, 
 ;only stopping if we encounter a char that prevents us
 ;from using the whole string
+
+; The main idea is that the whole view becomes (display) expressions,
+; except the portions that are specified explicitly as scheme expressions.
+;
