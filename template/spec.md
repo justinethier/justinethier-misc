@@ -20,10 +20,14 @@ https://jinja.palletsprojects.com/en/2.11.x/templates/#variables
 # Pseudocode
 
 higher-level subsystem
-read next char from buf
-terminate current expr if
-- read start of scheme expression
-- read eof
+- read next char from buf
+- terminate current expr if read
+  - start of scheme expression, EG: #\{
+  - eof
+- append char to current expr
+- unless read eof, in which case we are done
+
+need to keep track of the type of current expression so we know what to write when we terminate it
 
 Buffer subsystem
 read x chars from stream
