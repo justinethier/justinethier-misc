@@ -33,3 +33,11 @@ Buffer subsystem
 read x chars from stream
 read more if necessary
 
+
+V2
+
+- check next char in str
+  - if no string or at end of string, read more from input
+- terminate if
+  - EOF
+  - start of scheme expression
