@@ -2,24 +2,48 @@
         (scheme write)
         )
 
-(define buf "")
-(define fp (open-input-file "view-1.html"))
-(define inp (read-string 2 fp))
-(define i 0)
-(define (check)
+; Algorithm
+;
+; - read string from input
+; - does string contain embedded expr?
+;   - yes, split string at that point, put beginning into expr list, parse the rest (possibly more reads req'd)
+;   - no, append to string list
+;
+(define *read-size* 2) ;; TODO: 1024?
+(define fp (open-input-file "view-2.html"))
+(define inp (read-string *read-size* fp))
+(define exprs '())
+
+(define (string-contains? str chr)
+  (let loop ((i 0))
+    (cond
+     ((= i (string-length str))
+      #f)
+     ((equal? (string-ref str i) chr)
+      i)
+     (else
+       (loop (+ i 1))))))
+
+(define (parse)
   (cond
     ;; EOF?
     ((eof-object? inp)
-     (display buf))
+     ;(terminate!)
+     (for-each display (reverse exprs))
+     (newline)
+     (write 'DONE))
 
-    ((= i (string-length buf))
-     (set! buf (string-append buf inp))
-     (set! inp (read-string 2 fp))
-     (set! i 0))
+    ;; Does the string begin a scheme expression?
+    ;; Will eventually need more sophisticated parsing but this works for now
+    ((string-contains? inp #\{)
+     (write "TODO: parse scheme expression")
+     (newline)
+     (exit 1))
 
-    ;; TODO: check char
-
+    (else
+      (set! exprs (cons inp exprs))
+      (set! inp (read-string *read-size* fp))
+      (parse))
 ))
 
-
-(check)
+(parse)
