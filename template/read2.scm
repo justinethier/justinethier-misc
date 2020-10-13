@@ -27,26 +27,30 @@
 
 ;; Return next char from input, starting at position `pos`.
 ;; Will read more from input stream if necessary
-(define (next-char inp pos)
+(define (next-char str pos)
   (cond
-    ((< (+ pos 1) (string-length inp))
-     (string-ref inp (+ pos 1)))
+    ((< (+ 1 pos) (string-length str))
+     (string-ref str (+ pos 1)))
     (else
-     (set! inp (string-append inp (read-string *read-size* fp))))))
+     (set! str (string-append str (read-string *read-size* fp)))
+     (next-char str 0)
+     )))
 
 ;; Parse out data for a scheme template comment
 ;; Basically reads and discards the whole comment.
-(define (parse-string-comment! start)
-  (let loop ((s inp)
+(define (parse-string-comment! str start)
+  (let loop ((s str)
              (pos start))
     (let ((i (string-pos s #\# pos)))
+(write `(loop ,i ,s))(newline)
       (cond
         (i
-         (let ((c (next-char s (+ i 1))))
+         (let ((c (next-char s i)))
+(write `(DEBUG c ,c ,s ,pos))
            (cond
             ((eq? c #\})
              ;; Start buffer from end of comment
-             (set! inp (substring s 0 (+ pos 2))))
+             (substring s (+ pos 2) (string-length s)))
             (else
               (loop (read-string *read-size* fp) 0)) )))
         (else
@@ -77,7 +81,7 @@
             (let ((c (next-char inp 0)))
               (cond
                 ((eq? c #\#)
-                 (parse-string-comment! 1)
+                 (set! inp (parse-string-comment! inp 1))
                  (parse))
                 (else
                   (write "TODO: parse scheme expression")
