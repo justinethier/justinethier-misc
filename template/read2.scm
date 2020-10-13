@@ -10,7 +10,7 @@
 ;   - no, append to string list
 ;
 (define *read-size* 2) ;; TODO: 1024?
-(define fp (open-input-file "view-2.html"))
+(define fp (open-input-file "view-3.html"))
 (define inp (read-string *read-size* fp))
 (define exprs '())
 
