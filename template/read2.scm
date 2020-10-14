@@ -26,11 +26,6 @@
    (read-string *read-size* fp)
    '()))
 
-;;TODO: want next 4 vars to be private, really
-;(define fp (open-input-file "view-2.html"))
-;(define inp (read-string *read-size* fp))
-;(define exprs '())
-
 (define (buf:read-next-string! buf)
   (buf:set-str! buf (read-string *read-size* (buf:fp buf))))
 
@@ -64,56 +59,58 @@
 
 ;;; Parse out data for a scheme template comment
 ;;; Basically reads and discards the whole comment.
-;(define (parse-string-comment! str start)
-;  (let loop ((s str) ;; TODO: don't store string locally
-;             (pos start))
-;    (let ((i (string-pos s #\# pos)))
-;(write `(loop ,i ,s))(newline)
-;      (cond
-;        (i
-;         (let ((c (next-char s i)))
-;(write `(DEBUG c ,c ,s ,pos)) (newline)
-;           (cond
-;            ((eq? c #\})
-;(write `(DEBUG ,s ,i)) (newline)
-;             ;; Start buffer from end of comment
-;             (substring s (+ i 2) (string-length s)))
-;            (else
-;              (loop (read-string *read-size* fp) 0)) )))
-;        (else
-;         (loop (read-string *read-size* fp)
-;               0))))))
-;
-;(define (parse-expr! str start)
-;  (define expr "")
-;  (define (add! str)
-;    (set! expr (string-append expr str)))
-;
-;  (let loop ((s str)
-;             (pos start))
-;    (let ((i (string-pos s #\} pos)))
-;(write `(loop ,i ,s))(newline)
-;      (cond
-;        (i
-;         (let ((c (next-char s i)))
-;(write `(DEBUG c ,c ,s ,pos)) (newline)
-;           (cond
-;            ((eq? c #\})
-;(write `(DEBUG ,s ,i)) (newline)
-;             ;; Return expression and remaining buffer
-;             (if (> (- i 2) pos)
-;                 (add! (substring s pos (string-length s))))
-;             ;(values
-;             ;  expr ;; Scheme expression (as string)
-;               (substring s (+ i 2) (string-length s))) ;; Remaining buffer
-;             ;)
-;            (else
-;              (add! (substring s pos (string-length s)))
-;              (loop (read-string *read-size* fp) 0)) )))
-;        (else
-;         (add! (substring s pos (string-length s)))
-;         (loop (read-string *read-size* fp)
-;               0))))))
+(define (parse-string-comment! buf start)
+  (let loop ((pos start))
+    (let ((i (string-pos (buf:str buf) #\# pos)))
+(write `(loop ,i ,(buf:str buf)))(newline)
+      (cond
+        (i
+         (let ((c (buf:next-char buf i)))
+(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+           (cond
+            ((eq? c #\})
+(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+             ;; Start buffer from end of comment
+             (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))
+            (else
+              (buf:read-next-string! buf)
+              (loop 0)) )))
+        (else
+         (buf:read-next-string! buf)
+         (loop 0))))))
+
+(define (parse-expr! buf start)
+  (define expr "")
+  (define (add! str)
+    (set! expr (string-append expr str)))
+
+  (let loop ((pos start))
+    (let ((i (string-pos (buf:str buf) #\} pos)))
+(write `(loop ,i ,(buf:str buf)))(newline)
+      (cond
+        (i
+         (let ((c (buf:next-char buf i)))
+(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+           (cond
+            ((eq? c #\})
+(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+             ;; Return expression and remaining buffer
+             (if (> (- i 2) pos)
+                 (add! (substring (buf:str buf) pos (string-length (buf:str buf)))))
+             ;(values
+             ;  expr ;; Scheme expression (as string)
+               (buf:set-str! 
+                 buf
+                 (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
+             ;)
+            (else
+              (add! (substring (buf:str buf) pos (string-length (buf:str buf))))
+              (buf:read-next-string! buf)
+              (loop 0)) )))
+        (else
+         (add! (substring (buf:str buf) pos (string-length (buf:str buf))))
+         (buf:read-next-string! buf)
+         (loop 0))))))
 
 ;; Top-level parser
 (define (parse filename)
@@ -140,15 +137,14 @@
               buf 
               (substring (buf:str buf) spos (string-length (buf:str buf))))
 
-            ;; TODO: check next char (may require another read)
             (let ((c (buf:next-char buf 0)))
               (cond
-              ;  ((eq? c #\#)
-              ;   (set! inp (parse-string-comment! inp 1))
-              ;   (loop buf))
-              ;  ((eq? c #\{)
-              ;   (set! inp (parse-expr! inp 1))
-              ;   (loop buf))
+                ((eq? c #\#)
+                 (parse-string-comment! buf 1)
+                 (loop buf))
+                ((eq? c #\{)
+                 (parse-expr! buf 1)
+                 (loop buf))
                 (else
                   (write "TODO: parse scheme expression")
                   (newline)
@@ -159,3 +155,5 @@
             (loop buf))))))))
 
 (parse "view-2.html")
+(parse "view-3.html")
+(parse "view-4.html")
