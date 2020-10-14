@@ -10,7 +10,7 @@
 ;   - no, append to string list
 ;
 (define *read-size* 2) ;; TODO: 1024?
-(define fp (open-input-file "view-3.html"))
+(define fp (open-input-file "view-4.html"))
 (define inp (read-string *read-size* fp))
 (define exprs '())
 
@@ -50,10 +50,40 @@
            (cond
             ((eq? c #\})
              ;; Start buffer from end of comment
-             (substring s (+ pos 2) (string-length s)))
+             (substring s (+ i 2) (string-length s)))
             (else
               (loop (read-string *read-size* fp) 0)) )))
         (else
+         (loop (read-string *read-size* fp)
+               0))))))
+
+(define (parse-expr! str start)
+  (define expr "")
+  (define (add! str)
+    (set! expr (string-append expr str)))
+
+  (let loop ((s str)
+             (pos start))
+    (let ((i (string-pos s #\} pos)))
+(write `(loop ,i ,s))(newline)
+      (cond
+        (i
+         (let ((c (next-char s i)))
+(write `(DEBUG c ,c ,s ,pos))
+           (cond
+            ((eq? c #\})
+             ;; Return expression and remaining buffer
+             (if (> (- i 2) pos)
+                 (add! (substring s pos (string-length s))))
+             ;(values
+             ;  expr ;; Scheme expression (as string)
+               (substring s (+ i 2) (string-length s))) ;; Remaining buffer
+             ;)
+            (else
+              (add! (substring s pos (string-length s)))
+              (loop (read-string *read-size* fp) 0)) )))
+        (else
+         (add! (substring s pos (string-length s)))
          (loop (read-string *read-size* fp)
                0))))))
 
@@ -82,6 +112,9 @@
               (cond
                 ((eq? c #\#)
                  (set! inp (parse-string-comment! inp 1))
+                 (parse))
+                ((eq? c #\{)
+                 (set! inp (parse-expr! inp 1))
                  (parse))
                 (else
                   (write "TODO: parse scheme expression")
