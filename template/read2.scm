@@ -10,32 +10,44 @@
 ;   - no, append to string list
 ;
 
-TODO: want next 4 vars to be private, really
 (define *read-size* 2) ;; TODO: 1024?
-(define fp (open-input-file "view-2.html"))
-(define inp (read-string *read-size* fp))
-(define exprs '())
 
-(define (read-next-string!)
-  (set! inp (read-string *read-size* fp)))
+(define-record-type <buf>
+  (%make-buf fp buf exprs)
+  buf?
+  (fp buf:fp)
+  (str buf:str buf:set-str!)
+  (exprs buf:exprs buf:set-exprs!)
+)
 
-(define (append-next-string!)
-  (set! inp (string-append inp (read-string *read-size* fp)))
-  inp)
+(define (make-buf fp)
+  (%make-buf
+   fp
+   (read-string *read-size* fp)
+   '()))
 
-(define (set-current-string! str)
-  (set! inp str)
-  inp)
+;;TODO: want next 4 vars to be private, really
+;(define fp (open-input-file "view-2.html"))
+;(define inp (read-string *read-size* fp))
+;(define exprs '())
+
+(define (buf:read-next-string! buf)
+  (buf:set-str! buf (read-string *read-size* (buf:fp buf))))
+
+(define (buf:append-next-string! buf)
+  (let ((s (buf:str buf)))
+    (buf:read-next-string! buf)
+    (buf:set-str! buf (string-append s (buf:str buf)))))
 
 ;; Return next char from input, starting at position `pos`.
 ;; Will read more from input stream if necessary
-(define (next-char str pos)
+(define (buf:next-char buf pos)
   (cond
-    ((< (+ 1 pos) (string-length str))
-     (string-ref str (+ pos 1)))
+    ((< (+ 1 pos) (string-length (buf:str buf)))
+     (string-ref (buf:str buf) (+ pos 1)))
     (else
-     (append-next-string!)
-     (next-char str 0)
+     (buf:append-next-string! buf)
+     (buf:next-char buf 0)
      )))
 
 
@@ -104,44 +116,46 @@ TODO: want next 4 vars to be private, really
 ;               0))))))
 
 ;; Top-level parser
-(define (parse)
+(define (parse filename)
+ (let loop ((buf (make-buf (open-input-file filename))))
   (cond
-
-;; TODO: do not work with inp here! need to abstract that somehow
-
     ;; EOF?
-    ((eof-object? inp)
+    ((eof-object? (buf:str buf))
+     (close-port (buf:fp buf))
      ;(terminate!)
-     (for-each display (reverse exprs))
+     (for-each display (reverse (buf:exprs buf)))
      (newline)
      (write 'DONE))
     (else
-
       ;; Does the string begin a scheme expression?
       ;; Will eventually need more sophisticated parsing but this works for now
-      (let ((spos (string-pos inp #\{ 0)))
+      (let ((spos (string-pos (buf:str buf) #\{ 0)))
         (cond
           (spos
             ;; Include any chars already read, and clear from inp buffer
-            (set! exprs (cons (substring inp 0 spos) exprs))
-            (set! inp (substring inp spos (string-length inp)))
+            (buf:set-exprs!
+              buf
+              (cons (substring (buf:str buf) 0 spos) (buf:exprs buf)))
+            (buf:set-str! 
+              buf 
+              (substring (buf:str buf) spos (string-length (buf:str buf))))
 
             ;; TODO: check next char (may require another read)
-            (let ((c (next-char inp 0)))
+            (let ((c (buf:next-char buf 0)))
               (cond
               ;  ((eq? c #\#)
               ;   (set! inp (parse-string-comment! inp 1))
-              ;   (parse))
+              ;   (loop buf))
               ;  ((eq? c #\{)
               ;   (set! inp (parse-expr! inp 1))
-              ;   (parse))
+              ;   (loop buf))
                 (else
                   (write "TODO: parse scheme expression")
                   (newline)
-                  (exit 1)))))  ;; TODO: (parse)
+                  (exit 1)))))  ;; TODO: (loop buf)
           (else
-            (set! exprs (cons inp exprs))
-            (read-next-string!)
-            (parse)))))))
+            (buf:set-exprs! buf (cons (buf:str buf) (buf:exprs buf)))
+            (buf:read-next-string! buf)
+            (loop buf))))))))
 
-(parse)
+(parse "view-2.html")
