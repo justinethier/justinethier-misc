@@ -94,15 +94,15 @@
            (cond
             ((eq? c #\})
 (write `(DEBUG ,(buf:str buf) ,i)) (newline)
-             ;; Return expression and remaining buffer
+             ;; Add expression, return remaining buffer
              (if (> (- i 2) pos)
                  (add! (substring (buf:str buf) pos (string-length (buf:str buf)))))
-             ;(values
-             ;  expr ;; Scheme expression (as string)
+
+               (buf:set-exprs! buf (cons `(SCHEME ,expr) (buf:exprs buf)))
+
                (buf:set-str! 
                  buf
                  (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
-             ;)
             (else
               (add! (substring (buf:str buf) pos (string-length (buf:str buf))))
               (buf:read-next-string! buf)
