@@ -10,7 +10,7 @@
 ;   - no, append to string list
 ;
 
-(define *read-size* 2) ;; TODO: 1024?
+(define *read-size* 1024)
 
 (define-record-type <buf>
   (%make-buf fp buf exprs)
@@ -61,6 +61,7 @@
 ;;; Basically reads and discards the whole comment.
 (define (parse-string-comment! buf start)
   (let loop ((pos start))
+;(write `(loop ,start ,(buf:str buf)))(newline)
     (let ((i (string-pos (buf:str buf) #\# pos)))
 ;(write `(loop ,i ,(buf:str buf)))(newline)
       (cond
@@ -69,11 +70,13 @@
 ;(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
            (cond
             ((eq? c #\})
-(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+;(write `(DEBUG ,(buf:str buf) ,i)) (newline)
              ;; Start buffer from end of comment
              (buf:set-str! 
                buf
                (substring (buf:str buf) (+ i 2) (string-length (buf:str buf)))))
+            ;; TODO: error if EOF
+
             (else
               (buf:read-next-string! buf)
               (loop 0)) )))
@@ -105,6 +108,9 @@
                (buf:set-str! 
                  buf
                  (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
+
+            ;; TODO: error if EOF
+
             (else
               (add! (substring (buf:str buf) pos (string-length (buf:str buf))))
               (buf:read-next-string! buf)
@@ -142,10 +148,10 @@
             (let ((c (buf:next-char buf 0)))
               (cond
                 ((eq? c #\#)
-                 (parse-string-comment! buf 1)
+                 (parse-string-comment! buf 2)
                  (loop buf))
                 ((eq? c #\{)
-                 (parse-expr! buf 1)
+                 (parse-expr! buf 2)
                  (loop buf))
                 (else
                   (write "TODO: parse scheme expression")
