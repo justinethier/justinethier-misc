@@ -62,16 +62,18 @@
 (define (parse-string-comment! buf start)
   (let loop ((pos start))
     (let ((i (string-pos (buf:str buf) #\# pos)))
-(write `(loop ,i ,(buf:str buf)))(newline)
+;(write `(loop ,i ,(buf:str buf)))(newline)
       (cond
         (i
          (let ((c (buf:next-char buf i)))
-(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+;(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
            (cond
             ((eq? c #\})
 (write `(DEBUG ,(buf:str buf) ,i)) (newline)
              ;; Start buffer from end of comment
-             (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))
+             (buf:set-str! 
+               buf
+               (substring (buf:str buf) (+ i 2) (string-length (buf:str buf)))))
             (else
               (buf:read-next-string! buf)
               (loop 0)) )))
@@ -86,14 +88,14 @@
 
   (let loop ((pos start))
     (let ((i (string-pos (buf:str buf) #\} pos)))
-(write `(loop ,i ,(buf:str buf)))(newline)
+;(write `(loop ,i ,(buf:str buf)))(newline)
       (cond
         (i
          (let ((c (buf:next-char buf i)))
-(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+;(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
            (cond
             ((eq? c #\})
-(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+;(write `(DEBUG ,(buf:str buf) ,i)) (newline)
              ;; Add expression, return remaining buffer
              (if (> (- i 2) pos)
                  (add! (substring (buf:str buf) pos (string-length (buf:str buf)))))
@@ -154,6 +156,6 @@
             (buf:read-next-string! buf)
             (loop buf))))))))
 
-(parse "view-2.html")
+;(parse "view-2.html")
 (parse "view-3.html")
-(parse "view-4.html")
+;(parse "view-4.html")
