@@ -128,7 +128,12 @@
     ((eof-object? (buf:str buf))
      (close-port (buf:fp buf))
      ;(terminate!)
-     (for-each display (reverse (buf:exprs buf)))
+     (for-each 
+       (lambda (expr)
+         (newline)
+         (write expr)
+        )
+       (reverse (buf:exprs buf)))
      (newline)
      (write 'DONE))
     (else
@@ -164,4 +169,4 @@
 
 ;(parse "view-2.html")
 (parse "view-3.html")
-;(parse "view-4.html")
+(parse "view-4.html")
