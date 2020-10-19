@@ -75,8 +75,9 @@
              (buf:set-str! 
                buf
                (substring (buf:str buf) (+ i 2) (string-length (buf:str buf)))))
-            ;; TODO: error if EOF
 
+            ((eof-object? c)
+             (error "Unexpected end of file parsing Scheme comment" (buf:str buf)))
             (else
               (buf:read-next-string! buf)
               (loop 0)) )))
@@ -100,16 +101,17 @@
             ((eq? c #\})
 ;(write `(DEBUG ,(buf:str buf) ,i)) (newline)
              ;; Add expression, return remaining buffer
-             (if (> (- i 2) pos)
-                 (add! (substring (buf:str buf) pos (string-length (buf:str buf)))))
+             ;(if (> (- i 2) pos)
+             (add! (substring (buf:str buf) pos i))
 
-               (buf:set-exprs! buf (cons `(SCHEME ,expr) (buf:exprs buf)))
+             (buf:set-exprs! buf (cons `(SCHEME ,expr) (buf:exprs buf)))
 
-               (buf:set-str! 
-                 buf
-                 (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
+             (buf:set-str! 
+               buf
+               (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
 
-            ;; TODO: error if EOF
+            ((eof-object? c)
+             (error "Unexpected error parsing Scheme expression" (buf:str buf)))
 
             (else
               (add! (substring (buf:str buf) pos (string-length (buf:str buf))))
@@ -168,5 +170,5 @@
             (loop buf))))))))
 
 ;(parse "view-2.html")
-(parse "view-3.html")
+;(parse "view-3.html")
 (parse "view-4.html")
