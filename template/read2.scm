@@ -1,4 +1,5 @@
 (import (scheme base)
+        (scheme read)
         (scheme write)
         )
 
@@ -104,8 +105,16 @@
              ;(if (> (- i 2) pos)
              (add! (substring (buf:str buf) pos i))
 
-             (buf:set-exprs! buf (cons `(SCHEME ,expr) (buf:exprs buf)))
+             ;; Parse string buffer into an S-expression
+             (let ((fp (open-input-string expr)))
+              (buf:set-exprs! 
+                buf 
+                (cons 
+                  `(display ,(read fp)) ;(SCHEME ,expr) 
+                  (buf:exprs buf)))
+              (close-port fp))
 
+             ;; Return extra buffer chars back to the top-level parser
              (buf:set-str! 
                buf
                (substring (buf:str buf) (+ i 2) (string-length (buf:str buf))))) ;; Remaining buffer
