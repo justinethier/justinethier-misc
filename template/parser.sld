@@ -144,15 +144,24 @@
     ;; EOF?
     ((eof-object? (buf:str buf))
      (close-port (buf:fp buf))
-     ;(terminate!)
-     (for-each 
+     (map 
        (lambda (expr)
-         (newline)
-         (write expr)
-        )
+         (cond
+           ((string? expr)
+            `(display ,expr))
+           (else
+             expr)))
        (reverse (buf:exprs buf)))
-     (newline)
-     (write 'DONE))
+    ; ;(terminate!)
+    ; (for-each 
+    ;   (lambda (expr)
+    ;     (newline)
+    ;     (write expr)
+    ;    )
+    ;   (reverse (buf:exprs buf)))
+    ; (newline)
+    ; (write 'DONE)
+    )
     (else
       ;; Does the string begin a scheme expression?
       ;; Will eventually need more sophisticated parsing but this works for now
