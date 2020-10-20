@@ -15,3 +15,7 @@
 
 (eval (cons 'begin (parse "view-4.html")) env)
 ;(write (cons 'begin (parse "view-4.html")))
+
+;; TODO: caching ability for views?
+;;    would want to record file timestamp and reload if necessary
+;; TODO: new module to encapsulate view 
