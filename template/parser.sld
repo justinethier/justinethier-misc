@@ -151,17 +151,7 @@
             `(display ,expr))
            (else
              expr)))
-       (reverse (buf:exprs buf)))
-    ; ;(terminate!)
-    ; (for-each 
-    ;   (lambda (expr)
-    ;     (newline)
-    ;     (write expr)
-    ;    )
-    ;   (reverse (buf:exprs buf)))
-    ; (newline)
-    ; (write 'DONE)
-    )
+       (reverse (buf:exprs buf))) )
     (else
       ;; Does the string begin a scheme expression?
       ;; Will eventually need more sophisticated parsing but this works for now
