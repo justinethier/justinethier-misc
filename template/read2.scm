@@ -32,6 +32,6 @@
                (desc . cdr)))
 
 (render "view-4.html" args)
-(render "view-4.html" '((row . (cons "view-2.html" "View 2"))
+(render "view-4.html" '((row . '("view-2.html" . "View 2"))
                         (link . car)
                         (desc . cdr)))
