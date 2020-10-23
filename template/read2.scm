@@ -1,9 +1,6 @@
 (import (scheme base)
-        (scheme read)
-        (scheme repl)
-        (scheme write)
-        (scheme eval)
         (parser)
+        (template)
         )
 
 ;; TODO:
@@ -30,25 +27,11 @@
 
 ;; TODO: (define (add-arg!) ????
 
-
-(define (render view args)
-  (let ((env (cond-expand
-               (cyclone (create-environment '() '()))
-               (else (interaction-environment))))
-        (view-sexpr (parse view)) ;; TODO: read from cache if we can
-       )
-    (for-each
-      (lambda (arg)
-        ;(write `(define ,(car arg) ,(cdr arg))) (newline) ;; Debug
-        (eval `(define ,(car arg) ,(cdr arg)) env)
-      )
-      args)
-
-    (eval (cons 'begin view-sexpr) env)))
-
-
 (define args '((row . (cons "view-1.html" "View 1"))
                (link . car)
                (desc . cdr)))
 
 (render "view-4.html" args)
+(render "view-4.html" '((row . (cons "view-2.html" "View 2"))
+                        (link . car)
+                        (desc . cdr)))

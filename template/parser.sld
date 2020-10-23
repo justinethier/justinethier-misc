@@ -139,6 +139,8 @@
 
 ;; Top-level parser
 (define (parse filename)
+ (write `(DEBUG called parse ,filename)) (newline) ;; DEBUG
+
  (let loop ((buf (make-buf (open-input-file filename))))
   (cond
     ;; EOF?
