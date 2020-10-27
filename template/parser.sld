@@ -138,10 +138,18 @@
          (loop 0))))))
 
 ;; Top-level parser
-(define (parse filename)
+(define (parse obj)
  ;(write `(DEBUG called parse ,filename)) (newline) ;; DEBUG
 
- (let loop ((buf (make-buf (open-input-file filename))))
+ (let loop ((buf (make-buf 
+                   (cond
+                     ((string? obj)
+                      (open-input-file obj)) ;; Open file
+                     ((port? obj)
+                      obj)
+                     (else
+                      (error "Cannot parse input from unexpected object" obj) )))))
+
   (cond
     ;; EOF?
     ((eof-object? (buf:str buf))
