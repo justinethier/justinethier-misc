@@ -8,7 +8,7 @@
     (scheme write)
   )
   (begin
-   (define *trace-level* 1)
+   (define *trace-level* 0)
    (define (set-trace-level! l)
      (set! *trace-level* l))
    (define (trace expr)

@@ -5,6 +5,7 @@
   (import
     (scheme base)
     (scheme read)
+    (scheme cyclone util)
     (trace)
   )
   (begin
@@ -114,16 +115,7 @@
              ;(if (> (- i 2) pos)
              (add! (substring (buf:str buf) pos i))
 
-             ;; Parse string buffer into an S-expression
-             ;(let ((fp (open-input-string expr)))
-             ; (buf:set-exprs! 
-             ;   buf 
-             ;   (cons 
-             ;     (if stmt?
-             ;       `,(read fp)
-             ;       `(display ,(read fp)))
-             ;     (buf:exprs buf)))
-             ; (close-port fp))
+             ;; Append Scheme code to the buffer of expressions
              (buf:set-exprs! 
                buf 
                (cons 
@@ -171,20 +163,28 @@
                      (lambda (expr)
                        (cond
                          ((string? expr)
-                          (string-append "(display \"" expr "\")"))
+                          (string-append 
+                            "(display \"" 
+                            (string-replace-all 
+                              expr 
+                              "\""
+                              "\\\"")
+                            "\")"))
                          ((pair? expr)
                           (car expr))
                          (else
                            expr)))
                      (reverse (buf:exprs buf))))
-            (fp (open-input-string 
-                 (foldr 
-                   string-append 
-                   ""
-                   exprs)))
+            (str
+              (foldr 
+                string-append 
+                ""
+                exprs))
+            (fp (open-input-string str))
             (result (read-all fp)))
-     (trace `(DEBUG parse exprs ,exprs))
-     (trace `(DEBUG parse result ,result))
+     ;(trace `(DEBUG parse exprs ,exprs))
+     ;(trace `(DEBUG parse str ,str))
+     ;(trace `(DEBUG parse result ,result))
      result)
     )
     (else
