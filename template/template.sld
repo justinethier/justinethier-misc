@@ -37,7 +37,7 @@
             (eval `(define ,(car arg) ,(cdr arg)) env)
           )
           args)
-    
+(trace `(DEBUG render ,view-sexpr))
         (eval (cons 'begin view-sexpr) env)))
     
     

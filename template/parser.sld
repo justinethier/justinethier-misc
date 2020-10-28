@@ -97,6 +97,9 @@
   (define (add! str)
     (set! expr (string-append expr str)))
 
+(trace `(parse-expr! ,(buf:str buf) ,start ,ending-char ,stmt?))
+(trace '())
+
   (let loop ((pos start))
     (let ((i (string-pos (buf:str buf) ending-char pos)))
       (trace `(loop ,i ,(buf:str buf)))
@@ -112,15 +115,23 @@
              (add! (substring (buf:str buf) pos i))
 
              ;; Parse string buffer into an S-expression
-             (let ((fp (open-input-string expr)))
-              (buf:set-exprs! 
-                buf 
-                (cons 
-                  (if stmt?
-                    `,(read fp)
-                    `(display ,(read fp)))
-                  (buf:exprs buf)))
-              (close-port fp))
+             ;(let ((fp (open-input-string expr)))
+             ; (buf:set-exprs! 
+             ;   buf 
+             ;   (cons 
+             ;     (if stmt?
+             ;       `,(read fp)
+             ;       `(display ,(read fp)))
+             ;     (buf:exprs buf)))
+             ; (close-port fp))
+             (buf:set-exprs! 
+               buf 
+               (cons 
+                 (list
+                   (if stmt?
+                     expr
+                     (string-append "(display " expr ")")))
+                 (buf:exprs buf)))
 
              ;; Return extra buffer chars back to the top-level parser
              (buf:set-str! 
@@ -156,14 +167,26 @@
     ;; EOF?
     ((eof-object? (buf:str buf))
      (close-port (buf:fp buf))
-     (map 
-       (lambda (expr)
-         (cond
-           ((string? expr)
-            `(display ,expr))
-           (else
-             expr)))
-       (reverse (buf:exprs buf))) )
+     (let* ((exprs (map 
+                     (lambda (expr)
+                       (cond
+                         ((string? expr)
+                          (string-append "(display \"" expr "\")"))
+                         ((pair? expr)
+                          (car expr))
+                         (else
+                           expr)))
+                     (reverse (buf:exprs buf))))
+            (fp (open-input-string 
+                 (foldr 
+                   string-append 
+                   ""
+                   exprs)))
+            (result (read-all fp)))
+     (trace `(DEBUG parse exprs ,exprs))
+     (trace `(DEBUG parse result ,result))
+     result)
+    )
     (else
       ;; Does the string begin a scheme expression?
       ;; Will eventually need more sophisticated parsing but this works for now
