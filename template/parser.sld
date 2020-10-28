@@ -5,7 +5,7 @@
   (import
     (scheme base)
     (scheme read)
-    (scheme write)
+    (trace)
   )
   (begin
 
@@ -68,16 +68,16 @@
 ;;; Basically reads and discards the whole comment.
 (define (parse-string-comment! buf start)
   (let loop ((pos start))
-;(write `(loop ,start ,(buf:str buf)))(newline)
+    (trace `(loop ,start ,(buf:str buf)))
     (let ((i (string-pos (buf:str buf) #\# pos)))
-;(write `(loop ,i ,(buf:str buf)))(newline)
+    (trace `(loop ,i ,(buf:str buf)))
       (cond
         (i
          (let ((c (buf:next-char buf i)))
-;(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+           (trace `(DEBUG c ,c ,(buf:str buf) ,pos)) 
            (cond
             ((eq? c #\})
-;(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+             (trace `(DEBUG ,(buf:str buf) ,i)) 
              ;; Start buffer from end of comment
              (buf:set-str! 
                buf
@@ -99,14 +99,14 @@
 
   (let loop ((pos start))
     (let ((i (string-pos (buf:str buf) ending-char pos)))
-;(write `(loop ,i ,(buf:str buf)))(newline)
+      (trace `(loop ,i ,(buf:str buf)))
       (cond
         (i
          (let ((c (buf:next-char buf i)))
-;(write `(DEBUG c ,c ,(buf:str buf) ,pos)) (newline)
+           (trace `(DEBUG c ,c ,(buf:str buf) ,pos)) 
            (cond
             ((eq? c #\})
-;(write `(DEBUG ,(buf:str buf) ,i)) (newline)
+             (trace `(DEBUG ,(buf:str buf) ,i)) 
              ;; Add expression, return remaining buffer
              ;(if (> (- i 2) pos)
              (add! (substring (buf:str buf) pos i))
@@ -141,7 +141,7 @@
 
 ;; Top-level parser
 (define (parse obj)
- ;(write `(DEBUG called parse ,filename)) (newline) ;; DEBUG
+ (trace `(DEBUG called parse ,obj))  ;; DEBUG
 
  (let loop ((buf (make-buf 
                    (cond
@@ -190,8 +190,7 @@
                  (parse-expr! buf 2 #\% #t)
                  (loop buf))
                 (else
-                  (write "TODO: parse scheme expression")
-                  (newline)
+                  (error "TODO: parse scheme expression")
                   (exit 1)))))  ;; TODO: (loop buf)
           (else
             (buf:set-exprs! buf (cons (buf:str buf) (buf:exprs buf)))

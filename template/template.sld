@@ -7,9 +7,9 @@
     (scheme eval)
     (scheme read)
     (scheme repl)
-    (scheme write)
     (srfi 69)
     (parser)
+    (trace)
   )
   (begin
 
@@ -33,7 +33,7 @@
            )
         (for-each
           (lambda (arg)
-            ;(write `(define ,(car arg) ,(cdr arg))) (newline) ;; Debug
+            (trace `(define ,(car arg) ,(cdr arg)))
             (eval `(define ,(car arg) ,(cdr arg)) env)
           )
           args)
