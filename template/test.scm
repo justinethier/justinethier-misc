@@ -109,6 +109,20 @@ more text
       '((row . '("view-2.html" . "View 2"))
         (link . car)
         (desc . cdr))))
+
+  ;(test/output
+  ;  "Basic view with statements and expressions"
+  ;  view-1
+    (render
+      "view-1.html" 
+      '((rows . '(
+                  ("view-1.html" . "View 1")
+                  ("view-2.html" . "View 2")
+                  ("view-3.html" . "View 3")
+                 ))
+        (link . car)
+        (desc . cdr)))
+    ;)
 )
 
 (test-exit)
