@@ -92,13 +92,13 @@
          (buf:read-next-string! buf)
          (loop 0))))))
 
-(define (parse-expr! buf start)
+(define (parse-expr! buf start ending-char stmt?)
   (define expr "")
   (define (add! str)
     (set! expr (string-append expr str)))
 
   (let loop ((pos start))
-    (let ((i (string-pos (buf:str buf) #\} pos)))
+    (let ((i (string-pos (buf:str buf) ending-char pos)))
 ;(write `(loop ,i ,(buf:str buf)))(newline)
       (cond
         (i
@@ -116,7 +116,9 @@
               (buf:set-exprs! 
                 buf 
                 (cons 
-                  `(display ,(read fp)) ;(SCHEME ,expr) 
+                  (if stmt?
+                    `,(read fp)
+                    `(display ,(read fp)))
                   (buf:exprs buf)))
               (close-port fp))
 
@@ -182,7 +184,10 @@
                  (parse-string-comment! buf 2)
                  (loop buf))
                 ((eq? c #\{)
-                 (parse-expr! buf 2)
+                 (parse-expr! buf 2 #\} #f)
+                 (loop buf))
+                ((eq? c #\%)
+                 (parse-expr! buf 2 #\% #t)
                  (loop buf))
                 (else
                   (write "TODO: parse scheme expression")

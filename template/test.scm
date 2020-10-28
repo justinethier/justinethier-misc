@@ -113,7 +113,7 @@ more text
   ;(test/output
   ;  "Basic view with statements and expressions"
   ;  view-1
-    (render
+    #;(render
       "view-1.html" 
       '((rows . '(
                   ("view-1.html" . "View 1")
