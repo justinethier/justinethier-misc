@@ -3,10 +3,6 @@
         (template)
         (cyclone test))
 
-(test-group "General"
-  (test "Example" #t #t)
-)
-
 (define view-1
 "<html>
 <head><title>Test View></title></head>
@@ -68,48 +64,51 @@ more text
 </html>
 ")
 
-(define-syntax test-group/output
+(define-syntax test/output
   (syntax-rules ()
       ((_ desc expected body ...)
-       (test-group
+       (_test/output
          desc
-         (test/output
-           expected
-           (lambda ()
-             body ...))))))
+         expected
+         (lambda ()
+           body ...)))))
 
-(define (test/output expected thunk)
+(define (_test/output desc expected thunk)
   (call-with-port 
     (open-output-string) 
     (lambda (p)
       (parameterize ((current-output-port p))
         (thunk)
         (test 
+          desc
           expected
           (get-output-string p))))))
 
-;; TODO: view 1
+(test-group "View snippets"
+  (test/output "Basic inline comment"
+    " test "
+    (render (open-input-string " test ") '()))
+)
 
-(test-group/output
-  "Basic views with no embedded Scheme"
-  view-2
-  (render "view-2.html" '()))
+(test-group "Views from file"
 
-(test-group/output "Basic view with comments"
-  view-3
-  (render "view-3.html" '()))
+  (test/output
+    "Basic views with no embedded Scheme"
+    view-2
+    (render "view-2.html" '()))
 
-(test-group/output "Basic inline comment"
-  " test "
-  (render (open-input-string " test ") '()))
+  (test/output "Basic view with comments"
+    view-3
+    (render "view-3.html" '()))
 
-(test-group/output
-  "Basic view with expressions"
-  view-4
-  (render
-    "view-4.html" 
-    '((row . '("view-2.html" . "View 2"))
-      (link . car)
-      (desc . cdr))))
+  (test/output
+    "Basic view with expressions"
+    view-4
+    (render
+      "view-4.html" 
+      '((row . '("view-2.html" . "View 2"))
+        (link . car)
+        (desc . cdr))))
+)
 
 (test-exit)
