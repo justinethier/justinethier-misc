@@ -99,10 +99,9 @@ more text
   view-3
   (render "view-3.html" '()))
 
-; TODO:
-;(test-group/output "Basic inline comment"
-;  " test "
-;  (render "view-3.html" '()))
+(test-group/output "Basic inline comment"
+  " test "
+  (render (open-input-string " test ") '()))
 
 (test-group/output
   "Basic view with expressions"
