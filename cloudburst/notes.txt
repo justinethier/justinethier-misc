@@ -1,0 +1,33 @@
+Documentation / useful links:
+http://chriswu.me/blog/writing-hello-world-in-fcgi-with-c-plus-plus/
+https://www.linode.com/docs/web-servers/nginx/nginx-and-perlfastcgi-on-arch-linux
+
+- fast CGI docs.
+  this may be a good start: https://htmlpreview.github.io/?https://raw.githubusercontent.com/FastCGI-Archives/fcgi2/master/doc/fastcgi-prog-guide/ch2c.htm
+
+also, for source code:
+https://htmlpreview.github.io/?https://github.com/FastCGI-Archives/fcgi2/blob/master/doc/overview.html
+
+- threaded example: https://stackoverflow.com/questions/5829869/multi-threaded-fastcgi-app
+ the full example is here:
+ https://github.com/LuaDist/fcgi/blob/master/examples/threaded.c
+
+Install:
+
+pacman -S nginx fcgi fcgiwrap spawn-fcgi
+
+# run nginx using the provided configuration
+sudo nginx -c <absolute path to nginx.conf>
+
+# spawn the fcgi app on port 8000 with no fork
+spawn-fcgi -p 8000 -n example
+
+
+For next steps forward, TODO:
+- REST integration, add support for get/post/put/delete methods
+- as part of that, need to be able to receive POST args (and PUT/DELETE, are those the same?)
+- as part of that, also need a way to format returned sexps as json/xml/other.
+  basically will want to call a function that accepts an expression and does all of the
+  writing to stdout for the object
+- clean up main, relocating code to libraries as needed (or maybe this is good enough?)
+- once that all works, start thinking about views
