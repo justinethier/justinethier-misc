@@ -17,6 +17,12 @@ TODO / roadmap:
 
 TODO: build and run example from github action, including http server hosting the fcgi app
 
+# Install Dependencies
+
+## Ubuntu
+
+    sudo apt-get install libfcgi-dev
+
 ## Arch Linux
 
     pacman -Sy

@@ -1,7 +1,7 @@
 (import 
   (scheme base)
   (lib json)
-  (scheme cyclone test))
+  (cyclone test))
 
 (test-group 
   "constants"

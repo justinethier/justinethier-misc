@@ -32,14 +32,6 @@ CYCLONE_LIBS_COBJECTS = \
   $(CYCLONE_DIR)/scheme/cyclone/libraries.o \
   $(CYCLONE_DIR)/scheme/char.o
 
-TEST_DIR = tests
-TEST_SRC = \
- $(TEST_DIR)/json-test.scm
-TESTS = $(basename $(TEST_SRC))
-
-$(TESTS) : %: %.scm
-	$(CYCLONE) $< && ./$@
-
 all: $(APP) $(APP_LIBS_COBJECTS)
 
 $(CONTROLLER_OBJS) : %.o: %.sld
@@ -52,9 +44,9 @@ $(APP_LIBS_COBJECTS) : %.o: %.sld
 	$(CYCLONE) $<
 
 $(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS)
-	$(CYCLONE) -d $(APP).scm
-	cc $(APP).c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o $(APP).o
-	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
+	$(CYCLONE) -CLNK -lfcgi $(APP).scm
+#	cc $(APP).c -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -c -o $(APP).o
+#	cc $(APP).o $(CYCLONE_LIBS_COBJECTS) $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS) -pthread -lfcgi -lcyclone -lck -lm -ltommath -ldl -O2 -fPIC -rdynamic -Wall -I/usr/local/include -L/usr/local/lib -o $(APP)
 
 #threaded: threaded.c
 #	gcc threaded.c -lpthread -lfcgi -o threaded
@@ -66,6 +58,14 @@ $(APP): $(APP).scm $(APP_LIBS_COBJECTS) $(CONTROLLER_OBJS) $(MODEL_OBJS)
 clean:
 #	rm -f example $(APP) threaded *.meta *.so *.o $(APP).c lib/*.meta lib/*.so $(APP_LIBS_CFILES) $(APP_LIBS_COBJECTS)
 	git clean -fdx
+
+TEST_DIR = tests
+TEST_SRC = \
+ $(TEST_DIR)/json-test.scm
+TESTS = $(basename $(TEST_SRC))
+
+$(TESTS) : %: %.scm
+	$(CYCLONE) $< && ./$@
 
 test: $(APP) $(APP_LIBS_COBJECTS) $(TESTS) $(TEST_OBJS)
 
