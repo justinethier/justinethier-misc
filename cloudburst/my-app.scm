@@ -193,7 +193,7 @@
 ;;       FCGI service (default behavior)
 
 ;; TESTING
-(begin
+#;(begin
 ;  ;; No controller, do we provide a default one?
 ;  (route-to-controller "http://10.0.0.4/" "GET") (newline)
 ;  ;; No action, should have a means of default
@@ -206,9 +206,10 @@
   (route-to-controller "http://10.0.0.4/demo2/test" "GET") (newline)
   (route-to-controller "http://10.0.0.4/controller/action/id" "GET") (newline)
   (route-to-controller "http://localhost/demo.cgi" "GET") (newline)
+
+  (exit 0)
 ) ;; END
 
-(exit 0)
 
 (fcgx:init)
 ;; TODO: initiate minor GC to ensure no thread-local data??
