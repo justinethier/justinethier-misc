@@ -1,4 +1,4 @@
-# <img src="html/logo.png">
+# <img src="html/cloud.png">
 
 TODO / roadmap: 
 
