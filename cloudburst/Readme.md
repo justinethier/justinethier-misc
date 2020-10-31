@@ -2,7 +2,7 @@
 
 TODO / roadmap: 
 
-- Get everything to build again, ideally directly from cyclone
+- ~~Get everything to build again, ideally directly from cyclone~~
 - view integration with templates
 - make a working demo and have it do something interesting
 - provide basic project description,
@@ -22,6 +22,10 @@ TODO: build and run example from github action, including http server hosting th
 ## Ubuntu
 
     sudo apt-get install libfcgi-dev
+
+Right now we are using nginx instead, but this would be nice to figure out, too:
+(lighthttpd setup https://www.linuxcloudvps.com/blog/how-to-install-lighttpd-on-ubuntu-18-04/ )
+
 
 ## Arch Linux
 
