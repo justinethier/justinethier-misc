@@ -1,0 +1,45 @@
+
+<html>
+
+<head>
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+</head>
+
+
+<body onload="init();">
+  <canvas id="demoCanvas" width="1000" height="600"></canvas>
+</body>
+
+<script>
+  var stage;
+  var radius = 50;
+
+  function init() {
+    stage = new createjs.Stage("demoCanvas");
+
+    for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
+      for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
+        var circle = new createjs.Shape();
+        circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, radius/2-2);
+        circle.x = x;
+        circle.y = y;
+        circle.radius = radius;
+        circle.shadow = new createjs.Shadow("#000000", 5, 5, radius/1.5);
+        stage.addChild(circle);
+      }
+    }
+    
+    stage.update();
+    createjs.Ticker.on("tick", tick);
+  }
+
+  function tick() {
+    var c = stage.getChildAt(0);
+    c.graphics.beginFill("#FF0000").drawCircle(0, 0, 25);
+    c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
+    stage.update();
+
+  }
+</script>
+
+</html>
