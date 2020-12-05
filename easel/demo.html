@@ -17,25 +17,33 @@
   function init() {
     stage = new createjs.Stage("demoCanvas");
 
-    for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
-      for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
+    for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
+      for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
         var circle = new createjs.Shape();
-        circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, radius/2-2);
+        circle.graphics.beginFill("#ffffff").drawCircle(0, 0, radius/2-2);
         circle.x = x;
         circle.y = y;
         circle.radius = radius;
-        circle.shadow = new createjs.Shadow("#000000", 5, 5, radius/1.5);
+        circle.shadow = new createjs.Shadow("#000000", 0, 0, radius/1.5);
         stage.addChild(circle);
       }
     }
     
     stage.update();
     createjs.Ticker.on("tick", tick);
+
+    createjs.Ticker.framerate = 10;
   }
 
+ var active = 0;
   function tick() {
-    var c = stage.getChildAt(0);
-    c.graphics.beginFill("#FF0000").drawCircle(0, 0, 25);
+    var c = stage.getChildAt(active);
+    //c.graphics.beginFill("#FF0000").drawCircle(0, 0, 25);
+    c.graphics.clear().beginFill("#FFffff").drawCircle(0, 0, radius/2-2).endFill();
+
+    active = (active + 1) % stage.children.length;
+
+    c = stage.getChildAt(active);
     c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
     stage.update();
 
