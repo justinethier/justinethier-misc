@@ -11,9 +11,24 @@
 </body>
 
 <script>
-/** TODO: extract out to separate file with unit tests */
+/** TODO: extract out to separate file with unit tests (EG: node on CI) */
+
+// From: https://stackoverflow.com/a/966938
+function createArray(length) {
+    var arr = new Array(length || 0),
+        i = length;
+
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while(i--) arr[length-1 - i] = createArray.apply(this, args);
+    }
+
+    return arr;
+}
 
 function Grid(x y) {
+}
+
   /*
 TODO: want to be able to wrap around if at edges of grid
 
@@ -25,11 +40,12 @@ set(x,y)
 each(other-grid, proc)
 
   */
-}
 
 function Life() {
-  // alive
-    /*
+}
+
+Life.prototype.count = function(grid, x, y) { 
+  /*
     (define (life-count grid i j)
       (define (count i j)
         (if (ref grid i j) 1 0))
@@ -41,15 +57,28 @@ function Life() {
          (count (+ i 1) (- j 1))
          (count (+ i 1) j)
          (count (+ i 1) (+ j 1))))
-    )
+    )*/
+}
+
+Life.prototype.alive = function(grid, x, y) {
+  // alive
+    /*
     (begin
     (define (life-alive? grid i j)
       (case (life-count grid i j)
             ((3) #t)
             ((2) (ref grid i j))
             (else #f)))
+    */
+}
 
-TODO: no need to limit iterations, though GUI may want to be able to pause
+Life.prototype.nextgen = function(grid) {
+ /*
+
+TODO: no need to limit iterations, just retun the next geneation
+      and other code will output that grid to UI
+
+TODO: (not here) GUI may want to be able to pause
     (define (life grid iterations)
       (do ((i 0 (+ i 1))
            (grid0 grid grid1)
@@ -63,7 +92,6 @@ TODO: no need to limit iterations, though GUI may want to be able to pause
               ;(set! grid1 j k a))))
         (life-print grid1)))))
     */
-)
 }
 
 </script>
@@ -90,7 +118,7 @@ TODO: no need to limit iterations, though GUI may want to be able to pause
     stage.update();
     createjs.Ticker.on("tick", tick);
 
-    createjs.Ticker.framerate = 10;
+    createjs.Ticker.framerate = 1;
   }
 
  var active = 0;
