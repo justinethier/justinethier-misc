@@ -3,11 +3,13 @@
 
 <head>
   <meta charset="utf-8"/>
-  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <!--<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script> -->
+  <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
 </head>
 
 
 <body onload="init();">
+  <input type="button" value="pause" id="pauseBtn" onclick="togglePause();"><br>
   <canvas id="demoCanvas" width="1000" height="600"></canvas>
 </body>
 
@@ -133,7 +135,21 @@ TODO: (not here) GUI may want to be able to pause
     */
 }
 
-var grid = createArray(10, 10);
+</script>
+
+<script>
+  var stage;
+  var radius = 10;
+  var width;
+  var height; 
+  var grid;
+  var life = new Life();
+
+  function init() {
+    stage = new createjs.Stage("demoCanvas");
+width = (stage.canvas.width - (radius * 2)) / radius;
+height = (stage.canvas.height - (radius * 2)) / radius;
+grid = createArray(width, height);
 grid[1][1] = true;
 grid[2][2] = true;
 grid[3][0] = true;
@@ -144,15 +160,6 @@ grid[3][2] = true;
    X
  XXX
  */
-var life = new Life();
-</script>
-
-<script>
-  var stage;
-  var radius = 50;
-
-  function init() {
-    stage = new createjs.Stage("demoCanvas");
 
     for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
       for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
@@ -161,7 +168,7 @@ var life = new Life();
         circle.x = x;
         circle.y = y;
         circle.radius = radius;
-        circle.shadow = new createjs.Shadow("#000000", 0, 0, radius/1.5);
+        //circle.shadow = new createjs.Shadow("#000000", 0, 0, radius/1.5);
         stage.addChild(circle);
       }
     }
@@ -169,21 +176,45 @@ var life = new Life();
     stage.update();
     createjs.Ticker.on("tick", tick);
 
-    createjs.Ticker.framerate = 1;
+    createjs.Ticker.framerate = 10;
   }
 
- var active = 0;
-  function tick() {
-    var c = stage.getChildAt(active);
-    //c.graphics.beginFill("#FF0000").drawCircle(0, 0, 25);
-    c.graphics.clear().beginFill("#FFffff").drawCircle(0, 0, radius/2-2).endFill();
+  function displayGrid(g) {
+    for (var y = 0; y < height; y++) {
+      //console.log(g[y]);
+      for (var x = 0; x < width; x++) {
+        var c = stage.getChildAt(x + y * width);
+        if (g[x][y] === true) {
+          c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
+        } else {
+          c.graphics.clear().beginFill("#FFFFFF").drawCircle(0, 0, radius/2-2).endFill();
+        }
+      }
+    }
+    //console.log("done");
+ }
 
-    active = (active + 1) % stage.children.length;
+ //var active = 0;
+ function tick() {
+    //var c = stage.getChildAt(active);
+    ////c.graphics.beginFill("#FF0000").drawCircle(0, 0, 25);
+    //c.graphics.clear().beginFill("#FFffff").drawCircle(0, 0, radius/2-2).endFill();
 
-    c = stage.getChildAt(active);
-    c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
+    //active = (active + 1) % stage.children.length;
+
+    //c = stage.getChildAt(active);
+    //c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
+    if (!createjs.Ticker.getPaused()) {
+      displayGrid(grid);
+      grid = life.nextgen(grid);
+    }
     stage.update();
+ }
 
+  function togglePause() {
+    var paused = !createjs.Ticker.getPaused();
+    createjs.Ticker.setPaused(paused);
+    document.getElementById("pauseBtn").value = paused ? "unpause" : "pause";
   }
 </script>
 
