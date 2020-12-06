@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="utf-8"/>
   <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 </head>
 
@@ -26,8 +27,8 @@ function createArray(length) {
     return arr;
 }
 
-function Grid(x y) {
-}
+//function Grid(x y) {
+//}
 
   /*
 TODO: want to be able to wrap around if at edges of grid
@@ -45,6 +46,23 @@ function Life() {
 }
 
 Life.prototype.count = function(grid, x, y) { 
+  function count(x, y) {
+    return (grid[x][y] === true) ? 1 : 0;
+  }
+
+  var xp = x == 0 ? grid.length - 1 : x - 1,
+      xn = x == grid.length - 1 ? 0 : x + 1,
+      yp = y == 0 ? grid[0].length - 1 : y - 1,
+      yn = y == grid[0].length - 1 ? 0 : y + 1;
+
+  return count(xp, yp) +
+         count(xp, y) +
+         count(xp, yn) +
+         count(x, yp) +
+         count(x, yn) +
+         count(xn, yp) +
+         count(xn, y) +
+         count(xn, yn);
   /*
     (define (life-count grid i j)
       (define (count i j)
@@ -61,6 +79,14 @@ Life.prototype.count = function(grid, x, y) {
 }
 
 Life.prototype.alive = function(grid, x, y) {
+  var c = this.count(grid, x, y);
+  if (c == 3) {
+    return true;
+  } else if (c == 2) {
+    return (grid[x][y] === true);
+  } else {
+    return false;
+  }
   // alive
     /*
     (begin
@@ -73,6 +99,19 @@ Life.prototype.alive = function(grid, x, y) {
 }
 
 Life.prototype.nextgen = function(grid) {
+  var w = grid.length,
+      h = grid[0].length,
+      nextgen  = createArray(w, h),
+      x,
+      y;
+
+  for(x = 0; x < w; x++) {
+    for(y = 0; y < h; y++) {
+      nextgen[x][y] = this.alive(grid, x, y);
+    }
+  }
+
+  return nextgen;
  /*
 
 TODO: no need to limit iterations, just retun the next geneation
@@ -94,6 +133,18 @@ TODO: (not here) GUI may want to be able to pause
     */
 }
 
+var grid = createArray(10, 10);
+grid[1][1] = true;
+grid[2][2] = true;
+grid[3][0] = true;
+grid[3][1] = true;
+grid[3][2] = true;
+/*
+  X
+   X
+ XXX
+ */
+var life = new Life();
 </script>
 
 <script>
