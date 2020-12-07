@@ -10,6 +10,8 @@
 
 <body onload="init();">
   <input type="button" value="pause" id="pauseBtn" onclick="togglePause();"><br>
+  <input type="button" value="Zoom In" id="pauseBtn" onclick="zoom();"><br>
+  <input type="button" value="Zoom Out" id="pauseBtn" onclick="zoomOut();"><br>
   <canvas id="demoCanvas" width="1000" height="600"></canvas>
 </body>
 
@@ -138,6 +140,8 @@ TODO: (not here) GUI may want to be able to pause
 </script>
 
 <script>
+  var color1 = "#ffffff";
+  var color2 = "#ff0000";
   var stage;
   var radius = 10;
   var width;
@@ -164,7 +168,7 @@ grid[3][2] = true;
     for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
       for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
         var circle = new createjs.Shape();
-        circle.graphics.beginFill("#ffffff").drawCircle(0, 0, radius/2-2);
+        circle.graphics.beginFill(color2).drawRect(0, 0, radius, radius);
         circle.x = x;
         circle.y = y;
         circle.radius = radius;
@@ -173,10 +177,26 @@ grid[3][2] = true;
       }
     }
     
+// Enable touch events while allowing touch events to bubble up to the document.
+createjs.Touch.enable( stage, false, true );
+
+// Don't let the stage to automatically prevent default touch events.
+// See: https://lucentminds.com/archives/easeljs-touch-mouse-events.html
+stage.preventSelection = false;
+
+    stage.on('stagemousedown', onClick);
     stage.update();
     createjs.Ticker.on("tick", tick);
 
     createjs.Ticker.framerate = 10;
+  }
+
+  function updateCell(c, active) {
+    if (active) {
+      c.graphics.clear().beginFill(color1).drawRect(0, 0, radius, radius).endFill();
+    } else {
+      c.graphics.clear().beginFill(color2).drawRect(0, 0, radius, radius).endFill();
+    }
   }
 
   function displayGrid(g) {
@@ -184,11 +204,12 @@ grid[3][2] = true;
       //console.log(g[y]);
       for (var x = 0; x < width; x++) {
         var c = stage.getChildAt(x + y * width);
-        if (g[x][y] === true) {
-          c.graphics.clear().beginFill("#FF0000").drawCircle(0, 0, radius/2-2).endFill();
-        } else {
-          c.graphics.clear().beginFill("#FFFFFF").drawCircle(0, 0, radius/2-2).endFill();
-        }
+        updateCell(c, g[x][y]);
+        //if (g[x][y] === true) {
+        //  c.graphics.clear().beginFill(color1).drawRect(0, 0, radius, radius).endFill();
+        //} else {
+        //  c.graphics.clear().beginFill(color2).drawRect(0, 0, radius, radius).endFill();
+        //}
       }
     }
     //console.log("done");
@@ -215,6 +236,27 @@ grid[3][2] = true;
     var paused = !createjs.Ticker.getPaused();
     createjs.Ticker.setPaused(paused);
     document.getElementById("pauseBtn").value = paused ? "unpause" : "pause";
+  }
+
+  function zoom(){
+    //document.body.style.zoom = 2;
+    stage.scaleX = stage.scaleY = 2;
+    stage.update();
+  }
+
+  function zoomOut(){
+    //document.body.style.zoom = 2;
+    stage.scaleX = stage.scaleY = 1;
+    stage.update();
+  }
+
+  function onClick(e) {
+    //alert(stage.getObjectUnderPoint(e.stageX, e.stageY));
+    var obj = stage.getObjectUnderPoint(e.stageX, e.stageY);
+    var x = Math.round(e.stageX / radius);
+    var y = Math.round(e.stageY / radius);
+    grid[x][y] = !grid[x][y];
+    updateCell(obj, grid[x][y]);
   }
 </script>
 
