@@ -140,8 +140,8 @@ TODO: (not here) GUI may want to be able to pause
 </script>
 
 <script>
-  var color1 = "#ffffff";
-  var color2 = "#ff0000";
+  var colorActive = "#ffffff";
+  var colorIdle = "#ff0000";
   var stage;
   var radius = 10;
   var width;
@@ -165,12 +165,14 @@ grid[3][2] = true;
  XXX
  */
 
-    for (var y = radius; y < stage.canvas.height - radius; y+= radius) {
-      for (var x = radius; x < stage.canvas.width - radius; x+= radius) {
+    for (var y = radius, yy=0; y < stage.canvas.height - radius; y+= radius, yy++) {
+      for (var x = radius, xx=0; x < stage.canvas.width - radius; x+= radius, xx++) {
         var circle = new createjs.Shape();
-        circle.graphics.beginFill(color2).drawRect(0, 0, radius, radius);
+        circle.graphics.beginFill(colorIdle).drawRect(0, 0, radius, radius);
         circle.x = x;
         circle.y = y;
+        circle.gridX = xx;
+        circle.gridY = yy;
         circle.radius = radius;
         //circle.shadow = new createjs.Shadow("#000000", 0, 0, radius/1.5);
         stage.addChild(circle);
@@ -193,9 +195,9 @@ stage.preventSelection = false;
 
   function updateCell(c, active) {
     if (active) {
-      c.graphics.clear().beginFill(color1).drawRect(0, 0, radius, radius).endFill();
+      c.graphics.clear().beginFill(colorActive).drawRect(0, 0, radius, radius).endFill();
     } else {
-      c.graphics.clear().beginFill(color2).drawRect(0, 0, radius, radius).endFill();
+      c.graphics.clear().beginFill(colorIdle).drawRect(0, 0, radius, radius).endFill();
     }
   }
 
@@ -205,11 +207,6 @@ stage.preventSelection = false;
       for (var x = 0; x < width; x++) {
         var c = stage.getChildAt(x + y * width);
         updateCell(c, g[x][y]);
-        //if (g[x][y] === true) {
-        //  c.graphics.clear().beginFill(color1).drawRect(0, 0, radius, radius).endFill();
-        //} else {
-        //  c.graphics.clear().beginFill(color2).drawRect(0, 0, radius, radius).endFill();
-        //}
       }
     }
     //console.log("done");
@@ -253,10 +250,11 @@ stage.preventSelection = false;
   function onClick(e) {
     //alert(stage.getObjectUnderPoint(e.stageX, e.stageY));
     var obj = stage.getObjectUnderPoint(e.stageX, e.stageY);
-    var x = Math.round(e.stageX / radius);
-    var y = Math.round(e.stageY / radius);
-    grid[x][y] = !grid[x][y];
+    var x = obj.gridX; //Math.round(e.stageX / radius);
+    var y = obj.gridY; //Math.round(e.stageY / radius);
+    grid[x][y] = !(grid[x][y] === true);
     updateCell(obj, grid[x][y]);
+    stage.update();
   }
 </script>
 
