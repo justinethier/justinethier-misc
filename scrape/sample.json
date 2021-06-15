@@ -1,0 +1,8 @@
+{"data":
+ {"total":6166,
+  "_links":{"first":"https:\/\/api.asmodee.net\/main\/v1\/game\/Carcassonne\/rank\/established?limit=10&offset=0","last":"https:\/\/api.asmodee.net\/main\/v1\/game\/Carcassonne\/rank\/established?limit=10&offset=6160","next":"https:\/\/api.asmodee.net\/main\/v1\/game\/Carcassonne\/rank\/established?limit=10&offset=10"},
+  "ranks":[
+    {"id":4230476,"name":"Rollalong","nbgames":601,"karma":100,"score":2220,"rank":1,"lastgame":1623216781},
+    {"id":6180989,"name":"BernTo","nbgames":638,"karma":100,"score":2185,"rank":2,"lastgame":1623617401},
+    {"id":5718049,"name":"Wardsyd","nbgames":184,"karma":100,"score":2184,"rank":3,"lastgame":1622646135}]},
+"error":false,"status":200}
