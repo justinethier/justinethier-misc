@@ -1,6 +1,7 @@
 package main
 
 import (
+  "encoding/json"
   "fmt"
   "io/ioutil"
   "net/http"
@@ -21,8 +22,11 @@ func getListing(listingURL string) {
     if err != nil {
       fmt.Println(err)
     }
-    fmt.Printf("%s\n", bodyText)
+    //fmt.Printf("%s\n", bodyText)
+    return bodyText
   }
+
+  return ""
 }
 
 func getListing2(listingURL string) []string {
@@ -68,8 +72,8 @@ func getListing2(listingURL string) []string {
 }
 
 func main() {
-  getListing("https://account.asmodee.net/en/prx/rankings/Carcassonne/established?limit=10&offset=0")
   //getListing("http://adnansiddiqi.me")
   //m := getListing2("https://www.yelp.com/search?cflt=mobilephonerepair&find_loc=San+Francisoco@2C+CA")
   //fmt.Println(strings.Join(m, "\n"))
+  body := getListing("https://account.asmodee.net/en/prx/rankings/Carcassonne/established?limit=10&offset=0")
 }
