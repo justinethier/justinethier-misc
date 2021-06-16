@@ -76,4 +76,5 @@ func main() {
   //m := getListing2("https://www.yelp.com/search?cflt=mobilephonerepair&find_loc=San+Francisoco@2C+CA")
   //fmt.Println(strings.Join(m, "\n"))
   body := getListing("https://account.asmodee.net/en/prx/rankings/Carcassonne/established?limit=10&offset=0")
+  Parse([]byte(body))
 }

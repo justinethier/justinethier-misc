@@ -1,4 +1,4 @@
-package main
+package parse
 
 import (
   "encoding/json"
@@ -49,8 +49,12 @@ type Rank struct {
   LastGame int `json:"lastgame"`
 }
 
-func main() {
+func ParseFile() {
   bv := readFile("sample.json")
+  Parse(bv)
+}
+
+func Parse(bv []byte) {
   var result Result
 
   json.Unmarshal(bv, &result)
