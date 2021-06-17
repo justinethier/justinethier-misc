@@ -9,16 +9,17 @@ import (
 )
 
 func main() {
-  os.Remove("./foo.db")
+  os.Remove("./rank-data.db")
 
-  db, err := sql.Open("sqlite3", "./foo.db")
+  db, err := sql.Open("sqlite3", "./rank-data.db")
   if err != nil {
     log.Fatal(err)
   }
   defer db.Close()
 
   sqlStmt := `
-  create table ranks (id integer not null primary key, 
+  create table rank (id integer not null primary key, 
+                      run_id integer,
                       account_id integer,
                       name text,
                       num_games int,
@@ -26,7 +27,19 @@ func main() {
                       score int,
                       rank int,
                       last_game int);
-  delete from ranks;
+  delete from rank;
+  `
+  _, err = db.Exec(sqlStmt)
+  if err != nil {
+    log.Printf("%q: %s\n", err, sqlStmt)
+    return
+  }
+
+  sqlStmt = `
+  create table run (id integer not null primary key, 
+                    collection_time text
+                      );
+  delete from run;
   `
   _, err = db.Exec(sqlStmt)
   if err != nil {

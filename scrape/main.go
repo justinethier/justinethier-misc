@@ -120,8 +120,34 @@ func ParseFile() {
   Parse(bv)
 }
 
-func insert(db *sql.DB, name string, rank int) {
-	_, err := db.Exec("insert into ranks(name, rank) values(?, ?)", name, rank)
+func insertNewRun(db *sql.DB) int {
+  _, err := db.Exec("insert into run(collection_time) values(datetime('now'))")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  rows, err := db.Query("select last_insert_rowid()")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer rows.Close()
+  for rows.Next() {
+    var id int
+    err = rows.Scan(&id)
+    if err != nil {
+      log.Fatal(err)
+    }
+    return id;
+  }
+  err = rows.Err()
+  if err != nil {
+    log.Fatal(err)
+  }
+  return -1
+}
+
+func insert(db *sql.DB, run_id int, name string, rank int) {
+	_, err := db.Exec("insert into rank(run_id, name, rank) values(?, ?, ?)", run_id, name, rank)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -133,16 +159,17 @@ func Parse(bv []byte) {
   json.Unmarshal(bv, &result)
   fmt.Printf("%v %v %v\n", result.Data, result.Error, result.Status)
 
-	db, err := sql.Open("sqlite3", "./foo.db")
+	db, err := sql.Open("sqlite3", "./rank-data.db")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 
+  run_id := insertNewRun(db)
   for i := 0; i < len(result.Data.Ranks); i++ {
     row := result.Data.Ranks[i]
     fmt.Printf("%3d - %s - %d - %d\n", row.Rank, row.Name, row.Score, row.NumGames)
-    insert(db, row.Name, row.Rank)
+    insert(db, run_id, row.Name, row.Rank)
   }
 }
 
