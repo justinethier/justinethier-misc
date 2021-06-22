@@ -36,7 +36,7 @@
       " Cyc_check_opaque(data, opq);
         char *addr = NULL;
 
-        if (Cyc_is_string(ipaddr)) {
+        if (boolean_t == Cyc_is_string(ipaddr)) {
           addr = string_str(ipaddr);
         }
 
