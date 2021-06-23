@@ -8,10 +8,21 @@
 
 #define RESPONSE "Hello, World!"
 
+extern object __glo_cv;
+
+void cond_var_bcast(pthread_cond_t *cond) {
+  pthread_cond_broadcast(cond);
+}
+
 void handle_request(struct http_request_s* request) {
 //  chunk_count = 0;
   http_request_connection(request, HTTP_AUTOMATIC);
   struct http_response_s* response = http_response_init();
+
+cond_var_bcast(&(((cond_var)__glo_cv)->cond));
+// TODO: lock our mutex now. when scheme is done, it needs to do its own broadcast
+//       to wake us back up
+
   http_response_status(response, 200);
 //  if (request_target_is(request, "/echo")) {
 //    http_string_t body = http_request_body(request);

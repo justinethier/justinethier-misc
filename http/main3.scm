@@ -1,6 +1,6 @@
 (import 
     (scheme base)
-    ;(scheme write)
+    (scheme write)
     ;(cyclone foreign)
     (srfi 18)
 )
@@ -16,7 +16,14 @@
     return_closcall1(data, k, boolean_t);
   ")
 
+(define lock (make-mutex))
+(define cv (make-condition-variable))
+
 (server-init 0)
 (let loop ()
-  (thread-sleep! 1)
+  (mutex-lock! lock)
+  (mutex-unlock! lock cv)
+  (write `(iterate loop))
+  (newline)
   (loop))
+
