@@ -16,22 +16,8 @@
     return_closcall1(data, k, boolean_t);
   ")
 
-(define-c http-response-status
-  "(void *data, int argc, closure _, object k, object opq, object status)"
-  " Cyc_check_opaque(data, opq);
-    Cyc_check_fixnum(data, status);
-    http_response_status(opaque_ptr(opq), obj_obj2int(status));
-    return_closcall1(data, k, boolean_t);
-  ")
-
-(define-c http-response-header
-  "(void *data, int argc, closure _, object k, object opq, object key, object value)"
-  " Cyc_check_opaque(data, opq);
-    Cyc_check_str(data, key);
-    Cyc_check_str(data, value);
-    http_response_header(opaque_ptr(opq), string_str(key), string_str(value));
-    return_closcall1(data, k, boolean_t);
-  ")
+(c-define http-response-status c-void "http_response_status" opaque int)
+(c-define http-response-header c-void "http_response_header" opaque string string)
 
 (define-c http-response-body
   "(void *data, int argc, closure _, object k, object opq, object body)"
