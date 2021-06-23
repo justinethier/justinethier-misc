@@ -1,5 +1,7 @@
 
+#ifndef SO_REUSEPORT 
 #define SO_REUSEPORT SO_REUSEADDR
+#endif
 
 #define HTTPSERVER_IMPL
 #include "httpserver.h"
