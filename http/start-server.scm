@@ -24,12 +24,17 @@
 
 (server-init 0)
 (let loop ()
+  ;; let http thread wake us up when it receives a request
   (mutex-lock! lock)
   (mutex-unlock! lock cv)
 
   ;; TODO: receive request/empty-response
   ;; TODO: formulate response
-  ;; TODO: broadcast back to http thread that response is ready
+  (write `(TODO: process request/response in scm))
+  (newline)
+
+  ;; broadcast back to http thread that response is ready
+  (condition-variable-broadcast! cv)
   (write `(iterate loop))
   (newline)
   (loop))

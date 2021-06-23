@@ -11,10 +11,7 @@
 #define RESPONSE "Hello, World!"
 
 extern object __glo_cv;
-
-void cond_var_bcast(pthread_cond_t *cond) {
-  pthread_cond_broadcast(cond);
-}
+extern object __glo_lock;
 
 void handle_request(struct http_request_s* request) {
 //  chunk_count = 0;
@@ -22,10 +19,17 @@ void handle_request(struct http_request_s* request) {
   struct http_response_s* response = http_response_init();
 
 // TODO: set request/response aside (or send) such that SCM thread can receive them
-cond_var_bcast(&(((cond_var)__glo_cv)->cond));
+  pthread_cond_t *cond = &(((cond_var)__glo_cv)->cond);
+  pthread_mutex_t *lock = &(((mutex)__glo_lock)->lock);
 
-// TODO: lock our mutex now and wait on CV. when scheme is done, it needs to do its own broadcast
-//       to wake us back up
+  // Wake up SCM thread
+  pthread_cond_broadcast(cond);
+
+  // Lock our mutex now and wait on CV. when scheme is done, it needs to do its own broadcast
+  // to wake us back up
+  pthread_mutex_lock(lock); // TODO: error check each of these
+  pthread_cond_wait(cond, lock);
+  pthread_mutex_unlock(lock);
 
   http_response_status(response, 200);
 //  if (request_target_is(request, "/echo")) {
