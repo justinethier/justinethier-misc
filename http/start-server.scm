@@ -16,10 +16,6 @@
     return_closcall1(data, k, boolean_t);
   ")
 
-;; TODO: use these to coordinate passing http request data back to scheme
-(define c-lock (make-mutex))
-(define c-cv (make-condition-variable))
-
 (define lock (make-mutex))
 (define cv (make-condition-variable))
 
@@ -30,6 +26,10 @@
 (let loop ()
   (mutex-lock! lock)
   (mutex-unlock! lock cv)
+
+  ;; TODO: receive request/empty-response
+  ;; TODO: formulate response
+  ;; TODO: broadcast back to http thread that response is ready
   (write `(iterate loop))
   (newline)
   (loop))

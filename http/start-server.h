@@ -21,8 +21,10 @@ void handle_request(struct http_request_s* request) {
   http_request_connection(request, HTTP_AUTOMATIC);
   struct http_response_s* response = http_response_init();
 
+// TODO: set request/response aside (or send) such that SCM thread can receive them
 cond_var_bcast(&(((cond_var)__glo_cv)->cond));
-// TODO: lock our mutex now. when scheme is done, it needs to do its own broadcast
+
+// TODO: lock our mutex now and wait on CV. when scheme is done, it needs to do its own broadcast
 //       to wake us back up
 
   http_response_status(response, 200);
