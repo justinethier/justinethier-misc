@@ -92,7 +92,4 @@ void start_thread() {
   //pthread_join(thread, NULL);
 }
 
-void main() {
-  start_thread();
-}
 
