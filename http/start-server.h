@@ -12,15 +12,20 @@
 
 extern object __glo_cv;
 extern object __glo_lock;
+extern object __glo_req;
+extern object __glo_resp;
 
 void handle_request(struct http_request_s* request) {
 //  chunk_count = 0;
   http_request_connection(request, HTTP_AUTOMATIC);
   struct http_response_s* response = http_response_init();
 
-// TODO: set request/response aside (or send) such that SCM thread can receive them
   pthread_cond_t *cond = &(((cond_var)__glo_cv)->cond);
   pthread_mutex_t *lock = &(((mutex)__glo_lock)->lock);
+
+  // set request/response aside (or send) such that SCM thread can receive them
+  opaque_ptr(__glo_req) = request;
+  opaque_ptr(__glo_resp) = response;
 
   // Wake up SCM thread
   pthread_cond_broadcast(cond);
@@ -31,7 +36,7 @@ void handle_request(struct http_request_s* request) {
   pthread_cond_wait(cond, lock);
   pthread_mutex_unlock(lock);
 
-  http_response_status(response, 200);
+  //http_response_status(response, 200);
 //  if (request_target_is(request, "/echo")) {
 //    http_string_t body = http_request_body(request);
 //    http_response_header(response, "Content-Type", "text/plain");
@@ -76,8 +81,8 @@ void handle_request(struct http_request_s* request) {
 //    http_response_body(response, buf, i);
 //    return http_respond(request, response);
 //  } else {
-    http_response_header(response, "Content-Type", "text/plain");
-    http_response_body(response, RESPONSE, sizeof(RESPONSE) - 1);
+    //http_response_header(response, "Content-Type", "text/plain");
+    //http_response_body(response, RESPONSE, sizeof(RESPONSE) - 1);
 //  }
   http_respond(request, response);
 }
