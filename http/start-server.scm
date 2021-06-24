@@ -22,13 +22,13 @@
   "(void *data, int argc, closure _, object k, object opq, object body)"
   " Cyc_check_opaque(data, opq);
 
-    if (Cyc_is_string(body)) {
+    if (Cyc_is_string(body) == boolean_t) {
       http_response_body(opaque_ptr(opq), string_str(body), string_num_cp(body));
-    } else if (Cyc_is_bytevector(body)) {
+    } else if (Cyc_is_bytevector(body) == boolean_t) {
       bytevector_type *bv = body;
       http_response_body(opaque_ptr(opq), bv->data, bv->len);
     } else {
-      // TODO: raise type error
+      Cyc_invalid_type_error(data, string_tag, body);
     }
     return_closcall1(data, k, boolean_t);
   ")
@@ -75,7 +75,7 @@
   8080
   (lambda (request response)
     (cond
-      ((http-request? "/echo")
+      ((http-request? req "/echo")
        (let ((body (http-request-body req)))
          (http-response-header resp "Content-Type" "text/plain")
          (http-response-body resp body)))
