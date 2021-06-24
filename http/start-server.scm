@@ -42,8 +42,20 @@
     struct http_request_s *request = opaque_ptr(opq);
     http_string_t body = http_request_body(request);
     make_empty_bytevector(bv);
-    bv.data = body.buf;
+    bv.data = (char *)body.buf;
     bv.len = body.len;
+    return_closcall1(data, k, &bv);
+  ")
+
+(define-c http-request-header
+  "(void *data, int argc, closure _, object k, object opq, object key)"
+  " Cyc_check_opaque(data, opq);
+    Cyc_check_str(data, key);
+    struct http_request_s *request = opaque_ptr(opq);
+    http_string_t header = http_request_header(request, string_str(key));
+    make_empty_bytevector(bv);
+    bv.data = (char *)header.buf;
+    bv.len = header.len;
     return_closcall1(data, k, &bv);
   ")
 
@@ -83,15 +95,10 @@
        (let ((body (http-request-body req)))
          (http-response-header resp "Content-Type" "text/plain")
          (http-response-body resp body)))
-;;  } else if (request_target_is(request, "/host")) {
-;;    http_string_t ua = http_request_header(request, "Host");
-;;    http_response_header(response, "Content-Type", "text/plain");
-;;    http_response_body(response, ua.buf, ua.len);
-;;  } else if (request_target_is(request, "/poll")) {
-;;    while (http_server_poll(poll_server) > 0);
-;;    http_response_header(response, "Content-Type", "text/plain");
-;;    http_response_body(response, RESPONSE, sizeof(RESPONSE) - 1);
-;;  } else if (request_target_is(request, "/empty")) {
+      ((http-request? req "/host")
+       (let ((body (http-request-header req "Host")))
+         (http-response-header resp "Content-Type" "text/plain")
+         (http-response-body resp body)))
       ((http-request? req "/empty")
        ;; No Body
       )
