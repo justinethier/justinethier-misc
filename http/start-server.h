@@ -15,6 +15,12 @@ extern object __glo_lock;
 extern object __glo_req;
 extern object __glo_resp;
 
+int request_target_is(struct http_request_s* request, char const * target) {
+  http_string_t url = http_request_target(request);
+  int len = strlen(target);
+  return len == url.len && memcmp(url.buf, target, url.len) == 0;
+}
+
 void handle_request(struct http_request_s* request) {
 //  chunk_count = 0;
   http_request_connection(request, HTTP_AUTOMATIC);

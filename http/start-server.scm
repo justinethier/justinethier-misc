@@ -14,6 +14,7 @@
     return_closcall1(data, k, boolean_t);
   ")
 
+(c-define http-request? int "request_target_is" opaque string)
 (c-define http-response-status c-void "http_response_status" opaque int)
 (c-define http-response-header c-void "http_response_header" opaque string string)
 
@@ -37,21 +38,31 @@
 (define req (make-c-opaque))
 (define resp (make-c-opaque))
 
-(server-init 8081)
-(let loop ()
-  ;; let http thread wake us up when it receives a request
-  (mutex-lock! lock)
-  (mutex-unlock! lock cv)
+(define (make-http-server port handle-request)
+  (server-init port)
+  (let loop ()
+    ;; let http thread wake us up when it receives a request
+    (mutex-lock! lock)
+    (mutex-unlock! lock cv)
 
-  (write `(TODO: process request/response in scm))
-  (newline)
-  (http-response-status resp 200)
-  (http-response-header resp "Content-Type" "text/plain")
-  (http-response-body resp "Hello World from SCM")
+    (handle-request req resp)
 
-  ;; broadcast back to http thread that response is ready
-  (condition-variable-broadcast! cv)
-  (write `(iterate loop))
-  (newline)
-  (loop))
+    ;; broadcast back to http thread that response is ready
+    (condition-variable-broadcast! cv)
+    (write `(iterate loop))
+    (newline)
+    (loop)))
+
+(make-http-server 
+  8080
+  (lambda (request response)
+    (cond
+;      ((http-request? "/echo")
+;//    http_string_t body = http_request_body(request);
+;//    http_response_header(response, "Content-Type", "text/plain");
+;//    http_response_body(response, body.buf, body.len);
+      (else
+        (http-response-status resp 200)
+        (http-response-header resp "Content-Type" "text/plain")
+        (http-response-body resp "Hello World from SCM")))))
 
