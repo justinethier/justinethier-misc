@@ -21,9 +21,27 @@
 (define-c http-response-body
   "(void *data, int argc, closure _, object k, object opq, object body)"
   " Cyc_check_opaque(data, opq);
-    Cyc_check_str(data, body);
-    http_response_body(opaque_ptr(opq), string_str(body), string_num_cp(body));
+
+    if (Cyc_is_string(body)) {
+      http_response_body(opaque_ptr(opq), string_str(body), string_num_cp(body));
+    } else if (Cyc_is_bytevector(body)) {
+      bytevector_type *bv = body;
+      http_response_body(opaque_ptr(opq), bv->data, bv->len);
+    } else {
+      // TODO: raise type error
+    }
     return_closcall1(data, k, boolean_t);
+  ")
+
+(define-c http-request-body
+  "(void *data, int argc, closure _, object k, object opq)"
+  " Cyc_check_opaque(data, opq);
+    struct http_request_s *request = opaque_ptr(opq);
+    http_string_t body = http_request_body(request);
+    make_empty_bytevector(bv);
+    bv.data = body.buf;
+    bv.len = body.len;
+    return_closcall1(data, k, &bv);
   ")
 
 (define-c make-c-opaque
@@ -57,11 +75,10 @@
   8080
   (lambda (request response)
     (cond
-;; TODO:
-;      ((http-request? "/echo")
-;//    http_string_t body = http_request_body(request);
-;//    http_response_header(response, "Content-Type", "text/plain");
-;//    http_response_body(response, body.buf, body.len);
+      ((http-request? "/echo")
+       (let ((body (http-request-body req)))
+         (http-response-header resp "Content-Type" "text/plain")
+         (http-response-body resp body)))
       (else
         (http-response-status resp 200)
         (http-response-header resp "Content-Type" "text/plain")
