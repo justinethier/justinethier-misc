@@ -104,7 +104,7 @@
 
 (make-http-server 
   8080
-  (lambda (request response)
+  (lambda (req resp)
     (http-response-status resp 200)
     (cond
       ((http-request? req "/echo")
