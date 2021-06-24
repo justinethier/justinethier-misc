@@ -59,6 +59,22 @@
     return_closcall1(data, k, &bv);
   ")
 
+(define-c http-request-headers
+  "(void *data, int argc, closure _, object k, object opq)"
+  " Cyc_check_opaque(data, opq);
+    struct http_request_s *request = opaque_ptr(opq);
+
+    int iter = 0, i = 0;
+    http_string_t key, val;
+    char buf[1024];
+    while (http_request_iterate_headers(request, &key, &val, &iter)) {
+      i += snprintf(buf + i, 1024 - i, \"%.*s: %.*s\\n\", key.len, key.buf, val.len, val.buf);
+    }
+
+    make_utf8_string(data, str, buf);
+    return_closcall1(data, k, &str);
+  ")
+
 (define-c make-c-opaque
   "(void *data, int argc, closure _, object k)"
   " make_c_opaque(opq, NULL);
@@ -121,16 +137,10 @@
 ;;    http_request_set_userdata(request, chunk_buffer);
 ;;    http_request_read_chunk(request, chunk_req_cb);
 ;;    return;
-;;  } else if (request_target_is(request, "/headers")) {
-;;    int iter = 0, i = 0;
-;;    http_string_t key, val;
-;;    char buf[512];
-;;    while (http_request_iterate_headers(request, &key, &val, &iter)) {
-;;      i += snprintf(buf + i, 512 - i, "%.*s: %.*s\n", key.len, key.buf, val.len, val.buf);
-;;    }
-;;    http_response_header(response, "Content-Type", "text/plain");
-;;    http_response_body(response, buf, i);
-;;    return http_respond(request, response);
+      ((http-request? req "/headers")
+       (let ((hdrs (http-request-headers req)))
+         (http-response-header resp "Content-Type" "text/plain")
+         (http-response-body resp hdrs)))
       (else
         (http-response-header resp "Content-Type" "text/plain")
         (http-response-body resp "Hello World from SCM")))))
