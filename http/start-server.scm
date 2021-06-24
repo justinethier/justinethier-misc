@@ -14,7 +14,10 @@
     return_closcall1(data, k, boolean_t);
   ")
 
-(c-define http-request? int "request_target_is" opaque string)
+(c-define %http-request? int "request_target_is" opaque string)
+(define (http-request? request target)
+  (not (zero? (%http-request? request target))))
+
 (c-define http-response-status c-void "http_response_status" opaque int)
 (c-define http-response-header c-void "http_response_header" opaque string string)
 
@@ -74,13 +77,54 @@
 (make-http-server 
   8080
   (lambda (request response)
+    (http-response-status resp 200)
     (cond
       ((http-request? req "/echo")
        (let ((body (http-request-body req)))
          (http-response-header resp "Content-Type" "text/plain")
          (http-response-body resp body)))
+;;  } else if (request_target_is(request, "/host")) {
+;;    http_string_t ua = http_request_header(request, "Host");
+;;    http_response_header(response, "Content-Type", "text/plain");
+;;    http_response_body(response, ua.buf, ua.len);
+;;  } else if (request_target_is(request, "/poll")) {
+;;    while (http_server_poll(poll_server) > 0);
+;;    http_response_header(response, "Content-Type", "text/plain");
+;;    http_response_body(response, RESPONSE, sizeof(RESPONSE) - 1);
+;;  } else if (request_target_is(request, "/empty")) {
+      ((http-request? req "/empty")
+       ;; No Body
+      )
+;;  } else if (request_target_is(request, "/chunked")) {
+;;    http_response_header(response, "Content-Type", "text/plain");
+;;    http_response_body(response, RESPONSE, sizeof(RESPONSE) - 1);
+;;    http_respond_chunk(request, response, chunk_cb);
+;;    return;
+;;  } else if (request_target_is(request, "/chunked-req")) {
+;;    chunk_buf_t* chunk_buffer = (chunk_buf_t*)calloc(1, sizeof(chunk_buf_t));
+;;    chunk_buffer->buf = (char*)malloc(512 * 1024);
+;;    chunk_buffer->response = response;
+;;    http_request_set_userdata(request, chunk_buffer);
+;;    http_request_read_chunk(request, chunk_req_cb);
+;;    return;
+;;  } else if (request_target_is(request, "/large")) {
+;;    chunk_buf_t* chunk_buffer = (chunk_buf_t*)calloc(1, sizeof(chunk_buf_t));
+;;    chunk_buffer->buf = (char*)malloc(25165824);
+;;    chunk_buffer->response = response;
+;;    http_request_set_userdata(request, chunk_buffer);
+;;    http_request_read_chunk(request, chunk_req_cb);
+;;    return;
+;;  } else if (request_target_is(request, "/headers")) {
+;;    int iter = 0, i = 0;
+;;    http_string_t key, val;
+;;    char buf[512];
+;;    while (http_request_iterate_headers(request, &key, &val, &iter)) {
+;;      i += snprintf(buf + i, 512 - i, "%.*s: %.*s\n", key.len, key.buf, val.len, val.buf);
+;;    }
+;;    http_response_header(response, "Content-Type", "text/plain");
+;;    http_response_body(response, buf, i);
+;;    return http_respond(request, response);
       (else
-        (http-response-status resp 200)
         (http-response-header resp "Content-Type" "text/plain")
         (http-response-body resp "Hello World from SCM")))))
 
