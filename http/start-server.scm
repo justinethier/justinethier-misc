@@ -10,9 +10,7 @@
 (define-c server-init
   "(void *data, int argc, closure _, object k, object port)"
   " Cyc_check_fixnum(data, port);
-    // TODO: pass port
-
-    start_thread();
+    start_thread(port);
     return_closcall1(data, k, boolean_t);
   ")
 
@@ -39,17 +37,12 @@
 (define req (make-c-opaque))
 (define resp (make-c-opaque))
 
-;; TODO: http req/resp data
-;; TODO: (define (handle-request ...))
-
-(server-init 0)
+(server-init 8081)
 (let loop ()
   ;; let http thread wake us up when it receives a request
   (mutex-lock! lock)
   (mutex-unlock! lock cv)
 
-  ;; TODO: receive request/empty-response
-  ;; TODO: formulate response
   (write `(TODO: process request/response in scm))
   (newline)
   (http-response-status resp 200)

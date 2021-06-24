@@ -95,19 +95,19 @@ void handle_sigterm(int signum) {
   exit(0);
 }
 
-void *start_server(void *arg) {
+void *start_server(object port) {
   signal(SIGTERM, handle_sigterm);
-  server = http_server_init(8080, handle_request);
+  server = http_server_init(obj_obj2int(port), handle_request);
   http_server_listen(server);
   return NULL;
 }
 
-void start_thread() {
+void start_thread(object port) {
   pthread_t thread;                                                                                  
   pthread_attr_t attr;                                                                               
   pthread_attr_init(&attr);                                                                          
   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-  if (pthread_create(&thread, &attr, start_server, NULL)) {                          
+  if (pthread_create(&thread, &attr, start_server, port)) {                          
     fprintf(stderr, "Error creating a new thread\n");                                                
     exit(1);                                                                                         
   }                                                                                                  
