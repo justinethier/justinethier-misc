@@ -19,9 +19,9 @@
   (begin
 
 (define-c server-init
-  "(void *data, int argc, closure _, object k, object port)"
-  " Cyc_check_fixnum(data, port);
-    start_thread(port);
+  "(void *data, int argc, closure _, object k, object vec)"
+  " Cyc_check_vec(data, vec);
+    start_thread(vec);
     return_closcall1(data, k, boolean_t);
   ")
 
@@ -99,18 +99,20 @@
 (define resp (make-c-opaque))
 
 (define (make-http-server port handle-request)
-  (server-init port)
-  (let loop ()
-    ;; let http thread wake us up when it receives a request
-    (mutex-lock! lock)
-    (mutex-unlock! lock cv)
+  (let ((shared-objs (vector port lock cv req resp)))
+    (Cyc-minor-gc) ;; Ensure above objs are in a fixed memory location on heap
+    (server-init shared-objs)
+    (let loop ()
+      ;; let http thread wake us up when it receives a request
+      (mutex-lock! lock)
+      (mutex-unlock! lock cv)
 
-    (handle-request req resp)
+      (handle-request req resp)
 
-    ;; broadcast back to http thread that response is ready
-    (condition-variable-broadcast! cv)
-    (write `(iterate loop))
-    (newline)
-    (loop)))
+      ;; broadcast back to http thread that response is ready
+      (condition-variable-broadcast! cv)
+      (write `(iterate loop))
+      (newline)
+      (loop))))
   )
 )
