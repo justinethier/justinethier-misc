@@ -32489,6 +32489,11 @@ if( (boolean_f != Cyc_num_fast_gte_op(data, i_737_73106, ((closureN)self_73286)-
 return_direct_with_clo1(data,  k_73160, (((closure)  k_73160)->fn),  car(((closureN)self_73286)->elements[2]));
 } else { 
   
+  TODO: convert this just like lambda_16, BUT, also need to 
+  modify runtime to call GC when make_vector allocates on heap.
+  otherwise we eat up all memory because all these damn loops
+  prevent us from running minor GC
+
 closureN_type c_73409;
 object e_73419 [3];
 c_73409.hdr.mark = gc_color_red;
