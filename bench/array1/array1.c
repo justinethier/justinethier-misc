@@ -30410,7 +30410,7 @@ static void __lambda_4(void *data, object clo, int argc, object *args) ;/*object
 static void __lambda_5(void *data, object clo, int argc, object *args) ;/*object self_73284, object lp_732_736_73105*/
 static void __lambda_96(void *data, object clo, int argc, object *args) ;/*object self_73285, object lp_732_736_73105*/
 static void __lambda_8(void *data, object clo, int argc, object *args) ;/*object self_73286, object k_73160, object i_737_73106*/
-static void __lambda_9(void *data, object clo, int argc, object *args) ;/*object self_73287, object r_73162*/
+//static void __lambda_9(void *data, object clo, int argc, object *args) ;/*object self_73287, object r_73162*/
 static void __lambda_6(void *data, object clo, int argc, object *args) ;/*object self_73288, object r_73159*/
 static void __lambda_7(void *data, object clo, int argc, object *args) ;/*object self_73289, object r_73158*/
 
@@ -32483,47 +32483,56 @@ static void __lambda_8(void *data, object self_73286, int argc, object *args) /*
  {
  object k_73160 = args[0]; object i_737_73106 = args[1];
     
+while(1) {
 if( (boolean_f != Cyc_num_fast_gte_op(data, i_737_73106, ((closureN)self_73286)->elements[1])) ){ 
   
 
 return_direct_with_clo1(data,  k_73160, (((closure)  k_73160)->fn),  car(((closureN)self_73286)->elements[2]));
 } else { 
-  
-  TODO: convert this just like lambda_16, BUT, also need to 
-  modify runtime to call GC when make_vector allocates on heap.
-  otherwise we eat up all memory because all these damn loops
-  prevent us from running minor GC
+//  
+//  TODO: convert this just like lambda_16, BUT, also need to 
+//  modify runtime to call GC when make_vector allocates on heap.
+//  otherwise we eat up all memory because all these damn loops
+//  prevent us from running minor GC
+//
+//closureN_type c_73409;
+//object e_73419 [3];
+//c_73409.hdr.mark = gc_color_red;
+// c_73409.hdr.grayed = 0;
+//c_73409.tag = closureN_tag;
+// c_73409.fn = (function_type)__lambda_9;
+//c_73409.num_args = 1;
+//c_73409.num_elements = 3;
+//c_73409.elements = (object *)e_73419;
+//c_73409.elements[0] = i_737_73106;
+//c_73409.elements[1] = k_73160;
+//c_73409.elements[2] = ((closureN)self_73286)->elements[0];
+//
+//
+//
 
-closureN_type c_73409;
-object e_73419 [3];
-c_73409.hdr.mark = gc_color_red;
- c_73409.hdr.grayed = 0;
-c_73409.tag = closureN_tag;
- c_73409.fn = (function_type)__lambda_9;
-c_73409.num_args = 1;
-c_73409.num_elements = 3;
-c_73409.elements = (object *)e_73419;
-c_73409.elements[0] = i_737_73106;
-c_73409.elements[1] = k_73160;
-c_73409.elements[2] = ((closureN)self_73286)->elements[0];
-
-
-
-
-object c_73422 = Cyc_vector_set_cps(data,(closure)&c_73409,car(((closureN)self_73286)->elements[2]), i_737_73106, i_737_73106);
-return_closcall1(data,(closure)&c_73409,  c_73422);}
+object c_73422 = Cyc_vector_set_cps(
+                   data,
+                   NULL,
+                   car(((closureN)self_73286)->elements[2]),
+                   i_737_73106,
+                   i_737_73106);
+//return_closcall1(data,(closure)&c_73409,  c_73422);}
+complex_num_type local_73417; 
+i_737_73106 = Cyc_fast_sum(data,&local_73417, i_737_73106, obj_int2obj(1)); 
 ;; 
 }
+ }}
 
-static void __lambda_9(void *data, object self_73287, int argc, object *args) /* object self_73287, object r_73162 */
- {
-
-  
-
-
-complex_num_type local_73417; 
-return_closcall2(data,  car(((closureN)self_73287)->elements[2]),  ((closureN)self_73287)->elements[1], Cyc_fast_sum(data,&local_73417, ((closureN)self_73287)->elements[0], obj_int2obj(1)));; 
-}
+//static void __lambda_9(void *data, object self_73287, int argc, object *args) /* object self_73287, object r_73162 */
+// {
+//
+//  
+//
+//
+//complex_num_type local_73417; 
+//return_closcall2(data,  car(((closureN)self_73287)->elements[2]),  ((closureN)self_73287)->elements[1], Cyc_fast_sum(data,&local_73417, ((closureN)self_73287)->elements[0], obj_int2obj(1)));; 
+//}
 
 static void __lambda_6(void *data, object self_73288, int argc, object *args) /* object self_73288, object r_73159 */
  {
