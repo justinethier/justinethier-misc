@@ -11,6 +11,6 @@ This project will implement the Key-value store web API idea from https://web.ee
 > * Key-value database (Wikipedia)
 > * B-tree data structure (Wikipedia)
 > * Atomicity (Wikipedia)
-> * How I built a key value store in Go (web)
-> * Badger: Fast key-value DB in Go (GitHub)
+> * How I built a key value store in Go ([web])(https://medium.com/@naqvi.jafar91/how-i-built-a-key-value-store-in-go-bd89f68062a8)
+> * Badger: Fast key-value DB in Go ([GitHub](https://github.com/dgraph-io/badger))
 > * If you want to dive deeper with databases: Database Design for Mere Mortals (Amazon)
