@@ -31,9 +31,18 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
   fmt.Fprintln(w, os.Args)
 }
 
+type Map map[string]string
+func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+    fmt.Fprintf(w, "map %s", req.URL.Path)
+}
+
 func main() {
   ctr := new(Counter)
   http.Handle("/counter", ctr)
   http.Handle("/args", http.HandlerFunc(ArgServer))
+
+  m := new(Map)
+  // TODO: wildcard does not work but see: https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
+  http.Handle("/kv/*", m)
   log.Fatal(http.ListenAndServe(":8080", nil))
 }
