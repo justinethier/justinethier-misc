@@ -58,8 +58,14 @@ func main() {
   // Background on http handlers -
   // https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
   // https://www.honeybadger.io/blog/go-web-services/
-  mux.Handle("/counter", ctr)
-  mux.Handle("/args", http.HandlerFunc(ArgServer))
+  mux.Handle("/api/args", http.HandlerFunc(ArgServer))
+  mux.Handle("/api/counter", ctr)
+  //mux.HandleFunc("/api/dump", TODO: func
+  //mux.Handle("/api/stats", TODO: func
+// possibly use a func like this:
+//http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
+//	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+//})
   mux.Handle("/", &m)
   log.Fatal(http.ListenAndServe(":8080", mux))
 }
