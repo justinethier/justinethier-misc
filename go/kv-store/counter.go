@@ -33,16 +33,33 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
 
 type Map map[string]string
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-    fmt.Fprintf(w, "map %s", req.URL.Path)
+  fmt.Fprintf(w, "map %s", req.URL.Path)
+
+  fmt.Fprintf(w, "%s", req.Method)
+
+  if val, ok := (*m)[req.URL.Path]; ok {
+    fmt.Fprintln(w, "Previous value", val)
+  }
+
+  (*m)[req.URL.Path] = req.Method
+
+  values := req.URL.Query()
+  for k, v := range values {
+      fmt.Println(k, " => ", v)
+  }
+
 }
 
 func main() {
+  mux := http.NewServeMux()
   ctr := new(Counter)
-  http.Handle("/counter", ctr)
-  http.Handle("/args", http.HandlerFunc(ArgServer))
+  m := make(Map)
 
-  m := new(Map)
-  // TODO: wildcard does not work but see: https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
-  http.Handle("/kv/*", m)
-  log.Fatal(http.ListenAndServe(":8080", nil))
+  // Background on http handlers -
+  // https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
+  // https://www.honeybadger.io/blog/go-web-services/
+  mux.Handle("/counter", ctr)
+  mux.Handle("/args", http.HandlerFunc(ArgServer))
+  mux.Handle("/", &m)
+  log.Fatal(http.ListenAndServe(":8080", mux))
 }
