@@ -32,7 +32,12 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
   fmt.Fprintln(w, os.Args)
 }
 
-type Map map[string]string
+type Key struct {
+  Data string
+  ContentType string
+}
+
+type Map map[string]Key
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   //fmt.Fprintf(w, "map %s", req.URL.Path)
   //fmt.Fprintf(w, "%s", req.Method)
@@ -42,8 +47,8 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   if req.Method == "GET" {
     if val, ok := (*m)[req.URL.Path]; ok {
       // TODO: configurable content type????
-      w.Header().Set("Content-Type", "application/json")
-      fmt.Fprintln(w, val)
+      w.Header().Set("Content-Type", val.ContentType)
+      fmt.Fprintln(w, val.Data)
     } else {
       w.WriteHeader(http.StatusNotFound)
       fmt.Fprintln(w, "Resource not found")
@@ -56,8 +61,12 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     if err != nil {
       log.Fatalln(err)
     }
-    (*m)[req.URL.Path] = string(b)
-    fmt.Fprintln(w, "Stored ", string(b))
+    var key Key
+    key.ContentType = req.Header.Get("Content-Type")
+    key.Data = string(b)
+
+    (*m)[req.URL.Path] = key
+    fmt.Fprintln(w, "Stored ", key.Data)
   } else if req.Method == "DELETE" {
     delete((*m), req.URL.Path)
     fmt.Fprintln(w, "Deleted value")
