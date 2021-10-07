@@ -48,8 +48,9 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
       w.WriteHeader(http.StatusNotFound)
       fmt.Fprintln(w, "Resource not found")
     }
-  } else if req.Method == "POST" {
+  } else if req.Method == "POST" || req.Method == "PUT" {
     // TODO: store request type
+    fmt.Fprintln(w, "content type = ", req.Header.Get("Content-Type"))
 
     b, err := ioutil.ReadAll(req.Body)
     if err != nil {
@@ -57,6 +58,9 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     }
     (*m)[req.URL.Path] = string(b)
     fmt.Fprintln(w, "Stored ", string(b))
+  } else if req.Method == "DELETE" {
+    delete((*m), req.URL.Path)
+    fmt.Fprintln(w, "Deleted value")
   }
 
 
