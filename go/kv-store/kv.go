@@ -8,6 +8,7 @@
 // - not specifically at the link, but want the ability to allow concurrent access
 //   - atomic operations?
 //   - should setup test programs, benchmarks, and a chaos monkey
+// - At some point, separate the backing key/value store from the web interface. KV store is a GO library whereas web is potentially a library, and a front-end program
 // - other ideas??
 //
 
