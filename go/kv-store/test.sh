@@ -8,5 +8,6 @@ curl -H "Content-Type: text/plain" -d "\"test content5535353\"" -X POST localhos
 # Deleting a resource
 curl -X DELETE localhost:8080/test2
 
-# Upload image file
-curl -i -H "Content-Type: image/png" --data-binary @Go-Logo_Aqua.png -v localhost:8080/png
+# Upload image files
+curl -i -H "Content-Type: image/png" --data-binary @images/Go-Logo_Aqua.png -v localhost:8080/logo
+curl -i -H "Content-Type: image/png" --data-binary @images/Golang.png -v localhost:8080/gopher
