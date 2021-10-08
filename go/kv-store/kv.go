@@ -33,7 +33,7 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
 }
 
 type Key struct {
-  Data string
+  Data []byte
   ContentType string
 }
 
@@ -42,20 +42,20 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   //fmt.Fprintf(w, "map %s", req.URL.Path)
   //fmt.Fprintf(w, "%s", req.Method)
 
-// rewrite as switch, see:
-// https://www.golangprograms.com/example-to-handle-get-and-post-request-in-golang.html
-  if req.Method == "GET" {
+  switch req.Method {
+  case "GET":
     if val, ok := (*m)[req.URL.Path]; ok {
       // TODO: configurable content type????
       w.Header().Set("Content-Type", val.ContentType)
-      fmt.Fprintln(w, val.Data)
+      //fmt.Fprintln(w, val.Data)
+      w.Write(val.Data)
     } else {
       w.WriteHeader(http.StatusNotFound)
       fmt.Fprintln(w, "Resource not found")
     }
-  } else if req.Method == "POST" || req.Method == "PUT" {
+  case "POST", "PUT":
     // TODO: store request type
-    fmt.Fprintln(w, "content type = ", req.Header.Get("Content-Type"))
+    //fmt.Fprintln(w, "content type = ", req.Header.Get("Content-Type"))
 
     b, err := ioutil.ReadAll(req.Body)
     if err != nil {
@@ -63,23 +63,14 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     }
     var key Key
     key.ContentType = req.Header.Get("Content-Type")
-    key.Data = string(b)
+    key.Data = b //string(b)
 
     (*m)[req.URL.Path] = key
-    fmt.Fprintln(w, "Stored ", key.Data)
-  } else if req.Method == "DELETE" {
+    fmt.Fprintln(w, "Stored value")
+  case "DELETE":
     delete((*m), req.URL.Path)
     fmt.Fprintln(w, "Deleted value")
   }
-
-
-  //(*m)[req.URL.Path] = req.Method
-
-  //values := req.URL.Query()
-  //for k, v := range values {
-  //    fmt.Println(k, " => ", v)
-  //}
-
 }
 
 func main() {
