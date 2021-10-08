@@ -93,5 +93,9 @@ func main() {
     }
   })
   mux.Handle("/", &m)
+  
+  // TODO: allow optionally running an HTTPS server based on command-line flag(s):
+  // https://medium.com/rungo/secure-https-servers-in-go-a783008b36da
+  
   log.Fatal(http.ListenAndServe(":8080", mux))
 }
