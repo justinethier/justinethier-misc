@@ -40,24 +40,16 @@ type Key struct {
 
 type Map map[string]Key
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-  //fmt.Fprintf(w, "map %s", req.URL.Path)
-  //fmt.Fprintf(w, "%s", req.Method)
-
   switch req.Method {
   case "GET":
     if val, ok := (*m)[req.URL.Path]; ok {
-      // TODO: configurable content type????
       w.Header().Set("Content-Type", val.ContentType)
-      //fmt.Fprintln(w, val.Data)
       w.Write(val.Data)
     } else {
       w.WriteHeader(http.StatusNotFound)
       fmt.Fprintln(w, "Resource not found")
     }
   case "POST", "PUT":
-    // TODO: store request type
-    //fmt.Fprintln(w, "content type = ", req.Header.Get("Content-Type"))
-
     b, err := ioutil.ReadAll(req.Body)
     if err != nil {
       log.Fatalln(err)
@@ -85,7 +77,6 @@ func main() {
   mux.Handle("/api/args", http.HandlerFunc(ArgServer))
   mux.Handle("/api/counter", ctr)
   //mux.HandleFunc("/api/dump", TODO: func
-  //mux.Handle("/api/stats", TODO: func
   mux.HandleFunc("/api/stats", func(w http.ResponseWriter, req *http.Request) {
     fmt.Fprintln(w, "Number of key/value pairs = ", len(m))
     fmt.Fprintln(w, "Keys:")
@@ -101,10 +92,6 @@ func main() {
       fmt.Fprintln(w, k)
     }
   })
-// possibly use a func like this:
-//http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
-//	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
-//})
   mux.Handle("/", &m)
   log.Fatal(http.ListenAndServe(":8080", mux))
 }
