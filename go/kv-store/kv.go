@@ -6,6 +6,7 @@ import (
   "log"
   "io/ioutil"
   "os"
+  "sort"
 )
 
 type Handler interface {
@@ -85,6 +86,21 @@ func main() {
   mux.Handle("/api/counter", ctr)
   //mux.HandleFunc("/api/dump", TODO: func
   //mux.Handle("/api/stats", TODO: func
+  mux.HandleFunc("/api/stats", func(w http.ResponseWriter, req *http.Request) {
+    fmt.Fprintln(w, "Number of key/value pairs = ", len(m))
+    fmt.Fprintln(w, "Keys:")
+    keys := make([]string, len(m))
+    i := 0
+    for k := range m {
+      keys[i] = k
+      i++
+      //fmt.Fprintln(w, k)
+    }
+    sort.Strings(keys)
+    for _, k := range keys {
+      fmt.Fprintln(w, k)
+    }
+  })
 // possibly use a func like this:
 //http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
 //	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
