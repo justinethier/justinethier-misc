@@ -1,3 +1,16 @@
+// TODO: some interesting ideas from:
+//
+// https://dgraph.io/docs/badger/get-started/
+// - a sequence API, allow returning named monotomically increasing numbers. This is probably more useful with persistence
+// - allow specifying a duration for a key, so it will be GC'd after time is up
+// - some form of persistence would be nice, so store can be restored if the service is restarted
+//   - ultimately this also ties in to having a more efficient backing store other than maps
+// - not specifically at the link, but want the ability to allow concurrent access
+//   - atomic operations?
+//   - should setup test programs, benchmarks, and a chaos monkey
+// - other ideas??
+//
+
 package main
 
 import (
