@@ -47,12 +47,32 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
   fmt.Fprintln(w, os.Args)
 }
 
-type Key struct {
+type Value struct {
   Data []byte
   ContentType string
 }
 
-type Map map[string]Key
+// TODO: not thread safe!
+//  see: https://eli.thegreenplace.net/2019/on-concurrency-in-go-http-servers
+type Sequence map[string]int
+func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+  switch req.Method {
+  case "GET":
+    if val, ok := (*m)[req.URL.Path]; ok {
+      (*m)[req.URL.Path] = val + 1
+    } else {
+      (*m)[req.URL.Path] = 0
+    }
+    fmt.Fprintln(w, (*m)[req.URL.Path])
+  case "DELETE":
+    delete((*m), req.URL.Path)
+    fmt.Fprintln(w, "Deleted sequence")
+  }
+}
+
+type Map map[string]Value
+
+// TODO: not thread safe!
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
@@ -68,11 +88,11 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     if err != nil {
       log.Fatalln(err)
     }
-    var key Key
-    key.ContentType = req.Header.Get("Content-Type")
-    key.Data = b //string(b)
+    var val Value
+    val.ContentType = req.Header.Get("Content-Type")
+    val.Data = b //string(b)
 
-    (*m)[req.URL.Path] = key
+    (*m)[req.URL.Path] = val
     fmt.Fprintln(w, "Stored value")
   case "DELETE":
     delete((*m), req.URL.Path)
@@ -84,6 +104,7 @@ func main() {
   mux := http.NewServeMux()
   ctr := new(Counter)
   m := make(Map)
+  s := make(Sequence)
 
   // Background on http handlers -
   // https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
@@ -106,7 +127,8 @@ func main() {
       fmt.Fprintln(w, k)
     }
   })
-  mux.Handle("/", &m)
+  mux.Handle("/seq/", &s)
+  mux.Handle("/kv/", &m)
   
   // TODO: allow optionally running an HTTPS server based on command-line flag(s):
   // https://medium.com/rungo/secure-https-servers-in-go-a783008b36da
