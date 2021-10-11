@@ -21,6 +21,7 @@ import (
   "io/ioutil"
   "os"
   "sort"
+  // TODO: "sync"
 )
 
 type Handler interface {
@@ -54,18 +55,24 @@ type Value struct {
 
 // TODO: not thread safe!
 //  see: https://eli.thegreenplace.net/2019/on-concurrency-in-go-http-servers
-type Sequence map[string]int
+//       https://stackoverflow.com/questions/45585589/golang-fatal-error-concurrent-map-read-and-map-write/45585833
+type Sequence struct {
+  Data map[string]int
+  // TODO: Lock sync.RWMutex
+}
+
+// TODO: attempting to cut over to using Data element
 func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
-    if val, ok := (*m)[req.URL.Path]; ok {
-      (*m)[req.URL.Path] = val + 1
+    if val, ok := (*m).Data[req.URL.Path]; ok {
+      (*m).Data[req.URL.Path] = val + 1
     } else {
-      (*m)[req.URL.Path] = 0
+      (*m).Data[req.URL.Path] = 0
     }
-    fmt.Fprintln(w, (*m)[req.URL.Path])
+    fmt.Fprintln(w, (*m).Data[req.URL.Path])
   case "DELETE":
-    delete((*m), req.URL.Path)
+    delete((*m).Data, req.URL.Path)
     fmt.Fprintln(w, "Deleted sequence")
   }
 }
@@ -104,7 +111,7 @@ func main() {
   mux := http.NewServeMux()
   ctr := new(Counter)
   m := make(Map)
-  s := make(Sequence)
+  s := new(Sequence)
 
   // Background on http handlers -
   // https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
@@ -127,7 +134,7 @@ func main() {
       fmt.Fprintln(w, k)
     }
   })
-  mux.Handle("/seq/", &s)
+  mux.Handle("/seq/", s)
   mux.Handle("/kv/", &m)
   
   // TODO: allow optionally running an HTTPS server based on command-line flag(s):
