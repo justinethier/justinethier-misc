@@ -53,9 +53,9 @@ type Value struct {
   ContentType string
 }
 
-// TODO: not thread safe!
-//  see: https://eli.thegreenplace.net/2019/on-concurrency-in-go-http-servers
-//       https://stackoverflow.com/questions/45585589/golang-fatal-error-concurrent-map-read-and-map-write/45585833
+// Regarding concurrency / safety see:
+//  https://eli.thegreenplace.net/2019/on-concurrency-in-go-http-servers
+//  https://stackoverflow.com/questions/45585589/golang-fatal-error-concurrent-map-read-and-map-write/45585833
 type Sequence struct {
   Data map[string]int
   Lock sync.RWMutex
@@ -67,7 +67,6 @@ func NewSequence() *Sequence {
   return &Sequence{m, l}
 }
 
-// TODO: attempting to cut over to using Data element
 func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
@@ -87,13 +86,22 @@ func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   }
 }
 
-type Map map[string]Value
+type Map struct {
+  Data map[string]Value
+  Lock sync.RWMutex
+}
+
+func NewMap() *Map {
+  m := make(map[string]Value)
+  l := sync.RWMutex{}
+  return &Map{m, l}
+}
 
 // TODO: not thread safe!
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
-    if val, ok := (*m)[req.URL.Path]; ok {
+    if val, ok := (*m).Data[req.URL.Path]; ok {
       w.Header().Set("Content-Type", val.ContentType)
       w.Write(val.Data)
     } else {
@@ -109,10 +117,10 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     val.ContentType = req.Header.Get("Content-Type")
     val.Data = b //string(b)
 
-    (*m)[req.URL.Path] = val
+    (*m).Data[req.URL.Path] = val
     fmt.Fprintln(w, "Stored value")
   case "DELETE":
-    delete((*m), req.URL.Path)
+    delete((*m).Data, req.URL.Path)
     fmt.Fprintln(w, "Deleted value")
   }
 }
@@ -120,7 +128,7 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 func main() {
   mux := http.NewServeMux()
   ctr := new(Counter)
-  m := make(Map)
+  m := NewMap()
   s := NewSequence()
 
   // Background on http handlers -
@@ -129,12 +137,14 @@ func main() {
   mux.Handle("/api/args", http.HandlerFunc(ArgServer))
   mux.Handle("/api/counter", ctr)
   //mux.HandleFunc("/api/dump", TODO: func
+
+// TODO: concurrent handling of m
   mux.HandleFunc("/api/stats", func(w http.ResponseWriter, req *http.Request) {
-    fmt.Fprintln(w, "Number of key/value pairs = ", len(m))
+    fmt.Fprintln(w, "Number of key/value pairs = ", len(m.Data))
     fmt.Fprintln(w, "Keys:")
-    keys := make([]string, len(m))
+    keys := make([]string, len(m.Data))
     i := 0
-    for k := range m {
+    for k := range m.Data {
       keys[i] = k
       i++
       //fmt.Fprintln(w, k)
@@ -145,7 +155,7 @@ func main() {
     }
   })
   mux.Handle("/seq/", s)
-  mux.Handle("/kv/", &m)
+  mux.Handle("/kv/", m)
   
   // TODO: allow optionally running an HTTPS server based on command-line flag(s):
   // https://medium.com/rungo/secure-https-servers-in-go-a783008b36da
