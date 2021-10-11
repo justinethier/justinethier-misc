@@ -21,7 +21,7 @@ import (
   "io/ioutil"
   "os"
   "sort"
-  // TODO: "sync"
+  "sync"
 )
 
 type Handler interface {
@@ -58,21 +58,31 @@ type Value struct {
 //       https://stackoverflow.com/questions/45585589/golang-fatal-error-concurrent-map-read-and-map-write/45585833
 type Sequence struct {
   Data map[string]int
-  // TODO: Lock sync.RWMutex
+  Lock sync.RWMutex
+}
+
+func NewSequence() *Sequence {
+  m := make(map[string]int)
+  l := sync.RWMutex{}
+  return &Sequence{m, l}
 }
 
 // TODO: attempting to cut over to using Data element
 func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
+    (*m).Lock.Lock()
     if val, ok := (*m).Data[req.URL.Path]; ok {
       (*m).Data[req.URL.Path] = val + 1
     } else {
       (*m).Data[req.URL.Path] = 0
     }
     fmt.Fprintln(w, (*m).Data[req.URL.Path])
+    (*m).Lock.Unlock()
   case "DELETE":
+    (*m).Lock.Lock()
     delete((*m).Data, req.URL.Path)
+    (*m).Lock.Unlock()
     fmt.Fprintln(w, "Deleted sequence")
   }
 }
@@ -111,7 +121,7 @@ func main() {
   mux := http.NewServeMux()
   ctr := new(Counter)
   m := make(Map)
-  s := new(Sequence)
+  s := NewSequence()
 
   // Background on http handlers -
   // https://stackoverflow.com/questions/6564558/wildcards-in-the-pattern-for-http-handlefunc
