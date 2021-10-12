@@ -56,6 +56,8 @@ type Value struct {
 // Regarding concurrency / safety see:
 //  https://eli.thegreenplace.net/2019/on-concurrency-in-go-http-servers
 //  https://stackoverflow.com/questions/45585589/golang-fatal-error-concurrent-map-read-and-map-write/45585833
+//
+// FUTURE: Consider using a syncmap to improve performance with many cores
 type Sequence struct {
   Data map[string]int
   Lock sync.RWMutex
@@ -97,10 +99,10 @@ func NewMap() *Map {
   return &Map{m, l}
 }
 
-// TODO: not thread safe!
 func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   switch req.Method {
   case "GET":
+    (*m).Lock.RLock()
     if val, ok := (*m).Data[req.URL.Path]; ok {
       w.Header().Set("Content-Type", val.ContentType)
       w.Write(val.Data)
@@ -108,6 +110,7 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
       w.WriteHeader(http.StatusNotFound)
       fmt.Fprintln(w, "Resource not found")
     }
+    (*m).Lock.RUnlock()
   case "POST", "PUT":
     b, err := ioutil.ReadAll(req.Body)
     if err != nil {
@@ -117,10 +120,14 @@ func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
     val.ContentType = req.Header.Get("Content-Type")
     val.Data = b //string(b)
 
+    (*m).Lock.Lock()
     (*m).Data[req.URL.Path] = val
+    (*m).Lock.Unlock()
     fmt.Fprintln(w, "Stored value")
   case "DELETE":
+    (*m).Lock.Lock()
     delete((*m).Data, req.URL.Path)
+    (*m).Lock.Unlock()
     fmt.Fprintln(w, "Deleted value")
   }
 }
@@ -138,8 +145,8 @@ func main() {
   mux.Handle("/api/counter", ctr)
   //mux.HandleFunc("/api/dump", TODO: func
 
-// TODO: concurrent handling of m
   mux.HandleFunc("/api/stats", func(w http.ResponseWriter, req *http.Request) {
+    (*m).Lock.RLock()
     fmt.Fprintln(w, "Number of key/value pairs = ", len(m.Data))
     fmt.Fprintln(w, "Keys:")
     keys := make([]string, len(m.Data))
@@ -153,6 +160,7 @@ func main() {
     for _, k := range keys {
       fmt.Fprintln(w, k)
     }
+    (*m).Lock.RUnlock()
   })
   mux.Handle("/seq/", s)
   mux.Handle("/kv/", m)
