@@ -4,6 +4,9 @@
 // - allow specifying a duration for a key, so it will be GC'd after time is up
 // - some form of persistence would be nice, so store can be restored if the service is restarted
 //   - ultimately this also ties in to having a more efficient backing store other than maps
+//   - Consider using LSM, see: https://learndb.net/key-value-store/filesystem/
+//     roadmap would be - benchmarks, unoptimized LSM, optimzations - bloom filters, etc. 
+//     critical to have benchmarks to assess optimization effectiveness
 // - should setup test programs, benchmarks, and a chaos monkey
 // - At some point, separate the backing key/value store from the web interface. KV store is a GO library whereas web is potentially a library, and a front-end program
 // - other ideas??
