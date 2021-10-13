@@ -3,6 +3,8 @@ package cache
 import (
   "net/http"
   "fmt"
+  "log"
+  "io/ioutil"
 )
 
 func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {

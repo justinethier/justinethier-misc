@@ -1,10 +1,6 @@
 package cache
 
 import (
-  "net/http"
-  "fmt"
-  "log"
-  "io/ioutil"
   "sync"
 )
 
