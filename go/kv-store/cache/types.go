@@ -40,55 +40,40 @@ func NewMap() *Map {
   return &Map{m, l}
 }
 
-func (m *Sequence) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-  switch req.Method {
-  case "GET":
-    (*m).Lock.Lock()
-    if val, ok := (*m).Data[req.URL.Path]; ok {
-      (*m).Data[req.URL.Path] = val + 1
-    } else {
-      (*m).Data[req.URL.Path] = 0
-    }
-    fmt.Fprintln(w, (*m).Data[req.URL.Path])
-    (*m).Lock.Unlock()
-  case "DELETE":
-    (*m).Lock.Lock()
-    delete((*m).Data, req.URL.Path)
-    (*m).Lock.Unlock()
-    fmt.Fprintln(w, "Deleted sequence")
+func (m *Sequence) Increment(k string) int{
+  (*m).Lock.Lock()
+  if val, ok := (*m).Data[k]; ok {
+    (*m).Data[k] = val + 1
+  } else {
+    (*m).Data[k] = 0
   }
+  result := (*m).Data[k]
+  (*m).Lock.Unlock()
+
+  return result
 }
 
-func (m *Map) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-  switch req.Method {
-  case "GET":
-    (*m).Lock.RLock()
-    if val, ok := (*m).Data[req.URL.Path]; ok {
-      w.Header().Set("Content-Type", val.ContentType)
-      w.Write(val.Data)
-    } else {
-      w.WriteHeader(http.StatusNotFound)
-      fmt.Fprintln(w, "Resource not found")
-    }
-    (*m).Lock.RUnlock()
-  case "POST", "PUT":
-    b, err := ioutil.ReadAll(req.Body)
-    if err != nil {
-      log.Fatalln(err)
-    }
-    var val Value
-    val.ContentType = req.Header.Get("Content-Type")
-    val.Data = b //string(b)
-
-    (*m).Lock.Lock()
-    (*m).Data[req.URL.Path] = val
-    (*m).Lock.Unlock()
-    fmt.Fprintln(w, "Stored value")
-  case "DELETE":
-    (*m).Lock.Lock()
-    delete((*m).Data, req.URL.Path)
-    (*m).Lock.Unlock()
-    fmt.Fprintln(w, "Deleted value")
-  }
+func (m *Sequence) Delete(k string) {
+  (*m).Lock.Lock()
+  delete((*m).Data, k)
+  (*m).Lock.Unlock()
 }
 
+func (m *Map) Get(k string) (Value, bool) {
+  (*m).Lock.RLock()
+  val, ok := (*m).Data[k]
+  (*m).Lock.RUnlock()
+  return val, ok
+}
+
+func (m *Map) Set(k string, v Value) {
+  (*m).Lock.Lock()
+  (*m).Data[k] = v
+  (*m).Lock.Unlock()
+}
+
+func (m *Map) Delete(k string) {
+  (*m).Lock.Lock()
+  delete((*m).Data, k)
+  (*m).Lock.Unlock()
+}
