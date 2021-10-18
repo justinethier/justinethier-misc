@@ -1,3 +1,7 @@
+.phony: clean
+
+clean:
+	git clean -fdx
 
 # Unit testing
 .phony: bench test
