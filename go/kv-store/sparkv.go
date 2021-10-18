@@ -59,6 +59,8 @@ func main() {
 
   // TODO: allow optionally running an HTTPS server based on command-line flag(s):
   // https://medium.com/rungo/secure-https-servers-in-go-a783008b36da
+  //
+  // TODO: longer-term ties into potentially having authentication and user-based logins / permissions
 
   log.Fatal(http.ListenAndServe(":8080", mux))
 }
