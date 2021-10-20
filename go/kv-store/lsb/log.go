@@ -3,10 +3,13 @@ package lsb
 import (
     "bufio"
     "encoding/json"
-    "fmt"
-    "io/ioutil"
     "os"
 )
+
+type Value struct {
+  Data []byte
+  ContentType string
+}
 
 type Log struct {
   Key string
@@ -76,3 +79,15 @@ func ReadLog(filename string) []Log {
     return buf
 }
 
+func set(key string, value Value, deleted bool) {
+  l := Log { Key: key, Data: value.Data, ContentType: value.ContentType, Deleted: deleted }
+  AppendLog("store.json", l)
+}
+
+func Set(key string, value Value) {
+  set(key, value, false)
+}
+
+func Delete(key string) {
+  set(key, Value{Data: nil, ContentType: ""}, true)
+}
