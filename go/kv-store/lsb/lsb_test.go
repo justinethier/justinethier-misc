@@ -1,6 +1,7 @@
 package lsb
 
 import (
+  "bytes"
   "math/rand"
   "strconv"
   "testing"
@@ -44,21 +45,28 @@ func TestSeq(t *testing.T) {
 }
 
 func TestKeyValue(t *testing.T) {
+  var N = 100
   ResetDB()
 
-  for i := 0; i < b.N; i++ {
+  for i := 0; i < N; i++ {
     // TODO: encode predictable value for i
-    token := make([]byte, 8)
-    rand.Read(token)
-    Set(strconv.Itoa(i), Value{Data: token, ContentType: "test content"})
+    //token := make([]byte, 8)
+    //rand.Read(token)
+    Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"})
   }
 
-  // TODO: verify i contains expected value
-  //for i := 0; i < b.N; i++ {
-  //  m.Get(strconv.Itoa(i))
-  //}
+  // verify i contains expected value
+  for i := 0; i < N; i++ {
+    if val, found := Get(strconv.Itoa(i)); found {
+      if bytes.Compare(val.Data, []byte(strconv.Itoa(i))) != 0 {
+        t.Error("Unexpected value", val.Data, "for key", i)
+      }
+    } else {
+      t.Error("Value not found for key", i)
+    }
+  }
 
-  for i := 0; i < b.N; i++ {
+  for i := 0; i < N; i++ {
     Delete(strconv.Itoa(i))
   }
 

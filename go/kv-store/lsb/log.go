@@ -63,11 +63,14 @@ func Readln(r *bufio.Reader) (string, error) {
 }
 
 func ReadLog(filename string) []Log {
+    var buf []Log
     f, err := os.Open(filename)
     if err != nil {
-      panic(err)
+      return buf
     }
-    var buf []Log
+
+    defer f.Close()
+
     r := bufio.NewReader(f)
     s, e := Readln(r)
     for e == nil {
@@ -96,4 +99,16 @@ func Set(key string, value Value) {
 
 func Delete(key string) {
   set(key, Value{Data: nil, ContentType: ""}, true)
+}
+
+func Get(key string) (Value, bool) {
+  log := ReadLog("store.json")
+
+  for i := len(log) - 1; i >= 0; i-- {
+    if log[i].Key == key {
+      return Value {Data: log[i].Data, ContentType: log[i].ContentType}, true
+    }
+  }
+
+  return nil, false
 }
