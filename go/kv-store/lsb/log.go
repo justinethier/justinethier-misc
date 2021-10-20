@@ -1,3 +1,5 @@
+// TODO: none of this is thread safe!!
+
 package lsb
 
 import (
@@ -77,6 +79,10 @@ func ReadLog(filename string) []Log {
     }
 
     return buf
+}
+
+func ResetDB() {
+  os.Remove("store.json")
 }
 
 func set(key string, value Value, deleted bool) {
