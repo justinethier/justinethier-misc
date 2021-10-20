@@ -1,6 +1,7 @@
 package main
 
 import (
+    "bufio"
     "encoding/json"
     "fmt"
     "io/ioutil"
@@ -22,6 +23,67 @@ type Rankings struct {
     Mobile   bool
 }
 
+func appendToFile(filename string, data interface{}) {
+  f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+  if err != nil {
+    panic(err)
+  }
+
+  defer f.Close()
+
+  b, err := json.Marshal(data)
+  if err != nil {
+    panic(err)
+  }
+
+  _, err = f.Write(b)
+  if err != nil {
+    panic(err)
+  }
+
+  _, err = f.Write([]byte("\n"))
+  if err != nil {
+    panic(err)
+  }
+}
+
+// From: https://stackoverflow.com/a/12206584
+//
+// Readln returns a single line (without the ending \n)
+// from the input buffered reader.
+// An error is returned iff there is an error with the
+// buffered reader.
+func Readln(r *bufio.Reader) (string, error) {
+  var (isPrefix bool = true
+       err error = nil
+       line, ln []byte
+      )
+  for isPrefix && err == nil {
+      line, isPrefix, err = r.ReadLine()
+      ln = append(ln, line...)
+  }
+  return string(ln),err
+}
+
+func ReadLog(filename string) []Log {
+    f, err := os.Open(filename)
+    if err != nil {
+      panic(err)
+    }
+    var buf []Log
+    r := bufio.NewReader(f)
+    s, e := Readln(r)
+    for e == nil {
+        var data Log
+        err = json.Unmarshal([]byte(s), &data)
+        //fmt.Println(data)
+        buf = append(buf, data)
+        s,e = Readln(r)
+    }
+
+    return buf
+}
+
 func main() {
     var jsonBlob = []byte(`
         {"keyword":"hipaa compliance form", "get_count":157, "engine":"google", "locale":"en-us", "mobile":false}
@@ -39,29 +101,11 @@ func main() {
 
     logA := Log { Key: "test", Data: []byte{0, 0, 0, 1, 2}, ContentType: "text", Deleted: false }
     logB := Log { Key: "test b", Data: []byte("test"), ContentType: "text", Deleted: false }
-    logs := []Log { logA, logB }
 
-    //fmt.Println(logs)
-    b, err := json.Marshal(logs)
-    if err != nil {
-      fmt.Println("error", err)
-      return
-    }
+    appendToFile("tmp.json", logA)
+    appendToFile("tmp.json", logB)
 
-    f, err :=  os.Create("tmp.json")
-    if err != nil {
-      fmt.Println("error", err)
-      return
-    }
-    f.Write(b)
-    f.Close()
+    fmt.Println(ReadLog("tmp.json"))
 
-    //f, err := os.Open("tmp.json")
-    plan, _ := ioutil.ReadFile("tmp.json")
-    var data []Log
-    err = json.Unmarshal(plan, &data)
-    //f.Close()
-    fmt.Println("")
-    fmt.Println("data", data)
 }
 
