@@ -117,3 +117,16 @@ func Get(key string) (Value, bool) {
 
   return v, false
 }
+
+//func Increment(k string) int{
+//  (*m).Lock.Lock()
+//  if val, ok := (*m).Data[k]; ok {
+//    (*m).Data[k] = val + 1
+//  } else {
+//    (*m).Data[k] = 0
+//  }
+//  result := (*m).Data[k]
+//  (*m).Lock.Unlock()
+//
+//  return result
+//}

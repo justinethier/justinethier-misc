@@ -7,20 +7,15 @@ import (
   "testing"
 )
 
-// TODO: comparable tests to cache package
 //func BenchmarkSeq(b *testing.B) {
-//  s := NewSequence()
-//
 //  for i := 0; i < b.N; i++ {
-//    s.Increment("bench")
-//    s.Increment("bench 1")
-//    s.Increment("bench 2")
+//    Increment("bench")
+//    Increment("bench 1")
+//    Increment("bench 2")
 //  }
 //}
 
 func BenchmarkKeyValue(b *testing.B) {
-  //m := NewMap()
-
   ResetDB()
 
   for i := 0; i < b.N; i++ {
@@ -29,9 +24,9 @@ func BenchmarkKeyValue(b *testing.B) {
     Set(strconv.Itoa(i), Value{Data: token, ContentType: "test content"})
   }
 
-  //for i := 0; i < b.N; i++ {
-  //  m.Get(strconv.Itoa(i))
-  //}
+  for i := 0; i < b.N; i++ {
+    Get(strconv.Itoa(i))
+  }
 
   for i := 0; i < b.N; i++ {
     Delete(strconv.Itoa(i))
