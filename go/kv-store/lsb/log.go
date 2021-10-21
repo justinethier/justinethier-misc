@@ -102,13 +102,18 @@ func Delete(key string) {
 }
 
 func Get(key string) (Value, bool) {
+  var v Value
   log := ReadLog("store.json")
 
   for i := len(log) - 1; i >= 0; i-- {
     if log[i].Key == key {
-      return Value {Data: log[i].Data, ContentType: log[i].ContentType}, true
+      if log[i].Deleted {
+        return v, false
+      } else {
+        return Value{log[i].Data, log[i].ContentType}, true
+      }
     }
   }
 
-  return nil, false
+  return v, false
 }

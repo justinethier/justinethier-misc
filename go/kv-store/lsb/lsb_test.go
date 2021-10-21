@@ -70,12 +70,23 @@ func TestKeyValue(t *testing.T) {
     Delete(strconv.Itoa(i))
   }
 
-  // TODO: verify key does not exist for i
-  //for i := 0; i < b.N; i++ {
-  //  m.Get(strconv.Itoa(i))
-  //}
+  // verify key does not exist for i
+  for i := 0; i < N; i++ {
+    if val, found := Get(strconv.Itoa(i)); found {
+      t.Error("Unexpected value", val.Data, "for key", i)
+    }
+  }
 
 
   // TODO: add a key back
+  Set("abcd", Value{[]byte("test"), "text"})
+
   // TODO verify that key exists now
+  if val, found := Get("abcd"); found {
+    if string(val.Data) != "test" {
+      t.Error("Unexpected value", val.Data, "for key", "abcd")
+    }
+  } else {
+    t.Error("Value not found for key", "abcd")
+  }
 }
