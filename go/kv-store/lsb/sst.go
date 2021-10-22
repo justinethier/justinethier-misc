@@ -2,11 +2,14 @@
 package lsb
 
 import (
-    "log"
-    "fmt"
-    "io/ioutil"
-    "regexp"
-    "strconv"
+  "encoding/json"
+  "fmt"
+  "io/ioutil"
+  "log"
+  "os"
+  "regexp"
+  "sort"
+  "strconv"
 )
 
 type SstBuf struct {
@@ -38,23 +41,53 @@ func (s *SstBuf) Set(k string, value interface{}, deleted bool) {
   //TODO: (*s).Flush()
 }
 
-// TODO:
-//func (s *SstBuf) Flush() {
-//  if len((*s).Buffer) == 0 {
-//    return
-//  }
-//
-//  // TODO: remove duplicates from buffer
-//
-//
-//  // TODO: sort list
-//
-//  // TODO: flush buffer to disk
-//  var filename = (*s).NextSstFilename()
-//
-//  var buf []SstEntry
-//  (*s).buffer = buf
-//}
+func (s *SstBuf) Flush() {
+  if len((*s).Buffer) == 0 {
+    return
+  }
+
+  // Remove duplicate entries
+  m := make(map[string]SstEntry)
+  for _, e := range (*s).Buffer {
+    m[e.Key] = e
+  }
+
+  // sort list of keys
+  keys := make([]string, 0, len(m))
+  sort.Strings(keys)
+
+  // Flush buffer to disk
+  var filename = (*s).NextSstFilename()
+  CreateSstFile(filename, keys, m)
+
+  // Clear buffer
+  var buf []SstEntry
+  (*s).Buffer = buf
+}
+
+func check(e error) {
+  if e != nil {
+    panic(e)
+  }
+}
+
+func CreateSstFile(filename string, keys []string, m map[string]SstEntry) {
+  f, err := os.Create(filename)
+  check(err)
+
+  defer f.Close()
+
+  for _, k := range keys {
+    b, err := json.Marshal(m[k])
+    check(err)
+
+    _, err = f.Write(b)
+    check(err)
+
+    _, err = f.Write([]byte("\n"))
+    check(err)
+  }
+}
 
 func (s *SstBuf) NextSstFilename() string {
   files, err := ioutil.ReadDir((*s).Path)
