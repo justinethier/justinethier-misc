@@ -29,7 +29,15 @@ func NewSstBuf(path string, bufSize int) *SstBuf {
   return &SstBuf{path, buf, bufSize}
 }
 
-func (s *SstBuf) Set(k string, value interface{}, deleted bool) {
+func (s *SstBuf) Set(k string, value interface{}) {
+  (*s).set(k, value, false)
+}
+
+func (s *SstBuf) Delete(k string) {
+  (*s).set(k, nil, true)
+}
+
+func (s *SstBuf) set(k string, value interface{}, deleted bool) {
   entry := SstEntry{k, value, deleted}
   (*s).Buffer = append((*s).Buffer, entry)
 
@@ -115,4 +123,12 @@ func (s *SstBuf) NextSstFilename() string {
 
   return "sorted-string-table-0000.json"
 }
+
+// TODO:
+// func (s *SstBuf) Get(k string) (interface{}, bool) {}
+// func (s *SstBuf) FindLatestBufferEntryValue(key string) {}
+// func (s *SstBuf) LoadEntriesFromSstFile(filename string) {}
+// func (s *SstBuf) FindEntryValue(key string, entries []Buffer) {}
+//
+// reset() - delete all sst files
 

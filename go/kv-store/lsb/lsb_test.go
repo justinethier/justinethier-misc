@@ -94,8 +94,11 @@ func TestSstKeyValue(t *testing.T) {
     // TODO: encode predictable value for i
     //token := make([]byte, 8)
     //rand.Read(token)
-    (*tbl).Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"}, false)
+    (*tbl).Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"})
   }
+
+  (*tbl).Delete(strconv.Itoa(100))
+  (*tbl).Flush()
 
 //  // verify i contains expected value
 //  for i := 0; i < N; i++ {
