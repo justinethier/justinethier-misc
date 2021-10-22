@@ -38,7 +38,7 @@ func (s *SstBuf) Set(k string, value interface{}, deleted bool) {
     return
   }
 
-  //TODO: (*s).Flush()
+  (*s).Flush()
 }
 
 func (s *SstBuf) Flush() {

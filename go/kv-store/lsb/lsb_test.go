@@ -85,3 +85,50 @@ func TestKeyValue(t *testing.T) {
     t.Error("Value not found for key", "abcd")
   }
 }
+
+func TestSstKeyValue(t *testing.T) {
+  var N = 100
+  var tbl = NewSstBuf(".", 25)
+
+  for i := 0; i < N; i++ {
+    // TODO: encode predictable value for i
+    //token := make([]byte, 8)
+    //rand.Read(token)
+    (*tbl).Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"}, false)
+  }
+
+//  // verify i contains expected value
+//  for i := 0; i < N; i++ {
+//    if val, found := Get(strconv.Itoa(i)); found {
+//      if bytes.Compare(val.Data, []byte(strconv.Itoa(i))) != 0 {
+//        t.Error("Unexpected value", val.Data, "for key", i)
+//      }
+//    } else {
+//      t.Error("Value not found for key", i)
+//    }
+//  }
+//
+//  for i := 0; i < N; i++ {
+//    Delete(strconv.Itoa(i))
+//  }
+//
+//  // verify key does not exist for i
+//  for i := 0; i < N; i++ {
+//    if val, found := Get(strconv.Itoa(i)); found {
+//      t.Error("Unexpected value", val.Data, "for key", i)
+//    }
+//  }
+//
+//
+//  // TODO: add a key back
+//  Set("abcd", Value{[]byte("test"), "text"})
+//
+//  // TODO verify that key exists now
+//  if val, found := Get("abcd"); found {
+//    if string(val.Data) != "test" {
+//      t.Error("Unexpected value", val.Data, "for key", "abcd")
+//    }
+//  } else {
+//    t.Error("Value not found for key", "abcd")
+//  }
+}
