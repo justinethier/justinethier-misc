@@ -86,11 +86,24 @@ func TestKeyValue(t *testing.T) {
   }
 }
 
+func TestSstInternals(t *testing.T) {
+  var tbl = NewSstBuf(".", 25)
+
+  (*tbl).ResetDB()
+
+  (*tbl).Set("test value", Value{[]byte("1"), "text"})
+  val, ok := (*tbl).findLatestBufferEntryValue("test value")
+
+  if !ok || bytes.Compare(val.Data, []byte("1")) != 0 {
+    t.Error("Unexpected test value", val, ok)
+  }
+}
+
 func TestSstKeyValue(t *testing.T) {
   var N = 100
   var tbl = NewSstBuf(".", 25)
 
-// TODO: delete all the sst files
+  (*tbl).ResetDB()
 
   for i := 0; i < N; i++ {
     // TODO: encode predictable value for i
@@ -102,43 +115,34 @@ func TestSstKeyValue(t *testing.T) {
   (*tbl).Delete(strconv.Itoa(100))
   (*tbl).Flush()
 
-
-// TODO: extract this into a new test
-  (*tbl).Set("test value", 1)
-  val, ok := (*tbl).findLatestBufferEntryValue("test value")
-
-  if !ok || val != 1 {
-    t.Error("Unexpected test value", val, ok)
+  // verify i contains expected value
+  for i := 0; i < N; i++ {
+    if v, found := (*tbl).Get(strconv.Itoa(i)); found {
+      //v := val.(Value)
+      if bytes.Compare(v.Data, []byte(strconv.Itoa(i))) != 0 {
+        t.Error("Unexpected value", v.Data, "for key", i)
+      }
+    } else {
+      t.Error("Value not found for key", i)
+    }
   }
 
-//  // verify i contains expected value
-//  for i := 0; i < N; i++ {
-//    if val, found := Get(strconv.Itoa(i)); found {
-//      if bytes.Compare(val.Data, []byte(strconv.Itoa(i))) != 0 {
-//        t.Error("Unexpected value", val.Data, "for key", i)
-//      }
-//    } else {
-//      t.Error("Value not found for key", i)
-//    }
-//  }
-//
-//  for i := 0; i < N; i++ {
-//    Delete(strconv.Itoa(i))
-//  }
-//
-//  // verify key does not exist for i
-//  for i := 0; i < N; i++ {
-//    if val, found := Get(strconv.Itoa(i)); found {
-//      t.Error("Unexpected value", val.Data, "for key", i)
-//    }
-//  }
-//
-//
+  for i := 0; i < N; i++ {
+    (*tbl).Delete(strconv.Itoa(i))
+  }
+
+  // verify key does not exist for i
+  for i := 0; i < N; i++ {
+    if val, found := (*tbl).Get(strconv.Itoa(i)); found {
+      t.Error("Unexpected value", val.Data, "for key", i)
+    }
+  }
+
 //  // TODO: add a key back
-//  Set("abcd", Value{[]byte("test"), "text"})
+//  (*tbl).Set("abcd", Value{[]byte("test"), "text"})
 //
 //  // TODO verify that key exists now
-//  if val, found := Get("abcd"); found {
+//  if val, found := (*tbl).Get("abcd"); found {
 //    if string(val.Data) != "test" {
 //      t.Error("Unexpected value", val.Data, "for key", "abcd")
 //    }

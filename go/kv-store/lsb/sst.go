@@ -22,7 +22,7 @@ type SstBuf struct {
 
 type SstEntry struct {
   Key string
-  Value interface{}
+  Value Value
   Deleted bool
 }
 
@@ -31,15 +31,16 @@ func NewSstBuf(path string, bufSize int) *SstBuf {
   return &SstBuf{path, buf, bufSize}
 }
 
-func (s *SstBuf) Set(k string, value interface{}) {
+func (s *SstBuf) Set(k string, value Value) {
   (*s).set(k, value, false)
 }
 
 func (s *SstBuf) Delete(k string) {
-  (*s).set(k, nil, true)
+  var val Value
+  (*s).set(k, val, true)
 }
 
-func (s *SstBuf) set(k string, value interface{}, deleted bool) {
+func (s *SstBuf) set(k string, value Value, deleted bool) {
   entry := SstEntry{k, value, deleted}
   (*s).Buffer = append((*s).Buffer, entry)
 
@@ -143,8 +144,8 @@ func (s *SstBuf) GetSstFilenames() []string {
   return sstFiles
 }
 
-func (s *SstBuf) findLatestBufferEntryValue(key string) (interface{}, bool){
-  var empty SstEntry
+func (s *SstBuf) findLatestBufferEntryValue(key string) (Value, bool){
+  var empty Value
   for _, entry := range (*s).Buffer {
     if entry.Key == key {
       if entry.Deleted {
@@ -199,8 +200,8 @@ func (s *SstBuf) LoadEntriesFromSstFile(filename string) []SstEntry{
 //  return string(ln),err
 //}
 
-func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bool) {
-  var entry SstEntry
+func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (Value, bool) {
+  var entry Value
   var left = 0
   var right = len(entries) - 1
 
@@ -225,7 +226,7 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bo
   return entry, false
 }
 
-func (s *SstBuf) Get(k string) (interface{}, bool) {
+func (s *SstBuf) Get(k string) (Value, bool) {
   // Check in-memory buffer
   if latestBufEntry, ok :=  (*s).findLatestBufferEntryValue(k); ok {
     return latestBufEntry, true
@@ -243,10 +244,14 @@ func (s *SstBuf) Get(k string) (interface{}, bool) {
   }
 
   // Key not found
-  return nil, false
+  var val Value
+  return val, false
 }
 
-// TODO:
-//
-// reset() - delete all sst files
+func (s *SstBuf) ResetDB() {
+  sstFilenames := (*s).GetSstFilenames()
+  for _, filename := range sstFilenames {
+    os.Remove(filename)
+  }
+}
 
