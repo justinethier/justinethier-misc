@@ -100,6 +100,14 @@ func TestSstKeyValue(t *testing.T) {
   (*tbl).Delete(strconv.Itoa(100))
   (*tbl).Flush()
 
+
+  (*tbl).Set("test value", 1)
+  val, ok := (*tbl).FindLatestBufferEntryValue("test value")
+
+  if !ok || val != 1 {
+    t.Error("Unexpected test value", val, ok)
+  }
+
 //  // verify i contains expected value
 //  for i := 0; i < N; i++ {
 //    if val, found := Get(strconv.Itoa(i)); found {
