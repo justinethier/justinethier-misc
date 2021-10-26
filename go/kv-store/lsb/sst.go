@@ -126,7 +126,24 @@ func (s *SstBuf) NextSstFilename() string {
   return "sorted-string-table-0000.json"
 }
 
-func (s *SstBuf) FindLatestBufferEntryValue(key string) (interface{}, bool){
+func (s *SstBuf) GetSstFilenames() []string {
+  files, err := ioutil.ReadDir((*s).Path)
+  if err != nil {
+      log.Fatal(err)
+  }
+
+  var sstFiles []string
+  for _, file := range files {
+    matched, _ := regexp.Match(`^sorted-string-table-[0-9]*\.json`, []byte(file.Name()))
+    if matched && !file.IsDir() {
+      sstFiles = append(sstFiles, file.Name())
+    }
+  }
+
+  return sstFiles
+}
+
+func (s *SstBuf) findLatestBufferEntryValue(key string) (interface{}, bool){
   var empty SstEntry
   for _, entry := range (*s).Buffer {
     if entry.Key == key {
@@ -170,17 +187,17 @@ func (s *SstBuf) LoadEntriesFromSstFile(filename string) []SstEntry{
 // from the input buffered reader.
 // An error is returned iff there is an error with the
 // buffered reader.
-func Readln(r *bufio.Reader) (string, error) {
-  var (isPrefix bool = true
-       err error = nil
-       line, ln []byte
-      )
-  for isPrefix && err == nil {
-      line, isPrefix, err = r.ReadLine()
-      ln = append(ln, line...)
-  }
-  return string(ln),err
-}
+//func Readln(r *bufio.Reader) (string, error) {
+//  var (isPrefix bool = true
+//       err error = nil
+//       line, ln []byte
+//      )
+//  for isPrefix && err == nil {
+//      line, isPrefix, err = r.ReadLine()
+//      ln = append(ln, line...)
+//  }
+//  return string(ln),err
+//}
 
 func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bool) {
   var entry SstEntry
@@ -208,8 +225,28 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bo
   return entry, false
 }
 
+func (s *SstBuf) Get(k string) (interface{}, bool) {
+  // Check in-memory buffer
+  if latestBufEntry, ok :=  (*s).findLatestBufferEntryValue(k); ok {
+    return latestBufEntry, true
+  }
+
+  // Not found, search the sst files
+  sstFilenames := (*s).GetSstFilenames()
+
+  // Search in reverse order, newest file to oldest
+  for i := len(sstFilenames) - 1; i >= 0; i-- {
+    entries := (*s).LoadEntriesFromSstFile(sstFilenames[i])
+    if value, ok := (*s).FindEntryValue(k, entries); ok {
+      return value, true
+    }
+  }
+
+  // Key not found
+  return nil, false
+}
+
 // TODO:
-// func (s *SstBuf) Get(k string) (interface{}, bool) {}
 //
 // reset() - delete all sst files
 

@@ -90,6 +90,8 @@ func TestSstKeyValue(t *testing.T) {
   var N = 100
   var tbl = NewSstBuf(".", 25)
 
+// TODO: delete all the sst files
+
   for i := 0; i < N; i++ {
     // TODO: encode predictable value for i
     //token := make([]byte, 8)
@@ -101,8 +103,9 @@ func TestSstKeyValue(t *testing.T) {
   (*tbl).Flush()
 
 
+// TODO: extract this into a new test
   (*tbl).Set("test value", 1)
-  val, ok := (*tbl).FindLatestBufferEntryValue("test value")
+  val, ok := (*tbl).findLatestBufferEntryValue("test value")
 
   if !ok || val != 1 {
     t.Error("Unexpected test value", val, ok)
