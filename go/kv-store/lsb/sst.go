@@ -2,6 +2,7 @@
 package lsb
 
 import (
+  "bufio"
   "encoding/json"
   "fmt"
   "io/ioutil"
@@ -139,9 +140,49 @@ func (s *SstBuf) FindLatestBufferEntryValue(key string) (interface{}, bool){
   return empty, false
 }
 
+func (s *SstBuf) LoadEntriesFromSstFile(filename string) []SstEntry{
+  var buf []SstEntry
+
+    f, err := os.Open(filename)
+    if err != nil {
+      return buf
+    }
+
+    defer f.Close()
+
+    r := bufio.NewReader(f)
+    str, e := Readln(r)
+    for e == nil {
+        var data SstEntry
+        err = json.Unmarshal([]byte(str), &data)
+        //fmt.Println(data)
+        buf = append(buf, data)
+        str, e = Readln(r)
+    }
+
+  return buf
+}
+
+// From: https://stackoverflow.com/a/12206584
+//
+// Readln returns a single line (without the ending \n)
+// from the input buffered reader.
+// An error is returned iff there is an error with the
+// buffered reader.
+func Readln(r *bufio.Reader) (string, error) {
+  var (isPrefix bool = true
+       err error = nil
+       line, ln []byte
+      )
+  for isPrefix && err == nil {
+      line, isPrefix, err = r.ReadLine()
+      ln = append(ln, line...)
+  }
+  return string(ln),err
+}
+
 // TODO:
 // func (s *SstBuf) Get(k string) (interface{}, bool) {}
-// func (s *SstBuf) LoadEntriesFromSstFile(filename string) {}
 // func (s *SstBuf) FindEntryValue(key string, entries []Buffer) {}
 //
 // reset() - delete all sst files
