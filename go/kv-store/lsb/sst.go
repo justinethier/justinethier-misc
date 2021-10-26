@@ -7,6 +7,7 @@ import (
   "fmt"
   "io/ioutil"
   "log"
+  "math"
   "os"
   "regexp"
   "sort"
@@ -181,9 +182,31 @@ func Readln(r *bufio.Reader) (string, error) {
   return string(ln),err
 }
 
+func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bool) {
+  var entry SstEntry
+  var left = 0
+  var right = len(entries) - 1
+
+  for left <= right {
+    mid := left + int(math.Floor((right - left) / 2))
+
+    if entries[mid].Key == key {
+      if entries[mid].Deleted {
+        return entry, false
+      }
+      return entries[mid].Value, true
+    }
+
+    // TODO: adjust right/left
+  }
+
+  // TODO: any logic needed here??
+
+  return entry, false
+}
+
 // TODO:
 // func (s *SstBuf) Get(k string) (interface{}, bool) {}
-// func (s *SstBuf) FindEntryValue(key string, entries []Buffer) {}
 //
 // reset() - delete all sst files
 
