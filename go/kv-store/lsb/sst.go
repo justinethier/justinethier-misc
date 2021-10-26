@@ -7,7 +7,7 @@ import (
   "fmt"
   "io/ioutil"
   "log"
-  "math"
+//  "math"
   "os"
   "regexp"
   "sort"
@@ -188,8 +188,9 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bo
   var right = len(entries) - 1
 
   for left <= right {
-    mid := left + int(math.Floor((right - left) / 2))
+    mid := left + int((right - left) / 2)
 
+    // Found the key
     if entries[mid].Key == key {
       if entries[mid].Deleted {
         return entry, false
@@ -197,10 +198,12 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (interface{}, bo
       return entries[mid].Value, true
     }
 
-    // TODO: adjust right/left
+    if entries[mid].Key > key {
+      right = mid - 1 // Key would be found before this entry
+    } else {
+      left = mid + 1 // Key would be found after this entry
+    }
   }
-
-  // TODO: any logic needed here??
 
   return entry, false
 }
