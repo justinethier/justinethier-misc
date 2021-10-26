@@ -124,9 +124,23 @@ func (s *SstBuf) NextSstFilename() string {
   return "sorted-string-table-0000.json"
 }
 
+func (s *SstBuf) FindLatestBufferEntryValue(key string) (interface{}, bool){
+  var empty SstEntry
+  for _, entry := range (*s).Buffer {
+    if entry.Key == key {
+      if entry.Deleted {
+        return empty, false
+      } else {
+        return entry.Value, true
+      }
+    }
+  }
+
+  return empty, false
+}
+
 // TODO:
 // func (s *SstBuf) Get(k string) (interface{}, bool) {}
-// func (s *SstBuf) FindLatestBufferEntryValue(key string) {}
 // func (s *SstBuf) LoadEntriesFromSstFile(filename string) {}
 // func (s *SstBuf) FindEntryValue(key string, entries []Buffer) {}
 //
