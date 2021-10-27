@@ -200,8 +200,8 @@ func (s *SstBuf) LoadEntriesFromSstFile(filename string) []SstEntry{
 //  return string(ln),err
 //}
 
-func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (Value, bool) {
-  var entry Value
+func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (SstEntry, bool) {
+  var entry SstEntry
   var left = 0
   var right = len(entries) - 1
 
@@ -210,10 +210,7 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (Value, bool) {
 
     // Found the key
     if entries[mid].Key == key {
-      if entries[mid].Deleted {
-        return entry, false
-      }
-      return entries[mid].Value, true
+      return entries[mid], true
     }
 
     if entries[mid].Key > key {
@@ -228,7 +225,7 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (Value, bool) {
 
 func (s *SstBuf) Get(k string) (Value, bool) {
   // Check in-memory buffer
-  if latestBufEntry, ok :=  (*s).findLatestBufferEntryValue(k); ok {
+  if latestBufEntry, ok := (*s).findLatestBufferEntryValue(k); ok {
     return latestBufEntry, true
   }
 
@@ -238,8 +235,12 @@ func (s *SstBuf) Get(k string) (Value, bool) {
   // Search in reverse order, newest file to oldest
   for i := len(sstFilenames) - 1; i >= 0; i-- {
     entries := (*s).LoadEntriesFromSstFile(sstFilenames[i])
-    if value, ok := (*s).FindEntryValue(k, entries); ok {
-      return value, true
+    if entry, found := (*s).FindEntryValue(k, entries); found {
+      if entry.Deleted {
+        return entry.Value, false
+      } else {
+        return entry.Value, true
+      }
     }
   }
 
