@@ -87,7 +87,7 @@ func TestKeyValue(t *testing.T) {
 }
 
 func BenchmarkSstKeyValue(b *testing.B) {
-  var tbl = NewSstBuf(".", 25)
+  var tbl = NewSstBuf(".", 5000)
   (*tbl).ResetDB()
 
   for i := 0; i < b.N; i++ {
