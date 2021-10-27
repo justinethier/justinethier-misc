@@ -105,7 +105,8 @@ func TestSstKeyValue(t *testing.T) {
 
   (*tbl).ResetDB()
 
-  for i := 0; i < N; i++ {
+  //for i := 0; i < N; i++ {
+  for i := N - 1; i >= 0; i-- {
     // encode predictable value for i
     (*tbl).Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"})
   }
