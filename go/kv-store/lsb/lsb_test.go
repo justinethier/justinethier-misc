@@ -94,7 +94,7 @@ func TestSstInternals(t *testing.T) {
   (*tbl).Set("test value", Value{[]byte("1"), "text"})
   val, ok := (*tbl).findLatestBufferEntryValue("test value")
 
-  if !ok || bytes.Compare(val.Data, []byte("1")) != 0 {
+  if !ok || bytes.Compare(val.Value.Data, []byte("1")) != 0 {
     t.Error("Unexpected test value", val, ok)
   }
 }
@@ -105,14 +105,13 @@ func TestSstKeyValue(t *testing.T) {
 
   (*tbl).ResetDB()
 
-  //for i := 0; i < N; i++ {
   for i := N - 1; i >= 0; i-- {
     // encode predictable value for i
     (*tbl).Set(strconv.Itoa(i), Value{Data: []byte(strconv.Itoa(i)), ContentType: "test content"})
   }
 
   (*tbl).Delete(strconv.Itoa(100))
-  (*tbl).Flush()
+  //(*tbl).Flush()
 
   // verify i contains expected value
   for i := 0; i < N; i++ {

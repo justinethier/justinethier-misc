@@ -144,15 +144,11 @@ func (s *SstBuf) GetSstFilenames() []string {
   return sstFiles
 }
 
-func (s *SstBuf) findLatestBufferEntryValue(key string) (Value, bool){
-  var empty Value
+func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
+  var empty SstEntry
   for _, entry := range (*s).Buffer {
     if entry.Key == key {
-      if entry.Deleted {
-        return empty, false
-      } else {
-        return entry.Value, true
-      }
+      return entry, true
     }
   }
 
@@ -207,6 +203,7 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (SstEntry, bool)
 
   for left <= right {
     mid := left + int((right - left) / 2)
+    //fmt.Println("DEBUG FEV", key, left, right, mid, entries[mid])
 
     // Found the key
     if entries[mid].Key == key {
@@ -226,7 +223,11 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (SstEntry, bool)
 func (s *SstBuf) Get(k string) (Value, bool) {
   // Check in-memory buffer
   if latestBufEntry, ok := (*s).findLatestBufferEntryValue(k); ok {
-    return latestBufEntry, true
+    if latestBufEntry.Deleted {
+      return latestBufEntry.Value, false
+    } else {
+      return latestBufEntry.Value, true
+    }
   }
 
   // Not found, search the sst files
@@ -234,6 +235,7 @@ func (s *SstBuf) Get(k string) (Value, bool) {
 
   // Search in reverse order, newest file to oldest
   for i := len(sstFilenames) - 1; i >= 0; i-- {
+    //fmt.Println("DEBUG loading entries from file", sstFilenames[i])
     entries := (*s).LoadEntriesFromSstFile(sstFilenames[i])
     if entry, found := (*s).FindEntryValue(k, entries); found {
       if entry.Deleted {
