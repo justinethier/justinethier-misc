@@ -17,6 +17,7 @@ import (
 type SstBuf struct {
   Path string
   Buffer []SstEntry
+  BufferSize int
   MaxBufferLength int
 }
 
@@ -27,8 +28,8 @@ type SstEntry struct {
 }
 
 func NewSstBuf(path string, bufSize int) *SstBuf {
-  var buf []SstEntry
-  return &SstBuf{path, buf, bufSize}
+  buf := make([]SstEntry, bufSize)
+  return &SstBuf{path, buf, 0, bufSize}
 }
 
 func (s *SstBuf) Set(k string, value Value) {
@@ -42,9 +43,11 @@ func (s *SstBuf) Delete(k string) {
 
 func (s *SstBuf) set(k string, value Value, deleted bool) {
   entry := SstEntry{k, value, deleted}
-  (*s).Buffer = append((*s).Buffer, entry)
+  i := (*s).BufferSize
+  (*s).Buffer[i] = entry
+  (*s).BufferSize++
 
-  if (len((*s).Buffer) < (*s).MaxBufferLength) {
+  if ((*s).BufferSize < (*s).MaxBufferLength) {
     // Buffer is not full yet, we're good
     return
   }
@@ -53,13 +56,14 @@ func (s *SstBuf) set(k string, value Value, deleted bool) {
 }
 
 func (s *SstBuf) Flush() {
-  if len((*s).Buffer) == 0 {
+  if (*s).BufferSize == 0 {
     return
   }
 
   // Remove duplicate entries
   m := make(map[string]SstEntry)
-  for _, e := range (*s).Buffer {
+  for i := 0; i < (*s).BufferSize; i++ {
+    e := (*s).Buffer[i]
     m[e.Key] = e
   }
 
@@ -75,8 +79,7 @@ func (s *SstBuf) Flush() {
   CreateSstFile(filename, keys, m)
 
   // Clear buffer
-  var buf []SstEntry
-  (*s).Buffer = buf
+  (*s).BufferSize = 0
 }
 
 func check(e error) {
@@ -146,7 +149,9 @@ func (s *SstBuf) GetSstFilenames() []string {
 
 func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
   var empty SstEntry
-  for _, entry := range (*s).Buffer {
+  //for _, entry := range (*s).Buffer {
+  for i := 0; i < (*s).BufferSize; i++ {
+    entry := (*s).Buffer[i]
     if entry.Key == key {
       return entry, true
     }
