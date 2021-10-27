@@ -7,22 +7,31 @@ import (
   "testing"
 )
 
-func BenchmarkSstKeyValue(b *testing.B) {
-  var tbl = NewSstBuf(".", 5000)
+var tbl = NewSstBuf(".", 5000)
+
+func BenchmarkSstKeyValueSet(b *testing.B) {
+  //tbl = NewSstBuf(".", 5000)
   (*tbl).ResetDB()
 
   for i := 0; i < b.N; i++ {
     token := make([]byte, 8)
     rand.Read(token)
-    (*tbl).Set(strconv.Itoa(i), Value{Data: token, ContentType: "test content"})
+    j := rand.Intn(b.N)
+    (*tbl).Set(strconv.Itoa(j), Value{Data: token, ContentType: "test content"})
   }
+}
 
+func BenchmarkSstKeyValueGet(b *testing.B) {
   for i := 0; i < b.N; i++ {
-    (*tbl).Get(strconv.Itoa(i))
+    j := rand.Intn(b.N)
+    (*tbl).Get(strconv.Itoa(j))
   }
+}
 
+func BenchmarkSstKeyValueDelete(b *testing.B) {
   for i := 0; i < b.N; i++ {
-    (*tbl).Delete(strconv.Itoa(i))
+    j := rand.Intn(b.N)
+    (*tbl).Delete(strconv.Itoa(j))
   }
 }
 

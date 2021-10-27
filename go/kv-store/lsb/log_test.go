@@ -15,21 +15,28 @@ import (
 //  }
 //}
 
-func BenchmarkKeyValue(b *testing.B) {
+func BenchmarkKeyValueSet(b *testing.B) {
   ResetDB()
 
   for i := 0; i < b.N; i++ {
     token := make([]byte, 8)
     rand.Read(token)
-    Set(strconv.Itoa(i), Value{Data: token, ContentType: "test content"})
+    j := rand.Intn(b.N)
+    Set(strconv.Itoa(j), Value{Data: token, ContentType: "test content"})
   }
+}
 
+func BenchmarkKeyValueGet(b *testing.B) {
   for i := 0; i < b.N; i++ {
-    Get(strconv.Itoa(i))
+    j := rand.Intn(b.N)
+    Get(strconv.Itoa(j))
   }
+}
 
+func BenchmarkKeyValueDelete(b *testing.B) {
   for i := 0; i < b.N; i++ {
-    Delete(strconv.Itoa(i))
+    j := rand.Intn(b.N)
+    Delete(strconv.Itoa(j))
   }
 }
 
