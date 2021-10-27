@@ -86,6 +86,25 @@ func TestKeyValue(t *testing.T) {
   }
 }
 
+func BenchmarkSstKeyValue(b *testing.B) {
+  var tbl = NewSstBuf(".", 25)
+  (*tbl).ResetDB()
+
+  for i := 0; i < b.N; i++ {
+    token := make([]byte, 8)
+    rand.Read(token)
+    (*tbl).Set(strconv.Itoa(i), Value{Data: token, ContentType: "test content"})
+  }
+
+  for i := 0; i < b.N; i++ {
+    (*tbl).Get(strconv.Itoa(i))
+  }
+
+  for i := 0; i < b.N; i++ {
+    (*tbl).Delete(strconv.Itoa(i))
+  }
+}
+
 func TestSstInternals(t *testing.T) {
   var tbl = NewSstBuf(".", 25)
 
