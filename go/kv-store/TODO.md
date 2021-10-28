@@ -1,5 +1,10 @@
+- Add bloom filter, maybe as another package used by lsb?
+- other optimizations? indexes?
 - Hook LSB implementation up to web interface when ready
 - Have a static web page that makes it easy to perform RUD operations. EG: post entered data to a key, or update/delete that key
 - Consider a hybrid in-memory map/cache and disked-back LSB for both speed an reliability
 - LSB optimizations - index, bloom filter, etc
 - Thread save LSB operations and/or use a dedicated thread with a buffered channel for other threads to send (and load??) data to the LSB
+- Use http.DetectContentType if content type is not supplied (EG: empty string)
+- Add a write-ahead-log (WAL) to handle crashes. otherwise un-flushed data might be lost
+
