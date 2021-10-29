@@ -33,37 +33,37 @@ func NewSstBuf(path string, bufSize int) *SstBuf {
 }
 
 func (s *SstBuf) Set(k string, value Value) {
-  (*s).set(k, value, false)
+  s.set(k, value, false)
 }
 
 func (s *SstBuf) Delete(k string) {
   var val Value
-  (*s).set(k, val, true)
+  s.set(k, val, true)
 }
 
 func (s *SstBuf) set(k string, value Value, deleted bool) {
   entry := SstEntry{k, value, deleted}
-  i := (*s).BufferSize
-  (*s).Buffer[i] = entry
-  (*s).BufferSize++
+  i := s.BufferSize
+  s.Buffer[i] = entry
+  s.BufferSize++
 
-  if ((*s).BufferSize < (*s).MaxBufferLength) {
+  if (s.BufferSize < s.MaxBufferLength) {
     // Buffer is not full yet, we're good
     return
   }
 
-  (*s).Flush()
+  s.Flush()
 }
 
 func (s *SstBuf) Flush() {
-  if (*s).BufferSize == 0 {
+  if s.BufferSize == 0 {
     return
   }
 
   // Remove duplicate entries
   m := make(map[string]SstEntry)
-  for i := 0; i < (*s).BufferSize; i++ {
-    e := (*s).Buffer[i]
+  for i := 0; i < s.BufferSize; i++ {
+    e := s.Buffer[i]
     m[e.Key] = e
   }
 
@@ -75,11 +75,11 @@ func (s *SstBuf) Flush() {
   sort.Strings(keys)
 
   // Flush buffer to disk
-  var filename = (*s).NextSstFilename()
+  var filename = s.NextSstFilename()
   CreateSstFile(filename, keys, m)
 
   // Clear buffer
-  (*s).BufferSize = 0
+  s.BufferSize = 0
 }
 
 func check(e error) {
@@ -107,7 +107,7 @@ func CreateSstFile(filename string, keys []string, m map[string]SstEntry) {
 }
 
 func (s *SstBuf) NextSstFilename() string {
-  files, err := ioutil.ReadDir((*s).Path)
+  files, err := ioutil.ReadDir(s.Path)
   if err != nil {
       log.Fatal(err)
   }
@@ -131,7 +131,7 @@ func (s *SstBuf) NextSstFilename() string {
 }
 
 func (s *SstBuf) GetSstFilenames() []string {
-  files, err := ioutil.ReadDir((*s).Path)
+  files, err := ioutil.ReadDir(s.Path)
   if err != nil {
       log.Fatal(err)
   }
@@ -149,9 +149,9 @@ func (s *SstBuf) GetSstFilenames() []string {
 
 func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
   var empty SstEntry
-  //for _, entry := range (*s).Buffer {
-  for i := 0; i < (*s).BufferSize; i++ {
-    entry := (*s).Buffer[i]
+  //for _, entry := range s.Buffer {
+  for i := 0; i < s.BufferSize; i++ {
+    entry := s.Buffer[i]
     if entry.Key == key {
       return entry, true
     }
@@ -227,7 +227,7 @@ func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (SstEntry, bool)
 
 func (s *SstBuf) Get(k string) (Value, bool) {
   // Check in-memory buffer
-  if latestBufEntry, ok := (*s).findLatestBufferEntryValue(k); ok {
+  if latestBufEntry, ok := s.findLatestBufferEntryValue(k); ok {
     if latestBufEntry.Deleted {
       return latestBufEntry.Value, false
     } else {
@@ -236,13 +236,13 @@ func (s *SstBuf) Get(k string) (Value, bool) {
   }
 
   // Not found, search the sst files
-  sstFilenames := (*s).GetSstFilenames()
+  sstFilenames := s.GetSstFilenames()
 
   // Search in reverse order, newest file to oldest
   for i := len(sstFilenames) - 1; i >= 0; i-- {
     //fmt.Println("DEBUG loading entries from file", sstFilenames[i])
-    entries := (*s).LoadEntriesFromSstFile(sstFilenames[i])
-    if entry, found := (*s).FindEntryValue(k, entries); found {
+    entries := s.LoadEntriesFromSstFile(sstFilenames[i])
+    if entry, found := s.FindEntryValue(k, entries); found {
       if entry.Deleted {
         return entry.Value, false
       } else {
@@ -257,7 +257,7 @@ func (s *SstBuf) Get(k string) (Value, bool) {
 }
 
 func (s *SstBuf) ResetDB() {
-  sstFilenames := (*s).GetSstFilenames()
+  sstFilenames := s.GetSstFilenames()
   for _, filename := range sstFilenames {
     os.Remove(filename)
   }
