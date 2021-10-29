@@ -8,4 +8,4 @@
 - Use http.DetectContentType if content type is not supplied (EG: empty string)
 - Add a write-ahead-log (WAL) to handle crashes. otherwise un-flushed data might be lost
 - Reformat everything using `gofmt -w file`
-
+- New project name - keva. Or maybe "keva store"
