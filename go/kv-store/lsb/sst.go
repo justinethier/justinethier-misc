@@ -12,6 +12,7 @@ import (
   "regexp"
   "sort"
   "strconv"
+  "sparkv/bloom"
 )
 
 type SstBuf struct {
@@ -19,6 +20,7 @@ type SstBuf struct {
   Buffer []SstEntry
   BufferSize int
   MaxBufferLength int
+  Filter *bloom.Filter
 }
 
 type SstEntry struct {
@@ -29,7 +31,8 @@ type SstEntry struct {
 
 func NewSstBuf(path string, bufSize int) *SstBuf {
   buf := make([]SstEntry, bufSize)
-  return &SstBuf{path, buf, 0, bufSize}
+  f := bloom.New(bufSize, 200)
+  return &SstBuf{path, buf, 0, bufSize, f}
 }
 
 func (s *SstBuf) Set(k string, value Value) {
@@ -46,6 +49,8 @@ func (s *SstBuf) set(k string, value Value, deleted bool) {
   i := s.BufferSize
   s.Buffer[i] = entry
   s.BufferSize++
+
+  s.Filter.Add(k)
 
   if (s.BufferSize < s.MaxBufferLength) {
     // Buffer is not full yet, we're good
@@ -149,6 +154,12 @@ func (s *SstBuf) GetSstFilenames() []string {
 
 func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
   var empty SstEntry
+
+  // Early exit if we have never seen this key
+  if !s.Filter.Test(key) {
+    return empty, false
+  }
+
   //for _, entry := range s.Buffer {
   for i := 0; i < s.BufferSize; i++ {
     entry := s.Buffer[i]
