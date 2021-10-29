@@ -20,7 +20,12 @@ type SstBuf struct {
   Buffer []SstEntry
   BufferSize int
   MaxBufferLength int
-  Filter *bloom.Filter
+  filter *bloom.Filter
+}
+
+type SstFile struct {
+  filename string
+  filter *bloom.Filter
 }
 
 type SstEntry struct {
@@ -50,7 +55,7 @@ func (s *SstBuf) set(k string, value Value, deleted bool) {
   s.Buffer[i] = entry
   s.BufferSize++
 
-  s.Filter.Add(k)
+  s.filter.Add(k)
 
   if (s.BufferSize < s.MaxBufferLength) {
     // Buffer is not full yet, we're good
@@ -156,7 +161,7 @@ func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
   var empty SstEntry
 
   // Early exit if we have never seen this key
-  if !s.Filter.Test(key) {
+  if !s.filter.Test(key) {
     return empty, false
   }
 
