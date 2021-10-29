@@ -7,4 +7,5 @@
 - Thread save LSB operations and/or use a dedicated thread with a buffered channel for other threads to send (and load??) data to the LSB
 - Use http.DetectContentType if content type is not supplied (EG: empty string)
 - Add a write-ahead-log (WAL) to handle crashes. otherwise un-flushed data might be lost
+- Reformat everything using `gofmt -w file`
 
