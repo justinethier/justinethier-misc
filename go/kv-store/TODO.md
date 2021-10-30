@@ -9,3 +9,4 @@
 - Add a write-ahead-log (WAL) to handle crashes. otherwise un-flushed data might be lost
 - Reformat everything using `gofmt -w file`
 - New project name - keva. Or maybe "keyva"
+- Extract sst out into its own package. Also have a util package as well, and move util.go there. we can have a log package for the old log implementation

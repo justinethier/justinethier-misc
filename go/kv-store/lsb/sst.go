@@ -15,6 +15,7 @@ import (
   "sparkv/bloom"
 )
 
+// TODO: remove Sst from all of these names once SST is its own package
 type SstBuf struct {
   Path string
   Buffer []SstEntry
@@ -27,6 +28,16 @@ type SstBuf struct {
 type SstFile struct {
   filename string
   filter *bloom.Filter
+  // TODO: map of file contents (a cache)
+  // TODO: timestamp when cache was last accessed
+  //
+  // TOOD: before doing the above, check and see how much faster Get() is when
+  //       we remove the file access. Or just make this chagne and time it...
+  //
+  // TODO: longer-term, we will time out the cache and have a GC that
+  //       empties it if it has not been accessed for THRESHOLD
+  //       will also want a default threshold and a way to change it.
+  //       maybe it will be a member of SstBuf
 }
 
 type SstEntry struct {
