@@ -21,6 +21,7 @@ type SstBuf struct {
   BufferSize int
   MaxBufferLength int
   filter *bloom.Filter
+  files []SstFile
 }
 
 type SstFile struct {
@@ -37,7 +38,10 @@ type SstEntry struct {
 func NewSstBuf(path string, bufSize int) *SstBuf {
   buf := make([]SstEntry, bufSize)
   f := bloom.New(bufSize, 200)
-  return &SstBuf{path, buf, 0, bufSize, f}
+  var files []SstFile
+  sstbuf := SstBuf{path, buf, 0, bufSize, f, files}
+  sstbuf.LoadFilters() // Read all SST files on disk and generate bloom filters
+  return &sstbuf
 }
 
 func (s *SstBuf) Set(k string, value Value) {
@@ -65,6 +69,21 @@ func (s *SstBuf) set(k string, value Value, deleted bool) {
   s.Flush()
 }
 
+// Read all sst files from disk and load a bloom filter for each one into memory
+func (s *SstBuf) LoadFilters() {
+  sstFilenames := s.GetSstFilenames()
+  for _, filename := range sstFilenames {
+    fmt.Println("DEBUG: loading bloom filter from file", filename)
+    entries := s.LoadEntriesFromSstFile(filename)
+    filter := bloom.New(s.MaxBufferLength, 200)
+    for _, entry := range entries {
+      filter.Add(entry.Key)
+    }
+    var sstfile = SstFile{filename, filter}
+    s.files = append(s.files, sstfile)
+  }
+}
+
 func (s *SstBuf) Flush() {
   if s.BufferSize == 0 {
     return
@@ -77,9 +96,11 @@ func (s *SstBuf) Flush() {
     m[e.Key] = e
   }
 
-  // sort list of keys
+  // sort list of keys and setup bloom filter
+  filter := bloom.New(s.BufferSize, 200)
   keys := make([]string, 0, len(m))
   for k := range m {
+    filter.Add(k)
     keys = append(keys, k)
   }
   sort.Strings(keys)
@@ -87,6 +108,10 @@ func (s *SstBuf) Flush() {
   // Flush buffer to disk
   var filename = s.NextSstFilename()
   CreateSstFile(filename, keys, m)
+
+  // Add information to memory
+  var sstfile = SstFile{filename, filter}
+  s.files = append(s.files, sstfile)
 
   // Clear buffer
   s.BufferSize = 0
@@ -165,7 +190,6 @@ func (s *SstBuf) findLatestBufferEntryValue(key string) (SstEntry, bool){
     return empty, false
   }
 
-  //for _, entry := range s.Buffer {
   for i := 0; i < s.BufferSize; i++ {
     entry := s.Buffer[i]
     if entry.Key == key {
@@ -198,24 +222,6 @@ func (s *SstBuf) LoadEntriesFromSstFile(filename string) []SstEntry{
 
   return buf
 }
-
-// From: https://stackoverflow.com/a/12206584
-//
-// Readln returns a single line (without the ending \n)
-// from the input buffered reader.
-// An error is returned iff there is an error with the
-// buffered reader.
-//func Readln(r *bufio.Reader) (string, error) {
-//  var (isPrefix bool = true
-//       err error = nil
-//       line, ln []byte
-//      )
-//  for isPrefix && err == nil {
-//      line, isPrefix, err = r.ReadLine()
-//      ln = append(ln, line...)
-//  }
-//  return string(ln),err
-//}
 
 func (s *SstBuf) FindEntryValue(key string, entries []SstEntry) (SstEntry, bool) {
   var entry SstEntry
@@ -252,17 +258,20 @@ func (s *SstBuf) Get(k string) (Value, bool) {
   }
 
   // Not found, search the sst files
-  sstFilenames := s.GetSstFilenames()
+  //sstFilenames := s.GetSstFilenames()
 
   // Search in reverse order, newest file to oldest
-  for i := len(sstFilenames) - 1; i >= 0; i-- {
+  for i := len(s.files) - 1; i >= 0; i-- {
     //fmt.Println("DEBUG loading entries from file", sstFilenames[i])
-    entries := s.LoadEntriesFromSstFile(sstFilenames[i])
-    if entry, found := s.FindEntryValue(k, entries); found {
-      if entry.Deleted {
-        return entry.Value, false
-      } else {
-        return entry.Value, true
+    if s.files[i].filter.Test(k) {
+      // Only read from disk if key is in the filter
+      entries := s.LoadEntriesFromSstFile(s.files[i].filename)
+      if entry, found := s.FindEntryValue(k, entries); found {
+        if entry.Deleted {
+          return entry.Value, false
+        } else {
+          return entry.Value, true
+        }
       }
     }
   }
@@ -273,9 +282,10 @@ func (s *SstBuf) Get(k string) (Value, bool) {
 }
 
 func (s *SstBuf) ResetDB() {
+  s.files = make([]SstFile, 0) // Clear from memory
   sstFilenames := s.GetSstFilenames()
   for _, filename := range sstFilenames {
-    os.Remove(filename)
+    os.Remove(filename) // ... and remove from disk
   }
 }
 
