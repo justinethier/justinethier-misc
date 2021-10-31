@@ -13,6 +13,7 @@ import (
   "sort"
   "strconv"
   "sparkv/bloom"
+  "time"
 )
 
 // TODO: remove Sst from all of these names once SST is its own package
@@ -28,10 +29,14 @@ type SstBuf struct {
 type SstFile struct {
   filename string
   filter *bloom.Filter
-  // TODO: map of file contents (a cache)
-  // TODO: timestamp when cache was last accessed
+  cache []SstEntry // cached file contents
+  cachedAt time.Time // timestamp when cache was last accessed
+// may convert to seconds (best way to compare???) using -
+//now := time.Now()      // current local time
+//sec := now.Unix()      // number of seconds since January 1, 1970 UTC
   //
-  // TOOD: before doing the above, check and see how much faster Get() is when
+  //
+  // TODO: before doing the above, check and see how much faster Get() is when
   //       we remove the file access. Or just make this chagne and time it...
   //
   // TODO: longer-term, we will time out the cache and have a GC that
@@ -90,7 +95,7 @@ func (s *SstBuf) LoadFilters() {
     for _, entry := range entries {
       filter.Add(entry.Key)
     }
-    var sstfile = SstFile{filename, filter}
+    var sstfile = SstFile{filename, filter, []SstEntry{}, time.Now()}
     s.files = append(s.files, sstfile)
   }
 }
@@ -121,7 +126,7 @@ func (s *SstBuf) Flush() {
   CreateSstFile(filename, keys, m)
 
   // Add information to memory
-  var sstfile = SstFile{filename, filter}
+  var sstfile = SstFile{filename, filter, []SstEntry{}, time.Now()}
   s.files = append(s.files, sstfile)
 
   // Clear buffer
@@ -269,14 +274,24 @@ func (s *SstBuf) Get(k string) (Value, bool) {
   }
 
   // Not found, search the sst files
-  //sstFilenames := s.GetSstFilenames()
-
   // Search in reverse order, newest file to oldest
   for i := len(s.files) - 1; i >= 0; i-- {
     //fmt.Println("DEBUG loading entries from file", sstFilenames[i])
     if s.files[i].filter.Test(k) {
       // Only read from disk if key is in the filter
-      entries := s.LoadEntriesFromSstFile(s.files[i].filename)
+      var entries []SstEntry
+
+// TODO: tried caching but benchmark still seems the same???
+//       what is going on there? is the binary search slowing us down???
+
+      //if len(s.files[i].cache) == 0 {
+      //  // No cache, read files from disk and cache them
+        entries = s.LoadEntriesFromSstFile(s.files[i].filename)
+      //  s.files[i].cachedAt = time.Now()
+      //} else {
+      //  entries = s.files[i].cache
+      //}
+      // Search for key in the file's entries
       if entry, found := s.FindEntryValue(k, entries); found {
         if entry.Deleted {
           return entry.Value, false
