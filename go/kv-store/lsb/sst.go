@@ -29,6 +29,7 @@ type SstBuf struct {
 type SstFile struct {
   filename string
   filter *bloom.Filter
+  // TODO: not sure if worth keeping this cache or not
   cache []SstEntry // cached file contents
   cachedAt time.Time // timestamp when cache was last accessed
 // may convert to seconds (best way to compare???) using -
