@@ -29,17 +29,11 @@ type SstBuf struct {
 type SstFile struct {
   filename string
   filter *bloom.Filter
-  // TODO: not sure if worth keeping this cache or not
   cache []SstEntry // cached file contents
   cachedAt time.Time // timestamp when cache was last accessed
 // may convert to seconds (best way to compare???) using -
 //now := time.Now()      // current local time
 //sec := now.Unix()      // number of seconds since January 1, 1970 UTC
-  //
-  //
-  // TODO: before doing the above, check and see how much faster Get() is when
-  //       we remove the file access. Or just make this chagne and time it...
-  //
   // TODO: longer-term, we will time out the cache and have a GC that
   //       empties it if it has not been accessed for THRESHOLD
   //       will also want a default threshold and a way to change it.
@@ -285,13 +279,14 @@ func (s *SstBuf) Get(k string) (Value, bool) {
 // TODO: tried caching but benchmark still seems the same???
 //       what is going on there? is the binary search slowing us down???
 
-      //if len(s.files[i].cache) == 0 {
-      //  // No cache, read files from disk and cache them
+      if len(s.files[i].cache) == 0 {
+        // No cache, read files from disk and cache them
         entries = s.LoadEntriesFromSstFile(s.files[i].filename)
-      //  s.files[i].cachedAt = time.Now()
-      //} else {
-      //  entries = s.files[i].cache
-      //}
+        s.files[i].cache = entries
+        s.files[i].cachedAt = time.Now()
+      } else {
+        entries = s.files[i].cache
+      }
       // Search for key in the file's entries
       if entry, found := s.FindEntryValue(k, entries); found {
         if entry.Deleted {
