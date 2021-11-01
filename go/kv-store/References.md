@@ -16,6 +16,8 @@
 > * https://github.com/gostor/awesome-go-storage
 > * If you want to dive deeper with databases: Database Design for Mere Mortals (Amazon)
 
+## [LearnDB - Learn how to build a database](learndb.net)
+
 ## [Understanding LSM Trees: What Powers Write-Heavy Databases](https://yetanotherdevblog.com/lsm/)
 
 Lots of great information here, should build a roadmap based on this. Cliff notes:
