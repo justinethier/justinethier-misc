@@ -276,17 +276,15 @@ func (s *SstBuf) Get(k string) (Value, bool) {
       // Only read from disk if key is in the filter
       var entries []SstEntry
 
-// TODO: tried caching but benchmark still seems the same???
-//       what is going on there? is the binary search slowing us down???
-
       if len(s.files[i].cache) == 0 {
         // No cache, read files from disk and cache them
         entries = s.LoadEntriesFromSstFile(s.files[i].filename)
         s.files[i].cache = entries
-        s.files[i].cachedAt = time.Now()
       } else {
         entries = s.files[i].cache
       }
+      s.files[i].cachedAt = time.Now() // Update cached time
+
       // Search for key in the file's entries
       if entry, found := s.FindEntryValue(k, entries); found {
         if entry.Deleted {
