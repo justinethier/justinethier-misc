@@ -21,7 +21,7 @@ validate = function(num) {
 kaprekar = function(num) {
   if (!validate(num)) {
     console.log("Invalid number " + num);
-    return false;
+    return ;
   }
   console.log(num);
   while(num != 6174) {
