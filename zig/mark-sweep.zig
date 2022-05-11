@@ -1,5 +1,7 @@
 const std = @import("std");
 const print = @import("std").debug.print;
+const gpa = std.heap.GeneralPurposeAllocator(.{});
+const allocator = gpa.allocator();
 
 const STACK_MAX = 256;
 const INIT_OBJ_NUM_MAX = 8;
@@ -14,7 +16,11 @@ const Object = struct {
     marked: u8,
     data: Data,
 
-    pub fn new 
+    pub fn init() !*Object {
+        // based off example from https://ziglearn.org/chapter-2/
+        var obj = try allocator.alloc(Object, 1);
+        return obj;
+    }
 };
 
 const Data = union { value: i32, pair: struct { head: ?*Object, tail: ?*Object } };
