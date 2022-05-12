@@ -1,7 +1,6 @@
 const std = @import("std");
 const print = @import("std").debug.print;
-const gpa = std.heap.GeneralPurposeAllocator(.{});
-const allocator = gpa.allocator();
+const Gpa = std.heap.GeneralPurposeAllocator;
 
 const STACK_MAX = 256;
 const INIT_OBJ_NUM_MAX = 8;
@@ -17,7 +16,10 @@ const Object = struct {
     data: Data,
 
     pub fn init() !*Object {
+        // https://dev.to/pmalhaire/ziglang-first-contact-with-memory-safety-and-simplicity-83p
         // based off example from https://ziglearn.org/chapter-2/
+        var gpa = Gpa(.{}){};
+        const allocator = &gpa.allocator;
         var obj = try allocator.alloc(Object, 1);
         return obj;
     }
@@ -31,7 +33,7 @@ const Data = union { value: i32, pair: struct { head: ?*Object, tail: ?*Object }
 //};
 
 const VM = struct {
-    stack: [*]Object,
+    stack: []*Object,
     stackSize: u32,
 
     // The first object in the linked list of all objects on the heap. */
@@ -47,7 +49,7 @@ const VM = struct {
     // TODO: void push(VM* vm, Object* value) {
     // TODO: Object* pop(VM* vm) {
 
-    pub fn push(self: VM, value: *Object) void {
+    pub fn push(self: *VM, value: *Object) void {
         // TODO: assert(vm->stackSize < STACK_MAX, "Stack overflow!");
         //vm->stack[vm->stackSize++] = value;
         self.stack[self.stackSize] = value;
@@ -64,7 +66,7 @@ test "test 1" {
     print("Test 1: Objects on stack are preserved.\n", .{});
     // From: https://stackoverflow.com/questions/61422445/malloc-to-a-list-of-struct-in-zig
     const llocator: std.mem.Allocator = std.heap.page_allocator; // this is not the best choice of allocator, see below.
-    const my_slice_of_foo: [*]Object = try llocator.alloc(*Object, STACK_MAX);
+    const my_slice_of_foo: []*Object = try llocator.alloc(*Object, STACK_MAX);
     defer llocator.free(my_slice_of_foo);
 
     var vm = VM{
@@ -75,7 +77,11 @@ test "test 1" {
         .maxObjects = STACK_MAX,
     };
 
-    vm.push(null);
+    var obj = Object.init();
+    obj.type = ObjectType.OBJ_INT;
+    obj.marked = 0;
+    obj.data.value = 1;
+    vm.push(obj);
 
     //  VM* vm = newVM();
     //  pushInt(vm, 1);
