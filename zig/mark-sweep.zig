@@ -1,6 +1,6 @@
 const std = @import("std");
 const print = @import("std").debug.print;
-const Gpa = std.heap.GeneralPurposeAllocator;
+//const Gpa = std.heap.GeneralPurposeAllocator;
 
 const STACK_MAX = 256;
 const INIT_OBJ_NUM_MAX = 8;
@@ -15,12 +15,13 @@ const Object = struct {
     marked: u8,
     data: Data,
 
+// TODO: pass allocator in
     pub fn init() !*Object {
         // https://dev.to/pmalhaire/ziglang-first-contact-with-memory-safety-and-simplicity-83p
         // based off example from https://ziglearn.org/chapter-2/
-        var gpa = Gpa(.{}){};
-        const allocator = &gpa.allocator;
-        var obj = try allocator.alloc(Object, 1);
+        //var gpa = Gpa(.{}){};
+        //const allocator = &gpa.allocator;
+        //var obj = try allocator.alloc(Object, 1);
         return obj;
     }
 };
@@ -45,9 +46,9 @@ const VM = struct {
     // The number of objects required to trigger a GC. */
     maxObjects: u32,
 
+// TODO: pass in allocator
     // TODO: pub fn init() *VM {}
-    // TODO: void push(VM* vm, Object* value) {
-    // TODO: Object* pop(VM* vm) {
+
 
     pub fn push(self: *VM, value: *Object) void {
         // TODO: assert(vm->stackSize < STACK_MAX, "Stack overflow!");
@@ -56,6 +57,7 @@ const VM = struct {
         self.stackSize += 1;
     }
 
+    // TODO: Object* pop(VM* vm) {
     //Object* pop(VM* vm) {
     //  assert(vm->stackSize > 0, "Stack underflow!");
     //  return vm->stack[--vm->stackSize];
@@ -64,6 +66,8 @@ const VM = struct {
 
 test "test 1" {
     print("Test 1: Objects on stack are preserved.\n", .{});
+
+// TODO: relocate to VM.init()
     // From: https://stackoverflow.com/questions/61422445/malloc-to-a-list-of-struct-in-zig
     const llocator: std.mem.Allocator = std.heap.page_allocator; // this is not the best choice of allocator, see below.
     const my_slice_of_foo: []*Object = try llocator.alloc(*Object, STACK_MAX);
