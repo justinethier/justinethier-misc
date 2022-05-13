@@ -15,23 +15,11 @@ const Object = struct {
     marked: u8,
     data: Data,
 
-    // TODO: pass allocator in
-    //    pub fn init() !*Object {
-    //        // https://dev.to/pmalhaire/ziglang-first-contact-with-memory-safety-and-simplicity-83p
-    //        // based off example from https://ziglearn.org/chapter-2/
-    //        //var gpa = Gpa(.{}){};
-    //        //const allocator = &gpa.allocator;
-    //        //var obj = try allocator.alloc(Object, 1);
-    //        return obj;
-    //    }
+    // The next object in the linked list of heap allocated objects.
+    next: *Object,
 };
 
 const Data = union { value: i32, pair: struct { head: ?*Object, tail: ?*Object } };
-
-//const Pair = struct {
-//    head: *Object,
-//    tail: *Object,
-//};
 
 const VM = struct {
     //const Self = @This();
@@ -69,6 +57,12 @@ const VM = struct {
     }
 
     pub fn deinit(self: *VM) void {
+        var i: usize = 0;
+        // TODO: this is just for testing!!
+        while (i < self.stackSize) {
+            self.allocator.destroy(self.stack[i]);
+            i += 1;
+        }
         self.allocator.free(self.stack);
     }
 
@@ -77,6 +71,7 @@ const VM = struct {
         obj.type = ObjectType.OBJ_INT;
         obj.marked = 0;
         obj.data = Data{ .value = value };
+TODO: see newObject()
         self.push(obj);
     }
 
@@ -124,3 +119,15 @@ pub fn main() !void {
     const stdout = std.io.getStdOut().writer();
     try stdout.print("Hello, {s}!\n", .{"world"});
 }
+
+// Older notes / code:
+
+// TODO: pass allocator in
+//    pub fn init() !*Object {
+//        // https://dev.to/pmalhaire/ziglang-first-contact-with-memory-safety-and-simplicity-83p
+//        // based off example from https://ziglearn.org/chapter-2/
+//        //var gpa = Gpa(.{}){};
+//        //const allocator = &gpa.allocator;
+//        //var obj = try allocator.alloc(Object, 1);
+//        return obj;
+//    }
