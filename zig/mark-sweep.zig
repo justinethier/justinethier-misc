@@ -34,7 +34,9 @@ const Data = union { value: i32, pair: struct { head: ?*Object, tail: ?*Object }
 //};
 
 const VM = struct {
-    stack: []*Object,
+    //const Self = @This();
+
+    stack: []*Object, // TODO: Slice ? See ArrayList source code, pub fn init
     stackSize: u32,
 
     // The first object in the linked list of all objects on the heap. */
@@ -46,22 +48,28 @@ const VM = struct {
     // The number of objects required to trigger a GC. */
     maxObjects: u32,
 
-TODO:
-    pub fn init(alloc: std.mem.Allocator) !*VM {
-      // From: https://stackoverflow.com/questions/61422445/malloc-to-a-list-of-struct-in-zig
-      const llocator: std.mem.Allocator = std.heap.page_allocator; // this is not the best choice of allocator, see below.
-      const my_slice_of_foo: []*Object = try llocator.alloc(*Object, STACK_MAX);
-      defer llocator.free(my_slice_of_foo);
+    allocator: std.mem.Allocator,
 
-      var vm = try alloc.alloc(VM, 1);
+    pub fn init(alloc: std.mem.Allocator) !VM {
+        // From: https://stackoverflow.com/questions/61422445/malloc-to-a-list-of-struct-in-zig
+        //const llocator: std.mem.Allocator = std.heap.page_allocator; // this is not the best choice of allocator, see below.
+        //const my_slice_of_foo: []*Object = try llocator.alloc(*Object, STACK_MAX);
+        //defer llocator.free(my_slice_of_foo);
 
-      var vm = VM{
-          .stack = my_slice_of_foo,
-          .stackSize = 0,
-          .firstObject = null,
-          .numObjects = 0,
-          .maxObjects = STACK_MAX,
-      };
+        const stack: []*Object = try alloc.alloc(*Object, STACK_MAX);
+
+        return VM{
+            .stack = stack,
+            .stackSize = 0,
+            .firstObject = null,
+            .numObjects = 0,
+            .maxObjects = STACK_MAX,
+            .allocator = alloc,
+        };
+    }
+
+    pub fn deinit(self: VM) void {
+        self.allocator.free(self.stack);
     }
 
     pub fn push(self: *VM, value: *Object) void {
@@ -79,23 +87,10 @@ TODO:
 };
 
 test "test 1" {
+    const allocator = std.testing.allocator;
     print("Test 1: Objects on stack are preserved.\n", .{});
 
-// TODO: use test allocator
-
-    // TODO: relocate to VM.init()
-    // From: https://stackoverflow.com/questions/61422445/malloc-to-a-list-of-struct-in-zig
-//    const llocator: std.mem.Allocator = std.heap.page_allocator; // this is not the best choice of allocator, see below.
-//    const my_slice_of_foo: []*Object = try llocator.alloc(*Object, STACK_MAX);
-//    defer llocator.free(my_slice_of_foo);
-
-    var vm = VM{
-        .stack = my_slice_of_foo,
-        .stackSize = 0,
-        .firstObject = null,
-        .numObjects = 0,
-        .maxObjects = STACK_MAX,
-    };
+    var vm = try VM.init(allocator);
 
     //var obj = Object.init();
     //obj.type = ObjectType.OBJ_INT;
@@ -112,6 +107,7 @@ test "test 1" {
     //  freeVM(vm);
 
     try std.testing.expect(vm.numObjects == 0);
+    vm.deinit();
 }
 
 pub fn main() !void {
