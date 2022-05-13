@@ -68,8 +68,16 @@ const VM = struct {
         };
     }
 
-    pub fn deinit(self: VM) void {
+    pub fn deinit(self: *VM) void {
         self.allocator.free(self.stack);
+    }
+
+    pub fn pushInt(self: *VM, value: i32) !void {
+        var obj = try self.allocator.create(Object);
+        obj.type = ObjectType.OBJ_INT;
+        obj.marked = 0;
+        obj.data = Data{ .value = value };
+        self.push(obj);
     }
 
     pub fn push(self: *VM, value: *Object) void {
@@ -79,18 +87,20 @@ const VM = struct {
         self.stackSize += 1;
     }
 
-    // TODO: Object* pop(VM* vm) {
-    //Object* pop(VM* vm) {
-    //  assert(vm->stackSize > 0, "Stack underflow!");
-    //  return vm->stack[--vm->stackSize];
-    //}
+    pub fn pop(self: *VM) *Object {
+        // TODO:  assert(vm->stackSize > 0, "Stack underflow!");
+        return self.stack[--self.stackSize];
+    }
 };
 
 test "test 1" {
     const allocator = std.testing.allocator;
     print("Test 1: Objects on stack are preserved.\n", .{});
 
-    var vm = try VM.init(allocator);
+    var _vm = try VM.init(allocator);
+    var vm = &_vm;
+    try vm.pushInt(1);
+    try vm.pushInt(2);
 
     //var obj = Object.init();
     //obj.type = ObjectType.OBJ_INT;
