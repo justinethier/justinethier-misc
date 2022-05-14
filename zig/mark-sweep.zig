@@ -12,7 +12,7 @@ const ObjectType = enum {
 
 const Object = struct {
     type: ObjectType,
-    marked: u8,
+    marked: bool,
     data: Data,
 
     // The next object in the linked list of heap allocated objects.
@@ -57,70 +57,91 @@ const VM = struct {
     }
 
     pub fn deinit(self: *VM) void {
-        vm.stackSize = 0;
-        vm.gc();
+        self.stackSize = 0;
+        self.gc();
         self.allocator.free(self.stack);
     }
 
-TODO: 
+    fn mark(self: *VM, object: *Object) void {
+        // If already marked, we're done. Check this first to avoid recursing
+        //   on cycles in the object graph.
+        if (object.marked) return;
 
-//void mark(Object* object) {
-//  /* If already marked, we're done. Check this first to avoid recursing
-//     on cycles in the object graph. */
-//  if (object->marked) return;
-//
-//  object->marked = 1;
-//
-//  if (object->type == OBJ_PAIR) {
-//    mark(object->head);
-//    mark(object->tail);
-//  }
-//}
-//
-//void markAll(VM* vm)
-//{
-//  for (int i = 0; i < vm->stackSize; i++) {
-//    mark(vm->stack[i]);
-//  }
-//}
-//
-//void sweep(VM* vm)
-//{
-//  Object** object = &vm->firstObject;
-//  while (*object) {
-//    if (!(*object)->marked) {
-//      /* This object wasn't reached, so remove it from the list and free it. */
-//      Object* unreached = *object;
-//
-//      *object = unreached->next;
-//      free(unreached);
-//
-//      vm->numObjects--;
-//    } else {
-//      /* This object was reached, so unmark it (for the next GC) and move on to
-//       the next. */
-//      (*object)->marked = 0;
-//      object = &(*object)->next;
-//    }
-//  }
-//}
-//
-//    pub fn gc(self: *VM) void {
-//      int numObjects = vm->numObjects;
-//
-//      markAll(vm);
-//      sweep(vm);
-//
-//      vm->maxObjects = vm->numObjects == 0 ? INIT_OBJ_NUM_MAX : vm->numObjects * 2;
-//
-//      printf("Collected %d objects, %d remaining.\n", numObjects - vm->numObjects,
-//             vm->numObjects);
-//    }
+        object.marked = true;
+
+        if (object.type == ObjectType.OBJ_PAIR) {
+            self.mark(object.data.pair.head);
+            self.mark(object.data.pair.tail);
+        }
+    }
+
+    fn markAll(self: *VM) void {
+        var i: u32 = 0;
+        while (i <= self.stackSize) : (i += 1) {
+            self.mark(self.stack[i]);
+        }
+    }
+
+    // TODO:
+    //    fn sweep(self: *VM) void {
+    //        var object: ?*Object = self.firstObject;
+    //        while (object != null) {
+    //            const ptr = object orelse break;
+    //            if (ptr.marked == false) {
+    //                // This object wasn't reached, so remove it from the list and free it.
+    //                var unreached: *Object = object;
+    //
+    //                object = unreached.next;
+    //                self.allocator.destroy(unreached);
+    //
+    //                self.numObjects -= 1;
+    //            } else {
+    //                // This object was reached, so unmark it (for the next GC) and move on to
+    //                // the next.
+    //                ptr.marked = false;
+    //                object = ptr.next;
+    //            }
+    //        }
+    //    }
+
+    //Object** object = &vm->firstObject;
+    //while (*object) {
+    //  if (!(*object)->marked) {
+    //    /* This object wasn't reached, so remove it from the list and free it. */
+    //    Object* unreached = *object;
+
+    //    *object = unreached->next;
+    //    free(unreached);
+
+    //    vm->numObjects--;
+    //  } else {
+    //    /* This object was reached, so unmark it (for the next GC) and move on to
+    //     the next. */
+    //    (*object)->marked = 0;
+    //    object = &(*object)->next;
+    //  }
+    //}
+
+    pub fn gc(self: *VM) void {
+        //        var numObjects = self.numObjects;
+
+        self.markAll();
+        // TODO: self.sweep();
+
+        // TODO:
+        // self->maxObjects = self->numObjects == 0 ? INIT_OBJ_NUM_MAX : self->numObjects * 2;
+        //self.maxObjects = INIT_OBJ_NUM_MAX;
+        //if (self.numObjects > 0) {
+        //    self.numObjects *= 2;
+        //}
+
+        //TODO: print("Collected %d objects, %d remaining.\n", .{ numObjects - self.numObjects, self.numObjects });
+    }
 
     fn newObject(self: *VM, otype: ObjectType) !*Object {
         var obj = try self.allocator.create(Object);
         obj.type = otype;
-        obj.marked = 0;
+        obj.marked = false;
         obj.next = self.firstObject;
         self.firstObject = obj;
         self.numObjects += 1;
