@@ -57,14 +57,65 @@ const VM = struct {
     }
 
     pub fn deinit(self: *VM) void {
-        var i: usize = 0;
-        // TODO: this is just for testing!!
-        while (i < self.stackSize) {
-            self.allocator.destroy(self.stack[i]);
-            i += 1;
-        }
+        vm.stackSize = 0;
+        vm.gc();
         self.allocator.free(self.stack);
     }
+
+TODO: 
+
+//void mark(Object* object) {
+//  /* If already marked, we're done. Check this first to avoid recursing
+//     on cycles in the object graph. */
+//  if (object->marked) return;
+//
+//  object->marked = 1;
+//
+//  if (object->type == OBJ_PAIR) {
+//    mark(object->head);
+//    mark(object->tail);
+//  }
+//}
+//
+//void markAll(VM* vm)
+//{
+//  for (int i = 0; i < vm->stackSize; i++) {
+//    mark(vm->stack[i]);
+//  }
+//}
+//
+//void sweep(VM* vm)
+//{
+//  Object** object = &vm->firstObject;
+//  while (*object) {
+//    if (!(*object)->marked) {
+//      /* This object wasn't reached, so remove it from the list and free it. */
+//      Object* unreached = *object;
+//
+//      *object = unreached->next;
+//      free(unreached);
+//
+//      vm->numObjects--;
+//    } else {
+//      /* This object was reached, so unmark it (for the next GC) and move on to
+//       the next. */
+//      (*object)->marked = 0;
+//      object = &(*object)->next;
+//    }
+//  }
+//}
+//
+//    pub fn gc(self: *VM) void {
+//      int numObjects = vm->numObjects;
+//
+//      markAll(vm);
+//      sweep(vm);
+//
+//      vm->maxObjects = vm->numObjects == 0 ? INIT_OBJ_NUM_MAX : vm->numObjects * 2;
+//
+//      printf("Collected %d objects, %d remaining.\n", numObjects - vm->numObjects,
+//             vm->numObjects);
+//    }
 
     fn newObject(self: *VM, otype: ObjectType) !*Object {
         var obj = try self.allocator.create(Object);
@@ -77,8 +128,16 @@ const VM = struct {
     }
 
     pub fn pushInt(self: *VM, value: i32) !void {
-        var obj = self.newObject(ObjectType.OBJ_INT);
+        var obj = try self.newObject(ObjectType.OBJ_INT);
         obj.data = Data{ .value = value };
+        self.push(obj);
+    }
+
+    pub fn pushPair(self: *VM) !void {
+        var obj = try self.newObject(ObjectType.OBJ_PAIR);
+        var t = self.pop();
+        var h = self.pop();
+        obj.data = Data{ .head = h, .tail = t };
         self.push(obj);
     }
 
@@ -104,19 +163,7 @@ test "test 1" {
     try vm.pushInt(1);
     try vm.pushInt(2);
 
-    //var obj = Object.init();
-    //obj.type = ObjectType.OBJ_INT;
-    //obj.marked = 0;
-    //obj.data.value = 1;
-    //vm.push(obj);
-
-    //  VM* vm = newVM();
-    //  pushInt(vm, 1);
-    //  pushInt(vm, 2);
-    //
-    //  gc(vm);
-    //  assert(vm->numObjects == 2, "Should have preserved objects.");
-    //  freeVM(vm);
+    vm.gc();
 
     try std.testing.expect(vm.numObjects == 2);
     vm.deinit();
