@@ -127,19 +127,18 @@ const VM = struct {
     //}
 
     pub fn gc(self: *VM) void {
-        //        var numObjects = self.numObjects;
+        var numObjects = self.numObjects;
 
         self.markAll();
         // TODO: self.sweep();
 
-        // TODO:
-        // self->maxObjects = self->numObjects == 0 ? INIT_OBJ_NUM_MAX : self->numObjects * 2;
-        //self.maxObjects = INIT_OBJ_NUM_MAX;
-        //if (self.numObjects > 0) {
-        //    self.numObjects *= 2;
-        //}
+        if (self.numObjects == 0) {
+            self.maxObjects = INIT_OBJ_NUM_MAX;
+        } else {
+            self.maxObjects *= 2;
+        }
 
-        //TODO: print("Collected %d objects, %d remaining.\n", .{ numObjects - self.numObjects, self.numObjects });
+        print("Collected {} objects, {} remaining.\n", .{ numObjects - self.numObjects, self.numObjects });
     }
 
     fn newObject(self: *VM, otype: ObjectType) !*Object {
