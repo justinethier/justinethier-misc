@@ -16,7 +16,7 @@ const Object = struct {
     data: Data,
 
     // The next object in the linked list of heap allocated objects.
-    next: *Object,
+    next: ?*Object,
 };
 
 const Data = union { value: i32, pair: struct { head: ?*Object, tail: ?*Object } };
@@ -66,12 +66,19 @@ const VM = struct {
         self.allocator.free(self.stack);
     }
 
-    pub fn pushInt(self: *VM, value: i32) !void {
+    fn newObject(self: *VM, otype: ObjectType) !*Object {
         var obj = try self.allocator.create(Object);
-        obj.type = ObjectType.OBJ_INT;
+        obj.type = otype;
         obj.marked = 0;
+        obj.next = self.firstObject;
+        self.firstObject = obj;
+        self.numObjects += 1;
+        return obj;
+    }
+
+    pub fn pushInt(self: *VM, value: i32) !void {
+        var obj = self.newObject(ObjectType.OBJ_INT);
         obj.data = Data{ .value = value };
-TODO: see newObject()
         self.push(obj);
     }
 
@@ -111,7 +118,7 @@ test "test 1" {
     //  assert(vm->numObjects == 2, "Should have preserved objects.");
     //  freeVM(vm);
 
-    try std.testing.expect(vm.numObjects == 0);
+    try std.testing.expect(vm.numObjects == 2);
     vm.deinit();
 }
 
