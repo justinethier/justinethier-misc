@@ -87,10 +87,15 @@ const VM = struct {
     }
 
     fn sweep(self: *VM) void {
+        // TODO: this is broken, I think because we are not handling pointer-to-pointer correctly
+        // like in the C code. So for example vm.firstObject cannot ever actually be updated to be null. hmm....
+        // since that is an optional, ptr-to-ptr is not necessarily the answer here either...
+
         var optional_object: ?*Object = self.firstObject;
         while (optional_object != null) {
             const object = optional_object orelse break;
             if (object.marked == false) {
+                print("free unmarked object\n", .{});
                 // This object wasn't reached, so remove it from the list and free it.
                 var unreached: *Object = object;
 
@@ -99,6 +104,7 @@ const VM = struct {
 
                 self.numObjects -= 1;
             } else {
+                print("found marked object\n", .{});
                 // This object was reached, so unmark it (for the next GC) and move on to
                 // the next.
                 object.marked = false;
@@ -165,37 +171,113 @@ const VM = struct {
     }
 
     pub fn push(self: *VM, value: *Object) void {
-        // TODO: assert(vm->stackSize < STACK_MAX, "Stack overflow!");
-        //vm->stack[vm->stackSize++] = value;
+        if (self.stackSize >= STACK_MAX) {
+            print("Stack overflow!", .{});
+            unreachable;
+        }
+
         self.stack[self.stackSize] = value;
         self.stackSize += 1;
     }
 
     pub fn pop(self: *VM) *Object {
-        // TODO:  assert(vm->stackSize > 0, "Stack underflow!");
-        return self.stack[--self.stackSize];
+        if (self.stackSize == 0) {
+            print("Stack underflow!", .{});
+            unreachable;
+        }
+
+        self.stackSize -= 1;
+        return self.stack[self.stackSize];
     }
 };
 
-test "test 1" {
+//test "test 1" {
+//    const allocator = std.testing.allocator;
+//    print("Test 1: Objects on stack are preserved.\n", .{});
+//
+//    var _vm = try VM.init(allocator);
+//    var vm = &_vm;
+//    try vm.pushInt(1);
+//    try vm.pushInt(2);
+//
+//    vm.gc();
+//
+//    try std.testing.expect(vm.numObjects == 2);
+//    vm.deinit();
+//}
+
+test "test 2" {
     const allocator = std.testing.allocator;
-    print("Test 1: Objects on stack are preserved.\n", .{});
+    print("Test 2: Unreached objects are collected.\n", .{});
 
     var _vm = try VM.init(allocator);
     var vm = &_vm;
+
     try vm.pushInt(1);
     try vm.pushInt(2);
+    _ = vm.pop();
+    _ = vm.pop();
 
     vm.gc();
-
-    try std.testing.expect(vm.numObjects == 2);
+    try std.testing.expect(vm.numObjects == 0); // "Should have collected objects."
     vm.deinit();
 }
 
-pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
-    try stdout.print("Hello, {s}!\n", .{"world"});
-}
+//void test3() {
+//  printf("Test 3: Reach nested objects.\n");
+//  VM* vm = newVM();
+//  pushInt(vm, 1);
+//  pushInt(vm, 2);
+//  pushPair(vm);
+//  pushInt(vm, 3);
+//  pushInt(vm, 4);
+//  pushPair(vm);
+//  pushPair(vm);
+//
+//  gc(vm);
+//  assert(vm->numObjects == 7, "Should have reached objects.");
+//  freeVM(vm);
+//}
+//
+//void test4() {
+//  printf("Test 4: Handle cycles.\n");
+//  VM* vm = newVM();
+//  pushInt(vm, 1);
+//  pushInt(vm, 2);
+//  Object* a = pushPair(vm);
+//  pushInt(vm, 3);
+//  pushInt(vm, 4);
+//  Object* b = pushPair(vm);
+//
+//  /* Set up a cycle, and also make 2 and 4 unreachable and collectible. */
+//  a->tail = b;
+//  b->tail = a;
+//
+//  gc(vm);
+//  assert(vm->numObjects == 4, "Should have collected objects.");
+//  freeVM(vm);
+//}
+//
+//void perfTest() {
+//  printf("Performance Test.\n");
+//  VM* vm = newVM();
+//
+//  for (int i = 0; i < 1000; i++) {
+//    for (int j = 0; j < 20; j++) {
+//      pushInt(vm, i);
+//    }
+//
+//    for (int k = 0; k < 20; k++) {
+//      pop(vm);
+//    }
+//  }
+//  freeVM(vm);
+//}
+
+//pub fn main() !void {
+//    const stdout = std.io.getStdOut().writer();
+//    try stdout.print("Hello, {s}!\n", .{"world"});
+//}
 
 // Older notes / code:
 
