@@ -86,27 +86,26 @@ const VM = struct {
         }
     }
 
-    // TODO:
-    //    fn sweep(self: *VM) void {
-    //        var object: ?*Object = self.firstObject;
-    //        while (object != null) {
-    //            const ptr = object orelse break;
-    //            if (ptr.marked == false) {
-    //                // This object wasn't reached, so remove it from the list and free it.
-    //                var unreached: *Object = object;
-    //
-    //                object = unreached.next;
-    //                self.allocator.destroy(unreached);
-    //
-    //                self.numObjects -= 1;
-    //            } else {
-    //                // This object was reached, so unmark it (for the next GC) and move on to
-    //                // the next.
-    //                ptr.marked = false;
-    //                object = ptr.next;
-    //            }
-    //        }
-    //    }
+    fn sweep(self: *VM) void {
+        var optional_object: ?*Object = self.firstObject;
+        while (optional_object != null) {
+            const object = optional_object orelse break;
+            if (object.marked == false) {
+                // This object wasn't reached, so remove it from the list and free it.
+                var unreached: *Object = object;
+
+                optional_object = unreached.next;
+                self.allocator.destroy(unreached);
+
+                self.numObjects -= 1;
+            } else {
+                // This object was reached, so unmark it (for the next GC) and move on to
+                // the next.
+                object.marked = false;
+                optional_object = object.next;
+            }
+        }
+    }
 
     //Object** object = &vm->firstObject;
     //while (*object) {
@@ -130,7 +129,7 @@ const VM = struct {
         var numObjects = self.numObjects;
 
         self.markAll();
-        // TODO: self.sweep();
+        self.sweep();
 
         if (self.numObjects == 0) {
             self.maxObjects = INIT_OBJ_NUM_MAX;
