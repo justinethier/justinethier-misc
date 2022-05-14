@@ -70,14 +70,18 @@ const VM = struct {
         object.marked = true;
 
         if (object.type == ObjectType.OBJ_PAIR) {
-            self.mark(object.data.pair.head);
-            self.mark(object.data.pair.tail);
+            if (object.data.pair.head) |head| {
+                self.mark(head);
+            }
+            if (object.data.pair.tail) |tail| {
+                self.mark(tail);
+            }
         }
     }
 
     fn markAll(self: *VM) void {
         var i: u32 = 0;
-        while (i <= self.stackSize) : (i += 1) {
+        while (i < self.stackSize) : (i += 1) {
             self.mark(self.stack[i]);
         }
     }
