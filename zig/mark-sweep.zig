@@ -91,15 +91,18 @@ const VM = struct {
         // like in the C code. So for example vm.firstObject cannot ever actually be updated to be null. hmm....
         // since that is an optional, ptr-to-ptr is not necessarily the answer here either...
 
-        var optional_object: ?*Object = self.firstObject;
-        while (optional_object != null) {
-            const object = optional_object orelse break;
-            if (object.marked == false) {
+        var object = &(self.firstObject);
+        while (object.*) |obj| {
+            if (!obj.marked) {
                 print("free unmarked object\n", .{});
                 // This object wasn't reached, so remove it from the list and free it.
-                var unreached: *Object = object;
+                var unreached = obj;
 
-                optional_object = unreached.next;
+                if (obj.next) |n| {
+                    object.* = n; //unreached.next);
+                } else {
+                    object.* = null;
+                }
                 self.allocator.destroy(unreached);
 
                 self.numObjects -= 1;
@@ -107,10 +110,50 @@ const VM = struct {
                 print("found marked object\n", .{});
                 // This object was reached, so unmark it (for the next GC) and move on to
                 // the next.
-                object.marked = false;
-                optional_object = object.next;
+                obj.marked = false;
+                object = &(obj.next);
             }
+
+            //    const object = optional_object orelse break;
+            //    if (object.marked == false) {
+            //        print("free unmarked object\n", .{});
+            //        // This object wasn't reached, so remove it from the list and free it.
+            //        var unreached: *Object = object;
+
+            //        optional_object = unreached.next;
+            //        self.allocator.destroy(unreached);
+
+            //        self.numObjects -= 1;
+            //    } else {
+            //        print("found marked object\n", .{});
+            //        // This object was reached, so unmark it (for the next GC) and move on to
+            //        // the next.
+            //        object.marked = false;
+            //        optional_object = object.next;
+            //    }
         }
+        print("Done with sweep", .{});
+
+        //var optional_object: ?*Object = self.firstObject;
+        //while (optional_object != null) {
+        //    const object = optional_object orelse break;
+        //    if (object.marked == false) {
+        //        print("free unmarked object\n", .{});
+        //        // This object wasn't reached, so remove it from the list and free it.
+        //        var unreached: *Object = object;
+
+        //        optional_object = unreached.next;
+        //        self.allocator.destroy(unreached);
+
+        //        self.numObjects -= 1;
+        //    } else {
+        //        print("found marked object\n", .{});
+        //        // This object was reached, so unmark it (for the next GC) and move on to
+        //        // the next.
+        //        object.marked = false;
+        //        optional_object = object.next;
+        //    }
+        //}
     }
 
     //Object** object = &vm->firstObject;
@@ -191,20 +234,20 @@ const VM = struct {
     }
 };
 
-//test "test 1" {
-//    const allocator = std.testing.allocator;
-//    print("Test 1: Objects on stack are preserved.\n", .{});
-//
-//    var _vm = try VM.init(allocator);
-//    var vm = &_vm;
-//    try vm.pushInt(1);
-//    try vm.pushInt(2);
-//
-//    vm.gc();
-//
-//    try std.testing.expect(vm.numObjects == 2);
-//    vm.deinit();
-//}
+test "test 1" {
+    const allocator = std.testing.allocator;
+    print("Test 1: Objects on stack are preserved.\n", .{});
+
+    var _vm = try VM.init(allocator);
+    var vm = &_vm;
+    try vm.pushInt(1);
+    try vm.pushInt(2);
+
+    vm.gc();
+
+    try std.testing.expect(vm.numObjects == 2);
+    vm.deinit();
+}
 
 test "test 2" {
     const allocator = std.testing.allocator;
@@ -274,10 +317,24 @@ test "test 2" {
 //  freeVM(vm);
 //}
 
-//pub fn main() !void {
-//    const stdout = std.io.getStdOut().writer();
-//    try stdout.print("Hello, {s}!\n", .{"world"});
-//}
+pub fn main() !void {
+    //const stdout = std.io.getStdOut().writer();
+    //try stdout.print("Hello, {s}!\n", .{"world"});
+    const allocator = std.testing.allocator;
+    print("Test 2: Unreached objects are collected.\n", .{});
+
+    var _vm = try VM.init(allocator);
+    var vm = &_vm;
+
+    try vm.pushInt(1);
+    try vm.pushInt(2);
+    _ = vm.pop();
+    _ = vm.pop();
+
+    vm.gc();
+    try std.testing.expect(vm.numObjects == 0); // "Should have collected objects."
+    vm.deinit();
+}
 
 // Older notes / code:
 
