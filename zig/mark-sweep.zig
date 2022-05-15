@@ -87,10 +87,6 @@ const VM = struct {
     }
 
     fn sweep(self: *VM) void {
-        // TODO: this is broken, I think because we are not handling pointer-to-pointer correctly
-        // like in the C code. So for example vm.firstObject cannot ever actually be updated to be null. hmm....
-        // since that is an optional, ptr-to-ptr is not necessarily the answer here either...
-
         var object = &(self.firstObject);
         while (object.*) |obj| {
             if (!obj.marked) {
@@ -113,24 +109,6 @@ const VM = struct {
                 obj.marked = false;
                 object = &(obj.next);
             }
-
-            //    const object = optional_object orelse break;
-            //    if (object.marked == false) {
-            //        print("free unmarked object\n", .{});
-            //        // This object wasn't reached, so remove it from the list and free it.
-            //        var unreached: *Object = object;
-
-            //        optional_object = unreached.next;
-            //        self.allocator.destroy(unreached);
-
-            //        self.numObjects -= 1;
-            //    } else {
-            //        print("found marked object\n", .{});
-            //        // This object was reached, so unmark it (for the next GC) and move on to
-            //        // the next.
-            //        object.marked = false;
-            //        optional_object = object.next;
-            //    }
         }
         print("Done with sweep", .{});
 
@@ -209,7 +187,7 @@ const VM = struct {
         var obj = try self.newObject(ObjectType.OBJ_PAIR);
         var t = self.pop();
         var h = self.pop();
-        obj.data = Data{ .head = h, .tail = t };
+        obj.data = Data{ .pair = .{ .head = h, .tail = t } };
         self.push(obj);
     }
 
@@ -266,22 +244,25 @@ test "test 2" {
     vm.deinit();
 }
 
-//void test3() {
-//  printf("Test 3: Reach nested objects.\n");
-//  VM* vm = newVM();
-//  pushInt(vm, 1);
-//  pushInt(vm, 2);
-//  pushPair(vm);
-//  pushInt(vm, 3);
-//  pushInt(vm, 4);
-//  pushPair(vm);
-//  pushPair(vm);
-//
-//  gc(vm);
-//  assert(vm->numObjects == 7, "Should have reached objects.");
-//  freeVM(vm);
-//}
-//
+test "test 3" {
+    const allocator = std.testing.allocator;
+    print("Test 3: Reach nested objects.\n", .{});
+    var vm = &(try VM.init(allocator));
+    //var vm = &_vm;
+    try vm.pushInt(1);
+    try vm.pushInt(2);
+    try vm.pushPair();
+    try vm.pushInt(3);
+    try vm.pushInt(4);
+    try vm.pushPair();
+    try vm.pushPair();
+
+    vm.gc();
+    //  assert(vm->numObjects == 7, "Should have reached objects.");
+    try std.testing.expect(vm.numObjects == 7); // "Should have reached objects."
+    vm.deinit();
+}
+
 //void test4() {
 //  printf("Test 4: Handle cycles.\n");
 //  VM* vm = newVM();
