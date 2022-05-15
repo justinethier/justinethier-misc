@@ -292,7 +292,17 @@ test "perf test" {
     print("Performance Test.\n", .{});
     var vm = &(try VM.init(allocator));
 
-    var i: u32;
+    var i: i32 = 0;
+    var j: i32 = 0;
+    while (i < 1000) : (i += 1) {
+        while (j < 20) : (j += 1) {
+            try vm.pushInt(i);
+            var k: i32 = 0;
+            while (k < 20) : (k += 1) {
+                _ = vm.pop();
+            }
+        }
+    }
     //  for (int i = 0; i < 1000; i++) {
     //    for (int j = 0; j < 20; j++) {
     //      pushInt(vm, i);
