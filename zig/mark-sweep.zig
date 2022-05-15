@@ -293,8 +293,8 @@ test "perf test" {
     var vm = &(try VM.init(allocator));
 
     var i: i32 = 0;
-    var j: i32 = 0;
     while (i < 1000) : (i += 1) {
+        var j: i32 = 0;
         while (j < 20) : (j += 1) {
             try vm.pushInt(i);
             var k: i32 = 0;
