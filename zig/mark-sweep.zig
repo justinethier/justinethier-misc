@@ -270,10 +270,10 @@ test "test 4" {
     var vm = &(try VM.init(allocator));
     try vm.pushInt(1);
     try vm.pushInt(2);
-    var a = try vm.pushPair();
+    var a = vm.pushPair() catch unreachable;
     try vm.pushInt(3);
     try vm.pushInt(4);
-    var b = vm.pushPair();
+    var b = vm.pushPair() catch unreachable;
 
     // Set up a cycle, and also make 2 and 4 unreachable and collectible.
     //  a->tail = b;
@@ -287,21 +287,23 @@ test "test 4" {
     vm.deinit();
 }
 
-//void perfTest() {
-//  printf("Performance Test.\n");
-//  VM* vm = newVM();
-//
-//  for (int i = 0; i < 1000; i++) {
-//    for (int j = 0; j < 20; j++) {
-//      pushInt(vm, i);
-//    }
-//
-//    for (int k = 0; k < 20; k++) {
-//      pop(vm);
-//    }
-//  }
-//  freeVM(vm);
-//}
+test "perf test" {
+    const allocator = std.testing.allocator;
+    print("Performance Test.\n", .{});
+    var vm = &(try VM.init(allocator));
+
+    var i: u32;
+    //  for (int i = 0; i < 1000; i++) {
+    //    for (int j = 0; j < 20; j++) {
+    //      pushInt(vm, i);
+    //    }
+    //
+    //    for (int k = 0; k < 20; k++) {
+    //      pop(vm);
+    //    }
+    //  }
+    vm.deinit();
+}
 
 pub fn main() !void {
     //const stdout = std.io.getStdOut().writer();
