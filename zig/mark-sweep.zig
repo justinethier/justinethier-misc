@@ -183,12 +183,13 @@ const VM = struct {
         self.push(obj);
     }
 
-    pub fn pushPair(self: *VM) !void {
+    pub fn pushPair(self: *VM) !*Object {
         var obj = try self.newObject(ObjectType.OBJ_PAIR);
         var t = self.pop();
         var h = self.pop();
         obj.data = Data{ .pair = .{ .head = h, .tail = t } };
         self.push(obj);
+        return obj;
     }
 
     pub fn push(self: *VM, value: *Object) void {
@@ -251,11 +252,11 @@ test "test 3" {
     //var vm = &_vm;
     try vm.pushInt(1);
     try vm.pushInt(2);
-    try vm.pushPair();
+    _ = try vm.pushPair();
     try vm.pushInt(3);
     try vm.pushInt(4);
-    try vm.pushPair();
-    try vm.pushPair();
+    _ = try vm.pushPair();
+    _ = try vm.pushPair();
 
     vm.gc();
     //  assert(vm->numObjects == 7, "Should have reached objects.");
@@ -263,25 +264,29 @@ test "test 3" {
     vm.deinit();
 }
 
-//void test4() {
-//  printf("Test 4: Handle cycles.\n");
-//  VM* vm = newVM();
-//  pushInt(vm, 1);
-//  pushInt(vm, 2);
-//  Object* a = pushPair(vm);
-//  pushInt(vm, 3);
-//  pushInt(vm, 4);
-//  Object* b = pushPair(vm);
-//
-//  /* Set up a cycle, and also make 2 and 4 unreachable and collectible. */
-//  a->tail = b;
-//  b->tail = a;
-//
-//  gc(vm);
-//  assert(vm->numObjects == 4, "Should have collected objects.");
-//  freeVM(vm);
-//}
-//
+test "test 4" {
+    const allocator = std.testing.allocator;
+    print("Test 4: Handle cycles.\n", .{});
+    var vm = &(try VM.init(allocator));
+    try vm.pushInt(1);
+    try vm.pushInt(2);
+    var a = try vm.pushPair();
+    try vm.pushInt(3);
+    try vm.pushInt(4);
+    var b = vm.pushPair();
+
+    // Set up a cycle, and also make 2 and 4 unreachable and collectible.
+    //  a->tail = b;
+    //  b->tail = a;
+    a.data.pair.tail = b;
+    b.data.pair.tail = a;
+
+    vm.gc();
+    //  assert(vm->numObjects == 4, "Should have collected objects.");
+    try std.testing.expect(vm.numObjects == 4); // "Should have collected objects."
+    vm.deinit();
+}
+
 //void perfTest() {
 //  printf("Performance Test.\n");
 //  VM* vm = newVM();
