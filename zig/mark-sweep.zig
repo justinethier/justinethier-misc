@@ -90,7 +90,7 @@ const VM = struct {
         var object = &(self.firstObject);
         while (object.*) |obj| {
             if (!obj.marked) {
-                print("free unmarked object\n", .{});
+                //print("free unmarked object\n", .{});
                 // This object wasn't reached, so remove it from the list and free it.
                 var unreached = obj;
 
@@ -103,7 +103,7 @@ const VM = struct {
 
                 self.numObjects -= 1;
             } else {
-                print("found marked object\n", .{});
+                //print("found marked object\n", .{});
                 // This object was reached, so unmark it (for the next GC) and move on to
                 // the next.
                 obj.marked = false;
@@ -297,10 +297,10 @@ test "perf test" {
         var j: i32 = 0;
         while (j < 20) : (j += 1) {
             try vm.pushInt(i);
-            var k: i32 = 0;
-            while (k < 20) : (k += 1) {
-                _ = vm.pop();
-            }
+        }
+        var k: i32 = 0;
+        while (k < 20) : (k += 1) {
+            _ = vm.pop();
         }
     }
     //  for (int i = 0; i < 1000; i++) {
