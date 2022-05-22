@@ -1,5 +1,5 @@
 
-package main
+package gosql
 
 import (
     "errors"
@@ -246,21 +246,21 @@ func parseInsertStatement(tokens []*token, initialCursor uint, delimiter token) 
     cursor++
 
     // Look for left paren
-    if !expectToken(tokens, cursor, tokenFromSymbol(leftparenSymbol)) {
+    if !expectToken(tokens, cursor, tokenFromSymbol(leftParenSymbol)) {
         helpMessage(tokens, cursor, "Expected left paren")
         return nil, initialCursor, false
     }
     cursor++
 
     // Look for expression list
-    values, newCursor, ok := parseExpressions(tokens, cursor, []token{tokenFromSymbol(rightparenSymbol)})
+    values, newCursor, ok := parseExpressions(tokens, cursor, []token{tokenFromSymbol(rightParenSymbol)})
     if !ok {
         return nil, initialCursor, false
     }
     cursor = newCursor
 
     // Look for right paren
-    if !expectToken(tokens, cursor, tokenFromSymbol(rightparenSymbol)) {
+    if !expectToken(tokens, cursor, tokenFromSymbol(rightParenSymbol)) {
         helpMessage(tokens, cursor, "Expected right paren")
         return nil, initialCursor, false
     }
@@ -292,19 +292,19 @@ func parseCreateTableStatement(tokens []*token, initialCursor uint, delimiter to
     }
     cursor = newCursor
 
-    if !expectToken(tokens, cursor, tokenFromSymbol(leftparenSymbol)) {
+    if !expectToken(tokens, cursor, tokenFromSymbol(leftParenSymbol)) {
         helpMessage(tokens, cursor, "Expected left parenthesis")
         return nil, initialCursor, false
     }
     cursor++
 
-    cols, newCursor, ok := parseColumnDefinitions(tokens, cursor, tokenFromSymbol(rightparenSymbol))
+    cols, newCursor, ok := parseColumnDefinitions(tokens, cursor, tokenFromSymbol(rightParenSymbol))
     if !ok {
         return nil, initialCursor, false
     }
     cursor = newCursor
 
-    if !expectToken(tokens, cursor, tokenFromSymbol(rightparenSymbol)) {
+    if !expectToken(tokens, cursor, tokenFromSymbol(rightParenSymbol)) {
         helpMessage(tokens, cursor, "Expected right parenthesis")
         return nil, initialCursor, false
     }

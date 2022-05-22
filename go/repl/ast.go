@@ -6,8 +6,6 @@ type Ast struct {
     Statements []*Statement
 }
 
-A statement, for now, is one of INSERT, CREATE, or SELECT:
-
 type AstKind uint
 
 const (
@@ -23,16 +21,13 @@ type Statement struct {
     Kind                 AstKind
 }
 
-INSERT
 
-An insert statement, for now, has a table name and a list of values to insert:
 
 type InsertStatement struct {
     table  token
     values *[]*expression
 }
 
-An expression is a literal token or (in the future) a function call or inline operation:
 
 type expressionKind uint
 
@@ -45,9 +40,7 @@ type expression struct {
     kind    expressionKind
 }
 
-CREATE
 
-A create statement, for now, has a table name and a list of column names and types:
 
 type columnDefinition struct {
     name     token
@@ -59,9 +52,7 @@ type CreateTableStatement struct {
     cols *[]*columnDefinition
 }
 
-SELECT
 
-A select statement, for now, has a table name and a list of column names:
 
 type SelectStatement struct {
     item []*expression

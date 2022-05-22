@@ -25,6 +25,7 @@ const (
     valuesKeyword keyword = "values"
     intKeyword    keyword = "int"
     textKeyword   keyword = "text"
+    whereKeyword   keyword = "where"
 )
 
 type symbol string
@@ -33,8 +34,8 @@ const (
     semicolonSymbol  symbol = ";"
     asteriskSymbol   symbol = "*"
     commaSymbol      symbol = ","
-    leftparenSymbol  symbol = "("
-    rightparenSymbol symbol = ")"
+    leftParenSymbol  symbol = "("
+    rightParenSymbol symbol = ")"
 )
 
 type tokenKind uint
@@ -287,6 +288,8 @@ func lexKeyword(source string, ic cursor) (*token, cursor, bool) {
 
     cur.pointer = ic.pointer + uint(len(match))
     cur.loc.col = ic.loc.col + uint(len(match))
+
+    kind := keywordKind
 
     return &token{
         value: match,
