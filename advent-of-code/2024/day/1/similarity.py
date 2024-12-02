@@ -1,5 +1,6 @@
 l1 = []
 l2 = []
+#with open("1-input.txt", "r") as file:
 with open("input", "r") as file:
   for line in file:
     nums = line.split()
@@ -10,10 +11,10 @@ with open("input", "r") as file:
 l1.sort()
 l2.sort()
 
-sum = 0
-for x, y in zip(l1, l2):
-  dist = abs(x - y)
-  sum += dist
-  print(dist)
+sim = 0
+for x in l1:
+  s = l2.count(x) * x
+  sim += s
+  print(s)
 
-print("sum = %d" % sum)
+print("score = %d" % sim)
